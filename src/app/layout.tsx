@@ -8,6 +8,7 @@ import { SpeedInsights } from '@vercel/speed-insights/next'
 import GoogleAnalytics from '@/components/GoogleAnalytics'
 import { Suspense } from 'react'
 import AdBanner from '@/components/AdBanner'
+import Script from 'next/script'
 
 import { LanguageProvider } from '@/context/language-context'
 import LayoutShell from '@/components/LayoutShell'
@@ -31,6 +32,12 @@ export default function RootLayout({
         <Suspense>
           <GoogleAnalytics GA_MEASUREMENT_ID={process.env.NEXT_PUBLIC_GA_ID || ''} />
         </Suspense>
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1373852776233080"
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
         <LanguageProvider>
           <div className="fixed inset-0 -z-10 h-full w-full bg-[hsl(var(--background))] bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)] dark:bg-[radial-gradient(#1f1f1f_1px,transparent_1px)]"></div>
 
