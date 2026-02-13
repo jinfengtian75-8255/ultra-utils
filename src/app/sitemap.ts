@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-    const baseUrl = 'https://ultra-utils.vercel.app'
+    const baseUrl = 'https://ultra-utils.com'
 
     const tools = [
         '/tools/youtube-thumbnail',
