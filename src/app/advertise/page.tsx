@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useLanguage } from '@/context/language-context';
-import { CheckCircle2, Layout, Monitor, ArrowRight, Loader2 } from 'lucide-react';
+import { CheckCircle2, Layout, Monitor, ArrowRight, Loader2, Zap } from 'lucide-react';
 
 export default function AdvertisePage() {
     const { t } = useLanguage();
@@ -22,20 +22,26 @@ export default function AdvertisePage() {
         {
             title: t.advertise.slotTop,
             icon: <Layout className="w-6 h-6 text-blue-500" />,
-            desc: "728x90 Banner - Peak visibility at the top of every tool page.",
+            desc: "728x90 Banner - Prime visibility at the very top of all tool pages. Maximize your brand awareness.",
             price: "Premium"
+        },
+        {
+            title: "Home Feed Banner", // Add new home slot
+            icon: <Zap className="w-6 h-6 text-amber-500" />,
+            desc: "Native placement within the tool grid on the homepage. Perfect for high engagement.",
+            price: "High CTR"
         },
         {
             title: t.advertise.slotSide,
             icon: <Monitor className="w-6 h-6 text-purple-500" />,
-            desc: "160x600 Skyscraper - Sticky placement on the left/right sidebars.",
-            price: "High Impact"
+            desc: "160x600 Skyscraper - Sticky sidebar placement for prolonged brand exposure.",
+            price: "Premium"
         },
         {
             title: t.advertise.slotBottom,
-            icon: <Layout className="w-6 h-6 text-zinc-500 rotate-180" />,
-            desc: "728x90 Banner - Lasting impression after task completion.",
-            price: "Steady"
+            icon: <Layout className="w-6 h-6 text-zinc-400 rotate-180" />,
+            desc: "728x90 Banner - High intent placement at the bottom of every tool page.",
+            price: "Conversion"
         }
     ];
 

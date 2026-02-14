@@ -9,7 +9,14 @@ export function Footer() {
     const { t } = useLanguage();
     const currentYear = new Date().getFullYear();
 
-    const sections = [
+    interface FooterLink {
+        name: string;
+        href: string;
+        highlight?: boolean;
+        badge?: string;
+    }
+
+    const sections: { title: string; links: FooterLink[] }[] = [
         {
             title: t.footer.tools,
             links: [
@@ -25,7 +32,8 @@ export function Footer() {
             title: t.footer.resources,
             links: [
                 { name: t.footer.advertise, href: '/advertise', highlight: true },
-                { name: 'API Docs', href: '#', badge: 'Soon' },
+                { name: t.footer.about, href: '/about' },
+                { name: t.footer.contact, href: '/contact' },
                 { name: 'Sitemap', href: '/sitemap.xml' },
             ]
         },

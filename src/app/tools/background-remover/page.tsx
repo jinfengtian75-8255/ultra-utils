@@ -96,35 +96,27 @@ function BackgroundRemoverContent() {
 
                 setProcessedImage(null)
                 setIsRefining(false)
-                setSubjectPos({ x: 0, y: 0 }) // Reset position
-                setSubjectScale(1)           // Reset scale
-                setIsMaskReady(false)        // Reset mask status
+                setSubjectPos({ x: 0, y: 0 })
+                setSubjectScale(1)
+                setIsMaskReady(false)
                 processImage(file!)
             }
             reader.readAsDataURL(file)
         }
     }, [t.common.error])
 
-    const getStepLabel = (step: string) => {
+    function getStepLabel(step: string) {
         if (step.includes('fetch')) return t.bgRemover.stepFetch
         if (step.includes('segment')) return t.bgRemover.stepInference
         return t.bgRemover.stepModel
     }
 
-    const processImage = async (imageFile: File | string) => {
+    async function processImage(imageFile: File | string) {
         setIsProcessing(true)
         setProgress(0)
         setCurrentStep('model')
 
-        // Detection for YouTube Shorts
-        if (typeof imageFile === 'string') {
-            if (imageFile.includes('youtube.com') || imageFile.includes('youtu.be')) {
-                // We'll also check aspect ratio in the onLoad but this is a hint
-            }
-        }
-
         try {
-            // Revoke previous URL if exists to free memory
             if (processedImage && processedImage.startsWith('blob:')) {
                 URL.revokeObjectURL(processedImage)
             }
@@ -133,20 +125,18 @@ function BackgroundRemoverContent() {
             const blob = await removeBackground(imageFile, {
                 progress: (item: string, current: number, total: number) => {
                     setCurrentStep(item)
-                    // Normalize progress for model loading and processing
                     const percent = Math.round((current / total) * 100)
                     setProgress(percent)
                 },
                 debug: false,
-                model: 'isnet', // Use isnet for best quality/balance
+                model: 'isnet',
             })
 
             const url = URL.createObjectURL(blob)
             setProcessedImage(url)
             setHistory([url])
-            setViewMode('editor') // Default to Studio mode for immediate editing
+            setViewMode('editor')
 
-            // Setup internal canvases for refinement
             const img = new Image()
             img.src = url
             img.onload = () => {
@@ -161,158 +151,7 @@ function BackgroundRemoverContent() {
         }
     }
 
-    const setupCanvases = (processedImg: HTMLImageElement) => {
-        const maskCanvas = maskCanvasRef.current
-        if (!maskCanvas) return
-
-        maskCanvas.width = processedImg.width
-        maskCanvas.height = processedImg.height
-        const ctx = maskCanvas.getContext('2d')
-        if (!ctx) return
-
-        ctx.clearRect(0, 0, maskCanvas.width, maskCanvas.height)
-        ctx.drawImage(processedImg, 0, 0)
-
-        // Final Shorts Check: If 16:9 but subject is concentrated in the middle
-        if (processedImg.width / processedImg.height > 1.5) {
-            setIsShorts(true)
-        } else {
-            setIsShorts(false)
-        }
-
-        setIsMaskReady(true)
-
-        // Track successful background removal
-        if (typeof window.gtag === 'function') {
-            window.gtag('event', 'background_removed', {
-                'event_category': 'tool_usage',
-                'event_label': 'AI Background Remover'
-            });
-        }
-
-        setTimeout(() => renderStudio(), 0) // Ensure render happens after state/dom updates
-    }
-
-    const startDrawing = (e: React.MouseEvent | React.TouchEvent) => {
-        if (isRefining) {
-            setIsDrawing(true)
-            draw(e)
-        } else if (viewMode === 'editor') {
-            setIsDraggingSubject(true)
-            const studioCanvas = studioCanvasRef.current
-            if (!studioCanvas) return
-            const rect = studioCanvas.getBoundingClientRect()
-            let clientX, clientY
-            if ('touches' in e) {
-                clientX = e.touches[0].clientX
-                clientY = e.touches[0].clientY
-            } else {
-                clientX = e.clientX
-                clientY = e.clientY
-            }
-            setDragStart({
-                x: clientX - rect.left - subjectPos.x,
-                y: clientY - rect.top - subjectPos.y
-            })
-        }
-    }
-
-    const stopDrawing = () => {
-        setIsDrawing(false)
-        setIsDraggingSubject(false)
-        if (isRefining) {
-            const maskCanvas = maskCanvasRef.current
-            if (maskCanvas) {
-                const dataUrl = maskCanvas.toDataURL('image/png')
-                setHistory(prev => [...prev.slice(-10), dataUrl])
-                setProcessedImage(dataUrl)
-                renderStudio()
-            }
-        }
-    }
-
-    const undo = () => {
-        if (history.length > 1) {
-            const newHistory = [...history]
-            newHistory.pop() // Remove current
-            const lastState = newHistory[newHistory.length - 1]
-            setHistory(newHistory)
-            setProcessedImage(lastState)
-
-            const img = new Image()
-            img.src = lastState
-            img.onload = () => {
-                const maskCanvas = maskCanvasRef.current
-                if (maskCanvas) {
-                    const ctx = maskCanvas.getContext('2d')
-                    if (ctx) {
-                        ctx.clearRect(0, 0, maskCanvas.width, maskCanvas.height)
-                        ctx.drawImage(img, 0, 0)
-                        renderStudio() // Re-render studio canvas after undo
-                    }
-                }
-            }
-        }
-    }
-
-    const draw = (e: React.MouseEvent | React.TouchEvent) => {
-        const studioCanvas = studioCanvasRef.current
-        const maskCanvas = maskCanvasRef.current
-        if (!originalImage || !studioCanvas || !maskCanvas) return
-        const rect = studioCanvas.getBoundingClientRect()
-        let clientX, clientY
-        if ('touches' in e) {
-            clientX = e.touches[0].clientX
-            clientY = e.touches[0].clientY
-        } else {
-            clientX = e.clientX
-            clientY = e.clientY
-        }
-
-        if (isRefining && isDrawing) {
-            const x = clientX - rect.left
-            const y = clientY - rect.top
-
-            // Pixel-perfect mapping
-            const scaleX = maskCanvas.width / rect.width
-            const canvasX = x * scaleX
-            const canvasY = y * (maskCanvas.height / rect.height)
-
-            const ctx = maskCanvas.getContext('2d')
-            if (!ctx) return
-
-            ctx.lineJoin = 'round'
-            ctx.lineCap = 'round'
-            ctx.lineWidth = brushSize * scaleX
-
-            if (brushMode === 'erase') {
-                ctx.globalCompositeOperation = 'destination-out'
-                ctx.beginPath()
-                ctx.arc(canvasX, canvasY, (brushSize * scaleX) / 2, 0, Math.PI * 2)
-                ctx.fill()
-            } else {
-                ctx.globalCompositeOperation = 'source-over'
-                const originalImg = originalImgRef.current
-                if (!originalImg) return
-
-                ctx.save()
-                ctx.beginPath()
-                ctx.arc(canvasX, canvasY, (brushSize * scaleX) / 2, 0, Math.PI * 2)
-                ctx.clip()
-                ctx.drawImage(originalImg, 0, 0, maskCanvas.width, maskCanvas.height)
-                ctx.restore()
-            }
-            renderStudio()
-        } else if (isDraggingSubject) {
-            setSubjectPos({
-                x: clientX - rect.left - dragStart.x,
-                y: clientY - rect.top - dragStart.y
-            })
-            renderStudio()
-        }
-    }
-
-    const drawCheckerboard = (ctx: CanvasRenderingContext2D, width: number, height: number) => {
+    function drawCheckerboard(ctx: CanvasRenderingContext2D, width: number, height: number) {
         const size = 20
         for (let y = 0; y < height; y += size) {
             for (let x = 0; x < width; x += size) {
@@ -322,7 +161,7 @@ function BackgroundRemoverContent() {
         }
     }
 
-    const renderStudio = async () => {
+    async function renderStudio() {
         const studioCanvas = studioCanvasRef.current
         const maskCanvas = maskCanvasRef.current
         if (!studioCanvas || !maskCanvas || !processedImage) return
@@ -336,7 +175,6 @@ function BackgroundRemoverContent() {
         studioCanvas.width = targetWidth
         studioCanvas.height = targetHeight
 
-        // 1. Draw Background
         if (bgType === 'color') {
             ctx.fillStyle = bgColor
             ctx.fillRect(0, 0, studioCanvas.width, studioCanvas.height)
@@ -347,7 +185,6 @@ function BackgroundRemoverContent() {
             ctx.fillStyle = gradient
             ctx.fillRect(0, 0, studioCanvas.width, studioCanvas.height)
         } else if (bgType === 'image' && customBgImgRef.current) {
-            // Cover mode for background image
             const bgImg = customBgImgRef.current
             const bgAspect = bgImg.width / bgImg.height
             const canvasAspect = studioCanvas.width / studioCanvas.height
@@ -368,9 +205,7 @@ function BackgroundRemoverContent() {
             drawCheckerboard(ctx, studioCanvas.width, studioCanvas.height)
         }
 
-        // Apply Global Transformations for Subject & Sticker
         ctx.save()
-        // Convert screen relative position back to canvas coordinates
         const rect = studioCanvas.getBoundingClientRect()
         const renScaleX = studioCanvas.width / rect.width
         const renScaleY = studioCanvas.height / rect.height
@@ -380,7 +215,6 @@ function BackgroundRemoverContent() {
         ctx.scale(subjectScale, subjectScale)
         ctx.translate(-maskCanvas.width / 2, -maskCanvas.height / 2)
 
-        // 2. Draw Sticker Outline
         if (hasSticker) {
             ctx.save()
             const strokeDist = stickerWidth * (maskCanvas.width / 1000)
@@ -401,18 +235,11 @@ function BackgroundRemoverContent() {
             ctx.restore()
         }
 
-        // 3. Draw Subject
         ctx.drawImage(maskCanvas, 0, 0)
         ctx.restore()
     }
 
-    useEffect(() => {
-        if (processedImage && viewMode === 'editor' && isMaskReady) {
-            renderStudio()
-        }
-    }, [processedImage, viewMode, isMaskReady, bgType, bgColor, bgGradient, customBgImage, hasSticker, stickerColor, stickerWidth, subjectPos, subjectScale])
-
-    const renderFinalResult = async () => {
+    async function renderFinalResult() {
         const resultCanvas = resultCanvasRef.current
         const maskCanvas = maskCanvasRef.current
         if (!resultCanvas || !maskCanvas || !processedImage) return null
@@ -425,7 +252,6 @@ function BackgroundRemoverContent() {
         const ctx = resultCanvas.getContext('2d')
         if (!ctx) return null
 
-        // 1. Draw Background
         if (bgType === 'color') {
             ctx.fillStyle = bgColor
             ctx.fillRect(0, 0, resultCanvas.width, resultCanvas.height)
@@ -457,7 +283,6 @@ function BackgroundRemoverContent() {
         }
 
         ctx.save()
-        // Final position scale mapping
         const rect = studioCanvasRef.current?.getBoundingClientRect()
         if (rect) {
             const renScaleX = resultCanvas.width / rect.width
@@ -468,7 +293,6 @@ function BackgroundRemoverContent() {
         ctx.scale(subjectScale, subjectScale)
         ctx.translate(-maskCanvas.width * 0.5, -maskCanvas.height * 0.5)
 
-        // 2. Draw Sticker Outline (Using maskCanvas directly)
         if (hasSticker) {
             ctx.save()
             const strokeDist = stickerWidth * (maskCanvas.width / 1000)
@@ -489,9 +313,7 @@ function BackgroundRemoverContent() {
             ctx.restore()
         }
 
-        // 3. Draw Subject
         ctx.drawImage(maskCanvas, 0, 0)
-
         return resultCanvas.toDataURL('image/png')
     }
 
@@ -506,6 +328,163 @@ function BackgroundRemoverContent() {
             document.body.removeChild(link)
         }
     }
+
+    function setupCanvases(processedImg: HTMLImageElement) {
+        const maskCanvas = maskCanvasRef.current
+        if (!maskCanvas) return
+
+        maskCanvas.width = processedImg.width
+        maskCanvas.height = processedImg.height
+        const ctx = maskCanvas.getContext('2d')
+        if (!ctx) return
+
+        ctx.clearRect(0, 0, maskCanvas.width, maskCanvas.height)
+        ctx.drawImage(processedImg, 0, 0)
+
+        if (processedImg.width / processedImg.height > 1.5) {
+            setIsShorts(true)
+        } else {
+            setIsShorts(false)
+        }
+
+        setIsMaskReady(true)
+
+        if (typeof window.gtag === 'function') {
+            window.gtag('event', 'background_removed', {
+                'event_category': 'tool_usage',
+                'event_label': 'AI Background Remover'
+            });
+        }
+
+        setTimeout(() => renderStudio(), 0)
+    }
+
+    function startDrawing(e: React.MouseEvent | React.TouchEvent) {
+        if (isRefining) {
+            setIsDrawing(true)
+            draw(e)
+        } else if (viewMode === 'editor') {
+            setIsDraggingSubject(true)
+            const studioCanvas = studioCanvasRef.current
+            if (!studioCanvas) return
+            const rect = studioCanvas.getBoundingClientRect()
+            let clientX, clientY
+            if ('touches' in e) {
+                clientX = e.touches[0].clientX
+                clientY = e.touches[0].clientY
+            } else {
+                clientX = e.clientX
+                clientY = e.clientY
+            }
+            setDragStart({
+                x: clientX - rect.left - subjectPos.x,
+                y: clientY - rect.top - subjectPos.y
+            })
+        }
+    }
+
+    function stopDrawing() {
+        setIsDrawing(false)
+        setIsDraggingSubject(false)
+        if (isRefining) {
+            const maskCanvas = maskCanvasRef.current
+            if (maskCanvas) {
+                const dataUrl = maskCanvas.toDataURL('image/png')
+                setHistory(prev => [...prev.slice(-10), dataUrl])
+                setProcessedImage(dataUrl)
+                renderStudio()
+            }
+        }
+    }
+
+    function undo() {
+        if (history.length > 1) {
+            const newHistory = [...history]
+            newHistory.pop()
+            const lastState = newHistory[newHistory.length - 1]
+            setHistory(newHistory)
+            setProcessedImage(lastState)
+
+            const img = new Image()
+            img.src = lastState
+            img.onload = () => {
+                const maskCanvas = maskCanvasRef.current
+                if (maskCanvas) {
+                    const ctx = maskCanvas.getContext('2d')
+                    if (ctx) {
+                        ctx.clearRect(0, 0, maskCanvas.width, maskCanvas.height)
+                        ctx.drawImage(img, 0, 0)
+                        renderStudio()
+                    }
+                }
+            }
+        }
+    }
+
+    function draw(e: React.MouseEvent | React.TouchEvent) {
+        const studioCanvas = studioCanvasRef.current
+        const maskCanvas = maskCanvasRef.current
+
+        if (!originalImage || !studioCanvas || !maskCanvas) return
+        const rect = studioCanvas.getBoundingClientRect()
+        let clientX, clientY
+        if ('touches' in e) {
+            clientX = e.touches[0].clientX
+            clientY = e.touches[0].clientY
+        } else {
+            clientX = e.clientX
+            clientY = e.clientY
+        }
+
+        if (isRefining) {
+            if (isDrawing) {
+                const scaleX = maskCanvas.width / rect.width
+                const scaleY = maskCanvas.height / rect.height
+
+                const canvasX = (clientX - rect.left) * scaleX
+                const canvasY = (clientY - rect.top) * scaleY
+
+                const ctx = maskCanvas.getContext('2d')
+                if (!ctx) return
+
+                ctx.lineJoin = 'round'
+                ctx.lineCap = 'round'
+                ctx.lineWidth = brushSize * scaleX
+
+                if (brushMode === 'erase') {
+                    ctx.globalCompositeOperation = 'destination-out'
+                    ctx.beginPath()
+                    ctx.arc(canvasX, canvasY, (brushSize * scaleX) / 2, 0, Math.PI * 2)
+                    ctx.fill()
+                } else {
+                    ctx.globalCompositeOperation = 'source-over'
+                    const originalImg = originalImgRef.current
+                    if (!originalImg) return
+                    ctx.save()
+                    ctx.beginPath()
+                    ctx.arc(canvasX, canvasY, (brushSize * scaleX) / 2, 0, Math.PI * 2)
+                    ctx.clip()
+                    ctx.drawImage(originalImg, 0, 0, maskCanvas.width, maskCanvas.height)
+                    ctx.restore()
+                }
+                renderStudio()
+            }
+        } else if (isDraggingSubject) {
+            setSubjectPos({
+                x: clientX - rect.left - dragStart.x,
+                y: clientY - rect.top - dragStart.y
+            })
+            renderStudio()
+        }
+    }
+
+    useEffect(() => {
+        if (processedImage && viewMode === 'editor' && isMaskReady) {
+            renderStudio()
+        }
+    }, [processedImage, viewMode, isMaskReady, bgType, bgColor, bgGradient, customBgImage, hasSticker, stickerColor, stickerWidth, subjectPos, subjectScale])
+
+
 
     if (!isMounted) return null
 
@@ -532,9 +511,9 @@ function BackgroundRemoverContent() {
                         onDrop={handleFileUpload}
                         onClick={() => !isProcessing && !isRefining && !originalImage && fileInputRef.current?.click()}
                         className={cn(
-                            "glass-card rounded-[3rem] p-4 border-2 border-zinc-200/50 dark:border-zinc-800/50 flex flex-col items-center justify-center min-h-[500px] relative overflow-hidden group/result shadow-2xl",
+                            "glass-card rounded-[3rem] p-4 border-2 border-zinc-200/50 dark:border-zinc-800/50 flex flex-col items-center justify-center min-h-[650px] relative overflow-hidden group/result shadow-2xl transition-all duration-500",
                             !processedImage && !isProcessing && "bg-zinc-50/50 dark:bg-zinc-900/50 cursor-pointer",
-                            isRefining && "cursor-crosshair"
+                            isRefining && "cursor-none"
                         )}
                         style={{
                             backgroundImage: processedImage && bgType === 'transparent' ? 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'20\' height=\'20\' viewBox=\'0 0 20 20\'%3E%3Crect width=\'10\' height=\'10\' fill=\'%238882\'/%3E%3Crect x=\'10\' y=\'10\' width=\'10\' height=\'10\' fill=\'%238882\'/%3E%3C/svg%3E")' : 'none',
@@ -600,7 +579,7 @@ function BackgroundRemoverContent() {
                                         </div>
                                     ) : (
                                         <div
-                                            className="relative w-full h-full flex items-center justify-center"
+                                            className="relative w-full h-full flex items-center justify-center p-4"
                                             style={{ transform: `scale(${zoom})`, transformOrigin: 'center' }}
                                         >
                                             <canvas
@@ -613,11 +592,12 @@ function BackgroundRemoverContent() {
                                                 onTouchMove={draw}
                                                 onTouchEnd={stopDrawing}
                                                 className={cn(
-                                                    "max-w-full max-h-full object-contain shadow-2xl transition-all bg-white dark:bg-zinc-800",
-                                                    isRefining ? "cursor-crosshair" : "cursor-default"
+                                                    "w-full h-full object-contain shadow-2xl transition-all bg-white dark:bg-zinc-800 rounded-2xl",
+                                                    "cursor-default"
                                                 )}
                                                 style={{ touchAction: 'none' }}
                                             />
+
                                         </div>
                                     )}
                                 </div>

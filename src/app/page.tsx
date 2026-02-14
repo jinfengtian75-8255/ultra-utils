@@ -1,8 +1,9 @@
 'use client'
 
 import Link from 'next/link'
-import { ArrowRight, Image as ImageIcon, Youtube, Wand2, Sliders, AlignLeft, Sparkles } from "lucide-react"
+import { ArrowRight, Image as ImageIcon, Youtube, Wand2, Sliders, AlignLeft, Sparkles, FileText, ShieldCheck, Zap, Globe2 } from "lucide-react"
 import { useLanguage } from '@/context/language-context'
+import AdBanner from '@/components/AdBanner'
 
 export default function Home() {
   const { t } = useLanguage()
@@ -54,7 +55,14 @@ export default function Home() {
       href: "/tools/background-remover",
       icon: Sparkles,
       gradient: "from-indigo-500 to-purple-500",
-      delay: "delay-[600ms]"
+    },
+    {
+      title: t.pdfMaster.title,
+      description: t.pdfMaster.desc,
+      href: "/tools/pdf-master",
+      icon: FileText,
+      gradient: "from-blue-600 to-indigo-600",
+      delay: "delay-[700ms]"
     }
   ]
 
@@ -68,7 +76,7 @@ export default function Home() {
           {t.home.badge}
         </div>
 
-        <h1 className="text-5xl font-extrabold tracking-tight sm:text-7xl">
+        <h1 className="text-4xl font-extrabold tracking-tight sm:text-6xl">
           {t.home.titlePrefix} <br />
           <span className="text-gradient">{t.home.titleSuffix}</span>
         </h1>
@@ -82,33 +90,97 @@ export default function Home() {
 
       {/* Tools Grid */}
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 w-full max-w-7xl px-4">
-        {tools.map((tool) => (
-          <Link
-            key={tool.title}
-            href={tool.href}
-            className={`group relative flex flex-col justify-between overflow-hidden rounded-3xl glass-card p-8 transition-all hover:-translate-y-2 hover:shadow-2xl animate-in fade-in slide-in-from-bottom-8 duration-1000 fill-mode-both ${tool.delay}`}
-          >
-            <div className={`absolute inset-0 bg-gradient-to-br ${tool.gradient} opacity-0 transition-opacity duration-500 group-hover:opacity-5`}></div>
+        {tools.map((tool, index) => (
+          <div key={tool.title} className="contents">
+            <Link
+              href={tool.href}
+              className={`group relative flex flex-col justify-between overflow-hidden rounded-3xl glass-card p-8 transition-all hover:-translate-y-2 hover:shadow-2xl animate-in fade-in slide-in-from-bottom-8 duration-1000 fill-mode-both ${tool.delay}`}
+            >
+              <div className={`absolute inset-0 bg-gradient-to-br ${tool.gradient} opacity-0 transition-opacity duration-500 group-hover:opacity-5`}></div>
 
-            <div className="relative z-10 space-y-6 text-left">
-              <div className={`w-14 h-14 rounded-2xl flex items-center justify-center bg-gradient-to-br ${tool.gradient} text-white shadow-lg transition-transform group-hover:scale-110 group-hover:rotate-3`}>
-                <tool.icon className="w-7 h-7" />
+              <div className="relative z-10 space-y-6 text-left">
+                <div className={`inline-flex p-3 rounded-2xl bg-gradient-to-br ${tool.gradient} text-white shadow-lg shadow-black/5`}>
+                  <tool.icon className="w-6 h-6" />
+                </div>
+
+                <div className="space-y-2">
+                  <h3 className="text-2xl font-black tracking-tight">{tool.title}</h3>
+                  <p className="text-muted-foreground leading-relaxed text-sm h-[3rem] overflow-hidden line-clamp-2">
+                    {tool.description}
+                  </p>
+                </div>
               </div>
 
-              <div className="space-y-2">
-                <h3 className="font-bold text-2xl tracking-tight">{tool.title}</h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  {tool.description}
-                </p>
+              <div className="relative z-10 mt-8 flex items-center justify-between text-sm font-bold pt-4 border-t border-zinc-100/50 dark:border-zinc-800/50">
+                <span className="text-muted-foreground group-hover:text-primary transition-colors">{t.home.launchTool}</span>
+                <div className="p-2 rounded-xl bg-zinc-100 dark:bg-zinc-800 text-zinc-400 group-hover:bg-primary group-hover:text-white transition-all transform group-hover:translate-x-1">
+                  <ArrowRight className="w-4 h-4" />
+                </div>
               </div>
-            </div>
+            </Link>
 
-            <div className="relative z-10 mt-8 flex items-center text-sm font-bold text-primary opacity-60 transition-all group-hover:opacity-100 group-hover:translate-x-1">
-              {t.home.launchTool} <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </div>
-          </Link>
+            {/* Insert Ad after 6th tool (2 rows in tablet/desktop) */}
+            {index === 5 && (
+              <div className="col-span-1 sm:col-span-2 lg:col-span-3 py-6 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-[600ms]">
+                <AdBanner slot="home-mid-banner" useAdSense={true} />
+              </div>
+            )}
+          </div>
         ))}
+      </div>
+      {/* SEO & Informational Section */}
+      <div className="w-full max-w-5xl px-4 py-20 border-t border-zinc-100 dark:border-zinc-800 space-y-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+          <div className="space-y-6 text-left">
+            <h2 className="text-3xl font-black">{t.home.titlePrefix} {t.home.titleSuffix}</h2>
+            <div className="prose prose-zinc dark:prose-invert leading-[1.8] text-muted-foreground">
+              <p>
+                Welcome to <strong>UltraUtils</strong>, your premium destination for high-performance, privacy-focused digital utilities. In an era where online tools often compromise user data or hide behind complex paywalls, we stand for a different approach: 100% free, entirely local, and professionally designed.
+              </p>
+              <p>
+                Our mission is to empower creators, developers, and everyday users with tools that work directly in the browser. Whether you need to <strong>remove backgrounds with AI</strong>, <strong>optimize images for SEO</strong>, or <strong>manage complex PDF documents</strong>, our suite of tools handles the heavy lifting without ever uploading your sensitive files to a server.
+              </p>
+            </div>
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            {[
+              { title: "Privacy", desc: "No server uploads", icon: ShieldCheck },
+              { title: "Speed", desc: "Local processing", icon: Zap },
+              { title: "Global", desc: "Multi-language", icon: Globe2 },
+              { title: "Free", desc: "No hidden fees", icon: Sparkles }
+            ].map((stat, i) => (
+              <div key={i} className="glass-card p-6 rounded-3xl text-center space-y-2 hover:border-primary/30 transition-all">
+                <stat.icon className="w-8 h-8 mx-auto text-primary" />
+                <div className="font-bold text-lg">{stat.title}</div>
+                <div className="text-xs text-muted-foreground font-medium uppercase tracking-widest">{stat.desc}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="space-y-12 bg-zinc-50 dark:bg-zinc-900/50 p-10 rounded-[3rem] border border-zinc-100 dark:border-zinc-800">
+          <div className="text-center space-y-4">
+            <h3 className="text-2xl font-bold italic underline underline-offset-8 decoration-primary">Professional Tools for Everyone</h3>
+            <p className="text-muted-foreground max-w-2xl mx-auto">Discover why thousands of users trust UltraUtils for their daily digital workflows.</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="space-y-4">
+              <h4 className="font-black text-primary uppercase tracking-widest text-sm">Media Suite</h4>
+              <p className="text-sm leading-relaxed text-muted-foreground">High-quality YouTube thumbnail extraction and AI-powered background removal. Perfect for YouTubers and content creators looking to streamline their workflow.</p>
+            </div>
+            <div className="space-y-4">
+              <h4 className="font-black text-primary uppercase tracking-widest text-sm">Data & Text</h4>
+              <p className="text-sm leading-relaxed text-muted-foreground">Advanced text conversion, formatting, and cleanup tools. Essential for data analysts and developers who need to transform raw data into usable formats instantly.</p>
+            </div>
+            <div className="space-y-4">
+              <h4 className="font-black text-primary uppercase tracking-widest text-sm">Design Assets</h4>
+              <p className="text-sm leading-relaxed text-muted-foreground">Professional QR code generation with custom styling and high-resolution output. Ideal for businesses and marketing campaigns.</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   )
 }
+
+

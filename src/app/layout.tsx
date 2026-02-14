@@ -6,6 +6,7 @@ import { cn } from '@/lib/utils'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import GoogleAnalytics from '@/components/GoogleAnalytics'
+import RealtimeTracker from '@/components/RealtimeTracker'
 import { Suspense } from 'react'
 import AdBanner from '@/components/AdBanner'
 import Script from 'next/script'
@@ -34,6 +35,7 @@ export default function RootLayout({
       <body className={cn(inter.className, "min-h-screen bg-[hsl(var(--background))] text-[hsl(var(--foreground))] antialiased selection:bg-blue-500/30 overflow-x-hidden")}>
         <Suspense>
           <GoogleAnalytics GA_MEASUREMENT_ID={process.env.NEXT_PUBLIC_GA_ID || ''} />
+          <RealtimeTracker />
         </Suspense>
         <Script
           async

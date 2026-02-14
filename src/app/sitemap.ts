@@ -10,6 +10,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
         '/tools/prompt-generator',
         '/tools/text-converter',
         '/tools/background-remover',
+        '/tools/pdf-master',
+    ]
+
+    const pages = [
+        '/about',
+        '/contact',
+        '/privacy',
+        '/terms',
     ]
 
     const toolUrls = tools.map((path) => ({
@@ -17,6 +25,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
         lastModified: new Date(),
         changeFrequency: 'weekly' as const,
         priority: 0.8,
+    }))
+
+    const pageUrls = pages.map((path) => ({
+        url: `${baseUrl}${path}`,
+        lastModified: new Date(),
+        changeFrequency: 'monthly' as const,
+        priority: 0.5,
     }))
 
     return [
@@ -27,5 +42,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
             priority: 1,
         },
         ...toolUrls,
+        ...pageUrls,
     ]
 }

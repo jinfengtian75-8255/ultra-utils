@@ -15,6 +15,7 @@ export function Navbar() {
         { href: '/tools/prompt-generator', label: t.navbar.promptGen },
         { href: '/tools/text-converter', label: t.navbar.textConv },
         { href: '/tools/background-remover', label: t.navbar.bgRemover },
+        { href: '/tools/pdf-master', label: t.pdfMaster.title },
     ];
 
     return (
