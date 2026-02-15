@@ -22,7 +22,8 @@
     *   관리자(Admin) 수익 분석 및 캠페인 관리 기능 활성화
 *   **기록 태그:**
     *   `checkpoint-adsense-ui-v1`: Initial AdSense ready UI with premium elements.
-    *   `checkpoint-ui-ux-optimized`: Golden Lightning Logo applied, and AdBanners optimized for better UX (moved to bottom).
+    *   `checkpoint-ui-ux-optimized`: Golden Lightning Logo applied, and AdBanners optimized for better UX.
+    *   `checkpoint-mobile-menu-fixed`: Fixed mobile menu text overlap with solid background and high-contrast "menu board" style.
 
 ---
 *(이후 새로운 백업이 생성될 때마다 제가 이 아래에 이어서 기록하겠습니다!)*

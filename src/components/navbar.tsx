@@ -56,41 +56,39 @@ export function Navbar() {
                 </div>
             </div>
 
-            {/* Mobile Sidebar Overlay */}
+            {/* Mobile Sidebar Overlay - Re-engineered for maximum reliability */}
             {isOpen && (
-                <div className="md:hidden fixed inset-0 z-[100] bg-white dark:bg-zinc-950 flex flex-col items-center justify-center animate-in fade-in zoom-in-95 duration-200">
-                    {/* Close Button Inside Menu */}
-                    <button
-                        onClick={() => setIsOpen(false)}
-                        className="absolute top-4 right-4 p-4 text-zinc-900 dark:text-white"
-                    >
-                        <X className="w-8 h-8" />
-                    </button>
+                <div className="md:hidden fixed inset-0 z-[9999] bg-white dark:bg-zinc-950 flex flex-col h-screen w-screen overflow-hidden">
+                    {/* Header inside Menu for closing */}
+                    <div className="flex h-16 items-center justify-between px-4 border-b border-zinc-100 dark:border-zinc-900">
+                        <span className="font-black text-lg text-zinc-900 dark:text-white uppercase tracking-widest">Menu</span>
+                        <button
+                            onClick={() => setIsOpen(false)}
+                            className="p-2 rounded-xl bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-white"
+                        >
+                            <X className="w-8 h-8" />
+                        </button>
+                    </div>
 
-                    <div className="w-full px-8 flex flex-col space-y-2 overflow-y-auto pt-20 pb-10">
-                        <span className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-400 dark:text-zinc-500 mb-8 text-center">
-                            NAVIGATION MENU
-                        </span>
-
-                        <div className="flex flex-col space-y-1">
-                            {navLinks.map((link, idx) => (
+                    <div className="flex-1 overflow-y-auto px-6 py-8">
+                        <div className="space-y-2">
+                            {navLinks.map((link) => (
                                 <Link
                                     key={link.href}
                                     href={link.href}
                                     onClick={() => setIsOpen(false)}
-                                    className="flex items-center justify-between py-5 border-b border-zinc-100 dark:border-zinc-900 active:bg-zinc-50 dark:active:bg-zinc-900 transition-colors"
+                                    className="block py-5 text-3xl font-black text-zinc-900 dark:text-white border-b border-zinc-50 dark:border-zinc-900/50"
                                 >
-                                    <span className="text-2xl font-black text-zinc-900 dark:text-white">
-                                        {link.label}
-                                    </span>
-                                    <div className="w-2 h-2 rounded-full bg-primary" />
+                                    {link.label}
                                 </Link>
                             ))}
+                        </div>
 
+                        <div className="mt-12">
                             <Link
                                 href="/advertise"
                                 onClick={() => setIsOpen(false)}
-                                className="mt-12 block w-full py-6 rounded-2xl bg-primary text-white text-center font-black text-xl shadow-lg active:scale-95 transition-all"
+                                className="block w-full py-6 rounded-[2rem] bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 text-center font-black text-xl shadow-2xl"
                             >
                                 {t.advertise.title}
                             </Link>
