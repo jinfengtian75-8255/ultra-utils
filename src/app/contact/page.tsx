@@ -20,22 +20,25 @@ export default function ContactPage() {
             </div>
 
             {/* Contact Method */}
-            <div className="glass-card p-12 rounded-[3.5rem] border border-zinc-100 dark:border-zinc-800 relative overflow-hidden group">
-                <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full -mr-32 -mt-32 blur-3xl" />
-                <div className="relative z-10 flex flex-col md:flex-row gap-12 items-center">
-                    <div className="w-20 h-20 bg-primary/10 rounded-3xl flex items-center justify-center text-primary">
-                        <Mail className="w-10 h-10" />
+            <div className="glass-card p-6 md:p-12 rounded-[2.5rem] md:rounded-[3.5rem] border border-zinc-100 dark:border-zinc-800 relative overflow-hidden group">
+                <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full -mr-32 -mt-32 blur-3xl opacity-50" />
+                <div className="relative z-10 flex flex-col md:flex-row gap-6 md:gap-12 items-center">
+                    <div className="w-16 h-16 md:w-20 md:h-20 bg-primary/10 rounded-2xl md:rounded-3xl flex items-center justify-center text-primary shrink-0">
+                        <Mail className="w-8 h-8 md:w-10 md:h-10" />
                     </div>
-                    <div className="flex-1 space-y-4 text-center md:text-left">
-                        <h2 className="text-3xl font-bold tracking-tight">{t.contact.infoTitle}</h2>
-                        <p className="text-lg text-muted-foreground leading-relaxed">
+                    <div className="flex-1 space-y-4 text-center md:text-left overflow-hidden w-full">
+                        <h2 className="text-2xl md:text-3xl font-bold tracking-tight">{t.contact.infoTitle}</h2>
+                        <p className="text-base md:text-lg text-muted-foreground leading-relaxed whitespace-pre-line">
                             {t.contact.desc}
                         </p>
-                        <div className="pt-4 flex flex-col items-center md:items-start gap-2">
-                            <a href={`mailto:${t.contact.infoEmail}`} className="text-2xl font-black text-primary hover:scale-105 transition-transform inline-block">
+                        <div className="pt-2 md:pt-4 flex flex-col items-center md:items-start gap-2 overflow-hidden w-full">
+                            <a
+                                href={`mailto:${t.contact.infoEmail}`}
+                                className="text-lg sm:text-2xl font-black text-primary hover:scale-105 transition-transform inline-block break-all sm:break-normal max-w-full"
+                            >
                                 {t.contact.infoEmail}
                             </a>
-                            <p className="text-sm text-muted-foreground font-bold">
+                            <p className="text-xs md:text-sm text-muted-foreground font-bold">
                                 {t.contact.infoResponse}
                             </p>
                         </div>
@@ -44,18 +47,18 @@ export default function ContactPage() {
             </div>
 
             {/* Support Categories */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
                 {[
                     { icon: Bug, title: 'Bug Report', color: 'text-red-500', bg: 'bg-red-50 dark:bg-red-950/20' },
                     { icon: Lightbulb, title: 'Feature Request', color: 'text-amber-500', bg: 'bg-amber-50 dark:bg-amber-950/20' },
                     { icon: ExternalLink, title: 'Partnerships', color: 'text-blue-500', bg: 'bg-blue-50 dark:bg-blue-950/20' },
                     { icon: MessageSquare, title: 'General Inquiries', color: 'text-purple-500', bg: 'bg-purple-50 dark:bg-purple-900/20' },
                 ].map((item, idx) => (
-                    <div key={idx} className={`p-8 rounded-[2.5rem] ${item.bg} border border-transparent hover:border-zinc-200 dark:hover:border-zinc-800 transition-all flex items-center gap-6`}>
-                        <div className={`${item.color} p-4 bg-white dark:bg-zinc-900 rounded-2xl shadow-sm`}>
-                            <item.icon className="w-6 h-6" />
+                    <div key={idx} className={`p-6 md:p-8 rounded-2xl md:rounded-[2.5rem] ${item.bg} border border-transparent hover:border-zinc-200 dark:hover:border-zinc-800 transition-all flex items-center gap-4 md:gap-6`}>
+                        <div className={`${item.color} p-3 md:p-4 bg-white dark:bg-zinc-900 rounded-xl md:rounded-2xl shadow-sm shrink-0`}>
+                            <item.icon className="w-5 h-5 md:w-6 md:h-6" />
                         </div>
-                        <h4 className="text-xl font-bold">{item.title}</h4>
+                        <h4 className="text-lg md:text-xl font-bold truncate">{item.title}</h4>
                     </div>
                 ))}
             </div>
