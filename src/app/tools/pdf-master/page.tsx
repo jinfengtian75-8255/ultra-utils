@@ -18,6 +18,7 @@ import {
 import { PDFDocument } from 'pdf-lib'
 import { useLanguage } from '@/context/language-context'
 import { cn } from '@/lib/utils'
+import AdBanner from '@/components/AdBanner'
 import JSZip from 'jszip'
 import confetti from 'canvas-confetti'
 
@@ -429,6 +430,8 @@ export default function PDFMasterPage() {
                 multiple={activeTab === 'merge'}
                 onChange={handleFileSelect}
             />
+
+            <AdBanner slot="tool-bottom-banner" useAdSense={true} />
 
             {/* SEO Guide Section */}
             <div className="pt-24 border-t border-zinc-200 dark:border-zinc-800 space-y-20 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-300">

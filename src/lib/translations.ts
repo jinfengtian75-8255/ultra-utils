@@ -66,6 +66,12 @@ export interface TranslationSchema {
             stableDiffusion: string;
         };
         genres: Record<string, string>;
+        guide: {
+            title: string;
+            subtitle: string;
+            sections: { title: string; content: string }[];
+            faq: { q: string; a: string }[];
+        };
     },
     ytGrab: {
         title: string;
@@ -351,6 +357,24 @@ export const translations: Record<Language, TranslationSchema> = {
                 'Minimalist': '미니멀리즘',
                 '3D Render': '3D 렌더링',
                 'Oil Painting': '유화',
+            },
+            guide: {
+                title: 'AI 프롬프트 마스터 가이드',
+                subtitle: 'Midjourney와 Suno를 위한 고품질 프롬프트 작성법',
+                sections: [
+                    {
+                        title: 'Midjourney 프롬프트 팁',
+                        content: '주제 뒤에 스타일(예: Cinematic)과 디테일(예: 8k, highly detailed)을 추가하고, 파라미터(--ar 16:9)를 활용하여 구도를 잡으세요.'
+                    },
+                    {
+                        title: 'Suno 음악 생성 팁',
+                        content: '장르 태그[K-Pop, Jazz]를 대괄호와 함께 사용하고, 가사의 분위기나 사용될 악기를 상세 묘사에 포함하면 더 정확한 음악이 생성됩니다.'
+                    }
+                ],
+                faq: [
+                    { q: '프롬프트가 왜 중요한가요?', a: 'AI는 입력된 텍스트의 구체성에 따라 결과물의 품질이 결정됩니다. 명확한 지침은 AI가 의도를 정확히 파악하게 돕습니다.' },
+                    { q: '다른 AI에서도 사용 가능한가요?', a: '네, 여기서 생성된 기본 프롬프트는 DALL-E, Stable Diffusion 등 대부분의 이미지 AI에서도 훌륭하게 작동합니다.' }
+                ]
             }
         },
         ytGrab: {
@@ -764,6 +788,24 @@ export const translations: Record<Language, TranslationSchema> = {
                 'Minimalist': 'Minimalist',
                 '3D Render': '3D Render',
                 'Oil Painting': 'Oil Painting',
+            },
+            guide: {
+                title: 'AI Prompt Master Guide',
+                subtitle: 'How to write perfect prompts for Midjourney and Suno',
+                sections: [
+                    {
+                        title: 'Midjourney Pro Tips',
+                        content: 'Add style (e.g. Cinematic) and details (e.g. 8k, highly detailed) after the subject. Use parameters like --ar 16:9 for the best composition.'
+                    },
+                    {
+                        title: 'Suno Music Generation',
+                        content: 'Use brackets [K-Pop, Jazz] for genres. Including mood and specific instruments in the details helps create much better songs.'
+                    }
+                ],
+                faq: [
+                    { q: 'Why is prompt structure important?', a: 'AI quality depends on specificity. A clear structure helps the AI understand your intent precisely, leading to better creative outputs.' },
+                    { q: 'Can I use these for other AIs?', a: 'Yes! The base prompts generated here work great with DALL-E, Stable Diffusion, and most other generative AI platforms.' }
+                ]
             }
         },
         ytGrab: {
@@ -1163,6 +1205,24 @@ export const translations: Record<Language, TranslationSchema> = {
                 'Minimalist': '极简主义',
                 '3D Render': '3D渲染',
                 'Oil Painting': '油画',
+            },
+            guide: {
+                title: 'AI 提示词大师指南',
+                subtitle: '如何为 Midjourney 和 Suno 编写完美提示词',
+                sections: [
+                    {
+                        title: 'Midjourney 专业技巧',
+                        content: '在主体后添加风格（如 Cinematic）和细节（如 8k, highly detailed）。使用参数（如 --ar 16:9）获得最佳构图。'
+                    },
+                    {
+                        title: 'Suno 音乐生成',
+                        content: '使用方括号 [K-Pop, Jazz] 指定流派。在细节中包含情绪和特定乐器有助于创造更好的歌曲。'
+                    }
+                ],
+                faq: [
+                    { q: '为什么提示词结构很重要？', a: 'AI 质量取决于具体程度。清晰的结构可帮助 AI 准确理解您的意图，从而获得更好的创意输出。' },
+                    { q: '这些可以用于其他 AI 吗？', a: '可以！这里生成的提示词在 DALL-E、Stable Diffusion 和大多数其他生成式 AI 平台上都表现出色。' }
+                ]
             }
         },
         ytGrab: {

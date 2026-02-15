@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { Link as LinkIcon, Download, Image as ImageIcon, Loader2, Sparkles, Share2 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useLanguage } from '@/context/language-context'
+import AdBanner from '@/components/AdBanner'
 
 export default function YoutubeThumbnailPage() {
     const { t } = useLanguage()
@@ -70,6 +71,8 @@ export default function YoutubeThumbnailPage() {
                     {t.ytGrab.desc}
                 </p>
             </div>
+
+            <AdBanner slot="tool-top-banner" useAdSense={true} />
 
             <div className="glass-card p-8 rounded-3xl animate-in fade-in slide-in-from-bottom-8 duration-700 delay-100">
                 <form onSubmit={handleGrab} className="flex gap-4 flex-col sm:flex-row items-center">
@@ -172,6 +175,8 @@ export default function YoutubeThumbnailPage() {
                     </div>
                 </div>
             )}
+
+            <AdBanner slot="tool-bottom-banner" useAdSense={true} />
 
             {/* SEO Guide Section */}
             <div className="pt-20 border-t border-zinc-200 dark:border-zinc-800 space-y-16 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-300">

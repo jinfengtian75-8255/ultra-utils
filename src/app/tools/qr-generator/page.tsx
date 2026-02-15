@@ -5,6 +5,7 @@ import { QRCodeSVG } from 'qrcode.react'
 import { Download, Palette, Type, Maximize, Share2 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useLanguage } from '@/context/language-context'
+import AdBanner from '@/components/AdBanner'
 
 export default function QrGeneratorPage() {
     const { t } = useLanguage()
@@ -54,6 +55,8 @@ export default function QrGeneratorPage() {
                     {t.qrGen.desc}
                 </p>
             </div>
+
+            <AdBanner slot="tool-top-banner" useAdSense={true} />
 
             <div className="grid lg:grid-cols-2 gap-12 items-start">
                 <div className="space-y-8 animate-in fade-in slide-in-from-left-8 duration-700 delay-100">
@@ -172,6 +175,8 @@ export default function QrGeneratorPage() {
                     </div>
                 </div>
             </div>
+
+            <AdBanner slot="tool-bottom-banner" useAdSense={true} />
 
             {/* SEO Guide & FAQ Section */}
             <div className="pt-20 border-t border-zinc-200 dark:border-zinc-800 space-y-16 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-300">

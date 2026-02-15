@@ -6,6 +6,7 @@ import { Upload, Download, Loader2, Image as ImageIcon, Check, RefreshCw, Layers
 import { cn } from '@/lib/utils'
 import { useLanguage } from '@/context/language-context'
 import { removeBackground } from '@imgly/background-removal'
+import AdBanner from '@/components/AdBanner'
 
 function BackgroundRemoverContent() {
     const { t } = useLanguage()
@@ -941,6 +942,8 @@ function BackgroundRemoverContent() {
                 )}
             </div>
 
+            <AdBanner slot="tool-top-banner" useAdSense={true} />
+
             {/* Feature Highlights - Pre-process state */}
             {!processedImage && !isProcessing && (
                 <div className="grid md:grid-cols-3 gap-8 pt-12 animate-in fade-in slide-in-from-bottom-8 duration-1000">
@@ -959,6 +962,8 @@ function BackgroundRemoverContent() {
                     ))}
                 </div>
             )}
+
+            <AdBanner slot="tool-bottom-banner" useAdSense={true} />
 
             {/* SEO Guide & FAQ Section */}
             <div className="pt-20 border-t border-zinc-200 dark:border-zinc-800 space-y-16 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-300">

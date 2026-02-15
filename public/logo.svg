@@ -1,0 +1,29 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="logo-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3B82F6" />
+      <stop offset="100%" stop-color="#06B6D4" />
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <stop offset="0%" stop-color="#3B82F6" />
+      <feGaussianBlur in="SourceAlpha" stdDeviation="15" />
+      <feOffset dx="0" dy="10" />
+      <feComponentTransfer>
+        <feFuncA type="linear" slope="0.3" />
+      </feComponentTransfer>
+      <feMerge>
+        <feMergeNode />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background Shape -->
+  <rect width="512" height="512" rx="128" fill="url(#logo-gradient)" />
+  
+  <!-- Stylized 'U' Symbol -->
+  <path d="M160 160V320C160 373.019 202.981 416 256 416C309.019 416 352 373.019 352 320V160H304V320C304 346.51 282.51 368 256 368C229.49 368 208 346.51 208 320V160H160Z" fill="white" filter="url(#shadow)" />
+  
+  <!-- Lightning/Speed Element -->
+  <path d="M256 240L220 300H256L240 360L300 280H260L280 220H256Z" fill="white" opacity="0.9" />
+</svg>

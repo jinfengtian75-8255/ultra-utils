@@ -4,6 +4,7 @@ import { useState, useCallback, useMemo, useEffect } from 'react'
 import { Copy, Check, Trash2, Hash, Type, AlignLeft, Globe, Database, CaseUpper, CaseLower, CaseSensitive, Sparkles } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useLanguage } from '@/context/language-context'
+import AdBanner from '@/components/AdBanner'
 
 export default function TextConverterPage() {
     const { t } = useLanguage()
@@ -149,6 +150,8 @@ export default function TextConverterPage() {
                 </p>
             </div>
 
+            <AdBanner slot="tool-top-banner" useAdSense={true} />
+
             <div className="grid lg:grid-cols-12 gap-8 items-start">
                 {/* Left: Editor */}
                 <div className="lg:col-span-8 space-y-6">
@@ -224,6 +227,44 @@ export default function TextConverterPage() {
                             </div>
                         </div>
                     ))}
+                </div>
+            </div>
+
+            <AdBanner slot="tool-bottom-banner" useAdSense={true} />
+
+            {/* SEO Guide Section */}
+            <div className="pt-20 border-t border-zinc-200 dark:border-zinc-800 space-y-16 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-300">
+                <div className="text-center space-y-4">
+                    <h2 className="text-3xl font-extrabold sm:text-4xl text-gradient">{t.textConverter.guide.title}</h2>
+                    <p className="text-muted-foreground text-lg">{t.textConverter.guide.subtitle}</p>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    {t.textConverter.guide.sections.map((section, idx) => (
+                        <div key={idx} className="glass-card p-8 rounded-3xl space-y-4 hover:shadow-xl transition-all border border-zinc-100 dark:border-zinc-800/50">
+                            <h3 className="text-xl font-bold text-primary">{section.title}</h3>
+                            <div className="text-muted-foreground leading-relaxed whitespace-pre-line">
+                                {section.content}
+                            </div>
+                        </div>
+                    ))}
+                </div>
+
+                <div className="max-w-3xl mx-auto space-y-10">
+                    <h3 className="text-2xl font-bold text-center">Frequently Asked Questions</h3>
+                    <div className="space-y-4">
+                        {t.textConverter.guide.faq.map((item, idx) => (
+                            <div key={idx} className="glass-card p-6 rounded-2xl border border-zinc-100 dark:border-zinc-800/50">
+                                <h4 className="font-bold text-zinc-900 dark:text-zinc-100 mb-2 flex items-start gap-3">
+                                    <span className="text-primary font-black">Q.</span>
+                                    {item.q}
+                                </h4>
+                                <p className="text-muted-foreground pl-7 leading-relaxed font-medium">
+                                    {item.a}
+                                </p>
+                            </div>
+                        ))}
+                    </div>
                 </div>
             </div>
         </div>

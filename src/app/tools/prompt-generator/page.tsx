@@ -4,6 +4,7 @@ import { useState, useEffect, useMemo } from 'react'
 import { Copy, Check, Sparkles, Zap } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useLanguage } from '@/context/language-context'
+import AdBanner from '@/components/AdBanner'
 
 export default function PromptGeneratorPage() {
     const { t, language } = useLanguage()
@@ -67,6 +68,8 @@ export default function PromptGeneratorPage() {
                     {t.promptGen.desc}
                 </p>
             </div>
+
+            <AdBanner slot="tool-top-banner" useAdSense={true} />
 
             <div className="grid lg:grid-cols-2 gap-12 items-start">
                 {/* Left: Inputs */}
@@ -192,6 +195,44 @@ export default function PromptGeneratorPage() {
                                 )}
                             </button>
                         </div>
+                    </div>
+                </div>
+            </div>
+
+            <AdBanner slot="tool-bottom-banner" useAdSense={true} />
+
+            {/* SEO Guide Section */}
+            <div className="pt-20 border-t border-zinc-200 dark:border-zinc-800 space-y-16 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-300">
+                <div className="text-center space-y-4">
+                    <h2 className="text-3xl font-extrabold sm:text-4xl text-gradient">{t.promptGen.guide.title}</h2>
+                    <p className="text-muted-foreground text-lg">{t.promptGen.guide.subtitle}</p>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    {t.promptGen.guide.sections.map((section, idx) => (
+                        <div key={idx} className="glass-card p-10 rounded-[2.5rem] space-y-4 hover:shadow-xl transition-all border border-zinc-100 dark:border-zinc-800/50">
+                            <h3 className="text-2xl font-bold text-primary">{section.title}</h3>
+                            <div className="text-muted-foreground leading-relaxed whitespace-pre-line text-lg">
+                                {section.content}
+                            </div>
+                        </div>
+                    ))}
+                </div>
+
+                <div className="max-w-3xl mx-auto space-y-10">
+                    <h3 className="text-3xl font-black text-center">Frequently Asked Questions</h3>
+                    <div className="space-y-6">
+                        {t.promptGen.guide.faq.map((item, idx) => (
+                            <div key={idx} className="glass-card p-8 rounded-[2rem] border border-zinc-100 dark:border-zinc-800/50 hover:border-primary/20 transition-colors">
+                                <h4 className="text-xl font-bold text-zinc-900 dark:text-zinc-100 mb-4 flex items-start gap-4">
+                                    <span className="text-primary font-black bg-primary/10 w-10 h-10 rounded-xl flex items-center justify-center shrink-0">Q</span>
+                                    {item.q}
+                                </h4>
+                                <p className="text-muted-foreground pl-14 leading-relaxed text-lg">
+                                    {item.a}
+                                </p>
+                            </div>
+                        ))}
                     </div>
                 </div>
             </div>

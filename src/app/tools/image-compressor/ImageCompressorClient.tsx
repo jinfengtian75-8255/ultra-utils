@@ -5,9 +5,8 @@ import { Upload, Download, Loader2, Check, Sliders, Maximize, Wand2, Trash2, Sha
 import imageCompression from 'browser-image-compression'
 import { cn } from '@/lib/utils'
 import { useLanguage } from '@/context/language-context'
-import AdBanner from '@/components/AdBanner'
 
-export default function ImageCompressorPage() {
+export default function ImageCompressorClient() {
     const { t } = useLanguage()
     const [originalFile, setOriginalFile] = useState<File | null>(null)
     const [compressedFile, setCompressedFile] = useState<File | null>(null)
@@ -16,20 +15,16 @@ export default function ImageCompressorPage() {
     const [isProcessing, setIsProcessing] = useState(false)
     const [progress, setProgress] = useState(0)
 
-    // Advanced State
     const [quality, setQuality] = useState(0.8)
     const [maxWidth, setMaxWidth] = useState<number>(1920)
     const [isEnhanceEnabled, setIsEnhanceEnabled] = useState(false)
     const [aspectRatio, setAspectRatio] = useState<number | null>(null)
-
-    // Safety flag to prevent hydration issues
     const [isMounted, setIsMounted] = useState(false)
 
     useEffect(() => {
         setIsMounted(true)
     }, [])
 
-    // Revoke object URLs when they change or component unmounts
     useEffect(() => {
         return () => {
             if (originalPreview) URL.revokeObjectURL(originalPreview)
@@ -82,13 +77,8 @@ export default function ImageCompressorPage() {
 
         try {
             let processed = await imageCompression(file, options)
-
-            if (enhance) {
-                processed = await applySharpen(processed)
-            }
-
+            if (enhance) processed = await applySharpen(processed)
             setCompressedFile(processed)
-
             const newUrl = URL.createObjectURL(processed)
             setCompressedPreview((prev) => {
                 if (prev) URL.revokeObjectURL(prev)
@@ -104,21 +94,11 @@ export default function ImageCompressorPage() {
     const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0]
         if (!file) return
-
         setOriginalFile(file)
         setCompressedFile(null)
-
-        setCompressedPreview((prev) => {
-            if (prev) URL.revokeObjectURL(prev)
-            return null
-        })
-
+        setCompressedPreview((prev) => { if (prev) URL.revokeObjectURL(prev); return null; })
         const previewUrl = URL.createObjectURL(file)
-        setOriginalPreview((prev) => {
-            if (prev) URL.revokeObjectURL(prev)
-            return previewUrl
-        })
-
+        setOriginalPreview((prev) => { if (prev) URL.revokeObjectURL(prev); return previewUrl; })
         const img = new Image()
         img.src = previewUrl
         img.onload = () => {
@@ -154,8 +134,6 @@ export default function ImageCompressorPage() {
                 </p>
             </div>
 
-            <AdBanner slot="tool-top-banner" useAdSense={true} />
-
             <div className="grid lg:grid-cols-12 gap-8 items-start">
                 <div className="lg:col-span-4 space-y-6">
                     <div className="glass-card p-6 rounded-3xl space-y-8 animate-in fade-in slide-in-from-left-4 duration-700 delay-100">
@@ -170,11 +148,7 @@ export default function ImageCompressorPage() {
                                     <span className="text-[10px] opacity-50 uppercase tracking-tighter">Quality</span>
                                 </div>
                                 <input
-                                    type="range"
-                                    min="0.1"
-                                    max="1.0"
-                                    step="0.1"
-                                    value={quality}
+                                    type="range" min="0.1" max="1.0" step="0.1" value={quality}
                                     onChange={(e) => setQuality(parseFloat(e.target.value))}
                                     className="w-full h-2 bg-zinc-200 dark:bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-primary"
                                 />
@@ -189,8 +163,7 @@ export default function ImageCompressorPage() {
                                 <div className="space-y-1">
                                     <label className="text-xs text-muted-foreground ml-1">{t.imageMaster.width} (px)</label>
                                     <input
-                                        type="number"
-                                        value={maxWidth}
+                                        type="number" value={maxWidth}
                                         onChange={(e) => setMaxWidth(parseInt(e.target.value))}
                                         className="w-full bg-zinc-100 dark:bg-zinc-900 border-none rounded-xl p-3 text-sm font-mono focus:ring-2 focus:ring-primary/20"
                                     />
@@ -234,7 +207,7 @@ export default function ImageCompressorPage() {
                         <button
                             disabled={!originalFile || isProcessing}
                             onClick={handleApplySettings}
-                            className="w-full py-5 rounded-2xl bg-zinc-900 dark:bg-zinc-100 text-zinc-100 dark:text-zinc-900 font-bold hover:opacity-90 transition-all flex items-center justify-center gap-2 group"
+                            className="w-full py-5 rounded-2xl bg-zinc-900 dark:bg-zinc-100 text-zinc-100 dark:text-zinc-900 font-bold hover:opacity-90 transition-all flex items-center justify-center gap-2"
                         >
                             {isProcessing ? <Loader2 className="w-5 h-5 animate-spin" /> : t.imageMaster.applyOptimize}
                         </button>
@@ -245,9 +218,7 @@ export default function ImageCompressorPage() {
                     {!originalFile ? (
                         <div className="group relative border-4 border-dashed border-zinc-200 dark:border-zinc-800 rounded-[2.5rem] p-24 text-center hover:border-primary/50 hover:bg-zinc-50/50 dark:hover:bg-primary/5 transition-all cursor-pointer animate-in fade-in slide-in-from-right-4 duration-700 delay-200">
                             <input
-                                type="file"
-                                accept="image/*"
-                                onChange={handleFileChange}
+                                type="file" accept="image/*" onChange={handleFileChange}
                                 className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
                             />
                             <div className="space-y-6 pointer-events-none">
@@ -354,43 +325,6 @@ export default function ImageCompressorPage() {
                 </div>
             </div>
 
-            <AdBanner slot="tool-bottom-banner" useAdSense={true} />
-
-            {/* SEO Guide & FAQ Section */}
-            <div className="pt-20 border-t border-zinc-200 dark:border-zinc-800 space-y-16 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-300">
-                <div className="text-center space-y-4">
-                    <h2 className="text-3xl font-extrabold sm:text-4xl text-gradient">{t.imageMaster.guide.title}</h2>
-                    <p className="text-muted-foreground text-lg">{t.imageMaster.guide.subtitle}</p>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    {t.imageMaster.guide.sections.map((section, idx) => (
-                        <div key={idx} className="glass-card p-10 rounded-[2.5rem] space-y-4 hover:shadow-2xl transition-all border border-zinc-100 dark:border-zinc-800/50">
-                            <h3 className="text-2xl font-bold text-primary">{section.title}</h3>
-                            <div className="text-muted-foreground leading-relaxed whitespace-pre-line text-lg">
-                                {section.content}
-                            </div>
-                        </div>
-                    ))}
-                </div>
-
-                <div className="max-w-3xl mx-auto space-y-10">
-                    <h3 className="text-3xl font-black text-center">Frequently Asked Questions</h3>
-                    <div className="space-y-6">
-                        {t.imageMaster.guide.faq.map((item, idx) => (
-                            <div key={idx} className="glass-card p-8 rounded-[2rem] border border-zinc-100 dark:border-zinc-800/50 hover:border-primary/20 transition-colors">
-                                <h4 className="text-xl font-bold text-zinc-900 dark:text-zinc-100 mb-4 flex items-start gap-4">
-                                    <span className="text-primary font-black bg-primary/10 w-10 h-10 rounded-xl flex items-center justify-center shrink-0">Q</span>
-                                    {item.q}
-                                </h4>
-                                <p className="text-muted-foreground pl-14 leading-relaxed text-lg">
-                                    {item.a}
-                                </p>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </div>
         </div>
     )
 }
