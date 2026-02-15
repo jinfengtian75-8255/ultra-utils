@@ -58,37 +58,39 @@ export function Navbar() {
 
             {/* Mobile Sidebar Overlay */}
             {isOpen && (
-                <div className="md:hidden fixed inset-0 top-16 z-40 bg-white dark:bg-zinc-950 animate-in fade-in slide-in-from-right duration-300">
-                    <div className="flex flex-col p-8 space-y-2 h-[calc(100vh-64px)] overflow-y-auto">
-                        <div className="py-4">
-                            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/50 mb-6 block">
-                                Navigation Menu
-                            </span>
-                            <div className="space-y-1">
-                                {navLinks.map((link, idx) => (
-                                    <Link
-                                        key={link.href}
-                                        href={link.href}
-                                        onClick={() => setIsOpen(false)}
-                                        className="flex items-center justify-between text-2xl font-black py-4 border-b border-zinc-100 dark:border-zinc-900 group active:scale-95 transition-all"
-                                        style={{ animationDelay: `${idx * 50}ms` }}
-                                    >
-                                        <span className="bg-clip-text text-transparent bg-gradient-to-r from-zinc-900 to-zinc-500 dark:from-white dark:to-zinc-400">
-                                            {link.label}
-                                        </span>
-                                        <div className="w-8 h-8 rounded-full bg-zinc-50 dark:bg-zinc-900 flex items-center justify-center">
-                                            <div className="w-1.5 h-1.5 rounded-full bg-primary" />
-                                        </div>
-                                    </Link>
-                                ))}
-                            </div>
-                        </div>
+                <div className="md:hidden fixed inset-0 z-[100] bg-white dark:bg-zinc-950 flex flex-col items-center justify-center animate-in fade-in zoom-in-95 duration-200">
+                    {/* Close Button Inside Menu */}
+                    <button
+                        onClick={() => setIsOpen(false)}
+                        className="absolute top-4 right-4 p-4 text-zinc-900 dark:text-white"
+                    >
+                        <X className="w-8 h-8" />
+                    </button>
 
-                        <div className="pt-8 mt-auto pb-12">
+                    <div className="w-full px-8 flex flex-col space-y-2 overflow-y-auto pt-20 pb-10">
+                        <span className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-400 dark:text-zinc-500 mb-8 text-center">
+                            NAVIGATION MENU
+                        </span>
+
+                        <div className="flex flex-col space-y-1">
+                            {navLinks.map((link, idx) => (
+                                <Link
+                                    key={link.href}
+                                    href={link.href}
+                                    onClick={() => setIsOpen(false)}
+                                    className="flex items-center justify-between py-5 border-b border-zinc-100 dark:border-zinc-900 active:bg-zinc-50 dark:active:bg-zinc-900 transition-colors"
+                                >
+                                    <span className="text-2xl font-black text-zinc-900 dark:text-white">
+                                        {link.label}
+                                    </span>
+                                    <div className="w-2 h-2 rounded-full bg-primary" />
+                                </Link>
+                            ))}
+
                             <Link
                                 href="/advertise"
                                 onClick={() => setIsOpen(false)}
-                                className="block w-full p-6 rounded-2xl bg-gradient-to-br from-zinc-900 to-zinc-800 dark:from-zinc-100 dark:to-zinc-300 text-white dark:text-zinc-900 text-center font-black text-xl shadow-xl active:scale-95 transition-all"
+                                className="mt-12 block w-full py-6 rounded-2xl bg-primary text-white text-center font-black text-xl shadow-lg active:scale-95 transition-all"
                             >
                                 {t.advertise.title}
                             </Link>
