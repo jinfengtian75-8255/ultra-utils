@@ -56,7 +56,7 @@ export default function QrGeneratorPage() {
                 </p>
             </div>
 
-            <AdBanner slot="tool-top-banner" useAdSense={true} />
+
 
             <div className="grid lg:grid-cols-2 gap-12 items-start">
                 <div className="space-y-8 animate-in fade-in slide-in-from-left-8 duration-700 delay-100">

@@ -118,16 +118,15 @@ export default function Home() {
                 </div>
               </div>
             </Link>
-
-            {/* Insert Ad after 6th tool (2 rows in tablet/desktop) */}
-            {index === 5 && (
-              <div className="col-span-1 sm:col-span-2 lg:col-span-3 py-6 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-[600ms]">
-                <AdBanner slot="home-mid-banner" useAdSense={true} />
-              </div>
-            )}
           </div>
         ))}
       </div>
+
+      {/* Hero Ad Section - Moved below tools for better UX */}
+      <div className="w-full max-w-7xl px-4 py-8 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-[800ms]">
+        <AdBanner slot="home-mid-banner" useAdSense={true} />
+      </div>
+
       {/* SEO & Informational Section */}
       <div className="w-full max-w-5xl px-4 py-20 border-t border-zinc-100 dark:border-zinc-800 space-y-20">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">

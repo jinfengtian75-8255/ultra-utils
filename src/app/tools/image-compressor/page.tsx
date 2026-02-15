@@ -154,7 +154,7 @@ export default function ImageCompressorPage() {
                 </p>
             </div>
 
-            <AdBanner slot="tool-top-banner" useAdSense={true} />
+
 
             <div className="grid lg:grid-cols-12 gap-8 items-start">
                 <div className="lg:col-span-4 space-y-6">

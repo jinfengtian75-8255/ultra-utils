@@ -72,7 +72,7 @@ export default function YoutubeThumbnailPage() {
                 </p>
             </div>
 
-            <AdBanner slot="tool-top-banner" useAdSense={true} />
+
 
             <div className="glass-card p-8 rounded-3xl animate-in fade-in slide-in-from-bottom-8 duration-700 delay-100">
                 <form onSubmit={handleGrab} className="flex gap-4 flex-col sm:flex-row items-center">

@@ -942,7 +942,7 @@ function BackgroundRemoverContent() {
                 )}
             </div>
 
-            <AdBanner slot="tool-top-banner" useAdSense={true} />
+
 
             {/* Feature Highlights - Pre-process state */}
             {!processedImage && !isProcessing && (

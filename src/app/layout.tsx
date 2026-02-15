@@ -20,6 +20,10 @@ export const metadata: Metadata = {
   title: 'UltraUtils - Free Pro Tools for Creators',
   description: 'Pro-grade YouTube Thumbnail Grabber, AI Background Remover, Image Compressor, and more. Free, fast, and no registration required.',
   keywords: ['youtube thumbnail downloader', 'ai background remover', 'image compressor', 'qr code generator', 'text converter', 'free online tools'],
+  icons: {
+    icon: '/favicon.svg',
+    apple: '/logo.svg',
+  },
   other: {
     'google-adsense-account': 'ca-pub-1373852776233080',
   },

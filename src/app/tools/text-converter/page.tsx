@@ -150,7 +150,7 @@ export default function TextConverterPage() {
                 </p>
             </div>
 
-            <AdBanner slot="tool-top-banner" useAdSense={true} />
+
 
             <div className="grid lg:grid-cols-12 gap-8 items-start">
                 {/* Left: Editor */}
