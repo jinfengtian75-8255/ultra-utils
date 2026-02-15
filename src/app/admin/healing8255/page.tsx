@@ -8,7 +8,6 @@ import {
     Calendar,
     Link as LinkIcon,
     Type,
-    Save,
     AlertCircle,
     Monitor,
     Layout,
@@ -20,7 +19,10 @@ import {
     Users,
     TrendingUp,
     MousePointer2,
-    BarChart3
+    BarChart3,
+    MessageSquare,
+    Mail,
+    X
 } from 'lucide-react';
 import { useLanguage } from '@/context/language-context';
 import { db } from '@/lib/firebase';
@@ -29,13 +31,12 @@ import {
     onSnapshot,
     query,
     where,
-    getDoc,
     doc,
     setDoc,
     deleteDoc,
-    Timestamp,
     orderBy,
-    limit
+    limit,
+    addDoc
 } from 'firebase/firestore';
 
 interface AdItem {
@@ -61,8 +62,12 @@ export default function AdminPage() {
         current: 0,
         todayTotal: 0,
         topTool: 'Loading...',
-        revenue: 0
+        revenue: 0,
+        referrers: {} as Record<string, number>
     });
+
+    const [inquiries, setInquiries] = useState<any[]>([]);
+    const [viewingInquiry, setViewingInquiry] = useState<any>(null);
 
     // Form state
     const [newAd, setNewAd] = useState<Partial<AdItem>>({
@@ -109,21 +114,32 @@ export default function AdminPage() {
                     }
                 });
 
-                // Revenue estimation: $0.01 per view for demo
                 const views = data.views || 0;
                 setLiveTraffic(prev => ({
                     ...prev,
                     todayTotal: views,
                     topTool: top !== 'None' ? decodeURIComponent(top).replace('-', ' ') : 'N/A',
-                    revenue: Number((views * 0.005).toFixed(2)) // Adjusted for more realistic low-end
+                    revenue: Number((views * 0.005).toFixed(2)),
+                    referrers: data.referrers || {}
                 }));
             }
+        });
+
+        // 4. Inquiries Sync
+        const qInquiries = query(collection(db, 'inquiries'), orderBy('createdAt', 'desc'));
+        const unsubscribeInquiries = onSnapshot(qInquiries, (snapshot) => {
+            const items: any[] = [];
+            snapshot.forEach((doc) => {
+                items.push({ id: doc.id, ...doc.data() });
+            });
+            setInquiries(items);
         });
 
         return () => {
             unsubscribeAds();
             unsubscribeActive();
             unsubscribeStats();
+            unsubscribeInquiries();
         };
     }, []);
 
@@ -205,6 +221,18 @@ export default function AdminPage() {
     const calculateDDay = (endDate: string) => {
         const diff = new Date(endDate).getTime() - new Date().getTime();
         return Math.ceil(diff / (1000 * 60 * 60 * 24));
+    };
+
+    const deleteInquiry = async (id: string) => {
+        if (!db) return;
+        if (confirm('Delete this inquiry?')) {
+            await deleteDoc(doc(db, 'inquiries', id));
+        }
+    };
+
+    const markAsRead = async (id: string) => {
+        if (!db) return;
+        await setDoc(doc(db, 'inquiries', id), { status: 'read' }, { merge: true });
     };
 
     if (!mounted) return null;
@@ -293,6 +321,51 @@ export default function AdminPage() {
                                 <span className="text-lg font-black text-emerald-500">${liveTraffic.revenue}</span>
                             </div>
                         </div>
+                    </div>
+                </div>
+
+                {/* Traffic Sources Breakdown */}
+                <div className="glass-card p-10 rounded-[3rem] border border-zinc-100 dark:border-zinc-800 space-y-8">
+                    <div className="flex items-center justify-between">
+                        <div className="space-y-1">
+                            <h3 className="text-xl font-black italic">Daily Traffic Sources</h3>
+                            <p className="text-xs text-muted-foreground font-bold uppercase tracking-widest">Where your users come from</p>
+                        </div>
+                        <Globe2 className="w-6 h-6 text-primary animate-pulse" />
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                        {(() => {
+                            const totalTracked = Object.values(liveTraffic.referrers).reduce((a, b) => (a as number) + (b as number), 0) as number;
+                            return Object.entries(liveTraffic.referrers)
+                                .sort(([, a], [, b]) => (b as number) - (a as number))
+                                .slice(0, 4)
+                                .map(([source, count], idx) => {
+                                    const percentage = Math.round(((count as number) / (totalTracked || 1)) * 100);
+                                    return (
+                                        <div key={idx} className="space-y-3">
+                                            <div className="flex justify-between items-end">
+                                                <span className="text-sm font-black text-zinc-600 dark:text-zinc-400 truncate max-w-[120px]">
+                                                    {source.replace(/_/g, '.')}
+                                                </span>
+                                                <span className="text-xs font-bold text-primary">{percentage}%</span>
+                                            </div>
+                                            <div className="h-2 w-full bg-zinc-100 dark:bg-zinc-800 rounded-full overflow-hidden">
+                                                <div
+                                                    className="h-full bg-primary transition-all duration-1000"
+                                                    style={{ width: `${percentage}%` }}
+                                                />
+                                            </div>
+                                            <p className="text-[10px] font-bold text-muted-foreground uppercase">{count as number} sessions</p>
+                                        </div>
+                                    );
+                                });
+                        })()}
+                        {Object.keys(liveTraffic.referrers).length === 0 && (
+                            <div className="col-span-full py-8 text-center bg-zinc-50 dark:bg-zinc-900/50 rounded-3xl border-2 border-dashed border-zinc-200 dark:border-zinc-800">
+                                <p className="text-sm font-bold text-muted-foreground italic">Gathering traffic source data... (Check back in a few minutes)</p>
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>
@@ -509,6 +582,121 @@ export default function AdminPage() {
                     </div>
                 )}
             </div>
+
+            {/* Inquiries Section */}
+            <div className="space-y-6 pt-12 border-t border-zinc-100 dark:border-zinc-800">
+                <div className="flex items-center justify-between">
+                    <h2 className="text-2xl font-black flex items-center gap-3">
+                        <MessageSquare className="text-blue-500" /> User Inquiries
+                        <span className="bg-blue-500 text-white text-xs px-2 py-1 rounded-full">{inquiries.filter(i => i.status === 'new').length} New</span>
+                    </h2>
+                </div>
+
+                <div className="grid grid-cols-1 gap-4">
+                    {inquiries.map((inq) => (
+                        <div key={inq.id} className={cn(
+                            "glass-card p-6 rounded-3xl border transition-all hover:shadow-xl",
+                            inq.status === 'new' ? "border-blue-500/30 bg-blue-500/5 shadow-lg shadow-blue-500/5 rotate-1" : "border-zinc-100 dark:border-zinc-800"
+                        )}>
+                            <div className="flex flex-col md:flex-row gap-6 justify-between items-start md:items-center">
+                                <div className="space-y-2 flex-1">
+                                    <div className="flex items-center gap-3">
+                                        <span className={cn(
+                                            "px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest",
+                                            inq.type === 'Advertisement' ? "bg-amber-500 text-white" : "bg-purple-500 text-white"
+                                        )}>
+                                            {inq.category || inq.type}
+                                        </span>
+                                        <span className="text-xs font-bold text-muted-foreground">{new Date(inq.createdAt).toLocaleString()}</span>
+                                    </div>
+                                    <h4 className="text-xl font-black">
+                                        {inq.name}
+                                        <a href={`mailto:${inq.email}`} className="text-sm font-medium text-blue-500 hover:underline flex items-center gap-1 mt-1">
+                                            <Mail className="w-3 h-3" /> {inq.email}
+                                        </a>
+                                    </h4>
+                                    <p className="text-muted-foreground line-clamp-2 italic">"{inq.message}"</p>
+                                    {inq.dates && <p className="text-xs font-black text-amber-600">REQ DATES: {inq.dates}</p>}
+                                </div>
+                                <div className="flex gap-2">
+                                    {inq.status === 'new' && (
+                                        <button
+                                            onClick={() => markAsRead(inq.id)}
+                                            className="h-10 px-4 bg-blue-500 text-white text-xs font-black uppercase rounded-xl hover:bg-blue-600 transition-colors"
+                                        >
+                                            Mark Read
+                                        </button>
+                                    )}
+                                    <button
+                                        onClick={() => setViewingInquiry(inq)}
+                                        className="h-10 px-4 bg-zinc-100 dark:bg-zinc-800 text-xs font-black uppercase rounded-xl"
+                                    >
+                                        View Full
+                                    </button>
+                                    <button
+                                        onClick={() => deleteInquiry(inq.id)}
+                                        className="h-10 w-10 flex items-center justify-center text-red-500 hover:bg-red-500 hover:text-white rounded-xl transition-all"
+                                    >
+                                        <Trash2 className="w-4 h-4" />
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                    {inquiries.length === 0 && <p className="text-center py-20 text-muted-foreground font-bold italic">No inquiries received yet.</p>}
+                </div>
+            </div>
+
+            {/* Inquiry Detail Modal */}
+            {viewingInquiry && (
+                <div className="fixed inset-0 z-[100] bg-zinc-950/80 backdrop-blur-sm flex items-center justify-center p-4">
+                    <div className="glass-card w-full max-w-2xl p-10 rounded-[3rem] space-y-8 animate-in zoom-in-95 duration-300">
+                        <div className="flex justify-between items-start">
+                            <div className="space-y-1">
+                                <span className="text-[10px] font-black uppercase tracking-widest text-primary">Full Inquiry Details</span>
+                                <h2 className="text-3xl font-black">{viewingInquiry.name}</h2>
+                            </div>
+                            <button onClick={() => setViewingInquiry(null)} className="p-4 rounded-full bg-zinc-100 dark:bg-zinc-800"><X className="w-6 h-6" /></button>
+                        </div>
+
+                        <div className="grid md:grid-cols-2 gap-8 text-sm">
+                            <div className="space-y-4">
+                                <p className="font-bold text-muted-foreground uppercase text-[10px]">Contact Email</p>
+                                <a href={`mailto:${viewingInquiry.email}`} className="text-lg font-black text-blue-500 hover:underline flex items-center gap-2">
+                                    <Mail className="w-5 h-5" /> {viewingInquiry.email}
+                                </a>
+                            </div>
+                            <div className="space-y-4">
+                                <p className="font-bold text-muted-foreground uppercase text-[10px]">Submission Time</p>
+                                <p className="text-lg font-black">{new Date(viewingInquiry.createdAt).toLocaleString()}</p>
+                            </div>
+                        </div>
+
+                        <div className="space-y-4">
+                            <p className="font-bold text-muted-foreground uppercase text-[10px]">Detailed Message</p>
+                            <div className="p-8 rounded-3xl bg-zinc-50 dark:bg-zinc-900/50 border border-zinc-100 dark:border-zinc-800 text-lg leading-relaxed italic">
+                                "{viewingInquiry.message}"
+                            </div>
+                        </div>
+
+                        {viewingInquiry.dates && (
+                            <div className="space-y-4">
+                                <p className="font-bold text-muted-foreground uppercase text-[10px]">Requested Campaign Period</p>
+                                <p className="text-xl font-black text-amber-500">{viewingInquiry.dates}</p>
+                            </div>
+                        )}
+
+                        <div className="pt-4">
+                            <button
+                                onClick={() => setViewingInquiry(null)}
+                                className="w-full h-14 bg-zinc-900 dark:bg-white text-white dark:text-zinc-950 font-black rounded-2xl"
+                            >
+                                Close View
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
 
             {/* SYNC Footer */}
             <div className="glass-card p-10 rounded-[3rem] border-2 border-dashed border-zinc-200 dark:border-zinc-800 text-center space-y-6">

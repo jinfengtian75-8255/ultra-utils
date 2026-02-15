@@ -2,20 +2,39 @@
 
 import { useState } from 'react';
 import { useLanguage } from '@/context/language-context';
-import { CheckCircle2, Layout, Monitor, ArrowRight, Loader2, Zap } from 'lucide-react';
+import { CheckCircle2, Layout, Monitor, ArrowRight, Loader2, Zap, HelpCircle, ChevronDown } from 'lucide-react';
+import { db } from '@/lib/firebase';
+import { collection, addDoc } from 'firebase/firestore';
 
 export default function AdvertisePage() {
     const { t } = useLanguage();
     const [submitting, setSubmitting] = useState(false);
     const [submitted, setSubmitted] = useState(false);
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setSubmitting(true);
-        setTimeout(() => {
+
+        try {
+            const formData = new FormData(e.target as HTMLFormElement);
+            const data = {
+                name: formData.get('name'),
+                email: formData.get('email'),
+                dates: formData.get('dates'),
+                message: formData.get('message'),
+                type: 'Advertisement',
+                createdAt: new Date().toISOString(),
+                status: 'new'
+            };
+
+            await addDoc(collection(db, 'inquiries'), data);
             setSubmitting(false);
             setSubmitted(true);
-        }, 1500);
+        } catch (error) {
+            console.error("Error submitting inquiry:", error);
+            alert("Submission failed. Please try again.");
+            setSubmitting(false);
+        }
     };
 
     const adSlots = [
@@ -127,6 +146,7 @@ export default function AdvertisePage() {
                         <div className="space-y-2">
                             <label className="text-sm font-bold text-muted-foreground uppercase tracking-wider">{t.advertise.name}</label>
                             <input
+                                name="name"
                                 required
                                 placeholder="Jane Doe / Acme Corp"
                                 className="w-full h-12 px-4 rounded-xl bg-zinc-100/50 dark:bg-zinc-800/50 border-none focus:ring-2 focus:ring-primary/20 transition-all"
@@ -135,6 +155,7 @@ export default function AdvertisePage() {
                         <div className="space-y-2">
                             <label className="text-sm font-bold text-muted-foreground uppercase tracking-wider">{t.advertise.email}</label>
                             <input
+                                name="email"
                                 required
                                 type="email"
                                 placeholder="jane@example.com"
@@ -145,6 +166,7 @@ export default function AdvertisePage() {
                     <div className="space-y-2">
                         <label className="text-sm font-bold text-muted-foreground uppercase tracking-wider">{t.advertise.dates}</label>
                         <input
+                            name="dates"
                             required
                             placeholder="e.g., 2026-03-01 ~ 2026-03-15"
                             className="w-full h-12 px-4 rounded-xl bg-zinc-100/50 dark:bg-zinc-800/50 border-none focus:ring-2 focus:ring-primary/20 transition-all"
@@ -153,6 +175,7 @@ export default function AdvertisePage() {
                     <div className="space-y-2">
                         <label className="text-sm font-bold text-muted-foreground uppercase tracking-wider">{t.advertise.message}</label>
                         <textarea
+                            name="message"
                             required
                             className="w-full min-h-[140px] p-4 rounded-xl bg-zinc-100/50 dark:bg-zinc-800/50 border-none focus:ring-2 focus:ring-primary/20 transition-all resize-none"
                             placeholder="Tell us about your product or share an ad link..."
@@ -166,6 +189,31 @@ export default function AdvertisePage() {
                         {submitting ? <Loader2 className="w-5 h-5 animate-spin" /> : t.advertise.submit}
                     </button>
                 </form>
+            </div>
+            {/* Ads FAQ Section */}
+            <div className="pt-20 border-t border-zinc-100 dark:border-zinc-800">
+                <div className="flex items-center gap-4 mb-10">
+                    <div className="w-12 h-12 bg-primary/10 text-primary rounded-2xl flex items-center justify-center">
+                        <HelpCircle className="w-6 h-6" />
+                    </div>
+                    <div>
+                        <h2 className="text-3xl font-black">Advertising FAQ</h2>
+                        <p className="text-muted-foreground font-bold">Frequently asked questions about advertising on UltraUtils</p>
+                    </div>
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-6">
+                    {t.advertise.faq.map((item, idx) => (
+                        <div key={idx} className="glass-card p-8 rounded-3xl border border-zinc-100 dark:border-zinc-800 space-y-4">
+                            <h4 className="text-lg font-black flex items-center gap-3">
+                                <span className="text-primary">Q.</span> {item.q}
+                            </h4>
+                            <p className="text-muted-foreground leading-relaxed pl-7 border-l-2 border-primary/20">
+                                {item.a}
+                            </p>
+                        </div>
+                    ))}
+                </div>
             </div>
         </div>
     );

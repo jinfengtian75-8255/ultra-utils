@@ -218,6 +218,7 @@ export interface TranslationSchema {
         slotTop: string;
         slotSide: string;
         slotBottom: string;
+        faq: { q: string; a: string }[];
     },
     footer: {
         tools: string;
@@ -321,8 +322,9 @@ export const translations: Record<Language, TranslationSchema> = {
                 ],
                 faq: [
                     { q: '이미지를 압축하면 화질이 얼마나 나빠지나요?', a: '기본 설정인 80-90% 품질에서는 육안으로 차이를 느끼기 거의 불가능합니다. 특수 목적이 아니라면 이 수치를 권장합니다.' },
-                    { q: '여러 장의 사진을 한 번에 처리할 수 있나요?', a: '현재는 가장 정교한 최적화를 위해 한 장씩 처리하는 방식을 제공하고 있으며, 추후 일괄 처리 기능이 업데이트될 예정입니다.' },
-                    { q: '내 사진이 서버에 저장되어 유출될 위험은 없나요?', a: '절대 없습니다. UltraUtils의 모든 이미지 처리는 귀하의 브라우저 메모리 안에서만 수행되며, 페이지를 닫는 순간 모든 정보는 자동으로 소멸됩니다.' }
+                    { q: '여러 장의 사진을 한 번에 처리할 수 있나요?', a: '현재는 정교한 최적화를 위해 한 장씩 처리하는 방식을 제공하며, 대량 일괄 처리 기능은 곧 업데이트될 예정입니다.' },
+                    { q: '최대 업로드 가능한 용량이 얼마인가요?', a: '파일당 약 20MB 이하를 권장합니다. 그 이상의 파일도 처리는 가능하지만 브라우저 환경에 따라 속도가 느려질 수 있습니다.' },
+                    { q: '내 사진이 서버에 유출될 위험은 없나요?', a: '절대 없습니다. UltraUtils의 모든 처리는 귀하의 브라우저 로컬 환경에서만 수행되며, 데이터는 어디로도 전송되지 않습니다.' }
                 ]
             }
         },
@@ -604,6 +606,12 @@ export const translations: Record<Language, TranslationSchema> = {
             slotTop: '상단 프리미엄 배너',
             slotSide: '사이드 스티키 스카이스크래퍼',
             slotBottom: '작업 완료 후 하단 배너',
+            faq: [
+                { q: '광고 단가는 어떻게 결정되나요?', a: '슬롯의 위치와 기간에 따라 소정의 운영 지원비를 받고 있습니다. 문의를 주시면 현재 트래픽 성과와 함께 적정 비용을 제안해 드립니다.' },
+                { q: '이미지가 아닌 영상 광고도 가능한가요?', a: '현재는 이미지와 텍스트 기반 배너만 지원합니다. 사이트 성능 유지를 위해 지나치게 무거운 애니메이션은 지양하고 있습니다.' },
+                { q: '예약은 얼마나 미리 해야 하나요?', a: '인기 있는 상단 슬롯은 미리 마감될 수 있습니다. 희망하시는 날짜의 최소 1~2주 전에는 문의 주시는 것을 권장합니다.' },
+                { q: '결제는 어떤 방식으로 진행되나요?', a: '현재는 계좌이체 및 후원 플랫폼을 통한 결제를 지원하고 있습니다. 구체적인 처리 절차와 결제 정보는 문의 시 상담을 통해 안내해 드립니다.' }
+            ]
         },
         footer: {
             tools: '주요 도구',
@@ -682,7 +690,7 @@ export const translations: Record<Language, TranslationSchema> = {
             ]
         },
         contact: {
-            title: 'Contact Us',
+            title: '실시간 문의',
             subtitle: '궁금한 점이 있으신가요?',
             desc: '제안하고 싶은 기능, 비즈니스 협업 문의, 또는 오류 제보 등 여러분의 목소리를 소중히 듣겠습니다.',
             infoTitle: '문의 채널',
@@ -1030,6 +1038,12 @@ export const translations: Record<Language, TranslationSchema> = {
             slotTop: 'Top Premium Banner',
             slotSide: 'Side Skyscraper (Sticky)',
             slotBottom: 'Bottom Fixed Banner',
+            faq: [
+                { q: 'How is the ad rate determined?', a: 'We accept small contributions for site operation based on slot position and duration. Please contact us and we will suggest a reasonable rate along with current traffic stats.' },
+                { q: 'Do you support video ads?', a: 'Currently, we only support image and text-based banners to maintain site performance.' },
+                { q: 'How far in advance should I book?', a: 'Premium slots may book out early. We recommend reaching out at least 1-2 weeks before your desired date.' },
+                { q: 'What are the payment options?', a: 'We currently support wire transfers and dedicated payment platforms. Specific payment details and procedures will be provided individually upon inquiry.' }
+            ]
         },
         footer: {
             tools: 'Popular Tools',
@@ -1443,6 +1457,12 @@ export const translations: Record<Language, TranslationSchema> = {
             slotTop: '顶部顶级横幅',
             slotSide: '侧边滚动固定位',
             slotBottom: '底部任务完成位',
+            faq: [
+                { q: '广告费用如何计算？', a: '根据广告位和时长收取少量运营支持费。请联系我们，我们将根据当前的流量数据为您提供合理的建议。' },
+                { q: '支持视频广告吗？', a: '目前仅支持图片和文字横幅，以保证网站의访问速度。' },
+                { q: '需要提前多久预订？', a: '热门位置可能会提前订满。建议您至少提前 1-2 周联系。' },
+                { q: '有哪些支付方式？', a: '目前支持银行转账及相关支付平台。具体的支付流程和细节将在咨询时详细说明。' }
+            ]
         },
         footer: {
             tools: '热门工具',
@@ -1521,7 +1541,7 @@ export const translations: Record<Language, TranslationSchema> = {
             ]
         },
         contact: {
-            title: '联系我们',
+            title: '联系 我们',
             subtitle: '有什么问题或建议吗？',
             desc: '无论是功能请求、业务咨询还是错误报告，我们都珍视您的反馈。',
             infoTitle: '支持渠道',

@@ -59,6 +59,15 @@ export default function RealtimeTracker() {
                     views: increment(1)
                 }, { merge: true });
 
+                // 3. Track Referrer
+                const referrer = document.referrer ? new URL(document.referrer).hostname : 'Direct';
+                const safeReferrer = referrer.replace(/\./g, '_'); // Firestore keys can't contain dots
+                await setDoc(statsRef, {
+                    referrers: {
+                        [safeReferrer]: increment(1)
+                    }
+                }, { merge: true });
+
                 // If it's a tool page, track tool-specific usage
                 if (pathname.startsWith('/tools/')) {
                     const toolName = pathname.replace('/tools/', '');
