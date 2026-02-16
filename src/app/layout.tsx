@@ -21,11 +21,19 @@ export const metadata: Metadata = {
   description: 'Pro-grade YouTube Thumbnail Grabber, AI Background Remover, Image Compressor, and more. Free, fast, and no registration required.',
   keywords: ['youtube thumbnail downloader', 'ai background remover', 'image compressor', 'qr code generator', 'text converter', 'free online tools'],
   icons: {
-    icon: '/favicon.svg',
-    apple: '/logo.svg',
+    icon: [
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+      { url: '/favicon.svg', sizes: '32x32', type: 'image/svg+xml' },
+      { url: '/favicon.svg', sizes: '48x48', type: 'image/svg+xml' },
+    ],
+    apple: [
+      { url: '/logo.svg', sizes: '180x180', type: 'image/svg+xml' },
+    ],
   },
   other: {
     'google-adsense-account': 'ca-pub-1373852776233080',
+    'google-site-verification': 'TRvpShMEIm9PHhPgGSTrxxR8FO4ESg6FIsbW5poRq7I',
+    'naver-site-verification': '2cb2d07c789aea0a76e3f059cbe1d0f720f40de1',
   },
 }
 

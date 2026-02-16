@@ -256,6 +256,21 @@ export interface TranslationSchema {
         infoTitle: string;
         infoEmail: string;
         infoResponse: string;
+    },
+    notFound: {
+        title: string;
+        desc: string;
+        backHome: string;
+    },
+    feedback: {
+        title: string;
+        useful: string;
+        neutral: string;
+        improve: string;
+        placeholder: string;
+        submit: string;
+        success: string;
+        commitment: string;
     }
 }
 
@@ -696,6 +711,21 @@ export const translations: Record<Language, TranslationSchema> = {
             infoTitle: '문의 채널',
             infoEmail: 'official.ultrautils@gmail.com',
             infoResponse: '영업일 기준 24시간 이내에 답변을 드릴 수 있도록 최선을 다하겠습니다.'
+        },
+        notFound: {
+            title: '길을 잃으셨나요?',
+            desc: '요청하신 페이지를 찾을 수 없습니다. 주소가 정확한지 확인하시거나 아래 버튼을 눌러 메인 화면으로 돌아가 보세요.',
+            backHome: '메인 화면으로 돌아가기',
+        },
+        feedback: {
+            title: '오늘 도구가 요긴하셨나요?',
+            useful: '요긴해요! 👍',
+            neutral: '그저 그래요 😐',
+            improve: '아쉬워요 🔧',
+            placeholder: '더 필요하신 기능이나 의견을 자유롭게 남겨주세요...',
+            submit: '의견 보내기',
+            success: '소중한 의견 감사합니다!',
+            commitment: '사장님의 소중한 의견을 바탕으로 더 나은 도구를 만들기 위해 매일 노력하겠습니다.',
         }
     },
     en: {
@@ -1128,6 +1158,21 @@ export const translations: Record<Language, TranslationSchema> = {
             infoTitle: 'Support Channel',
             infoEmail: 'official.ultrautils@gmail.com',
             infoResponse: 'We strive to respond within 24 hours on business days.'
+        },
+        notFound: {
+            title: 'Are you lost?',
+            desc: "The page you're looking for doesn't exist. Check the URL or click the button below to return home.",
+            backHome: 'Back to Homepage',
+        },
+        feedback: {
+            title: 'Was this tool useful today?',
+            useful: 'Very useful! 👍',
+            neutral: 'Just okay 😐',
+            improve: 'Could be better 🔧',
+            placeholder: 'Feel free to share any features you need or feedback...',
+            submit: 'Send Feedback',
+            success: 'Thank you for your feedback!',
+            commitment: 'We strive every day to improve our tools based on your valuable feedback.',
         }
     },
     zh: {
@@ -1547,6 +1592,21 @@ export const translations: Record<Language, TranslationSchema> = {
             infoTitle: '支持渠道',
             infoEmail: 'official.ultrautils@gmail.com',
             infoResponse: '我们力求在工作日 24 小时内回复。'
+        },
+        notFound: {
+            title: '您迷路了吗？',
+            desc: '您寻找的页面不存在。请检查网址或点击下方按钮返回主页。',
+            backHome: '返回主页',
+        },
+        feedback: {
+            title: '今天的工具对您有用吗？',
+            useful: '非常有用的！ 👍',
+            neutral: '还可以 😐',
+            improve: '有待改进 🔧',
+            placeholder: '请随时 share 您需要的功能或反馈...',
+            submit: '发送反馈',
+            success: '感谢您的反馈！',
+            commitment: '我们将根据您的宝贵建议，每天努力改进我们的工具。',
         }
     }
 };

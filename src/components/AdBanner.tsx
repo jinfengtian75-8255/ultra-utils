@@ -39,6 +39,8 @@ const MOCK_ADS: Record<string, AdSlide[]> = {
     ]
 };
 
+const ADSENSE_CLIENT = "ca-pub-1373852776233080";
+
 export default function AdBanner({ className, slot, type = 'banner', useAdSense = false }: AdBannerProps) {
     const [ads, setAds] = useState<any[]>([]);
     const [mounted, setMounted] = useState(false);
@@ -47,35 +49,56 @@ export default function AdBanner({ className, slot, type = 'banner', useAdSense 
     useEffect(() => {
         setMounted(true);
         if (!db) {
-            setAds(MOCK_ADS[slot] || []);
+            // Updated Fallback logic for MOCK_ADS
+            const genericSlot = slot.includes('top-banner') ? 'top-banner' :
+                slot.includes('bottom-banner') ? 'bottom-banner' :
+                    slot.includes('left-sidebar') ? 'left-sidebar' :
+                        slot.includes('right-sidebar') ? 'right-sidebar' : slot;
+
+            setAds(MOCK_ADS[slot] || MOCK_ADS[genericSlot] || []);
             return;
         }
 
-        // Real-time Ads Sync from Cloud
         const now = new Date().toISOString().split('T')[0];
-        const q = query(
-            collection(db, 'campaigns'),
-            where('slot', '==', slot),
-            where('active', '==', true)
-        );
+        const fetchAds = (slotID: string, isFallback: boolean = false) => {
+            const q = query(
+                collection(db!, 'campaigns'),
+                where('slot', '==', slotID),
+                where('active', '==', true)
+            );
 
-        const unsubscribe = onSnapshot(q, (snapshot) => {
-            const cloudAds: any[] = [];
-            snapshot.forEach((doc) => {
-                const data = doc.data();
-                // Client side date filtering to avoid Firestore complex index requirement for now
-                if (data.startDate <= now && data.endDate >= now) {
-                    cloudAds.push(data);
+            return onSnapshot(q, (snapshot) => {
+                const cloudAds: any[] = [];
+                snapshot.forEach((doc) => {
+                    const data = doc.data();
+                    if (data.startDate <= now && data.endDate >= now) {
+                        cloudAds.push(data);
+                    }
+                });
+
+                if (cloudAds.length > 0) {
+                    setAds(cloudAds);
+                } else if (!isFallback) {
+                    // If no ads for specific slot, try generic slot once
+                    const genericSlot = slot.includes('top-banner') ? 'top-banner' :
+                        slot.includes('bottom-banner') ? 'bottom-banner' :
+                            slot.includes('left-sidebar') ? 'left-sidebar' :
+                                slot.includes('right-sidebar') ? 'right-sidebar' : null;
+
+                    if (genericSlot && genericSlot !== slotID) {
+                        fetchAds(genericSlot, true);
+                    } else {
+                        setAds(MOCK_ADS[slot] || MOCK_ADS[genericSlot || ''] || []);
+                    }
+                } else {
+                    const genericSlot = slot.includes('top-banner') ? 'top-banner' :
+                        slot.includes('bottom-banner') ? 'bottom-banner' : slot;
+                    setAds(MOCK_ADS[slot] || MOCK_ADS[genericSlot] || []);
                 }
             });
+        };
 
-            if (cloudAds.length > 0) {
-                setAds(cloudAds);
-            } else {
-                setAds(MOCK_ADS[slot] || []);
-            }
-        });
-
+        const unsubscribe = fetchAds(slot);
         return () => unsubscribe();
     }, [slot]);
 
@@ -87,6 +110,18 @@ export default function AdBanner({ className, slot, type = 'banner', useAdSense 
         return () => clearInterval(interval);
     }, [ads.length, useAdSense]);
 
+    // Google AdSense Push Trigger
+    useEffect(() => {
+        if (useAdSense && mounted) {
+            try {
+                // @ts-ignore
+                (window.adsbygoogle = window.adsbygoogle || []).push({});
+            } catch (e) {
+                console.error("AdSense push failed", e);
+            }
+        }
+    }, [useAdSense, mounted]);
+
     const nextSlide = () => setCurrentIndex((prev) => (prev + 1) % ads.length);
     const prevSlide = () => setCurrentIndex((prev) => (prev - 1 + ads.length) % ads.length);
 
@@ -97,18 +132,34 @@ export default function AdBanner({ className, slot, type = 'banner', useAdSense 
     if (useAdSense) {
         return (
             <div className={cn(
-                "relative flex items-center justify-center overflow-hidden border border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/30 rounded-3xl transition-all group",
-                isSkyscraper ? "h-full min-h-[600px] w-full max-w-[170px]" : "w-full my-8 mx-auto max-w-[728px] min-h-[100px] aspect-[728/90]",
+                "relative group flex flex-col items-center justify-center overflow-hidden transition-all duration-700",
+                isSkyscraper ? "h-full min-h-[600px] w-full" : "w-full my-8 mx-auto",
                 className
             )}>
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-                <div className="relative text-center space-y-2 px-4">
-                    <div className="flex items-center justify-center gap-2 mb-1">
-                        <div className="h-[1px] w-4 bg-zinc-300 dark:bg-zinc-700" />
-                        <span className="text-[10px] uppercase font-black tracking-[0.2em] text-zinc-400 dark:text-zinc-500 italic">Advertisement</span>
-                        <div className="h-[1px] w-4 bg-zinc-300 dark:bg-zinc-700" />
+                <div className={cn(
+                    "relative flex flex-col items-center justify-center p-6 border rounded-[2rem] transition-all duration-700 overflow-hidden",
+                    "bg-white dark:bg-zinc-950 border-zinc-200 dark:border-zinc-800 shadow-sm group-hover:shadow-xl group-hover:border-primary/20",
+                    isSkyscraper ? "h-full w-full max-w-[170px]" : "w-full max-w-[728px] min-h-[120px]"
+                )}>
+                    <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-purple-500/5 opacity-50 group-hover:opacity-100 transition-opacity" />
+
+                    <div className="relative z-10 w-full flex flex-col items-center gap-2">
+                        <span className="text-[8px] uppercase font-black tracking-[0.2em] text-zinc-400 dark:text-zinc-500 italic">Advertisement</span>
+
+                        <div className="w-full flex items-center justify-center overflow-hidden" style={{ maxHeight: '90px' }}>
+                            <ins className="adsbygoogle"
+                                style={{
+                                    display: 'inline-block',
+                                    width: '100%',
+                                    height: '90px',
+                                    maxWidth: isSkyscraper ? '160px' : '728px',
+                                }}
+                                data-ad-client={ADSENSE_CLIENT}
+                                data-ad-slot={slot}
+                                data-ad-format={isSkyscraper ? 'vertical' : 'horizontal'}
+                                data-full-width-responsive="false"></ins>
+                        </div>
                     </div>
-                    <p className="text-xs font-bold text-muted-foreground/60 italic">Content optimized for your interests</p>
                 </div>
             </div>
         );
@@ -128,28 +179,37 @@ export default function AdBanner({ className, slot, type = 'banner', useAdSense 
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-purple-500/5 opacity-50 group-hover:opacity-100 transition-opacity" />
 
                 <div className="relative z-10 w-full h-full flex items-center justify-center text-center px-4">
-                    {ads.map((slide, index) => (
-                        <div
-                            key={slide.id}
-                            className={cn(
-                                "absolute inset-0 flex flex-col items-center justify-center transition-all duration-1000 ease-in-out",
-                                index === currentIndex ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"
-                            )}
-                        >
-                            <span className="text-[9px] uppercase tracking-[0.3em] text-primary font-black mb-3 px-2 py-0.5 bg-primary/10 rounded-full">Partner</span>
-                            <h3 className={cn("font-black text-zinc-900 dark:text-zinc-100 tracking-tight", isSkyscraper ? "text-sm mb-2" : "text-lg mb-1")}>
-                                {slide.title}
-                            </h3>
-                            <p className={cn("text-muted-foreground leading-tight font-medium", isSkyscraper ? "text-xs" : "text-sm")}>
-                                {slide.description}
-                            </p>
-                            {!isSkyscraper && slide.link && (
-                                <a href={slide.link} target="_blank" rel="noopener noreferrer" className="mt-3 text-xs font-bold text-primary flex items-center gap-1 hover:underline">
-                                    Learn More <ChevronRight className="w-3 h-3" />
-                                </a>
-                            )}
+                    {ads.length > 0 ? (
+                        ads.map((slide, index) => (
+                            <div
+                                key={slide.id}
+                                className={cn(
+                                    "absolute inset-0 flex flex-col items-center justify-center transition-all duration-1000 ease-in-out px-6",
+                                    index === currentIndex ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"
+                                )}
+                            >
+                                <span className="text-[8px] uppercase tracking-[0.3em] font-black mb-3 text-zinc-400 dark:text-zinc-600 italic">Advertisement</span>
+                                <span className="text-[9px] uppercase tracking-[0.3em] text-primary font-black mb-1 px-2 py-0.5 bg-primary/10 rounded-full">Partner</span>
+                                <h3 className={cn("font-black text-zinc-900 dark:text-zinc-100 tracking-tight", isSkyscraper ? "text-sm mb-2" : "text-lg mb-1")}>
+                                    {slide.title}
+                                </h3>
+                                <p className={cn("text-muted-foreground leading-tight font-medium", isSkyscraper ? "text-xs" : "text-sm")}>
+                                    {slide.description}
+                                </p>
+                                {!isSkyscraper && slide.link && (
+                                    <a href={slide.link} target="_blank" rel="noopener noreferrer" className="mt-3 text-xs font-bold text-primary flex items-center gap-1 hover:underline">
+                                        Learn More <ChevronRight className="w-3 h-3" />
+                                    </a>
+                                )}
+                            </div>
+                        ))
+                    ) : (
+                        <div className="flex flex-col items-center gap-2">
+                            <span className="text-[8px] uppercase font-black tracking-[0.2em] text-zinc-400 dark:text-zinc-500 italic">Advertisement</span>
+                            <div className="h-[2px] w-8 bg-zinc-100 dark:bg-zinc-900 rounded-full mt-2" />
+                            <p className="text-[10px] font-bold text-zinc-300 dark:text-zinc-700 tracking-widest uppercase">Premium Slot</p>
                         </div>
-                    ))}
+                    )}
                 </div>
 
                 {!useAdSense && ads.length > 1 && (

@@ -116,7 +116,7 @@ export function Footer() {
 
                     {/* Buy Me a Coffee Simulated Button */}
                     <a
-                        href="https://www.buymeacoffee.com/jinzhexun"
+                        href="https://www.buymeacoffee.com/jinfengtian75"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="group relative flex items-center gap-3 px-6 py-3 bg-[#FFDD00] text-zinc-900 rounded-2xl font-black text-sm shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300"
