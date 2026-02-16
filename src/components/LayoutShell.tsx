@@ -1,14 +1,21 @@
 'use client';
 
+import { useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import AdBanner from '@/components/AdBanner';
 import { Navbar } from '@/components/navbar';
 import { Footer } from '@/components/Footer';
 import { FeedbackWidget } from '@/components/FeedbackWidget';
+import { ShareWidget } from '@/components/ShareWidget';
 
 export default function LayoutShell({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
+
+    // Global scroll-to-top handler on route change
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [pathname]);
 
     // Pages that need maximum width/focus (heavy tools)
     const heavyTools = [
@@ -48,6 +55,13 @@ export default function LayoutShell({ children }: { children: React.ReactNode })
                     <div className="flex-1">
                         {children}
                     </div>
+
+                    {/* Viral Share Widget - Active context after tool use */}
+                    {isToolPage && (
+                        <div className="mt-8">
+                            <ShareWidget />
+                        </div>
+                    )}
 
                     {/* Bottom Ad Slot - Dynamic per page */}
                     <AdBanner slot={getPageSlot('bottom-banner')} useAdSense={false} className="mt-12" />

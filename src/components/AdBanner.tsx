@@ -23,19 +23,19 @@ interface AdBannerProps {
 
 const MOCK_ADS: Record<string, AdSlide[]> = {
     'top-banner': [
-        { id: '1', title: 'Premium YouTube Templates', description: 'Boost your CTR with our pro templates.' },
+        { id: '1', title: 'UltraUtils Premium AI', description: 'Experience the fastest AI Background Remover for free.', link: '/tools/background-remover' },
     ],
     'left-sidebar': [
-        { id: 's1', title: 'Host with Vercel', description: 'Deploy your next app in seconds.' },
+        { id: 's1', title: 'High-Speed Encoding', description: 'Compress images up to 90% without losing quality.', link: '/tools/image-compressor' },
     ],
     'right-sidebar': [
-        { id: 'r1', title: 'Design like a Pro', description: 'New Figma course for developers.' },
+        { id: 'r1', title: 'YouTube Growth Pack', description: 'Download high-res thumbnails instantly.', link: '/tools/youtube-thumbnail' },
     ],
     'bottom-banner': [
-        { id: 'b1', title: 'Share UltraUtils', description: 'Love this tool? Share it with your friends!' },
+        { id: 'b1', title: 'Coffee for the Dev?', description: 'Your support keeps this tool free for everyone! ☕️', link: 'https://www.buymeacoffee.com/jinfengtian75' },
     ],
     'home-mid-banner': [
-        { id: 'h1', title: 'AdSense Optimized', description: 'Experience lightning-fast ad delivery with our premium network.' },
+        { id: 'h1', title: 'Join our Community', description: 'Share your creations and get pro tips.', link: '/' },
     ]
 };
 
@@ -141,17 +141,23 @@ export default function AdBanner({ className, slot, type = 'banner', useAdSense 
                     "bg-white dark:bg-zinc-950 border-zinc-200 dark:border-zinc-800 shadow-sm group-hover:shadow-xl group-hover:border-primary/20",
                     isSkyscraper ? "h-full w-full max-w-[170px]" : "w-full max-w-[728px] min-h-[120px]"
                 )}>
+                    {/* Background Fallback (Shows if AdSense is transparent/blank) */}
+                    <div className="absolute inset-0 flex flex-col items-center justify-center opacity-30 group-hover:opacity-100 transition-opacity pointer-events-none">
+                        <span className="text-[8px] uppercase font-black tracking-[0.2em] text-zinc-400 dark:text-zinc-600 italic mb-2">Internal Campaign</span>
+                        <h4 className="text-xs font-black text-zinc-300 dark:text-zinc-700 uppercase tracking-tighter">UltraUtils Premium Space</h4>
+                    </div>
+
                     <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-purple-500/5 opacity-50 group-hover:opacity-100 transition-opacity" />
 
                     <div className="relative z-10 w-full flex flex-col items-center gap-2">
                         <span className="text-[8px] uppercase font-black tracking-[0.2em] text-zinc-400 dark:text-zinc-500 italic">Advertisement</span>
 
-                        <div className="w-full flex items-center justify-center overflow-hidden" style={{ maxHeight: '90px' }}>
+                        <div className="w-full h-full flex items-center justify-center overflow-hidden">
                             <ins className="adsbygoogle"
                                 style={{
                                     display: 'inline-block',
                                     width: '100%',
-                                    height: '90px',
+                                    height: isSkyscraper ? '600px' : '90px',
                                     maxWidth: isSkyscraper ? '160px' : '728px',
                                 }}
                                 data-ad-client={ADSENSE_CLIENT}
@@ -182,32 +188,45 @@ export default function AdBanner({ className, slot, type = 'banner', useAdSense 
                     {ads.length > 0 ? (
                         ads.map((slide, index) => (
                             <div
-                                key={slide.id}
+                                key={slide.id || index}
                                 className={cn(
-                                    "absolute inset-0 flex flex-col items-center justify-center transition-all duration-1000 ease-in-out px-6",
+                                    "absolute inset-0 flex flex-col items-center justify-center transition-all duration-1000 ease-in-out px-6 text-center",
                                     index === currentIndex ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"
                                 )}
                             >
-                                <span className="text-[8px] uppercase tracking-[0.3em] font-black mb-3 text-zinc-400 dark:text-zinc-600 italic">Advertisement</span>
-                                <span className="text-[9px] uppercase tracking-[0.3em] text-primary font-black mb-1 px-2 py-0.5 bg-primary/10 rounded-full">Partner</span>
-                                <h3 className={cn("font-black text-zinc-900 dark:text-zinc-100 tracking-tight", isSkyscraper ? "text-sm mb-2" : "text-lg mb-1")}>
+                                <div className="flex items-center gap-2 mb-3">
+                                    <span className="text-[8px] uppercase tracking-[0.3em] font-black text-zinc-400 dark:text-zinc-600 italic">OFFICIAL</span>
+                                    <span className="text-[9px] uppercase tracking-[0.2em] text-primary font-black px-2 py-0.5 bg-primary/10 rounded-full border border-primary/20">PREMIUM FEATURE</span>
+                                </div>
+
+                                <h3 className={cn("font-black text-zinc-900 dark:text-zinc-100 tracking-tight leading-tight", isSkyscraper ? "text-base mb-2" : "text-xl mb-1")}>
                                     {slide.title}
                                 </h3>
-                                <p className={cn("text-muted-foreground leading-tight font-medium", isSkyscraper ? "text-xs" : "text-sm")}>
+                                <p className={cn("text-zinc-500 dark:text-zinc-400 leading-tight font-medium max-w-sm mx-auto", isSkyscraper ? "text-xs px-2" : "text-sm")}>
                                     {slide.description}
                                 </p>
-                                {!isSkyscraper && slide.link && (
-                                    <a href={slide.link} target="_blank" rel="noopener noreferrer" className="mt-3 text-xs font-bold text-primary flex items-center gap-1 hover:underline">
-                                        Learn More <ChevronRight className="w-3 h-3" />
+
+                                {slide.link && (
+                                    <a
+                                        href={slide.link}
+                                        target={slide.link.startsWith('http') ? "_blank" : "_self"}
+                                        rel="noopener noreferrer"
+                                        className="mt-4 px-6 py-2 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 rounded-full text-xs font-black hover:scale-105 transition-all shadow-lg shadow-zinc-200 dark:shadow-none"
+                                    >
+                                        Try Now
                                     </a>
                                 )}
                             </div>
                         ))
                     ) : (
-                        <div className="flex flex-col items-center gap-2">
-                            <span className="text-[8px] uppercase font-black tracking-[0.2em] text-zinc-400 dark:text-zinc-500 italic">Advertisement</span>
-                            <div className="h-[2px] w-8 bg-zinc-100 dark:bg-zinc-900 rounded-full mt-2" />
-                            <p className="text-[10px] font-bold text-zinc-300 dark:text-zinc-700 tracking-widest uppercase">Premium Slot</p>
+                        <div className="flex flex-col items-center gap-3">
+                            <div className="flex items-center gap-2">
+                                <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+                                <span className="text-[8px] uppercase font-black tracking-[0.2em] text-zinc-400 dark:text-zinc-500 italic">Space Reserved</span>
+                            </div>
+                            <h4 className="text-sm font-black text-zinc-300 dark:text-zinc-700 uppercase tracking-widest">Premium Ad Slot</h4>
+                            <p className="text-[10px] font-bold text-zinc-400 dark:text-zinc-600 hover:text-primary transition-colors cursor-default">Advertise with UltraUtils</p>
+                            <div className="h-[1px] w-12 bg-zinc-100 dark:bg-zinc-900 mt-2" />
                         </div>
                     )}
                 </div>

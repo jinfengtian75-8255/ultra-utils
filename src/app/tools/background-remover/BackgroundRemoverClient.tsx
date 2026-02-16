@@ -112,13 +112,20 @@ function BackgroundRemoverContent() {
                     <div className="glass-card p-8 rounded-[2.5rem] space-y-8 animate-in duration-700 delay-200 shadow-xl border border-zinc-100 dark:border-zinc-800">
                         <div className="space-y-6">
                             {/* Manual Refine Section */}
-                            <div className="p-6 rounded-3xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 space-y-4">
+                            <div className="p-6 rounded-3xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 space-y-4 relative">
                                 <h3 className="text-sm font-black flex items-center gap-2 text-primary uppercase tracking-widest">
                                     <Sparkles className="w-4 h-4" /> {t.bgRemover.refineTitle}
                                 </h3>
                                 <p className="text-xs text-muted-foreground leading-relaxed font-medium">{t.bgRemover.refineDesc}</p>
                                 <button
-                                    onClick={() => setIsRefining(!isRefining)}
+                                    onClick={() => {
+                                        setIsRefining(!isRefining);
+                                        if (!isRefining) {
+                                            // Smooth scroll to the preview area on mobile when starting refine
+                                            const previewElement = document.getElementById('preview-area');
+                                            previewElement?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                        }
+                                    }}
                                     className={cn(
                                         "w-full py-4 rounded-2xl font-black text-sm flex items-center justify-center gap-2 transition-all",
                                         isRefining ? "bg-primary text-white shadow-lg" : "bg-zinc-200 dark:bg-zinc-800"
@@ -128,8 +135,28 @@ function BackgroundRemoverContent() {
                                     {isRefining ? t.common.apply : t.bgRemover.refineTitle}
                                 </button>
 
+                                {/* Floating Tool Overlay for Mobile */}
                                 {isRefining && (
-                                    <div className="space-y-6 pt-4 border-t border-zinc-100 dark:border-zinc-800 animate-in zoom-in-95">
+                                    <div className="lg:hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-[100] w-[calc(100%-2rem)] max-w-sm">
+                                        <div className="glass-card p-5 rounded-[2.5rem] shadow-2xl border-2 border-primary/30 flex flex-col gap-5 animate-in slide-in-from-bottom-5">
+                                            <div className="flex items-center justify-between gap-3">
+                                                <div className="flex gap-1 p-1 bg-zinc-100 dark:bg-zinc-800 rounded-xl flex-1">
+                                                    <button onClick={() => setBrushMode('restore')} className={cn("flex-1 py-2.5 rounded-lg text-[10px] font-black transition-all", brushMode === 'restore' ? "bg-white dark:bg-zinc-700 shadow-sm text-primary" : "text-muted-foreground")}><Brush className="w-4 h-4 inline mr-1" /> {t.bgRemover.brushRestore}</button>
+                                                    <button onClick={() => setBrushMode('erase')} className={cn("flex-1 py-2.5 rounded-lg text-[10px] font-black transition-all", brushMode === 'erase' ? "bg-white dark:bg-zinc-700 shadow-sm text-primary" : "text-muted-foreground")}><Eraser className="w-4 h-4 inline mr-1" /> {t.bgRemover.brushErase}</button>
+                                                </div>
+                                                <button onClick={undo} disabled={historyIndex <= 0} className="p-3 bg-zinc-100 dark:bg-zinc-800 rounded-xl disabled:opacity-30"><Undo className="w-5 h-5" /></button>
+                                                <button onClick={() => setIsRefining(false)} className="p-3 bg-primary text-white rounded-xl shadow-lg"><Check className="w-5 h-5" /></button>
+                                            </div>
+                                            <div className="space-y-3">
+                                                <div className="flex justify-between text-[10px] font-black uppercase tracking-widest text-muted-foreground"><span>{t.bgRemover.brushSize}</span><span>{brushSize}px</span></div>
+                                                <input type="range" min="5" max="100" value={brushSize} onChange={(e) => setBrushSize(parseInt(e.target.value))} className="w-full h-2 bg-zinc-200 dark:bg-zinc-800 rounded-full cursor-pointer accent-primary" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
+
+                                {isRefining && (
+                                    <div className="hidden lg:block space-y-6 pt-4 border-t border-zinc-100 dark:border-zinc-800 animate-in zoom-in-95">
                                         <div className="flex gap-2 p-1 bg-white/50 dark:bg-zinc-800/50 rounded-xl">
                                             <button onClick={() => setBrushMode('restore')} className={cn("flex-1 py-2.5 rounded-lg text-xs font-black transition-all", brushMode === 'restore' ? "bg-white dark:bg-zinc-700 shadow-sm text-primary" : "text-muted-foreground")}><Brush className="w-3.5 h-3.5" /> {t.bgRemover.brushRestore}</button>
                                             <button onClick={() => setBrushMode('erase')} className={cn("flex-1 py-2.5 rounded-lg text-xs font-black transition-all", brushMode === 'erase' ? "bg-white dark:bg-zinc-700 shadow-sm text-primary" : "text-muted-foreground")}><Eraser className="w-3.5 h-3.5" /> {t.bgRemover.brushErase}</button>
@@ -194,7 +221,7 @@ function BackgroundRemoverContent() {
                 </div>
 
                 <div className="lg:col-span-8">
-                    <div className="glass-card rounded-[3rem] p-1 flex flex-col items-center justify-center relative overflow-hidden min-h-[600px] shadow-2xl animate-in fade-in duration-700 delay-300">
+                    <div id="preview-area" className="glass-card rounded-[3rem] p-1 flex flex-col items-center justify-center relative overflow-hidden min-h-[600px] shadow-2xl animate-in fade-in duration-700 delay-300">
                         {!originalImage && (
                             <div className="p-20 text-center space-y-8 w-full group">
                                 <div className="w-32 h-32 bg-primary/10 rounded-[2.5rem] flex items-center justify-center mx-auto text-primary transition-all shadow-xl group-hover:scale-110"><Upload className="w-16 h-16" /></div>

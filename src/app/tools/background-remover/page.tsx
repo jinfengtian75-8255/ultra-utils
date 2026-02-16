@@ -52,7 +52,9 @@ function BackgroundRemoverContent() {
     const [aspectRatio, setAspectRatio] = useState<'original' | 'vertical'>('original')
 
     useEffect(() => {
-        setIsMounted(true)
+        setIsMounted(true);
+        // Ensure we start at the top on mount
+        window.scrollTo({ top: 0, behavior: 'instant' });
 
         // Handle image from URL parameter (e.g., from YouTube Thumbnail tool)
         const src = searchParams.get('src')
@@ -512,7 +514,7 @@ function BackgroundRemoverContent() {
                         onDrop={handleFileUpload}
                         onClick={() => !isProcessing && !isRefining && !originalImage && fileInputRef.current?.click()}
                         className={cn(
-                            "glass-card rounded-[3rem] p-4 border-2 border-zinc-200/50 dark:border-zinc-800/50 flex flex-col items-center justify-center min-h-[650px] relative overflow-hidden group/result shadow-2xl transition-all duration-500",
+                            "glass-card rounded-[3rem] p-2 sm:p-4 border-2 border-zinc-200/50 dark:border-zinc-800/50 flex flex-col items-center justify-center min-h-[650px] relative overflow-hidden group/result shadow-2xl transition-all duration-500",
                             !processedImage && !isProcessing && "bg-zinc-50/50 dark:bg-zinc-900/50 cursor-pointer",
                             isRefining && "cursor-none"
                         )}
@@ -545,12 +547,14 @@ function BackgroundRemoverContent() {
                         ) : processedImage ? (
                             <div className="w-full h-full flex flex-col">
                                 {/* Mode Selector */}
-                                <div className="absolute top-4 left-1/2 -translate-x-1/2 z-20 flex bg-white/90 dark:bg-zinc-900/90 backdrop-blur p-1 rounded-2xl border border-zinc-200/50 dark:border-zinc-800/50 shadow-lg">
+                                <div className="absolute top-3 left-1/2 -translate-x-1/2 z-[45] flex bg-white/95 dark:bg-zinc-900/95 backdrop-blur-md p-1 rounded-2xl border border-zinc-200 dark:border-zinc-800 shadow-xl scale-90 sm:scale-100">
                                     <button
                                         onClick={() => setViewMode('comparison')}
                                         className={cn(
-                                            "px-4 py-2 rounded-xl text-sm font-bold transition-all",
-                                            viewMode === 'comparison' ? "bg-primary text-white shadow-md" : "hover:bg-zinc-100 dark:hover:bg-zinc-800"
+                                            "px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-bold transition-all",
+                                            viewMode === 'comparison'
+                                                ? "bg-indigo-600 text-white shadow-md"
+                                                : "text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800"
                                         )}
                                     >
                                         {t.bgRemover.comparison}
@@ -558,29 +562,31 @@ function BackgroundRemoverContent() {
                                     <button
                                         onClick={() => setViewMode('editor')}
                                         className={cn(
-                                            "px-4 py-2 rounded-xl text-sm font-bold transition-all",
-                                            viewMode === 'editor' ? "bg-primary text-white shadow-md" : "hover:bg-zinc-100 dark:hover:bg-zinc-800"
+                                            "px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-bold transition-all",
+                                            viewMode === 'editor'
+                                                ? "bg-indigo-600 text-white shadow-md"
+                                                : "text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800"
                                         )}
                                     >
                                         Studio
                                     </button>
                                 </div>
 
-                                <div className="flex-1 flex items-center justify-center p-8">
+                                <div className="flex-1 flex items-center justify-center p-2 sm:p-8">
                                     {viewMode === 'comparison' ? (
-                                        <div className="grid grid-cols-2 gap-8 w-full h-full">
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-8 w-full h-full">
                                             <div className="relative group/original">
-                                                <div className="absolute top-4 left-4 bg-black/50 text-white px-3 py-1 rounded-lg text-xs font-bold backdrop-blur">ORIGINAL</div>
+                                                <div className="absolute top-4 left-4 bg-black/50 text-white px-3 py-1 rounded-lg text-xs font-bold backdrop-blur z-20">ORIGINAL</div>
                                                 <img src={originalImage!} alt="Original" className="w-full h-full object-contain rounded-2xl shadow-xl" />
                                             </div>
                                             <div className="relative group/result">
-                                                <div className="absolute top-4 left-4 bg-primary/80 text-white px-3 py-1 rounded-lg text-xs font-bold backdrop-blur">RESULT</div>
+                                                <div className="absolute top-4 left-4 bg-primary/80 text-white px-3 py-1 rounded-lg text-xs font-bold backdrop-blur z-20">RESULT</div>
                                                 <img src={processedImage} alt="Result" className="w-full h-full object-contain rounded-2xl shadow-xl" />
                                             </div>
                                         </div>
                                     ) : (
                                         <div
-                                            className="relative w-full h-full flex items-center justify-center p-4"
+                                            className="relative w-full h-full flex items-center justify-center p-1 sm:p-4"
                                             style={{ transform: `scale(${zoom})`, transformOrigin: 'center' }}
                                         >
                                             <canvas
@@ -615,16 +621,19 @@ function BackgroundRemoverContent() {
                             </div>
                         )}
 
-                        {/* Top Controls Overlay */}
+                        {/* Top Controls Overlay - Desktop Only */}
                         {processedImage && !isProcessing && (
-                            <div className="absolute top-6 right-6 flex items-center gap-3">
+                            <div className="absolute top-6 right-6 hidden xl:flex items-center gap-3 z-30">
                                 {!isRefining && (
                                     <button
-                                        onClick={() => setIsRefining(true)}
+                                        onClick={() => {
+                                            if (viewMode !== 'editor') setViewMode('editor');
+                                            setIsRefining(true);
+                                        }}
                                         className="bg-white/90 dark:bg-zinc-900/90 backdrop-blur-md border border-zinc-200/50 dark:border-zinc-800/50 p-3 rounded-2xl shadow-xl hover:scale-105 transition-transform flex items-center gap-2 font-bold group"
                                     >
                                         <Brush className="w-5 h-5 text-primary group-hover:rotate-12 transition-transform" />
-                                        {t.bgRemover.brushRestore}
+                                        <span className="text-sm">{t.bgRemover.brushRestore}</span>
                                     </button>
                                 )}
                                 <button
@@ -633,6 +642,76 @@ function BackgroundRemoverContent() {
                                 >
                                     <X className="w-5 h-5" />
                                 </button>
+                            </div>
+                        )}
+
+                        {/* Mobile Floating Action Buttons */}
+                        {processedImage && !isProcessing && (
+                            <div className="xl:hidden fixed bottom-6 right-4 flex flex-col gap-3 z-[100] animate-in slide-in-from-bottom-5">
+                                <button
+                                    onClick={() => setShowResetConfirm(true)}
+                                    className="w-11 h-11 bg-white dark:bg-zinc-900 shadow-xl border border-zinc-200 dark:border-zinc-800 rounded-full flex items-center justify-center text-red-500 active:scale-95 transition-all"
+                                >
+                                    <X className="w-5 h-5" />
+                                </button>
+                                {!isRefining && (
+                                    <button
+                                        onClick={() => {
+                                            if (viewMode !== 'editor') setViewMode('editor');
+                                            setIsRefining(true);
+                                            // Scroll to target area for focus
+                                            document.getElementById('preview-area')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                        }}
+                                        className="w-16 h-16 bg-indigo-600 shadow-[0_15px_40px_rgba(79,70,229,0.3)] rounded-2xl flex flex-col items-center justify-center text-white active:scale-95 transition-all border-2 border-white/20"
+                                    >
+                                        <Brush className="w-6 h-6 mb-0.5" />
+                                        <span className="text-[10px] font-black leading-none">{t.bgRemover.brushRestore}</span>
+                                    </button>
+                                )}
+                            </div>
+                        )}
+
+                        {/* Floating Refine Toolbar for Mobile */}
+                        {isRefining && (
+                            <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-[110] w-[calc(100%-2rem)] max-w-sm xl:hidden">
+                                <div className="glass-card p-3 rounded-3xl shadow-2xl border-2 border-primary/30 space-y-3 animate-in slide-in-from-bottom-4">
+                                    <div className="flex items-center gap-2">
+                                        <div className="flex gap-1 p-1 bg-zinc-100 dark:bg-zinc-800 rounded-xl flex-1">
+                                            <button
+                                                onClick={() => setBrushMode('restore')}
+                                                className={cn(
+                                                    "flex-1 py-1.5 rounded-lg text-[10px] font-black transition-all",
+                                                    brushMode === 'restore' ? "bg-white dark:bg-zinc-700 shadow-sm text-primary" : "text-muted-foreground"
+                                                )}
+                                            >
+                                                <Brush className="w-3.5 h-3.5 inline mr-1" />
+                                            </button>
+                                            <button
+                                                onClick={() => setBrushMode('erase')}
+                                                className={cn(
+                                                    "flex-1 py-1.5 rounded-lg text-[10px] font-black transition-all",
+                                                    brushMode === 'erase' ? "bg-white dark:bg-zinc-700 shadow-sm text-red-500" : "text-muted-foreground"
+                                                )}
+                                            >
+                                                <Eraser className="w-3.5 h-3.5 inline mr-1" />
+                                            </button>
+                                        </div>
+                                        <div className="flex-1 flex items-center gap-2 px-1">
+                                            <input
+                                                type="range" min="5" max="100" value={brushSize}
+                                                onChange={(e) => setBrushSize(parseInt(e.target.value))}
+                                                className="flex-1 h-1.5 bg-zinc-200 dark:bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-primary"
+                                            />
+                                            <span className="text-[10px] font-black text-primary w-8">{brushSize}px</span>
+                                        </div>
+                                        <button onClick={undo} disabled={history.length <= 1} className="p-2 bg-zinc-100 dark:bg-zinc-800 rounded-xl disabled:opacity-30">
+                                            <Undo className="w-4 h-4" />
+                                        </button>
+                                        <button onClick={() => setIsRefining(false)} className="p-2 bg-primary text-white rounded-xl shadow-lg">
+                                            <Check className="w-4 h-4" />
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         )}
 

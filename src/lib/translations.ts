@@ -271,6 +271,14 @@ export interface TranslationSchema {
         submit: string;
         success: string;
         commitment: string;
+    },
+    share: {
+        title: string;
+        copy: string;
+        copied: string;
+        twitter: string;
+        facebook: string;
+        whatsapp: string;
     }
 }
 
@@ -726,6 +734,14 @@ export const translations: Record<Language, TranslationSchema> = {
             submit: '의견 보내기',
             success: '소중한 의견 감사합니다!',
             commitment: '사장님의 소중한 의견을 바탕으로 더 나은 도구를 만들기 위해 매일 노력하겠습니다.',
+        },
+        share: {
+            title: '이 도구가 맘에 드셨나요? 친구에게 공유해보세요!',
+            copy: '링크 복사',
+            copied: '복사됨!',
+            twitter: 'X (트위터)',
+            facebook: '페이스북',
+            whatsapp: '왓츠앱',
         }
     },
     en: {
@@ -1173,6 +1189,14 @@ export const translations: Record<Language, TranslationSchema> = {
             submit: 'Send Feedback',
             success: 'Thank you for your feedback!',
             commitment: 'We strive every day to improve our tools based on your valuable feedback.',
+        },
+        share: {
+            title: 'Love this tool? Share it with your friends!',
+            copy: 'Copy Link',
+            copied: 'Copied!',
+            twitter: 'X (Twitter)',
+            facebook: 'Facebook',
+            whatsapp: 'WhatsApp',
         }
     },
     zh: {
@@ -1607,6 +1631,14 @@ export const translations: Record<Language, TranslationSchema> = {
             submit: '发送反馈',
             success: '感谢您的反馈！',
             commitment: '我们将根据您的宝贵建议，每天努力改进我们的工具。',
+        },
+        share: {
+            title: '喜欢这个工具吗？分享给你的朋友吧！',
+            copy: '复制链接',
+            copied: '已复制！',
+            twitter: 'X (推特)',
+            facebook: '脸书',
+            whatsapp: 'WhatsApp',
         }
     }
 };
