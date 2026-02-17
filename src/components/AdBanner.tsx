@@ -52,10 +52,10 @@ export default function AdBanner({ className, slot, type = 'banner', useAdSense 
     useEffect(() => {
         setMounted(true);
         if (!db) {
-            const genericSlot = slot.includes('top-banner') ? 'top-banner' :
-                slot.includes('bottom-banner') ? 'bottom-banner' :
-                    slot.includes('left-sidebar') ? 'left-sidebar' :
-                        slot.includes('right-sidebar') ? 'right-sidebar' : slot;
+            const genericSlot = slot.includes('top') ? 'top-banner' :
+                slot.includes('bottom') ? 'bottom-banner' :
+                    slot.includes('left') ? 'left-sidebar' :
+                        slot.includes('right') ? 'right-sidebar' : slot;
 
             setAds(houseAds[slot] || houseAds[genericSlot] || []);
             return;
@@ -81,10 +81,10 @@ export default function AdBanner({ className, slot, type = 'banner', useAdSense 
                 if (cloudAds.length > 0) {
                     setAds(cloudAds);
                 } else if (!isFallback) {
-                    const genericSlot = slot.includes('top-banner') ? 'top-banner' :
-                        slot.includes('bottom-banner') ? 'bottom-banner' :
-                            slot.includes('left-sidebar') ? 'left-sidebar' :
-                                slot.includes('right-sidebar') ? 'right-sidebar' : null;
+                    const genericSlot = slot.includes('top') ? 'top-banner' :
+                        slot.includes('bottom') ? 'bottom-banner' :
+                            slot.includes('left') ? 'left-sidebar' :
+                                slot.includes('right') ? 'right-sidebar' : null;
 
                     if (genericSlot && genericSlot !== slotID) {
                         fetchAds(genericSlot, true);
@@ -92,8 +92,8 @@ export default function AdBanner({ className, slot, type = 'banner', useAdSense 
                         setAds(houseAds[slot] || houseAds[genericSlot || ''] || []);
                     }
                 } else {
-                    const genericSlot = slot.includes('top-banner') ? 'top-banner' :
-                        slot.includes('bottom-banner') ? 'bottom-banner' : slot;
+                    const genericSlot = slot.includes('top') ? 'top-banner' :
+                        slot.includes('bottom') ? 'bottom-banner' : slot;
                     setAds(houseAds[slot] || houseAds[genericSlot] || []);
                 }
             });
@@ -142,10 +142,20 @@ export default function AdBanner({ className, slot, type = 'banner', useAdSense 
                     "bg-white dark:bg-zinc-950 border-zinc-200 dark:border-zinc-800 shadow-sm group-hover:shadow-xl group-hover:border-primary/20",
                     isSkyscraper ? "h-full w-full max-w-[170px]" : "w-full max-w-[728px] min-h-[120px]"
                 )}>
-                    {/* Background Fallback (Shows if AdSense is transparent/blank) */}
-                    <div className="absolute inset-0 flex flex-col items-center justify-center opacity-30 group-hover:opacity-100 transition-opacity pointer-events-none">
-                        <span className="text-[8px] uppercase font-black tracking-[0.2em] text-zinc-400 dark:text-zinc-600 italic mb-2">Ad Space Available</span>
-                        <h4 className="text-xs font-black text-zinc-300 dark:text-zinc-700 uppercase tracking-tighter">Your Ad Here</h4>
+                    {/* House Ad as Dynamic Background Fallback */}
+                    <div className="absolute inset-0 z-0">
+                        {ads.length > 0 && ads.map((slide, index) => (
+                            <div
+                                key={slide.id || index}
+                                className={cn(
+                                    "absolute inset-0 flex flex-col items-center justify-center transition-all duration-1000 ease-in-out px-6 text-center opacity-40 grayscale group-hover:grayscale-0 group-hover:opacity-100",
+                                    index === currentIndex ? "translate-y-0" : "translate-y-4 pointer-events-none"
+                                )}
+                            >
+                                <span className="text-[7px] font-black text-primary/40 uppercase tracking-widest mb-1">Internal Ad Fallback</span>
+                                <h4 className="text-[10px] font-black text-zinc-400 dark:text-zinc-600 uppercase">{slide.title}</h4>
+                            </div>
+                        ))}
                     </div>
 
                     <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-purple-500/5 opacity-50 group-hover:opacity-100 transition-opacity" />
