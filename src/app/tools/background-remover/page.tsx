@@ -214,6 +214,7 @@ function BackgroundRemoverContent() {
         setGlobalFilter(state.globalFilter)
 
         const img = new Image()
+        img.crossOrigin = "anonymous"
         img.src = state.processedImage
         img.onload = () => {
             const mc = maskCanvasRef.current
@@ -521,7 +522,10 @@ function BackgroundRemoverContent() {
             const reader = new FileReader()
             reader.onload = (ev) => {
                 const url = ev.target?.result as string; setOriginalImage(url)
-                const img = new Image(); img.src = url; img.onload = () => originalImgRef.current = img
+                const img = new Image();
+                img.crossOrigin = "anonymous";
+                img.src = url;
+                img.onload = () => originalImgRef.current = img
                 setProcessedImage(null); setSubjectPos({ x: 0, y: 0 }); setSubjectScale(1); processImage(f)
             }
             reader.readAsDataURL(f)
@@ -553,7 +557,10 @@ function BackgroundRemoverContent() {
         const src = searchParams.get('src')
         if (src) {
             setOriginalImage(src)
-            const img = new Image(); img.src = src; img.onload = () => { originalImgRef.current = img; processImage(src) }
+            const img = new Image();
+            img.crossOrigin = "anonymous";
+            img.src = src;
+            img.onload = () => { originalImgRef.current = img; processImage(src) }
         }
     }, [searchParams])
 
@@ -633,8 +640,14 @@ function BackgroundRemoverContent() {
                                             if (tmp.bgType === 'gradient') setBgGradient(tmp.bgGradient!);
                                             if (tmp.bgType === 'image') {
                                                 setCustomBgImage(tmp.bgImage!);
-                                                const img = new Image(); img.src = tmp.bgImage!;
-                                                img.onload = () => { customBgImgRef.current = img; setBgLoadCount(prev => prev + 1); };
+                                                const img = new Image();
+                                                img.crossOrigin = "anonymous";
+                                                img.src = tmp.bgImage!;
+                                                img.onload = () => {
+                                                    customBgImgRef.current = img;
+                                                    setBgLoadCount(prev => prev + 1);
+                                                    renderStudio();
+                                                };
                                             }
                                             if (tmp.text) {
                                                 const nt: TextLayer = { id: Math.random().toString(36).substr(2, 9), text: tmp.text, x: tmp.aspectRatio === 'vertical' ? 150 : 350, y: 300, fontSize: 80, color: '#ffffff', strokeColor: '#000000', strokeWidth: 8, fontWeight: 'black' };
