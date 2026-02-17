@@ -86,15 +86,15 @@
     *   `checkpoint-creative-studio-v5`: Full text and filter engine integrated.
     *   `checkpoint-studio-lighting-matched`: Smart subject-only filters for professional compositing.
     *   `backup-file`: `page.tsx.bak_20260217_1425` (작업 전 원본 보관 중)
-### [ v6 ] 2026-02-17 16:35 (글로벌 크리에이티브 스튜디오 & 반응성 완성 버전)
-*   **내용:** 다국어 번역 무결점 처리 및 배경 이미지 로딩 반응성 100% 개선
+### [ v6 ] 2026-02-17 17:35 (글로벌 크리에이티브 스튜디오 & 기능 완전 복구 버전)
+*   **내용:** [AI 배경 제거] 도구의 모든 프리미엄 기능 복구 및 다국어 완벽 통합
 *   **주요 특징:** 
-    *   **다국어 통합 시스템**: 필터 이름(Original, B&W 등) 및 세부 도구 이름까지 한국어, 영어, 중국어로 완벽 지원 (`translations.ts`).
-    *   **제로 랙(Zero-Lag) 렌더링**: 배경 업로드 및 프리셋 선택 시 클릭 즉시 캔버스에 반영되도록 이미지 로딩 감지 시스템 구축.
-    *   **인터페이스 구조화**: 왼쪽(기초 설정+ID), 오른쪽(창의적 보정+텍스트)으로 도구를 재배치하여 전문적인 작업 동선 확보.
-    *   **스마트 삭제 시스템**: 이미지 전체 삭제 기능을 추가하고 사용자 실수를 방지하는 확인(Confirm) 다이얼로그 연동.
+    *   **기능 완전 복구**: 오른쪽 사이드바의 세부 보정(대비, 채도), 필터(Warm, Cool, Vintage), 스티커 효과 및 텍스트 편집기 완벽 복원.
+    *   **일괄 처리(Batch) 안정화**: 대량 이미지 처리 시 발생하던 번역 키 오류를 수정하고 실시간 상태 추적 UI 최적화.
+    *   **다국어 통합 시스템**: 한국어, 영어, 중국어 모든 UI 레이블 및 안내 문구 동기화 완료 (`translations.ts`).
+    *   **가이드 시스템 개선**: ID 증명사진 모드에서 '가이드 표시' 레이블을 더 직관적으로 수정하고 다국어 지원.
 *   **기록 태그:**
-    *   `checkpoint-global-studio-v6`: Complete translation and responsive rendering fix.
+    *   `checkpoint-global-studio-v6-final`: Absolute final version with all features restored and polished.
     *   `backup-file`: `page.tsx.v5_final`, `translations.ts.v5_final` 저장 완료.
 
 ---
