@@ -33,6 +33,28 @@ export const metadata: Metadata = {
       { url: '/logo.svg', sizes: '180x180', type: 'image/svg+xml' },
     ],
   },
+  openGraph: {
+    title: 'UltraUtils - Free Pro Tools for Creators',
+    description: 'Pro-grade YouTube Thumbnail Grabber, AI Background Remover, Image Compressor, and more. Free, fast, and no registration required.',
+    url: 'https://ultra-utils.com',
+    siteName: 'UltraUtils',
+    images: [
+      {
+        url: 'https://ultra-utils.com/og-image.png', // Replace with actual OG image if available
+        width: 1200,
+        height: 630,
+        alt: 'UltraUtils - Digital Superpowers for Creators',
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'UltraUtils - Digital Superpowers for Creators',
+    description: '100% Free, privacy-focused online tools for modern creators. No registration required.',
+    images: ['https://ultra-utils.com/og-image.png'],
+  },
   other: {
     'google-adsense-account': 'ca-pub-1373852776233080',
     'google-site-verification': 'TRvpShMEIm9PHhPgGSTrxxR8FO4ESg6FIsbW5poRq7I',
@@ -52,6 +74,42 @@ export default function RootLayout({
           <GoogleAnalytics GA_MEASUREMENT_ID={process.env.NEXT_PUBLIC_GA_ID || ''} />
           <RealtimeTracker />
         </Suspense>
+        <Script
+          id="json-ld-website"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              "name": "UltraUtils",
+              "url": "https://ultra-utils.com",
+              "description": "Premium, free, and privacy-focused digital tools for creators.",
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://ultra-utils.com/search?q={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            })
+          }}
+        />
+        <Script
+          id="json-ld-app"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "SoftwareApplication",
+              "name": "UltraUtils AI Background Remover",
+              "operatingSystem": "Any",
+              "applicationCategory": "DesignApplication",
+              "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "USD"
+              }
+            })
+          }}
+        />
         <Script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1373852776233080"

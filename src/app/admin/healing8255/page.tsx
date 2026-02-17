@@ -57,6 +57,11 @@ export default function AdminPage() {
     const [mounted, setMounted] = useState(false);
     const [syncing, setSyncing] = useState(false);
 
+    // Auth State
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
+
     // Real Traffic Data State
     const [liveTraffic, setLiveTraffic] = useState({
         current: 0,
@@ -65,6 +70,22 @@ export default function AdminPage() {
         revenue: 0,
         referrers: {} as Record<string, number>
     });
+
+    useEffect(() => {
+        const auth = sessionStorage.getItem('admin_auth');
+        if (auth === 'true') setIsAuthenticated(true);
+    }, []);
+
+    const handleLogin = (e: React.FormEvent) => {
+        e.preventDefault();
+        // Secret password known only to the boss
+        if (password === 'healing8255!!') {
+            setIsAuthenticated(true);
+            sessionStorage.setItem('admin_auth', 'true');
+        } else {
+            setError('비밀번호가 틀렸습니다.');
+        }
+    };
 
     const [inquiries, setInquiries] = useState<any[]>([]);
     const [viewingInquiry, setViewingInquiry] = useState<any>(null);
@@ -236,6 +257,42 @@ export default function AdminPage() {
     };
 
     if (!mounted) return null;
+
+    if (!isAuthenticated) {
+        return (
+            <div className="min-h-screen flex items-center justify-center bg-zinc-50 dark:bg-zinc-950 p-4">
+                <div className="w-full max-w-md glass-card p-10 rounded-[3rem] border border-zinc-100 dark:border-zinc-800 space-y-8 animate-in fade-in zoom-in-95 duration-500 shadow-2xl">
+                    <div className="text-center space-y-2">
+                        <div className="w-16 h-16 bg-primary/10 rounded-3xl flex items-center justify-center mx-auto text-primary mb-4">
+                            <Zap className="w-8 h-8" />
+                        </div>
+                        <h1 className="text-2xl font-black tracking-tight">Management Access</h1>
+                        <p className="text-sm text-muted-foreground font-medium">Please enter the security passcode to continue.</p>
+                    </div>
+
+                    <form onSubmit={handleLogin} className="space-y-4">
+                        <div className="space-y-2">
+                            <input
+                                type="password"
+                                placeholder="Security Passcode"
+                                className="w-full h-14 px-6 rounded-2xl bg-zinc-100 dark:bg-zinc-800 border-none focus:ring-2 focus:ring-primary/50 transition-all outline-none font-bold"
+                                value={password}
+                                onChange={(e) => { setPassword(e.target.value); setError(''); }}
+                                autoFocus
+                            />
+                            {error && <p className="text-xs text-red-500 font-bold pl-2">{error}</p>}
+                        </div>
+                        <button
+                            type="submit"
+                            className="w-full h-14 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 font-black rounded-2xl hover:scale-[1.02] active:scale-95 transition-all shadow-xl shadow-zinc-900/10"
+                        >
+                            Log In
+                        </button>
+                    </form>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="max-w-6xl mx-auto py-12 px-4 space-y-12 min-h-screen">

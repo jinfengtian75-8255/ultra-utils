@@ -260,6 +260,18 @@ export interface TranslationSchema {
         slotBottom: string;
         faq: { q: string; a: string }[];
     },
+    houseAds: {
+        bgRemoverTitle: string;
+        bgRemoverDesc: string;
+        ytGrabTitle: string;
+        ytGrabDesc: string;
+        imageCompTitle: string;
+        imageCompDesc: string;
+        pdfMasterTitle: string;
+        pdfMasterDesc: string;
+        coffeeTitle: string;
+        coffeeDesc: string;
+    },
     footer: {
         tools: string;
         resources: string;
@@ -753,6 +765,18 @@ export const translations: Record<Language, TranslationSchema> = {
                 { q: '예약은 얼마나 미리 해야 하나요?', a: '인기 있는 상단 슬롯은 미리 마감될 수 있습니다. 희망하시는 날짜의 최소 1~2주 전에는 문의 주시는 것을 권장합니다.' },
                 { q: '결제는 어떤 방식으로 진행되나요?', a: '현재는 계좌이체 및 후원 플랫폼을 통한 결제를 지원하고 있습니다. 구체적인 처리 절차와 결제 정보는 문의 시 상담을 통해 안내해 드립니다.' }
             ]
+        },
+        houseAds: {
+            bgRemoverTitle: '전문가급 배경 제거',
+            bgRemoverDesc: 'AI로 3초 만에 완벽한 누끼 따기. 지금 바로 경험해 보세요.',
+            ytGrabTitle: '유튜브 썸네일 마스터',
+            ytGrabDesc: '고화질 썸네일을 즉시 추출하세요. 크리에이터 필수 도구!',
+            imageCompTitle: '화질 저하 없는 이미지 압축',
+            imageCompDesc: '용량은 줄이고 화질은 지키세요. SEO 최적화의 첫 걸음.',
+            pdfMasterTitle: 'PDF 편집의 끝판왕',
+            pdfMasterDesc: '합치기, 나누기, 이미지 변환까지 한 곳에서 해결하세요.',
+            coffeeTitle: '안티에게 커피 한 잔?',
+            coffeeDesc: '여러분의 작은 후원이 UltraUtils를 무료로 유지하는 힘이 됩니다.'
         },
         footer: {
             tools: '주요 도구',
@@ -1304,6 +1328,18 @@ export const translations: Record<Language, TranslationSchema> = {
                 { q: 'What are the payment options?', a: 'We currently support wire transfers and dedicated payment platforms. Specific payment details and procedures will be provided individually upon inquiry.' }
             ]
         },
+        houseAds: {
+            bgRemoverTitle: 'Pro AI Background Remover',
+            bgRemoverDesc: 'Perfect cutouts in 3 seconds with AI. Try it now for free.',
+            ytGrabTitle: 'YouTube Thumbnail Master',
+            ytGrabDesc: 'Extract high-res thumbnails instantly. Essential for creators!',
+            imageCompTitle: 'Lossless Image Compression',
+            imageCompDesc: 'Reduce file size, keep the quality. Perfect for SEO boost.',
+            pdfMasterTitle: 'Ultimate PDF Master',
+            pdfMasterDesc: 'Merge, split, and convert PDFs to images in one place.',
+            coffeeTitle: 'Buy Us a Coffee?',
+            coffeeDesc: 'Your support keeps UltraUtils free and fast for everyone! ☕️'
+        },
         footer: {
             tools: 'Popular Tools',
             resources: 'Resources',
@@ -1840,6 +1876,18 @@ export const translations: Record<Language, TranslationSchema> = {
                 { q: '需要提前多久预订？', a: '热门位置可能会提前订满。建议您至少提前 1-2 周联系。' },
                 { q: '有哪些支付方式？', a: '目前支持银行转账及相关支付平台。具体的支付流程和细节将在咨询时详细说明。' }
             ]
+        },
+        houseAds: {
+            bgRemoverTitle: '专业 AI 背景移除',
+            bgRemoverDesc: 'AI 3秒完成完美抠图。立即免费体验。',
+            ytGrabTitle: 'YouTube 封面大师',
+            ytGrabDesc: '立即提取高画质封面。创作者必备工具！',
+            imageCompTitle: '无损图片压缩',
+            imageCompDesc: '缩小体积，保持画质。SEO优化的首选。',
+            pdfMasterTitle: '终极 PDF 大师',
+            pdfMasterDesc: '一站式完成 PDF 合并、拆分和图片转换。',
+            coffeeTitle: '请我们喝杯咖啡？',
+            coffeeDesc: '您的支持是 UltraUtils 保持免费和快速的动力！☕️'
         },
         footer: {
             tools: '热门工具',

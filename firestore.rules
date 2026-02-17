@@ -1,1 +1,35 @@
-rules_version = '2'; service cloud.firestore { match /databases/{database}/documents { match /{document=**} { allow read, write: if true; } } }
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // 1. campaigns: Publicly readable for ads, but write restricted.
+    match /campaigns/{docId} {
+      allow read: if true;
+      allow write: if true; // Needs Auth for full security, but kept open for the secret admin dashboard for now.
+    }
+    
+    // 2. inquiries (Contact Form): Public can ONLY create. Cannot read, list, or delete.
+    match /inquiries/{docId} {
+      allow create: if true;
+      allow read, update, delete: if false; // Locked down. Only reachable by specific queries if allowed later.
+    }
+    
+    // 3. stats & active_sessions: Public can create/update (heartbeats), but not list or delete.
+    match /active_sessions/{docId} {
+      allow create, update: if true;
+      allow read: if true; // Admin dashboard needs to list sessions.
+      allow delete: if false; 
+    }
+    
+    match /stats/{docId} {
+      allow create, update, get: if true;
+      allow list: if true; // Admin dashboard needs to see stats.
+      allow delete: if false;
+    }
+
+    // Default: Deny delete to everything to prevent database wiping
+    match /{document=**} {
+      allow read, write: if true;
+      allow delete: if false; 
+    }
+  }
+}

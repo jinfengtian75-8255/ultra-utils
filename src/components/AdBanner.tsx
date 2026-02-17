@@ -5,6 +5,7 @@ import { cn } from '@/lib/utils';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { db } from '@/lib/firebase';
 import { collection, query, where, onSnapshot } from 'firebase/firestore';
+import { useLanguage } from '@/context/language-context';
 
 interface AdSlide {
     id: string;
@@ -21,41 +22,42 @@ interface AdBannerProps {
     useAdSense?: boolean;
 }
 
-const MOCK_ADS: Record<string, AdSlide[]> = {
-    'top-banner': [
-        { id: '1', title: 'UltraUtils Premium AI', description: 'Experience the fastest AI Background Remover for free.', link: '/tools/background-remover' },
-    ],
-    'left-sidebar': [
-        { id: 's1', title: 'High-Speed Encoding', description: 'Compress images up to 90% without losing quality.', link: '/tools/image-compressor' },
-    ],
-    'right-sidebar': [
-        { id: 'r1', title: 'YouTube Growth Pack', description: 'Download high-res thumbnails instantly.', link: '/tools/youtube-thumbnail' },
-    ],
-    'bottom-banner': [
-        { id: 'b1', title: 'Coffee for the Dev?', description: 'Your support keeps this tool free for everyone! ☕️', link: 'https://www.buymeacoffee.com/jinfengtian75' },
-    ],
-    'home-mid-banner': [
-        { id: 'h1', title: 'Join our Community', description: 'Share your creations and get pro tips.', link: '/' },
-    ]
-};
-
 const ADSENSE_CLIENT = "ca-pub-1373852776233080";
 
 export default function AdBanner({ className, slot, type = 'banner', useAdSense = false }: AdBannerProps) {
+    const { t } = useLanguage();
     const [ads, setAds] = useState<any[]>([]);
     const [mounted, setMounted] = useState(false);
     const [currentIndex, setCurrentIndex] = useState(0);
 
+    const houseAds: Record<string, AdSlide[]> = {
+        'top-banner': [
+            { id: 'h_bg', title: t.houseAds.bgRemoverTitle, description: t.houseAds.bgRemoverDesc, link: '/tools/background-remover' },
+            { id: 'h_pdf', title: t.houseAds.pdfMasterTitle, description: t.houseAds.pdfMasterDesc, link: '/tools/pdf-master' },
+        ],
+        'left-sidebar': [
+            { id: 'h_comp', title: t.houseAds.imageCompTitle, description: t.houseAds.imageCompDesc, link: '/tools/image-compressor' },
+        ],
+        'right-sidebar': [
+            { id: 'h_yt', title: t.houseAds.ytGrabTitle, description: t.houseAds.ytGrabDesc, link: '/tools/youtube-thumbnail' },
+        ],
+        'bottom-banner': [
+            { id: 'h_coffee', title: t.houseAds.coffeeTitle, description: t.houseAds.coffeeDesc, link: 'https://www.buymeacoffee.com/jinfengtian75' },
+        ],
+        'home-mid-banner': [
+            { id: 'h_all', title: t.houseAds.bgRemoverTitle, description: t.houseAds.bgRemoverDesc, link: '/tools/background-remover' },
+        ]
+    };
+
     useEffect(() => {
         setMounted(true);
         if (!db) {
-            // Updated Fallback logic for MOCK_ADS
             const genericSlot = slot.includes('top-banner') ? 'top-banner' :
                 slot.includes('bottom-banner') ? 'bottom-banner' :
                     slot.includes('left-sidebar') ? 'left-sidebar' :
                         slot.includes('right-sidebar') ? 'right-sidebar' : slot;
 
-            setAds(MOCK_ADS[slot] || MOCK_ADS[genericSlot] || []);
+            setAds(houseAds[slot] || houseAds[genericSlot] || []);
             return;
         }
 
@@ -79,7 +81,6 @@ export default function AdBanner({ className, slot, type = 'banner', useAdSense 
                 if (cloudAds.length > 0) {
                     setAds(cloudAds);
                 } else if (!isFallback) {
-                    // If no ads for specific slot, try generic slot once
                     const genericSlot = slot.includes('top-banner') ? 'top-banner' :
                         slot.includes('bottom-banner') ? 'bottom-banner' :
                             slot.includes('left-sidebar') ? 'left-sidebar' :
@@ -88,19 +89,19 @@ export default function AdBanner({ className, slot, type = 'banner', useAdSense 
                     if (genericSlot && genericSlot !== slotID) {
                         fetchAds(genericSlot, true);
                     } else {
-                        setAds(MOCK_ADS[slot] || MOCK_ADS[genericSlot || ''] || []);
+                        setAds(houseAds[slot] || houseAds[genericSlot || ''] || []);
                     }
                 } else {
                     const genericSlot = slot.includes('top-banner') ? 'top-banner' :
                         slot.includes('bottom-banner') ? 'bottom-banner' : slot;
-                    setAds(MOCK_ADS[slot] || MOCK_ADS[genericSlot] || []);
+                    setAds(houseAds[slot] || houseAds[genericSlot] || []);
                 }
             });
         };
 
         const unsubscribe = fetchAds(slot);
         return () => unsubscribe();
-    }, [slot]);
+    }, [slot, t]); // Add t to dependency to update when language changes
 
     useEffect(() => {
         if (ads.length <= 1 || useAdSense) return;
@@ -143,8 +144,8 @@ export default function AdBanner({ className, slot, type = 'banner', useAdSense 
                 )}>
                     {/* Background Fallback (Shows if AdSense is transparent/blank) */}
                     <div className="absolute inset-0 flex flex-col items-center justify-center opacity-30 group-hover:opacity-100 transition-opacity pointer-events-none">
-                        <span className="text-[8px] uppercase font-black tracking-[0.2em] text-zinc-400 dark:text-zinc-600 italic mb-2">Internal Campaign</span>
-                        <h4 className="text-xs font-black text-zinc-300 dark:text-zinc-700 uppercase tracking-tighter">UltraUtils Premium Space</h4>
+                        <span className="text-[8px] uppercase font-black tracking-[0.2em] text-zinc-400 dark:text-zinc-600 italic mb-2">Ad Space Available</span>
+                        <h4 className="text-xs font-black text-zinc-300 dark:text-zinc-700 uppercase tracking-tighter">Your Ad Here</h4>
                     </div>
 
                     <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-purple-500/5 opacity-50 group-hover:opacity-100 transition-opacity" />
@@ -196,7 +197,7 @@ export default function AdBanner({ className, slot, type = 'banner', useAdSense 
                             >
                                 <div className="flex items-center gap-2 mb-3">
                                     <span className="text-[8px] uppercase tracking-[0.3em] font-black text-zinc-400 dark:text-zinc-600 italic">OFFICIAL</span>
-                                    <span className="text-[9px] uppercase tracking-[0.2em] text-primary font-black px-2 py-0.5 bg-primary/10 rounded-full border border-primary/20">PREMIUM FEATURE</span>
+                                    <span className="text-[9px] uppercase tracking-[0.2em] text-primary font-black px-2 py-0.5 bg-primary/10 rounded-full border border-primary/20">HOUSE AD</span>
                                 </div>
 
                                 <h3 className={cn("font-black text-zinc-900 dark:text-zinc-100 tracking-tight leading-tight", isSkyscraper ? "text-base mb-2" : "text-xl mb-1")}>
