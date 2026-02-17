@@ -689,7 +689,10 @@ function BackgroundRemoverContent() {
                         {isProcessing && !isBatchMode ? (
                             <div className="flex flex-col items-center space-y-4">
                                 <div className="w-20 h-20 rounded-full border-4 border-primary border-t-transparent animate-spin" />
-                                <p className="font-black text-xl">{progress}%</p>
+                                <div className="text-center">
+                                    <p className="font-black text-xl">{progress}%</p>
+                                    <p className="text-[10px] font-black uppercase tracking-widest text-primary mt-1">{currentStep || 'Processing...'}</p>
+                                </div>
                             </div>
                         ) : isBatchMode ? (
                             <div className="w-full max-w-2xl p-6 space-y-6 animate-in fade-in zoom-in-95">
