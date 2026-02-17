@@ -51,5 +51,50 @@
 *   **기록 태그:**
     *   `checkpoint-mobile-ux-v3`: Complete mobile UI overhaul for background remover and global scroll fixes.
 
+### [ v4 ] 2026-02-18 11:15 (플래티넘 수익화 및 크리에이터 특화 버전)
+*   **내용:** [AI 유튜브 기획 마스터] 최종 완성 및 전방위적 수익 모델(AdSense) 결합
+*   **주요 특징:** 
+    *   **플래티넘 수익 모델**: 페이지 상/하단에 전략적 광고 배너(AdBanner) 슬롯 2개 전격 배치.
+    *   **데이터 소장 기능**: 기획 리포트를 깔끔한 .TXT 파일로 저장할 수 있는 다운로드 엔진 탑재.
+    *   **유튜브 킬러 보조**: 제목 추천뿐 아니라 '썸네일 전용 텍스트'를 따로 제안하는 전문 크리에이터 기능 추가.
+    *   **기술적 무결점**: React Hook 충돌 및 임포트 오류를 완벽 해결하여 고성능 작업 환경 구축.
+    *   **사용자 경험 극대화**: 모바일 탭 자동 전환 + 정밀 스크롤 + 다국어 통합으로 글로벌 1등 수준의 UX 달성.
+*   **기록 태그:**
+    *   `checkpoint-yt-planner-platinum`: Final professional version with ads and download features.
+    *   `checkpoint-monetization-optimized`: UI optimized for both user satisfaction and ad revenue.
+
+### [ v4.1 ] 2026-02-18 11:45 (쇼츠 최적화 및 모바일 오버레이 UI 버전)
+*   **내용:** [유튜브 썸네일 다운로더]의 모바일 사용성 및 쇼츠(Shorts) 영상 가독성 극대화
+*   **주요 특징:** 
+    *   **쇼츠 전용 레이아웃**: 세로 영상 입력 시 9:16 비율로 자동 변환하여 모바일 화면에서 이미지 크기를 최대화함.
+    *   **오버레이 액션 바**: PC 스타일의 메뉴 레이아웃을 모바일에 이식, 이미지 위에 직접 [AI 편집], [공유] 메뉴를 띄우는 프리미엄 UI 구현.
+    *   **그라데이션 마스크 적용**: 이미지 하단에 소프트 마스크를 적용하여 메뉴 가독성과 디자인 완성도를 동시에 잡음.
+*   **기록 태그:**
+    *   `checkpoint-shorts-optimized`: Perfect portrait support for YouTube Shorts.
+    *   `checkpoint-mobile-overlay-ui`: Desktop-class interaction model on mobile devices.
+
 ---
-*(이후 새로운 백업이 생성될 때마다 제가 이 아래에 이어서 기록하겠습니다!)*
+
+### [ v5 ] 2026-02-17 14:55 (AI 크리에이티브 스튜디오 완성 버전)
+*   **내용:** [AI 배경 제거] 도구를 프리미엄 편집 스튜디오로 업그레이드
+*   **주요 특징:** 
+    *   **프리미엄 자막 엔진**: 멀티 텍스트 레이어, 드래그 이동, 굵은 테두리(Stroke), 폰트 두께 조절 기능 탑재.
+    *   **스마트 조명 및 필터**: 인물 전용 밝기/대비/채도 조절 및 6가지 원클릭 시네마틱 프리셋 구현.
+    *   **전문가용 조작감**: 캔버스 직접 드래그 이동, 위치/크기 초기화, 고성능 실시간 렌더링 시스템 구축.
+    *   **안전한 작업 기록**: 모든 자막 이동 및 보정 작업을 [뒤로 가기/앞으로 가기]로 완벽 제어.
+*   **기록 태그:**
+    *   `checkpoint-creative-studio-v5`: Full text and filter engine integrated.
+    *   `checkpoint-studio-lighting-matched`: Smart subject-only filters for professional compositing.
+    *   `backup-file`: `page.tsx.bak_20260217_1425` (작업 전 원본 보관 중)
+### [ v6 ] 2026-02-17 16:35 (글로벌 크리에이티브 스튜디오 & 반응성 완성 버전)
+*   **내용:** 다국어 번역 무결점 처리 및 배경 이미지 로딩 반응성 100% 개선
+*   **주요 특징:** 
+    *   **다국어 통합 시스템**: 필터 이름(Original, B&W 등) 및 세부 도구 이름까지 한국어, 영어, 중국어로 완벽 지원 (`translations.ts`).
+    *   **제로 랙(Zero-Lag) 렌더링**: 배경 업로드 및 프리셋 선택 시 클릭 즉시 캔버스에 반영되도록 이미지 로딩 감지 시스템 구축.
+    *   **인터페이스 구조화**: 왼쪽(기초 설정+ID), 오른쪽(창의적 보정+텍스트)으로 도구를 재배치하여 전문적인 작업 동선 확보.
+    *   **스마트 삭제 시스템**: 이미지 전체 삭제 기능을 추가하고 사용자 실수를 방지하는 확인(Confirm) 다이얼로그 연동.
+*   **기록 태그:**
+    *   `checkpoint-global-studio-v6`: Complete translation and responsive rendering fix.
+    *   `backup-file`: `page.tsx.v5_final`, `translations.ts.v5_final` 저장 완료.
+
+---

@@ -171,22 +171,11 @@ export interface TranslationSchema {
         redo: string;
         reset: string;
         zoom: string;
-        showGuide: string;
         idPhoto: string;
         passport: string;
         usVisa: string;
         idCard: string;
         bgLibrary: string;
-        designTemplates: string;
-        templateInsta: string;
-        templateYoutube: string;
-        templateProduct: string;
-        batchMode: string;
-        batchProcessing: string;
-        batchUploadMore: string;
-        batchStart: string;
-        batchRemaining: string;
-        batchComplete: string;
         uploadCustomBg: string;
         addText: string;
         deleteText: string;
@@ -636,22 +625,11 @@ export const translations: Record<Language, TranslationSchema> = {
             redo: '실수 복구',
             reset: '초기화',
             zoom: '확대/축소',
-            showGuide: '가이드 표시',
             idPhoto: 'ID 증명사진 마스터',
             passport: '여권 사진 (3.5x4.5cm)',
             usVisa: '미국 비자 (2x2인치)',
             idCard: '반명함/증명 (3x4cm)',
             bgLibrary: 'AI 배경 라이브러리',
-            designTemplates: '디자인 템플릿',
-            templateInsta: '인스타 스토리 (Story)',
-            templateYoutube: '유튜브 썸네일 (Thumbnail)',
-            templateProduct: '홍보용/쇼핑몰 (Product)',
-            batchMode: '대량 모드',
-            batchProcessing: '실시간 대량 처리',
-            batchUploadMore: '이미지 추가',
-            batchStart: '전체 처리 시작',
-            batchRemaining: '남은 항목',
-            batchComplete: '처리 완료!',
             uploadCustomBg: '커스텀 배경 업로드',
             addText: '텍스트 추가',
             deleteText: '삭제',
@@ -1186,22 +1164,11 @@ export const translations: Record<Language, TranslationSchema> = {
             redo: 'Redo',
             reset: 'Reset',
             zoom: 'Zoom',
-            showGuide: 'Show Guide',
             idPhoto: 'ID Photo Master',
             passport: 'Passport (3.5x4.5cm)',
             usVisa: 'US Visa (2x2in)',
             idCard: 'ID Card (3x4cm)',
             bgLibrary: 'AI Background Library',
-            designTemplates: 'Design Templates',
-            templateInsta: 'Instagram Story',
-            templateYoutube: 'YouTube Thumbnail',
-            templateProduct: 'Product Display',
-            batchMode: 'Batch Mode',
-            batchProcessing: 'Real-time Batch Processing',
-            batchUploadMore: 'Add More Images',
-            batchStart: 'Start Processing All',
-            batchRemaining: 'Remaining',
-            batchComplete: 'Processing Complete!',
             uploadCustomBg: 'Upload Custom BG',
             addText: 'Add Text',
             deleteText: 'Delete',
@@ -1723,22 +1690,11 @@ export const translations: Record<Language, TranslationSchema> = {
             redo: '重做',
             reset: '重置',
             zoom: '缩放',
-            showGuide: '显示指南',
-            idPhoto: '证件照大师',
+            idPhoto: 'ID 证件照大师',
             passport: '护照照片 (3.5x4.5cm)',
             usVisa: '美国签证 (2x2英寸)',
             idCard: '身份证/证件 (3x4cm)',
-            bgLibrary: 'AI 배경 라이브러리',
-            designTemplates: '设计模板',
-            templateInsta: '影集快拍 (Story)',
-            templateYoutube: 'YouTube 缩略图',
-            templateProduct: '宣传用/产品 (Product)',
-            batchMode: '大批量模式',
-            batchProcessing: '实时批量处理',
-            batchUploadMore: '添加更多图片',
-            batchStart: '开始处理全部',
-            batchRemaining: '剩余项目',
-            batchComplete: '处理完成！',
+            bgLibrary: 'AI 背景库',
             uploadCustomBg: '上传自定义背景',
             addText: '添加文本',
             deleteText: '删除',

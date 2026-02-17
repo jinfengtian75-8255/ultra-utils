@@ -10,6 +10,14 @@ export default function Home() {
 
   const tools = [
     {
+      title: t.navbar.ytPlanner,
+      description: t.ytPlanner.desc,
+      href: "/tools/youtube-planner",
+      icon: Wand2,
+      gradient: "from-amber-400 to-rose-500",
+      delay: "delay-100"
+    },
+    {
       title: t.navbar.ytGrab,
       description: t.ytGrab.desc,
       href: "/tools/youtube-thumbnail",

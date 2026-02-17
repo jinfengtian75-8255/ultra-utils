@@ -9,6 +9,7 @@ export function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
 
     const navLinks = [
+        { href: '/tools/youtube-planner', label: t.navbar.ytPlanner },
         { href: '/tools/youtube-thumbnail', label: t.navbar.ytGrab },
         { href: '/tools/qr-generator', label: t.navbar.qrGen },
         { href: '/tools/image-compressor', label: t.navbar.imageSuite },
