@@ -53,7 +53,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'UltraUtils - Digital Superpowers for Creators',
     description: '100% Free, privacy-focused online tools for modern creators. No registration required.',
-    images: ['https://ultra-utils.com/og-image.png'],
+    images: ['https://ultra-utils.com/logo.svg'],
   },
   other: {
     'google-adsense-account': 'ca-pub-1373852776233080',

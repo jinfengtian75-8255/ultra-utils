@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Sparkles, Layout } from 'lucide-react';
 import { db } from '@/lib/firebase';
 import { collection, query, where, onSnapshot } from 'firebase/firestore';
 import { useLanguage } from '@/context/language-context';
@@ -47,6 +47,15 @@ export default function AdBanner({ className, slot, type = 'banner', useAdSense 
         'home-mid-banner': [
             { id: 'h_all', title: t.houseAds.bgRemoverTitle, description: t.houseAds.bgRemoverDesc, link: '/tools/background-remover' },
         ]
+    };
+
+    const adVisuals: Record<string, { gradient: string, icon: any }> = {
+        'h_bg': { gradient: 'from-blue-600 to-indigo-600', icon: Sparkles },
+        'h_pdf': { gradient: 'from-orange-500 to-red-600', icon: ChevronRight },
+        'h_comp': { gradient: 'from-emerald-500 to-teal-600', icon: ChevronRight },
+        'h_yt': { gradient: 'from-red-600 to-rose-700', icon: Layout },
+        'h_coffee': { gradient: 'from-yellow-400 to-orange-500', icon: ChevronRight },
+        'h_all': { gradient: 'from-purple-600 to-pink-600', icon: Sparkles }
     };
 
     useEffect(() => {
@@ -210,23 +219,38 @@ export default function AdBanner({ className, slot, type = 'banner', useAdSense 
                                     <span className="text-[9px] uppercase tracking-[0.2em] text-primary font-black px-2 py-0.5 bg-primary/10 rounded-full border border-primary/20">HOUSE AD</span>
                                 </div>
 
-                                <h3 className={cn("font-black text-zinc-900 dark:text-zinc-100 tracking-tight leading-tight", isSkyscraper ? "text-base mb-2" : "text-xl mb-1")}>
-                                    {slide.title}
-                                </h3>
-                                <p className={cn("text-zinc-500 dark:text-zinc-400 leading-tight font-medium max-w-sm mx-auto", isSkyscraper ? "text-xs px-2" : "text-sm")}>
-                                    {slide.description}
-                                </p>
+                                <div className="flex flex-col md:flex-row items-center gap-6 w-full">
+                                    {/* Visual Icon Box (Simulating an image ad) */}
+                                    <div className={cn(
+                                        "w-20 h-20 md:w-24 md:h-24 rounded-3xl shrink-0 flex items-center justify-center shadow-2xl relative overflow-hidden group-hover:scale-110 transition-transform duration-500",
+                                        "bg-gradient-to-br shadow-inner border border-white/20",
+                                        adVisuals[slide.id]?.gradient || 'from-zinc-100 to-zinc-200 dark:from-zinc-800 dark:to-zinc-900'
+                                    )}>
+                                        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(255,255,255,0.4),transparent)]" />
+                                        {/* @ts-ignore */}
+                                        {(() => { const Icon = adVisuals[slide.id]?.icon || Sparkles; return <Icon className="w-10 h-10 text-white drop-shadow-lg" />; })()}
+                                    </div>
 
-                                {slide.link && (
-                                    <a
-                                        href={slide.link}
-                                        target={slide.link.startsWith('http') ? "_blank" : "_self"}
-                                        rel="noopener noreferrer"
-                                        className="mt-4 px-6 py-2 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 rounded-full text-xs font-black hover:scale-105 transition-all shadow-lg shadow-zinc-200 dark:shadow-none"
-                                    >
-                                        Try Now
-                                    </a>
-                                )}
+                                    <div className={cn("flex flex-col", isSkyscraper ? "items-center" : "items-start text-left")}>
+                                        <h3 className={cn("font-black text-zinc-900 dark:text-zinc-100 tracking-tight leading-tight", isSkyscraper ? "text-base mb-2" : "text-2xl mb-1")}>
+                                            {slide.title}
+                                        </h3>
+                                        <p className={cn("text-zinc-500 dark:text-zinc-400 leading-tight font-medium max-w-sm", isSkyscraper ? "text-xs px-2 text-center" : "text-sm")}>
+                                            {slide.description}
+                                        </p>
+
+                                        {slide.link && (
+                                            <a
+                                                href={slide.link}
+                                                target={slide.link.startsWith('http') ? "_blank" : "_self"}
+                                                rel="noopener noreferrer"
+                                                className="mt-4 px-8 py-2.5 bg-zinc-950 dark:bg-white text-white dark:text-zinc-900 rounded-full text-xs font-black hover:scale-105 transition-all shadow-xl hover:shadow-primary/20"
+                                            >
+                                                Try Now
+                                            </a>
+                                        )}
+                                    </div>
+                                </div>
                             </div>
                         ))
                     ) : (
