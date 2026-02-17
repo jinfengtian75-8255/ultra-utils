@@ -6,6 +6,7 @@ import { Upload, Download, Loader2, Image as ImageIcon, Check, RefreshCw, Layers
 import { cn } from '@/lib/utils'
 import { useLanguage } from '@/context/language-context'
 import { removeBackground } from '@imgly/background-removal'
+import imageCompression from 'browser-image-compression'
 import AdBanner from '@/components/AdBanner'
 
 // --- Interfaces ---
@@ -247,19 +248,36 @@ function BackgroundRemoverContent() {
     const processImage = async (file: File | string) => {
         setIsProcessing(true)
         setProgress(0)
-        setCurrentStep('model')
+        setCurrentStep('init')
         try {
-            const blob = await removeBackground(file, {
+            let input: File | string = file;
+
+            // Pre-process high-res images to speed up AI inference
+            if (file instanceof File && file.size > 2 * 1024 * 1024) {
+                setCurrentStep('optimizing')
+                input = await imageCompression(file, {
+                    maxWidthOrHeight: 2000,
+                    useWebWorker: true,
+                    initialQuality: 0.9
+                });
+            }
+
+            const blob = await removeBackground(input, {
                 progress: (item, current, total) => {
-                    setCurrentStep(item)
+                    const stepName = item.includes('model') ? 'AI 가동 중...' :
+                        item.includes('compute') ? '분석 중...' :
+                            item.includes('fetching') ? '데이터 로드 중...' : item;
+                    setCurrentStep(stepName)
                     setProgress(Math.round((current / total) * 100))
                 },
-                model: 'isnet'
+                model: 'isnet', // Highest quality
+                debug: false
             })
             const url = URL.createObjectURL(blob)
             setProcessedImage(url)
             setViewMode('editor')
             const img = new Image()
+            img.crossOrigin = "anonymous"
             img.src = url
             img.onload = () => {
                 setupCanvases(img)
@@ -267,8 +285,8 @@ function BackgroundRemoverContent() {
             }
             return url
         } catch (err) {
-            console.error(err)
-            alert(t.common.error)
+            console.error('AI Processing Error:', err)
+            alert('AI 처리에 실패했습니다. 다른 이미지를 시도하거나 새로고침 후 다시 이용해주세요.')
             return null
         } finally {
             setIsProcessing(false)
@@ -280,12 +298,12 @@ function BackgroundRemoverContent() {
         if (!mc) return
         mc.width = img.width
         mc.height = img.height
-        const ctx = mc.getContext('2d')
-        if (ctx) {
-            ctx.clearRect(0, 0, mc.width, mc.height)
-            ctx.drawImage(img, 0, 0)
-        }
+        const mctx = mc.getContext('2d')
+        if (!mctx) return
+        mctx.clearRect(0, 0, mc.width, mc.height)
+        mctx.drawImage(img, 0, 0)
         setIsMaskReady(true)
+        setTimeout(() => renderStudio(), 100)
     }
 
     // --- Rendering Logic ---
@@ -339,8 +357,12 @@ function BackgroundRemoverContent() {
         // Draw Subject
         ctx.save()
         const rect = sc.getBoundingClientRect()
-        const scalex = targetW / rect.width
-        const scaley = targetH / rect.height
+        // Protection against zero-dimension layout states (prevents Infinity/NaN errors)
+        const layoutW = rect.width || sc.width
+        const layoutH = rect.height || sc.height
+        const scalex = targetW / layoutW
+        const scaley = targetH / layoutH
+
         ctx.translate(subjectPos.x * scalex, subjectPos.y * scaley)
         ctx.translate(targetW / 2, targetH / 2)
         ctx.scale(subjectScale, subjectScale)
@@ -350,17 +372,19 @@ function BackgroundRemoverContent() {
             ctx.save()
             const dist = stickerWidth * (mc.width / 1000)
             const temp = document.createElement('canvas')
-            temp.width = targetW; temp.height = targetH
+            // Match temporary canvas to subject mask plus padding for sticker
+            temp.width = mc.width + dist * 2
+            temp.height = mc.height + dist * 2
             const tctx = temp.getContext('2d')
             if (tctx) {
                 tctx.fillStyle = stickerColor
                 for (let a = 0; a < 360; a += 15) {
-                    const r = a * Math.PI / 180
-                    tctx.drawImage(mc, dist * Math.cos(r), dist * Math.sin(r))
+                    const r = (a * Math.PI) / 180
+                    tctx.drawImage(mc, dist + dist * Math.cos(r), dist + dist * Math.sin(r))
                 }
                 tctx.globalCompositeOperation = 'source-in'
-                tctx.fillRect(0, 0, targetW, targetH)
-                ctx.drawImage(temp, 0, 0)
+                tctx.fillRect(0, 0, temp.width, temp.height)
+                ctx.drawImage(temp, -dist, -dist)
             }
             ctx.restore()
         }
@@ -371,6 +395,8 @@ function BackgroundRemoverContent() {
         else if (globalFilter === 'warm') filter += ' sepia(20%) saturate(140%) hue-rotate(-10deg)'
         else if (globalFilter === 'cool') filter += ' saturate(120%) hue-rotate(180deg) brightness(110%)'
         else if (globalFilter === 'vintage') filter += ' sepia(50%) contrast(120%) brightness(90%)'
+
+        // Apply filter to subject only
         ctx.filter = filter
         ctx.drawImage(mc, 0, 0)
         ctx.restore()
@@ -503,12 +529,20 @@ function BackgroundRemoverContent() {
     }, [isBatchMode, t.common.error])
 
     const downloadResult = async () => {
-        const sc = studioCanvasRef.current
-        if (!sc) return
-        const link = document.createElement('a')
-        link.href = sc.toDataURL('image/png')
-        link.download = `creative_${Date.now()}.png`
-        link.click()
+        try {
+            const sc = studioCanvasRef.current
+            if (!sc) return
+            const link = document.createElement('a')
+            // Using a high-quality PNG export
+            link.href = sc.toDataURL('image/png', 1.0)
+            link.download = `ultra_bg_${Date.now()}.png`
+            document.body.appendChild(link)
+            link.click()
+            document.body.removeChild(link)
+        } catch (err) {
+            console.error('Download failed:', err)
+            alert('이미지를 저장하는 중 오류가 발생했습니다. 보안 설정을 확인해주세요.')
+        }
     }
 
     // --- Effects ---
@@ -792,7 +826,19 @@ function BackgroundRemoverContent() {
                                         {bgType === 'image' && (
                                             <div className="grid grid-cols-3 gap-1.5 p-2">
                                                 {PRESET_BGS.map((bg, idx) => (
-                                                    <button key={idx} onClick={() => { setCustomBgImage(bg); setBgType('image'); const img = new Image(); img.src = bg; img.onload = () => { customBgImgRef.current = img; setBgLoadCount(p => p + 1); pushHistory(); }; }} className="aspect-[4/3] rounded-xl overflow-hidden border-2 border-zinc-100 hover:border-primary transition-all"><img src={bg} className="w-full h-full object-cover" alt="" /></button>
+                                                    <button key={idx} onClick={() => {
+                                                        setCustomBgImage(bg);
+                                                        setBgType('image');
+                                                        const img = new Image();
+                                                        img.crossOrigin = "anonymous";
+                                                        img.src = bg;
+                                                        img.onload = () => {
+                                                            customBgImgRef.current = img;
+                                                            setBgLoadCount(p => p + 1);
+                                                            renderStudio();
+                                                            pushHistory();
+                                                        };
+                                                    }} className="aspect-[4/3] rounded-xl overflow-hidden border-2 border-zinc-100 hover:border-primary transition-all"><img src={bg} className="w-full h-full object-cover" alt="" /></button>
                                                 ))}
                                             </div>
                                         )}
@@ -879,7 +925,15 @@ function BackgroundRemoverContent() {
                     const r = new FileReader()
                     r.onload = (ev) => {
                         const url = ev.target?.result as string; setCustomBgImage(url); setBgType('image')
-                        const i = new Image(); i.src = url; i.onload = () => { customBgImgRef.current = i; setBgLoadCount(p => p + 1); pushHistory() }
+                        const i = new Image();
+                        i.crossOrigin = "anonymous"
+                        i.src = url;
+                        i.onload = () => {
+                            customBgImgRef.current = i;
+                            setBgLoadCount(p => p + 1);
+                            renderStudio();
+                            pushHistory()
+                        }
                     }
                     r.readAsDataURL(f)
                 }
