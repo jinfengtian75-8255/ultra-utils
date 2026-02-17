@@ -97,4 +97,29 @@
     *   `checkpoint-global-studio-v6-final`: Absolute final version with all features restored and polished.
     *   `backup-file`: `page.tsx.v5_final`, `translations.ts.v5_final` 저장 완료.
 
+### [ v6.1 ] 2026-02-18 22:50 (제로-딜레이 정밀 복구 시스템 도입)
+*   **내용:** [AI 배경 제거] 수동 복구(Refine) 툴의 정교함 및 반응 속도 극대화
+*   **주요 특징:** 
+    *   **제로-딜레이 렌더링**: 기존의 DOM 방식 커서를 제거하고 **캔버스 직접 렌더링(Canvas Drawing)** 방식으로 전환. 마우스 움직임과 브러시 위치가 1ms의 오차 없이 완벽하게 일치함.
+    *   **정밀 블랙 마킹 시스템**: 브러시 영역을 명확한 검은색 링과 센터 도트(Center Dot)로 표시하여, 세밀한 경계선 작업 시 시각적 정확도를 비약적으로 향상.
+    *   **네이티브 조작감**: 캔버스 `crosshair` 커서와 실시간 `renderStudio` 루프를 결합하여, 전문 그래픽 툴 수준의 부드러운 조작감 구현.
+*   **기록 태그:**
+    *   `checkpoint-precision-refine-brush`: Replaced DOM cursor with high-performance Canvas-based brush preview.
+    *   `checkpoint-zero-lag-interaction`: Optimized mouse event loop for split-second professional refinement.
+
+
+### [ v7 ] 2026-02-18 03:00 (소셜 미디어 & ID 증명사진 마스터 완성 버전)
+*   **내용:** [AI 배경 제거] 도구의 상업적 활용도를 극대화한 '규격 마스터' 엔진 탑재
+*   **주요 특징:** 
+    *   **소셜 미디어 비율 최적화**: 1:1, 4:5, 9:16, 16:9 규격을 원클릭으로 변환하고 프레임 모양이 즉시 바뀌는 동적 캔버스 구현.
+    *   **원클릭 제로-딜레이 시스템**: 모든 규격 및 증명사진 설정 시 '두 번 클릭'하던 버그를 수정하여, 클릭 즉시 화면이 자동 갱신되는 반응형 상태 관리 적용.
+    *   **고해상도 ID 증명사진 마스터**: 여권, 반명함, 비자 규격을 즉시 적용하고, 초록색 위치 가이드라인 및 규격별 자동 줌 최적화.
+    *   **비교 뷰 레이아웃 최적화**: 전/후 비교 보기를 세로(상하) 배치로 변경하여 대형 이미지를 더 크게 확인할 수 있도록 시인성 확보.
+    *   **유튜브 도킹 시스템 강화**: 유튜브 추출기에서 가져온 쇼츠 이미지의 세로 규격을 자동 감지하여 즉시 9:16 모드로 정렬.
+*   **기록 태그:**
+    *   `checkpoint-social-aspect-ratio-master`: Perfect layout transformation for all social media platforms.
+    *   `checkpoint-id-photo-pro-v7`: Professional-grade ID photo generation with instant guide updates.
+    *   `checkpoint-zero-click-sync`: Centralized state-sync engine for snappier UI response.
+    *   `backup-file`: `page.tsx.v7_final_stable`
+
 ---

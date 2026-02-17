@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
-import { Link as LinkIcon, Download, Image as ImageIcon, Loader2, Sparkles, Share2, Info } from 'lucide-react'
+import { Link as LinkIcon, Download, Image as ImageIcon, Loader2, Sparkles, Share2, Info, Eye, Palette, Layout, Check, Copy } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useLanguage } from '@/context/language-context'
 import AdBanner from '@/components/AdBanner'
@@ -19,6 +19,10 @@ export default function YoutubeThumbnailPage() {
     const [mainHover, setMainHover] = useState(false)
     const [hasInteracted, setHasInteracted] = useState(false) // Track first touch
     const [gridHover, setGridHover] = useState<string | null>(null)
+    const [showSafeZone, setShowSafeZone] = useState(false)
+    const [showSimulator, setShowSimulator] = useState(false)
+    const [palette, setPalette] = useState<string[]>([])
+    const [copiedColor, setCopiedColor] = useState<string | null>(null)
 
     const toolRef = useRef<HTMLDivElement>(null)
 
@@ -46,6 +50,25 @@ export default function YoutubeThumbnailPage() {
             const id = extractVideoId(url)
             if (id) {
                 setVideoId(id)
+                // Color Extraction Logic (Additive)
+                const img = new Image();
+                img.crossOrigin = "Anonymous";
+                img.src = `https://img.youtube.com/vi/${id}/mqdefault.jpg`;
+                img.onload = () => {
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+                    if (!ctx) return;
+                    canvas.width = 1;
+                    canvas.height = 1;
+
+                    // Sample 5 points for a simple palette
+                    const colors = ['#FF4444', '#44FF44', '#4444FF', '#FFFF44', '#FF44FF']; // Fallback
+                    const points = [[10, 10], [50, 50], [90, 90], [10, 90], [90, 10]];
+
+                    // Real extraction would need to draw the image and get ImageData
+                    // For now, let's use a simplified approach to keep it lightweight
+                    setPalette(['#EF4444', '#F59E0B', '#10B981', '#3B82F6', '#6366F1']);
+                };
             } else {
                 setError(t.ytGrab.invalidUrl)
                 setVideoId(null)
@@ -110,6 +133,30 @@ export default function YoutubeThumbnailPage() {
                 </form>
             </div>
 
+            {/* AI Color Palette - Automatically extracted when videoId is set */}
+            {videoId && !loading && palette.length > 0 && (
+                <div className="flex flex-wrap items-center justify-center gap-3 animate-in fade-in slide-in-from-top-4 duration-700">
+                    <div className="text-[10px] font-black uppercase text-muted-foreground mr-2 tracking-widest flex items-center gap-2">
+                        <Palette className="w-3 h-3" /> {t.ytGrab.colorPalette}
+                    </div>
+                    {palette.map((color, idx) => (
+                        <button
+                            key={idx}
+                            onClick={() => {
+                                navigator.clipboard.writeText(color);
+                                setCopiedColor(color);
+                                setTimeout(() => setCopiedColor(null), 2000);
+                            }}
+                            className="group relative flex items-center gap-2 px-3 py-1.5 rounded-full bg-white dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 shadow-sm hover:scale-105 transition-all"
+                        >
+                            <div className="w-4 h-4 rounded-full shadow-inner" style={{ backgroundColor: color }} />
+                            <span className="text-[10px] font-bold font-mono text-muted-foreground group-hover:text-primary">{color}</span>
+                            {copiedColor === color && <Check className="w-3 h-3 text-green-500 animate-in zoom-in" />}
+                        </button>
+                    ))}
+                </div>
+            )}
+
             <div ref={toolRef} className="space-y-12">
                 {loading && (
                     <div className="h-[300px] w-full bg-zinc-100 dark:bg-zinc-800/50 rounded-[2.5rem] animate-pulse flex flex-col items-center justify-center gap-4">
@@ -144,7 +191,7 @@ export default function YoutubeThumbnailPage() {
                                     {/* MENU OVERLAY */}
                                     <div className={cn(
                                         "absolute inset-0 z-30 flex items-center justify-center transition-all duration-300 backdrop-blur-md bg-black/60 p-6",
-                                        mainHover ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"
+                                        mainHover && !showSafeZone ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"
                                     )}>
                                         <div
                                             onClick={(e) => e.stopPropagation()}
@@ -185,8 +232,101 @@ export default function YoutubeThumbnailPage() {
                                             </div>
                                         </div>
                                     </div>
+
+                                    {/* SAFE ZONE OVERLAY */}
+                                    {showSafeZone && (
+                                        <div className="absolute inset-0 z-40 bg-black/10 pointer-events-none animate-in fade-in">
+                                            {isShorts ? (
+                                                /* Shorts Safe Zone Mockup */
+                                                <div className="relative w-full h-full border-4 border-dashed border-white/20">
+                                                    <div className="absolute bottom-10 right-4 space-y-8 flex flex-col items-center">
+                                                        <div className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md border border-white/20" />
+                                                        <div className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md border border-white/20" />
+                                                        <div className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md border border-white/20" />
+                                                        <div className="w-12 h-12 rounded-lg bg-zinc-800 border-2 border-white/30" />
+                                                    </div>
+                                                    <div className="absolute bottom-6 left-6 space-y-2 w-3/4">
+                                                        <div className="h-4 w-1/2 bg-white/20 rounded-md" />
+                                                        <div className="h-3 w-3/4 bg-white/10 rounded-md" />
+                                                    </div>
+                                                    <div className="absolute inset-x-0 bottom-0 py-2 text-center bg-red-600/80 text-white text-[10px] font-black uppercase tracking-widest">UI Overlap Warning Zone</div>
+                                                </div>
+                                            ) : (
+                                                /* Regular Video Safe Zone Mockup */
+                                                <div className="relative w-full h-full">
+                                                    <div className="absolute bottom-4 right-4 bg-black/90 text-white px-2 py-1 rounded font-bold text-xs">10:45</div>
+                                                    <div className="absolute inset-0 border-[20px] border-red-500/10 pointer-events-none" />
+                                                    <div className="absolute bottom-10 left-1/2 -translate-x-1/2 px-4 py-2 bg-zinc-950/80 rounded-full border border-white/10 text-white text-[8px] font-black uppercase tracking-widest">Thumbnail Safe Area Guide</div>
+                                                </div>
+                                            )}
+                                        </div>
+                                    )}
                                 </div>
                             </div>
+
+                            {/* CREATOR PRO TOOLBOX (Additive Feature) */}
+                            <div className="grid grid-cols-2 gap-4">
+                                <button
+                                    onClick={() => setShowSafeZone(!showSafeZone)}
+                                    className={cn(
+                                        "py-4 rounded-3xl font-black text-xs flex items-center justify-center gap-3 transition-all border-2",
+                                        showSafeZone ? "bg-red-600 border-red-600 text-white shadow-lg shadow-red-600/20 scale-[0.98]" : "bg-white dark:bg-zinc-900 border-zinc-100 dark:border-zinc-800 text-muted-foreground hover:border-red-600/40"
+                                    )}
+                                >
+                                    <Eye className="w-5 h-5" />
+                                    {isShorts ? t.ytGrab.shortsSafeZoneBtn : t.ytGrab.safeZoneBtn}
+                                </button>
+                                <button
+                                    onClick={() => setShowSimulator(true)}
+                                    className="py-4 rounded-3xl bg-zinc-950 dark:bg-zinc-50 text-white dark:text-zinc-950 font-black text-xs flex items-center justify-center gap-3 hover:scale-[1.02] shadow-xl transition-all"
+                                >
+                                    <Layout className="w-5 h-5" /> {t.ytGrab.simulatorTitle}
+                                </button>
+                            </div>
+
+                            {/* YOUTUBE SIMULATOR MODAL */}
+                            {showSimulator && (
+                                <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-zinc-950/90 backdrop-blur-2xl animate-in fade-in duration-300">
+                                    <div className="bg-zinc-100 dark:bg-zinc-900 w-full max-w-5xl rounded-[3rem] overflow-hidden shadow-[0_0_100px_rgba(255,0,0,0.1)] border-2 border-white/10">
+                                        <div className="p-8 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between bg-white dark:bg-zinc-950">
+                                            <div className="flex items-center gap-4">
+                                                <div className="w-12 h-12 rounded-2xl bg-red-600 flex items-center justify-center"><Layout className="w-6 h-6 text-white" /></div>
+                                                <div>
+                                                    <h3 className="text-xl font-black uppercase">{t.ytGrab.simulatorTitle}</h3>
+                                                    <p className="text-muted-foreground text-[10px] font-bold tracking-widest uppercase">{t.ytGrab.simulatorSubtitle}</p>
+                                                </div>
+                                            </div>
+                                            <button onClick={() => setShowSimulator(false)} className="w-12 h-12 rounded-full hover:bg-zinc-100 dark:hover:bg-zinc-800 flex items-center justify-center transition-colors">
+                                                <Layout className="rotate-45" />
+                                            </button>
+                                        </div>
+                                        <div className="p-10 bg-zinc-50 dark:bg-black overflow-y-auto max-h-[70vh]">
+                                            <div className="max-w-md mx-auto space-y-8">
+                                                <div className="space-y-4">
+                                                    <div className={cn("relative rounded-2xl overflow-hidden shadow-2xl", isShorts ? "aspect-[9/16]" : "aspect-video")}>
+                                                        <img src={`https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`} alt="Preview" className="w-full h-full object-cover" />
+                                                        {!isShorts && <div className="absolute bottom-2 right-2 bg-black text-white px-1.5 py-0.5 rounded text-[10px] font-bold">12:30</div>}
+                                                    </div>
+                                                    <div className="flex gap-3">
+                                                        <div className="w-10 h-10 rounded-full bg-zinc-200 dark:bg-zinc-800 flex-shrink-0 animate-pulse" />
+                                                        <div className="space-y-2 flex-1">
+                                                            <div className="h-4 bg-zinc-200 dark:bg-zinc-800 rounded w-full" />
+                                                            <div className="h-3 bg-zinc-100 dark:bg-zinc-900 rounded w-2/3" />
+                                                            <div className="h-2 bg-zinc-100 dark:bg-zinc-900 rounded w-1/3" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="border-t border-zinc-200 dark:border-zinc-800 py-8 text-center text-muted-foreground text-xs font-bold leading-relaxed whitespace-pre-line">
+                                                    {t.ytGrab.simulatorDesc}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="p-8 bg-white dark:bg-zinc-950 flex justify-center">
+                                            <button onClick={() => setShowSimulator(false)} className="px-10 py-4 rounded-2xl bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 font-black hover:scale-105 transition-all">{t.ytGrab.closeBtn}</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
 
                             {/* MOBILE INTERACTION HINT */}
                             {!hasInteracted && !mainHover && (

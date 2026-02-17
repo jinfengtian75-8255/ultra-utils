@@ -83,6 +83,13 @@ export interface TranslationSchema {
         fetching: string;
         downloadHd: string;
         editBtn: string;
+        simulatorTitle: string;
+        simulatorSubtitle: string;
+        simulatorDesc: string;
+        safeZoneBtn: string;
+        shortsSafeZoneBtn: string;
+        colorPalette: string;
+        closeBtn: string;
         guide: {
             title: string;
             subtitle: string;
@@ -171,22 +178,11 @@ export interface TranslationSchema {
         redo: string;
         reset: string;
         zoom: string;
-        showGuide: string;
         idPhoto: string;
         passport: string;
         usVisa: string;
         idCard: string;
         bgLibrary: string;
-        designTemplates: string;
-        templateInsta: string;
-        templateYoutube: string;
-        templateProduct: string;
-        batchMode: string;
-        batchProcessing: string;
-        batchUploadMore: string;
-        batchStart: string;
-        batchRemaining: string;
-        batchComplete: string;
         uploadCustomBg: string;
         addText: string;
         deleteText: string;
@@ -259,18 +255,6 @@ export interface TranslationSchema {
         slotSide: string;
         slotBottom: string;
         faq: { q: string; a: string }[];
-    },
-    houseAds: {
-        bgRemoverTitle: string;
-        bgRemoverDesc: string;
-        ytGrabTitle: string;
-        ytGrabDesc: string;
-        imageCompTitle: string;
-        imageCompDesc: string;
-        pdfMasterTitle: string;
-        pdfMasterDesc: string;
-        coffeeTitle: string;
-        coffeeDesc: string;
     },
     footer: {
         tools: string;
@@ -369,6 +353,18 @@ export interface TranslationSchema {
             sections: { title: string; content: string }[];
             faq: { q: string; a: string }[];
         };
+    },
+    houseAds: {
+        bgRemoverTitle: string;
+        bgRemoverDesc: string;
+        pdfMasterTitle: string;
+        pdfMasterDesc: string;
+        imageCompTitle: string;
+        imageCompDesc: string;
+        ytGrabTitle: string;
+        ytGrabDesc: string;
+        coffeeTitle: string;
+        coffeeDesc: string;
     }
 }
 
@@ -502,6 +498,13 @@ export const translations: Record<Language, TranslationSchema> = {
             fetching: 'YouTube 서버로부터 썸네일 데이터를 불러오는 중...',
             downloadHd: '최고 화질(HD) 즉시 다운로드',
             editBtn: 'AI 배경 제거 및 편집',
+            simulatorTitle: '유튜브 홈 시뮬레이터',
+            simulatorSubtitle: '실제 피드 환경에서 어떻게 보일지 확인하세요',
+            simulatorDesc: '이 기능은 실제 유튜브 홈 화면에서의 모바일 노출을 시뮬레이션 합니다.\n다른 경쟁 영상들 사이에서 내 썸네일이 얼마나 잘 보이는지 확인해보세요.',
+            safeZoneBtn: '재생시간 겹침 체크',
+            shortsSafeZoneBtn: 'Shorts UI 체크',
+            colorPalette: '컬러 팔레트',
+            closeBtn: '확인 완료',
             guide: {
                 title: '썸네일 추출 활용 가이드',
                 subtitle: '저작권 및 활용 팁',
@@ -648,22 +651,11 @@ export const translations: Record<Language, TranslationSchema> = {
             redo: '실수 복구',
             reset: '초기화',
             zoom: '확대/축소',
-            showGuide: '가이드 표시',
             idPhoto: 'ID 증명사진 마스터',
             passport: '여권 사진 (3.5x4.5cm)',
             usVisa: '미국 비자 (2x2인치)',
             idCard: '반명함/증명 (3x4cm)',
             bgLibrary: 'AI 배경 라이브러리',
-            designTemplates: '디자인 템플릿',
-            templateInsta: '인스타 스토리 (Story)',
-            templateYoutube: '유튜브 썸네일 (Thumbnail)',
-            templateProduct: '홍보용/쇼핑몰 (Product)',
-            batchMode: '대량 모드',
-            batchProcessing: '실시간 대량 처리',
-            batchUploadMore: '이미지 추가',
-            batchStart: '전체 처리 시작',
-            batchRemaining: '남은 항목',
-            batchComplete: '처리 완료!',
             uploadCustomBg: '커스텀 배경 업로드',
             addText: '텍스트 추가',
             deleteText: '삭제',
@@ -765,18 +757,6 @@ export const translations: Record<Language, TranslationSchema> = {
                 { q: '예약은 얼마나 미리 해야 하나요?', a: '인기 있는 상단 슬롯은 미리 마감될 수 있습니다. 희망하시는 날짜의 최소 1~2주 전에는 문의 주시는 것을 권장합니다.' },
                 { q: '결제는 어떤 방식으로 진행되나요?', a: '현재는 계좌이체 및 후원 플랫폼을 통한 결제를 지원하고 있습니다. 구체적인 처리 절차와 결제 정보는 문의 시 상담을 통해 안내해 드립니다.' }
             ]
-        },
-        houseAds: {
-            bgRemoverTitle: '전문가급 배경 제거',
-            bgRemoverDesc: 'AI로 3초 만에 완벽한 누끼 따기. 지금 바로 경험해 보세요.',
-            ytGrabTitle: '유튜브 썸네일 마스터',
-            ytGrabDesc: '고화질 썸네일을 즉시 추출하세요. 크리에이터 필수 도구!',
-            imageCompTitle: '화질 저하 없는 이미지 압축',
-            imageCompDesc: '용량은 줄이고 화질은 지키세요. SEO 최적화의 첫 걸음.',
-            pdfMasterTitle: 'PDF 편집의 끝판왕',
-            pdfMasterDesc: '합치기, 나누기, 이미지 변환까지 한 곳에서 해결하세요.',
-            coffeeTitle: '안티에게 커피 한 잔?',
-            coffeeDesc: '여러분의 작은 후원이 UltraUtils를 무료로 유지하는 힘이 됩니다.'
         },
         footer: {
             tools: '주요 도구',
@@ -939,6 +919,18 @@ export const translations: Record<Language, TranslationSchema> = {
                     { q: '이 도구는 무료인가요?', a: '네, UltraUtils의 모든 도구는 크리에이터들의 성장을 돕기 위해 100% 무료로 제공됩니다.' }
                 ]
             }
+        },
+        houseAds: {
+            bgRemoverTitle: '전문가급 배경 제거',
+            bgRemoverDesc: 'AI로 클릭 한 번에 깨끗하게 배경을 지우세요.',
+            pdfMasterTitle: '스마트 PDF 편집기',
+            pdfMasterDesc: '합치기, 나누기, 이미지 변환까지 한곳에서.',
+            imageCompTitle: '초고성능 이미지 압축',
+            imageCompDesc: '화질 저하 없이 용량을 혁신적으로 줄이세요.',
+            ytGrabTitle: '유튜브 썸네일 추출',
+            ytGrabDesc: '고화질 썸네일을 즉시 다운로드하고 편집하세요.',
+            coffeeTitle: '안티에게 커피 한 잔',
+            coffeeDesc: '더 나은 도구 제작을 위해 따뜻한 응원을 부탁드립니다.'
         }
     },
     en: {
@@ -1067,8 +1059,15 @@ export const translations: Record<Language, TranslationSchema> = {
             getBtn: 'Grab HD Thumbnail',
             invalidUrl: 'The URL format entered is invalid. Please check again.',
             fetching: 'Fetching thumbnail data from YouTube servers...',
-            downloadHd: 'Download Max Res (HD) Instantly',
-            editBtn: 'AI Background Remove & Edit',
+            downloadHd: 'Download Max Res (HD)',
+            editBtn: 'AI Background Remover',
+            simulatorTitle: 'YouTube Home Simulator',
+            simulatorSubtitle: 'Preview how it looks in feed',
+            simulatorDesc: 'This feature simulates mobile exposure on the actual YouTube home screen.\nCheck how visible your thumbnail is among other competing videos.',
+            safeZoneBtn: 'Check Safe Zone',
+            shortsSafeZoneBtn: 'Check Shorts UI',
+            colorPalette: 'Color Palette',
+            closeBtn: 'Close',
             guide: {
                 title: 'Professional Guide to YouTube Thumbnail Extraction and Use',
                 subtitle: 'Copyright and technical tips for creators and marketers',
@@ -1210,22 +1209,11 @@ export const translations: Record<Language, TranslationSchema> = {
             redo: 'Redo',
             reset: 'Reset',
             zoom: 'Zoom',
-            showGuide: 'Show Guide',
             idPhoto: 'ID Photo Master',
             passport: 'Passport (3.5x4.5cm)',
             usVisa: 'US Visa (2x2in)',
             idCard: 'ID Card (3x4cm)',
             bgLibrary: 'AI Background Library',
-            designTemplates: 'Design Templates',
-            templateInsta: 'Instagram Story',
-            templateYoutube: 'YouTube Thumbnail',
-            templateProduct: 'Product Display',
-            batchMode: 'Batch Mode',
-            batchProcessing: 'Real-time Batch Processing',
-            batchUploadMore: 'Add More Images',
-            batchStart: 'Start Processing All',
-            batchRemaining: 'Remaining',
-            batchComplete: 'Processing Complete!',
             uploadCustomBg: 'Upload Custom BG',
             addText: 'Add Text',
             deleteText: 'Delete',
@@ -1327,18 +1315,6 @@ export const translations: Record<Language, TranslationSchema> = {
                 { q: 'How far in advance should I book?', a: 'Premium slots may book out early. We recommend reaching out at least 1-2 weeks before your desired date.' },
                 { q: 'What are the payment options?', a: 'We currently support wire transfers and dedicated payment platforms. Specific payment details and procedures will be provided individually upon inquiry.' }
             ]
-        },
-        houseAds: {
-            bgRemoverTitle: 'Pro AI Background Remover',
-            bgRemoverDesc: 'Perfect cutouts in 3 seconds with AI. Try it now for free.',
-            ytGrabTitle: 'YouTube Thumbnail Master',
-            ytGrabDesc: 'Extract high-res thumbnails instantly. Essential for creators!',
-            imageCompTitle: 'Lossless Image Compression',
-            imageCompDesc: 'Reduce file size, keep the quality. Perfect for SEO boost.',
-            pdfMasterTitle: 'Ultimate PDF Master',
-            pdfMasterDesc: 'Merge, split, and convert PDFs to images in one place.',
-            coffeeTitle: 'Buy Us a Coffee?',
-            coffeeDesc: 'Your support keeps UltraUtils free and fast for everyone! ☕️'
         },
         footer: {
             tools: 'Popular Tools',
@@ -1501,6 +1477,18 @@ export const translations: Record<Language, TranslationSchema> = {
                     { q: 'Is it completely free?', a: 'Yes, All tools on UltraUtils are 100% free to support creators worldwide.' }
                 ]
             }
+        },
+        houseAds: {
+            bgRemoverTitle: 'Pro Background Remover',
+            bgRemoverDesc: 'Erase backgrounds instantly with AI precision.',
+            pdfMasterTitle: 'Smart PDF Master',
+            pdfMasterDesc: 'Merge, split, and convert PDFs in one place.',
+            imageCompTitle: 'High-Performance Compression',
+            imageCompDesc: 'Reduce file size without losing image quality.',
+            ytGrabTitle: 'YouTube Thumbnail Grabber',
+            ytGrabDesc: 'Download and edit high-quality thumbnails easily.',
+            coffeeTitle: 'Buy Anti a Coffee',
+            coffeeDesc: 'Support our work and help us build better tools.'
         }
     },
     zh: {
@@ -1620,8 +1608,15 @@ export const translations: Record<Language, TranslationSchema> = {
             getBtn: '获取缩略图',
             invalidUrl: '无效的 YouTube URL。请检查并重试。',
             fetching: '正在获取缩略图...',
-            downloadHd: '高清下载',
-            editBtn: '专业编辑',
+            downloadHd: '立即下载最高画质 (HD)',
+            editBtn: 'AI 背景移除与编辑',
+            simulatorTitle: 'YouTube 主页模拟器',
+            simulatorSubtitle: '预览其在动态中的外观',
+            simulatorDesc: '此功能模拟实际 YouTube 主页上的移动曝光。\n检查您的缩略图在其他竞争视频中的可见度。',
+            safeZoneBtn: '检查安全区域',
+            shortsSafeZoneBtn: '检查 Shorts UI',
+            colorPalette: '调色板',
+            closeBtn: '关闭',
             guide: {
                 title: 'YouTube 缩略图提取器完整指南',
                 subtitle: '如何安全、快速地下载高画质缩略图',
@@ -1759,22 +1754,11 @@ export const translations: Record<Language, TranslationSchema> = {
             redo: '重做',
             reset: '重置',
             zoom: '缩放',
-            showGuide: '显示指南',
-            idPhoto: '证件照大师',
+            idPhoto: 'ID 证件照大师',
             passport: '护照照片 (3.5x4.5cm)',
             usVisa: '美国签证 (2x2英寸)',
             idCard: '身份证/证件 (3x4cm)',
-            bgLibrary: 'AI 배경 라이브러리',
-            designTemplates: '设计模板',
-            templateInsta: '影集快拍 (Story)',
-            templateYoutube: 'YouTube 缩略图',
-            templateProduct: '宣传用/产品 (Product)',
-            batchMode: '大批量模式',
-            batchProcessing: '实时批量处理',
-            batchUploadMore: '添加更多图片',
-            batchStart: '开始处理全部',
-            batchRemaining: '剩余项目',
-            batchComplete: '处理完成！',
+            bgLibrary: 'AI 背景库',
             uploadCustomBg: '上传自定义背景',
             addText: '添加文本',
             deleteText: '删除',
@@ -1876,18 +1860,6 @@ export const translations: Record<Language, TranslationSchema> = {
                 { q: '需要提前多久预订？', a: '热门位置可能会提前订满。建议您至少提前 1-2 周联系。' },
                 { q: '有哪些支付方式？', a: '目前支持银行转账及相关支付平台。具体的支付流程和细节将在咨询时详细说明。' }
             ]
-        },
-        houseAds: {
-            bgRemoverTitle: '专业 AI 背景移除',
-            bgRemoverDesc: 'AI 3秒完成完美抠图。立即免费体验。',
-            ytGrabTitle: 'YouTube 封面大师',
-            ytGrabDesc: '立即提取高画质封面。创作者必备工具！',
-            imageCompTitle: '无损图片压缩',
-            imageCompDesc: '缩小体积，保持画质。SEO优化的首选。',
-            pdfMasterTitle: '终极 PDF 大师',
-            pdfMasterDesc: '一站式完成 PDF 合并、拆分和图片转换。',
-            coffeeTitle: '请我们喝杯咖啡？',
-            coffeeDesc: '您的支持是 UltraUtils 保持免费和快速的动力！☕️'
         },
         footer: {
             tools: '热门工具',
@@ -2050,6 +2022,18 @@ export const translations: Record<Language, TranslationSchema> = {
                     { q: '这个工具收费吗？', a: '完全免费。UltraUtils 的目标是助力全球创작者的成长。' }
                 ]
             }
+        },
+        houseAds: {
+            bgRemoverTitle: '专业级背景移除',
+            bgRemoverDesc: '利用 AI 一键精准清除图片背景。',
+            pdfMasterTitle: '智能 PDF 编辑器',
+            pdfMasterDesc: '合并、拆分及图片转换，一站式解决。',
+            imageCompTitle: '超高性能图片压缩',
+            imageCompDesc: '在不损失画质的情况下显著减小文件体积。',
+            ytGrabTitle: 'YouTube 封面提取',
+            ytGrabDesc: '即刻下载并编辑高画质视频封面。',
+            coffeeTitle: '请 Anti 喝杯咖啡',
+            coffeeDesc: '您的支持是我们将工具做得更好的动力。'
         }
     }
 };
