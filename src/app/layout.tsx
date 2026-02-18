@@ -17,11 +17,16 @@ import LayoutShell from '@/components/LayoutShell'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://ultra-utils.com'),
   title: 'UltraUtils - Free Pro Tools for Creators (YouTube, AI, Image)',
   description: 'Pro-grade YouTube Thumbnail Grabber, AI Background Remover (누끼 따기), Image Compressor, and more. Free, fast, and no registration required. Best tools for creators.',
   keywords: [
     'youtube thumbnail downloader', 'ai background remover', 'image compressor', 'qr code generator', 'text converter', 'free online tools',
-    '누끼 따기', '이미지 압축', '유튜브 썸네일 다운로드', '무료 ai 도구', '배경 제거', 'QR 코드 생성'
+    '누끼 따기', '이미지 압축', '유튜브 썸네일 다운로드', '무료 ai 도구', '배경 제거', 'QR 코드 생성',
+    '背景削除', '画像圧縮', 'YouTube サムネイル', 'QRコード作成',
+    'quitar fondo ai', 'comprimir imagen', 'descargar miniatura youtube',
+    'hintergrund entfernen', 'bild komprimieren', 'youtube vorschaubild',
+    'usuwanie tła ai', 'kompresja obrazu', 'miniatury youtube'
   ],
   icons: {
     icon: [
@@ -34,26 +39,26 @@ export const metadata: Metadata = {
     ],
   },
   openGraph: {
-    title: 'UltraUtils - Free Pro Tools for Creators',
-    description: 'Pro-grade YouTube Thumbnail Grabber, AI Background Remover, Image Compressor, and more. Free, fast, and no registration required.',
+    title: 'UltraUtils - 크리에이터를 위한 무료 디지털 도구 모음',
+    description: '유튜브 썸네일 추출, AI 배경 제거(누끼), 이미지 압축 등 크리에이터에게 필요한 고성능 도구를 무료로 이용하세요. 별도의 가입 없이 즉시 사용 가능합니다.',
     url: 'https://ultra-utils.com',
     siteName: 'UltraUtils',
     images: [
       {
-        url: 'https://ultra-utils.com/og-image.png', // Replace with actual OG image if available
+        url: 'https://ultra-utils.com/opengraph-image',
         width: 1200,
         height: 630,
-        alt: 'UltraUtils - Digital Superpowers for Creators',
+        alt: 'UltraUtils - 크리에이터를 위한 디지털 슈퍼파워',
       },
     ],
-    locale: 'en_US',
+    locale: 'ko_KR',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'UltraUtils - Digital Superpowers for Creators',
-    description: '100% Free, privacy-focused online tools for modern creators. No registration required.',
-    images: ['https://ultra-utils.com/logo.svg'],
+    description: '100% 무료, 개인정보를 보호하는 크리에이터 전용 온라인 도구 모음.',
+    images: ['https://ultra-utils.com/opengraph-image'],
   },
   other: {
     'google-adsense-account': 'ca-pub-1373852776233080',

@@ -42,9 +42,9 @@ function BackgroundRemoverContent() {
     }
 
     const ID_STANDARDS: IDStandard[] = [
-        { id: 'passport', name: '여권 (Passport)', width: 35, height: 45, label: '3.5 x 4.5 cm' },
-        { id: 'identification', name: '반명함 (ID)', width: 30, height: 40, label: '3 x 4 cm' },
-        { id: 'us-visa', name: '미국 비자 (Visa)', width: 51, height: 51, label: '5.1 x 5.1 cm' },
+        { id: 'passport', name: t.bgRemover.passport, width: 35, height: 45, label: '3.5 x 4.5 cm' },
+        { id: 'identification', name: t.bgRemover.idCard, width: 30, height: 40, label: '3 x 4 cm' },
+        { id: 'us-visa', name: t.bgRemover.usVisa, width: 51, height: 51, label: '5.1 x 5.1 cm' },
     ]
 
     interface TextLayer {
@@ -975,7 +975,7 @@ function BackgroundRemoverContent() {
                         <div className="glass-card p-5 rounded-[2.5rem] space-y-6 shadow-xl border-2 border-primary/5">
                             {/* ID Photo Master - Full Version */}
                             <div className="space-y-3">
-                                <label className="text-[10px] font-black uppercase text-muted-foreground tracking-widest pl-1">Photo Mode</label>
+                                <label className="text-[10px] font-black uppercase text-muted-foreground tracking-widest pl-1">{t.bgRemover.photoMode}</label>
                                 <div className="flex gap-2 p-1.5 bg-zinc-100 dark:bg-zinc-800 rounded-2xl">
                                     <button onClick={() => { setIsIDMode(false); }} className={cn("flex-1 py-2.5 rounded-xl text-[10px] font-black transition-all", !isIDMode ? "bg-white dark:bg-zinc-900 shadow-xl text-primary" : "text-muted-foreground")}>{t.bgRemover.reset}</button>
                                     <button onClick={() => { setIsIDMode(true); if (!activeIDStandard) setActiveIDStandard(ID_STANDARDS[0]); }} className={cn("flex-1 py-2.5 rounded-xl text-[10px] font-black transition-all flex items-center justify-center gap-1.5", isIDMode ? "bg-white dark:bg-zinc-900 shadow-xl text-primary" : "text-muted-foreground")}>{t.bgRemover.idPhoto}</button>
@@ -1180,7 +1180,7 @@ function BackgroundRemoverContent() {
                                                 : "text-zinc-950 dark:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800"
                                         )}
                                     >
-                                        Studio
+                                        {t.bgRemover.studio}
                                     </button>
                                 </div>
 
@@ -1191,11 +1191,11 @@ function BackgroundRemoverContent() {
                                     {viewMode === 'comparison' ? (
                                         <div className="flex flex-col gap-8 w-full h-full max-w-4xl mx-auto overflow-y-auto no-scrollbar py-4 px-2">
                                             <div className="relative group/original shrink-0">
-                                                <div className="absolute top-4 left-4 bg-black/70 text-white px-3 py-1 rounded-lg text-[10px] sm:text-xs font-black backdrop-blur-md z-20">ORIGINAL</div>
+                                                <div className="absolute top-4 left-4 bg-black/70 text-white px-3 py-1 rounded-lg text-[10px] sm:text-xs font-black backdrop-blur-md z-20">{t.bgRemover.original}</div>
                                                 <img src={originalImage!} alt="Original" className="w-full h-auto object-contain rounded-3xl shadow-2xl transition-transform hover:scale-[1.01]" />
                                             </div>
                                             <div className="relative group/result shrink-0">
-                                                <div className="absolute top-4 left-4 bg-primary text-white px-3 py-1 rounded-lg text-[10px] sm:text-xs font-black backdrop-blur-md z-20">RESULT</div>
+                                                <div className="absolute top-4 left-4 bg-primary text-white px-3 py-1 rounded-lg text-[10px] sm:text-xs font-black backdrop-blur-md z-20">{t.bgRemover.result}</div>
                                                 <img src={processedImage} alt="Result" className="w-full h-auto object-contain rounded-3xl shadow-2xl transition-transform hover:scale-[1.01]" />
                                             </div>
                                         </div>
@@ -1315,14 +1315,14 @@ function BackgroundRemoverContent() {
                         {showResetConfirm && (
                             <div className="absolute inset-0 z-50 bg-zinc-950/40 backdrop-blur-sm flex items-center justify-center p-6 pb-20">
                                 <div className="glass-card p-8 rounded-[2rem] max-w-sm w-full space-y-6 shadow-2xl animate-in zoom-in-95 duration-200 border-2 border-primary/20 bg-white">
-                                    <h3 className="text-2xl font-black text-center">정말 초기화할까요?</h3>
-                                    <p className="text-muted-foreground text-center font-medium">지금까지 작업한 내용이 모두 사라집니다.</p>
+                                    <h3 className="text-2xl font-black text-center">{t.bgRemover.resetConfirmTitle}</h3>
+                                    <p className="text-muted-foreground text-center font-medium">{t.bgRemover.resetConfirmDesc}</p>
                                     <div className="grid grid-cols-2 gap-4">
                                         <button
                                             onClick={() => setShowResetConfirm(false)}
                                             className="py-4 rounded-2xl bg-zinc-100 dark:bg-zinc-800 font-bold hover:bg-zinc-200 transition-colors"
                                         >
-                                            취소
+                                            {t.common.cancel}
                                         </button>
                                         <button
                                             onClick={() => {
@@ -1333,7 +1333,7 @@ function BackgroundRemoverContent() {
                                             }}
                                             className="py-4 rounded-2xl bg-red-500 text-white font-bold shadow-lg shadow-red-500/30 hover:bg-red-600 transition-colors"
                                         >
-                                            초기화
+                                            {t.bgRemover.reset}
                                         </button>
                                     </div>
                                 </div>
@@ -1372,7 +1372,7 @@ function BackgroundRemoverContent() {
                                         <span className="font-black text-[11px] sm:text-sm text-primary leading-none">
                                             {Math.round(zoom * 100)}%
                                         </span>
-                                        <span className="text-[7px] sm:text-[10px] font-black uppercase text-muted-foreground/30 tracking-[0.2em] mt-1 leading-none">Scale</span>
+                                        <span className="text-[7px] sm:text-[10px] font-black uppercase text-muted-foreground/30 tracking-[0.2em] mt-1 leading-none">{t.bgRemover.scaleLabel}</span>
                                     </div>
                                     <button onClick={() => setZoom(z => Math.min(3, z + 0.2))} className="p-2 text-muted-foreground hover:text-zinc-950 dark:hover:text-zinc-50 transition-colors active:scale-90">
                                         <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
@@ -1414,7 +1414,7 @@ function BackgroundRemoverContent() {
                                 <div className="flex items-center justify-between">
                                     <h3 className="font-black text-xl flex items-center gap-3">
                                         <Brush className="w-6 h-6 text-primary" />
-                                        세부 수정
+                                        {t.bgRemover.refineTitle}
                                     </h3>
                                     <button onClick={() => setIsRefining(false)} className="p-2 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-full transition-colors">
                                         <X className="w-5 h-5" />
@@ -1424,24 +1424,24 @@ function BackgroundRemoverContent() {
                                 <div className="grid grid-cols-2 gap-3">
                                     <button onClick={() => setBrushMode('restore')} className={cn("py-3 rounded-2xl font-bold flex flex-col items-center gap-2 border-2 transition-all shadow-sm", brushMode === 'restore' ? "bg-primary/10 border-primary text-primary" : "border-zinc-100 dark:border-zinc-800 hover:bg-zinc-50")}>
                                         <Brush className="w-5 h-5" />
-                                        <span className="text-[10px] uppercase font-black">복구</span>
+                                        <span className="text-[10px] uppercase font-black">{t.bgRemover.brushRestore}</span>
                                     </button>
                                     <button onClick={() => setBrushMode('erase')} className={cn("py-3 rounded-2xl font-bold flex flex-col items-center gap-2 border-2 transition-all shadow-sm", brushMode === 'erase' ? "bg-red-500/10 border-red-500 text-red-500" : "border-zinc-100 dark:border-zinc-800 hover:bg-zinc-50")}>
                                         <Eraser className="w-5 h-5" />
-                                        <span className="text-[10px] uppercase font-black">지우기</span>
+                                        <span className="text-[10px] uppercase font-black">{t.bgRemover.brushErase}</span>
                                     </button>
                                 </div>
 
                                 <div className="space-y-4 pt-2">
                                     <div className="flex justify-between text-[10px] font-black uppercase text-muted-foreground">
-                                        <span>브러시 크기</span>
+                                        <span>{t.bgRemover.brushSize}</span>
                                         <span className="text-primary">{brushSize}px</span>
                                     </div>
                                     <input type="range" min="5" max="100" value={brushSize} onChange={(e) => setBrushSize(parseInt(e.target.value))} className="w-full h-1.5 bg-zinc-200 dark:bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-primary" />
                                 </div>
 
                                 <button onClick={() => setIsRefining(false)} className="w-full py-4 rounded-2xl bg-zinc-950 dark:bg-zinc-100 text-white dark:text-zinc-950 font-black hover:scale-[1.02] shadow-lg shadow-zinc-950/20 transition-all flex items-center justify-center gap-2">
-                                    <Check className="w-5 h-5" /> 수정 완료 (Save)
+                                    <Check className="w-5 h-5" /> {t.bgRemover.applyRefine}
                                 </button>
                             </div>
                         ) : (
@@ -1556,14 +1556,14 @@ function BackgroundRemoverContent() {
                                             <Download className="w-5 h-5" /> {t.common.download}
                                         </button>
                                         <div className="space-y-3 pt-4">
-                                            <label className="text-[10px] font-black uppercase text-muted-foreground tracking-widest pl-1">Aspect Ratio</label>
+                                            <label className="text-[10px] font-black uppercase text-muted-foreground tracking-widest pl-1">{t.bgRemover.aspectTitle}</label>
                                             <div className="grid grid-cols-2 gap-2">
                                                 {[
-                                                    { id: 'original', label: 'Original' },
-                                                    { id: '1:1', label: '1:1 Square' },
-                                                    { id: '4:5', label: '4:5 Insta' },
-                                                    { id: '9:16', label: '9:16 Shorts' },
-                                                    { id: '16:9', label: '16:9 YouTube' }
+                                                    { id: 'original', label: t.bgRemover.filterOriginal },
+                                                    { id: '1:1', label: t.bgRemover.aspectSquare },
+                                                    { id: '4:5', label: t.bgRemover.aspectSocial },
+                                                    { id: '9:16', label: t.bgRemover.shortsCrop },
+                                                    { id: '16:9', label: t.bgRemover.aspectTV }
                                                 ].map(ratio => (
                                                     <button
                                                         key={ratio.id}
@@ -1578,7 +1578,7 @@ function BackgroundRemoverContent() {
                                                     </button>
                                                 ))}
                                                 <button onClick={() => {
-                                                    const text = `AI Creative Studio! ⚡\n${window.location.origin}${window.location.pathname}`;
+                                                    const text = `${t.bgRemover.shareText}\n${window.location.origin}${window.location.pathname}`;
                                                     navigator.clipboard.writeText(text); alert(t.common.copiedLink);
                                                 }} className="py-3 rounded-xl border-2 border-zinc-100 dark:border-zinc-800 text-[9px] font-black text-muted-foreground transition-all flex items-center justify-center gap-2">
                                                     <Share2 className="w-3.5 h-3.5" /> {t.bgRemover.share}
@@ -1597,9 +1597,9 @@ function BackgroundRemoverContent() {
             {!processedImage && !isProcessing && (
                 <div className="grid md:grid-cols-3 gap-8 pt-12 animate-in fade-in slide-in-from-bottom-8 duration-1000">
                     {[
-                        { icon: Sparkles, title: "Edge Perfect", desc: "Advanced AI preserves every fine detail." },
-                        { icon: MousePointer2, title: "Precision Control", desc: "Manual brush for perfect refinements." },
-                        { icon: Layers, title: "Pro Backgrounds", desc: "One-click ID photos and thumbnails." }
+                        { icon: Sparkles, title: t.bgRemover.edgeTitle, desc: t.bgRemover.edgeDesc },
+                        { icon: MousePointer2, title: t.bgRemover.precisionTitle, desc: t.bgRemover.precisionDesc },
+                        { icon: Layers, title: t.bgRemover.proBgTitle, desc: t.bgRemover.proBgDesc }
                     ].map((feature, i) => (
                         <div key={i} className="glass-card p-8 rounded-[2.5rem] space-y-4 hover:scale-105 transition-transform border border-zinc-100 dark:border-zinc-800/50">
                             <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center text-primary"><feature.icon className="w-7 h-7" /></div>

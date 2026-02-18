@@ -96,6 +96,18 @@ export default function PDFMasterPage() {
         setProgress(0)
     }
 
+    const moveFile = (idx: number, direction: 'up' | 'down') => {
+        const newFiles = [...files];
+        const targetIdx = direction === 'up' ? idx - 1 : idx + 1;
+        if (targetIdx < 0 || targetIdx >= newFiles.length) return;
+
+        const temp = newFiles[idx];
+        newFiles[idx] = newFiles[targetIdx];
+        newFiles[targetIdx] = temp;
+        setFiles(newFiles);
+        setResultUrl(null);
+    }
+
     const runConfetti = () => {
         const end = Date.now() + 2 * 1000;
         const colors = ['#3b82f6', '#2563eb', '#1d4ed8', '#60a5fa'];
@@ -347,12 +359,34 @@ export default function PDFMasterPage() {
                                             )}
                                         </div>
                                     </div>
-                                    <button
-                                        onClick={() => removeFile(file.id)}
-                                        className="p-3 text-muted-foreground hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-2xl transition-all opacity-0 group-hover:opacity-100"
-                                    >
-                                        <Trash2 className="w-6 h-6" />
-                                    </button>
+                                    <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                                        {activeTab === 'merge' && (
+                                            <div className="flex flex-col gap-1 mr-2">
+                                                <button
+                                                    onClick={() => moveFile(idx, 'up')}
+                                                    disabled={idx === 0}
+                                                    className="p-1.5 text-muted-foreground hover:text-primary hover:bg-primary/5 rounded-lg transition-all disabled:opacity-30"
+                                                    title="Move Up"
+                                                >
+                                                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 15l7-7 7 7" /></svg>
+                                                </button>
+                                                <button
+                                                    onClick={() => moveFile(idx, 'down')}
+                                                    disabled={idx === files.length - 1}
+                                                    className="p-1.5 text-muted-foreground hover:text-primary hover:bg-primary/5 rounded-lg transition-all disabled:opacity-30"
+                                                    title="Move Down"
+                                                >
+                                                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M19 9l-7 7-7-7" /></svg>
+                                                </button>
+                                            </div>
+                                        )}
+                                        <button
+                                            onClick={() => removeFile(file.id)}
+                                            className="p-3 text-muted-foreground hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-2xl transition-all"
+                                        >
+                                            <Trash2 className="w-6 h-6" />
+                                        </button>
+                                    </div>
                                 </div>
                             ))}
                         </div>
@@ -398,13 +432,25 @@ export default function PDFMasterPage() {
                                         <CheckCircle2 className="w-7 h-7" />
                                         Processing Complete! High-Quality result ready.
                                     </div>
-                                    <button
-                                        onClick={downloadResult}
-                                        className="w-full h-20 rounded-3xl bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-black text-xl hover:scale-[1.02] active:scale-95 transition-all shadow-2xl flex items-center justify-center gap-4"
-                                    >
-                                        <Download className="h-7 w-7" />
-                                        {activeTab === 'merge' ? t.pdfMaster.downloadMerged : t.pdfMaster.downloadSplit}
-                                    </button>
+                                    <div className="grid grid-cols-2 gap-4">
+                                        <button
+                                            onClick={downloadResult}
+                                            className="h-20 rounded-3xl bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-black text-xl hover:scale-[1.02] active:scale-95 transition-all shadow-2xl flex items-center justify-center gap-4"
+                                        >
+                                            <Download className="h-7 w-7" />
+                                            {activeTab === 'merge' ? t.pdfMaster.downloadMerged : t.pdfMaster.downloadSplit}
+                                        </button>
+                                        <button
+                                            onClick={async () => {
+                                                await navigator.clipboard.writeText(window.location.href);
+                                                alert(t.common.copiedLink);
+                                            }}
+                                            className="h-20 rounded-3xl bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-white font-black text-xl hover:scale-[1.02] active:scale-95 transition-all border border-zinc-200 dark:border-zinc-700 flex items-center justify-center gap-4"
+                                        >
+                                            <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" /></svg>
+                                            {t.common.shareResult}
+                                        </button>
+                                    </div>
                                     <button
                                         onClick={() => {
                                             setFiles([])

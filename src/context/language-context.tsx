@@ -18,7 +18,8 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     useEffect(() => {
         // 1. Check saved language
         const savedLang = localStorage.getItem('app-language') as Language;
-        if (savedLang && ['ko', 'en', 'zh'].includes(savedLang)) {
+        const validLangs: Language[] = ['ko', 'en', 'zh', 'ja', 'es', 'de', 'pl'];
+        if (savedLang && validLangs.includes(savedLang)) {
             setLanguageState(savedLang);
             return;
         }
@@ -30,6 +31,14 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
                 setLanguageState('ko');
             } else if (browserLang === 'zh') {
                 setLanguageState('zh');
+            } else if (browserLang === 'ja') {
+                setLanguageState('ja');
+            } else if (browserLang === 'es') {
+                setLanguageState('es');
+            } else if (browserLang === 'de') {
+                setLanguageState('de');
+            } else if (browserLang === 'pl') {
+                setLanguageState('pl');
             } else {
                 setLanguageState('en');
             }

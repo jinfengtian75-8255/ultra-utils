@@ -32,7 +32,7 @@ export default function AdvertisePage() {
             setSubmitted(true);
         } catch (error) {
             console.error("Error submitting inquiry:", error);
-            alert("Submission failed. Please try again.");
+            alert(t.advertise.submitError);
             setSubmitting(false);
         }
     };
@@ -41,26 +41,26 @@ export default function AdvertisePage() {
         {
             title: t.advertise.slotTop,
             icon: <Layout className="w-6 h-6 text-blue-500" />,
-            desc: "728x90 Banner - Prime visibility at the very top of all tool pages. Maximize your brand awareness.",
-            price: "Premium"
+            desc: t.advertise.slotTopDesc,
+            price: t.advertise.pricePremium
         },
         {
-            title: "Home Feed Banner", // Add new home slot
+            title: t.advertise.slotHome,
             icon: <Zap className="w-6 h-6 text-amber-500" />,
-            desc: "Native placement within the tool grid on the homepage. Perfect for high engagement.",
-            price: "High CTR"
+            desc: t.advertise.slotHomeDesc,
+            price: t.advertise.priceHighCTR
         },
         {
             title: t.advertise.slotSide,
             icon: <Monitor className="w-6 h-6 text-purple-500" />,
-            desc: "160x600 Skyscraper - Sticky sidebar placement for prolonged brand exposure.",
-            price: "Premium"
+            desc: t.advertise.slotSideDesc,
+            price: t.advertise.pricePremium
         },
         {
             title: t.advertise.slotBottom,
             icon: <Layout className="w-6 h-6 text-zinc-400 rotate-180" />,
-            desc: "728x90 Banner - High intent placement at the bottom of every tool page.",
-            price: "Conversion"
+            desc: t.advertise.slotBottomDesc,
+            price: t.advertise.priceConversion
         }
     ];
 
@@ -75,7 +75,7 @@ export default function AdvertisePage() {
                     onClick={() => setSubmitted(false)}
                     className="px-6 h-12 rounded-xl border border-zinc-200 dark:border-zinc-800 font-medium hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors"
                 >
-                    Back to Form
+                    {t.advertise.backToForm}
                 </button>
             </div>
         );
@@ -116,12 +116,7 @@ export default function AdvertisePage() {
                 <div className="space-y-8 py-4">
                     <h2 className="text-3xl md:text-4xl font-bold tracking-tight">{t.advertise.formTitle}</h2>
                     <ul className="space-y-6">
-                        {[
-                            "100k+ Monthly Active Users",
-                            "High engagement from YouTube Creators",
-                            "Bilingual reach (Global & Local)",
-                            "Transparent performance reports"
-                        ].map((item, i) => (
+                        {t.advertise.benefits.map((item, i) => (
                             <li key={i} className="flex items-center gap-4 text-lg text-muted-foreground">
                                 <div className="flex-shrink-0 w-6 h-6 rounded-full bg-green-500/10 flex items-center justify-center">
                                     <CheckCircle2 className="w-4 h-4 text-green-500" />
@@ -136,7 +131,7 @@ export default function AdvertisePage() {
                             <ArrowRight className="w-5 h-5" />
                         </div>
                         <p className="text-sm font-medium text-blue-600 dark:text-blue-400">
-                            Partnering with UltraUtils means connecting with the next generation of digital builders.
+                            {t.advertise.partnerMsg}
                         </p>
                     </div>
                 </div>
@@ -148,7 +143,7 @@ export default function AdvertisePage() {
                             <input
                                 name="name"
                                 required
-                                placeholder="Jane Doe / Acme Corp"
+                                placeholder={t.advertise.namePlaceholder}
                                 className="w-full h-12 px-4 rounded-xl bg-zinc-100/50 dark:bg-zinc-800/50 border-none focus:ring-2 focus:ring-primary/20 transition-all"
                             />
                         </div>
@@ -158,7 +153,7 @@ export default function AdvertisePage() {
                                 name="email"
                                 required
                                 type="email"
-                                placeholder="jane@example.com"
+                                placeholder={t.advertise.emailPlaceholder}
                                 className="w-full h-12 px-4 rounded-xl bg-zinc-100/50 dark:bg-zinc-800/50 border-none focus:ring-2 focus:ring-primary/20 transition-all"
                             />
                         </div>
@@ -168,7 +163,7 @@ export default function AdvertisePage() {
                         <input
                             name="dates"
                             required
-                            placeholder="e.g., 2026-03-01 ~ 2026-03-15"
+                            placeholder={t.advertise.datesPlaceholder}
                             className="w-full h-12 px-4 rounded-xl bg-zinc-100/50 dark:bg-zinc-800/50 border-none focus:ring-2 focus:ring-primary/20 transition-all"
                         />
                     </div>
@@ -178,7 +173,7 @@ export default function AdvertisePage() {
                             name="message"
                             required
                             className="w-full min-h-[140px] p-4 rounded-xl bg-zinc-100/50 dark:bg-zinc-800/50 border-none focus:ring-2 focus:ring-primary/20 transition-all resize-none"
-                            placeholder="Tell us about your product or share an ad link..."
+                            placeholder={t.advertise.messagePlaceholder}
                         />
                     </div>
                     <button
@@ -197,8 +192,8 @@ export default function AdvertisePage() {
                         <HelpCircle className="w-6 h-6" />
                     </div>
                     <div>
-                        <h2 className="text-3xl font-black">Advertising FAQ</h2>
-                        <p className="text-muted-foreground font-bold">Frequently asked questions about advertising on UltraUtils</p>
+                        <h2 className="text-3xl font-black">{t.advertise.faqTitle}</h2>
+                        <p className="text-muted-foreground font-bold">{t.advertise.faqDesc}</p>
                     </div>
                 </div>
 
