@@ -2,10 +2,12 @@
 
 import { useState, useRef, useEffect } from 'react'
 import { QRCodeSVG } from 'qrcode.react'
-import { Download, Palette, Type, Maximize, Share2 } from 'lucide-react'
+import { Download, Palette, Type, Maximize, Share2, Sparkles } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useLanguage } from '@/context/language-context'
 import AdBanner from '@/components/AdBanner'
+import { addRecentTool } from '@/lib/recent-tools'
+import NextStep from '@/components/NextStep'
 
 export default function QrGeneratorPage() {
     const { t } = useLanguage()
@@ -18,7 +20,13 @@ export default function QrGeneratorPage() {
 
     useEffect(() => {
         setIsMounted(true)
-    }, [])
+        addRecentTool({
+            id: 'qr-gen',
+            title: t.navbar.qrGen,
+            href: '/tools/qr-generator',
+            iconName: 'Sliders'
+        })
+    }, [t])
 
     const downloadQr = () => {
         const svg = qrRef.current
@@ -55,8 +63,6 @@ export default function QrGeneratorPage() {
                     {t.qrGen.desc}
                 </p>
             </div>
-
-
 
             <div className="grid lg:grid-cols-2 gap-12 items-start">
                 <div className="space-y-8 animate-in fade-in slide-in-from-left-8 duration-700 delay-100">
@@ -129,6 +135,15 @@ export default function QrGeneratorPage() {
                                 className="w-full h-2 bg-zinc-100 dark:bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-primary"
                             />
                         </div>
+
+                        <div className="pt-6 border-t border-zinc-100 dark:border-zinc-800 flex justify-center">
+                            <button
+                                onClick={() => setText('https://ultra-utils.vercel.app')}
+                                className="text-xs font-black uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors flex items-center gap-2 px-4 py-2 rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-800"
+                            >
+                                <Sparkles className="w-3 h-3" /> {t.common.trySample}
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -158,8 +173,8 @@ export default function QrGeneratorPage() {
                                 </button>
                                 <button
                                     onClick={() => {
-                                        const text = `Check out this awesome QR Generator! ⚡\n${window.location.origin}${window.location.pathname}`;
-                                        navigator.clipboard.writeText(text);
+                                        const textContent = `Check out this awesome QR Generator! ⚡\n${window.location.origin}${window.location.pathname}`;
+                                        navigator.clipboard.writeText(textContent);
                                         alert(t.common.copiedLink);
                                     }}
                                     className="w-16 sm:w-20 rounded-2xl bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 font-bold flex items-center justify-center hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-all shrink-0"
@@ -178,7 +193,6 @@ export default function QrGeneratorPage() {
 
             <AdBanner slot="tool-bottom-banner" useAdSense={true} />
 
-            {/* SEO Guide & FAQ Section */}
             <div className="pt-20 border-t border-zinc-200 dark:border-zinc-800 space-y-16 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-300">
                 <div className="text-center space-y-4">
                     <h2 className="text-3xl font-extrabold sm:text-4xl text-gradient">{t.qrGen.guide.title}</h2>
@@ -213,6 +227,13 @@ export default function QrGeneratorPage() {
                     </div>
                 </div>
             </div>
+
+            <NextStep
+                title={t.navbar.pdfMaster}
+                desc={t.pdfMaster.desc}
+                href="/tools/pdf-master"
+                iconName="FileText"
+            />
         </div>
     )
 }

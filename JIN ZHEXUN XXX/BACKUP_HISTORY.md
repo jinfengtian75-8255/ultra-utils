@@ -158,3 +158,31 @@
     *   `checkpoint-global-7-languages`: Finished full localization for all supported 7 languages.
     *   `checkpoint-dynamic-og-engine`: Integrated Next.js dynamic image generation for premium sharing.
     *   `checkpoint-metadata-base-fix`: Technical SEO optimization for reliable social media crawling.
+
+---
+
+### [ v10.1 ] 2026-02-18 18:55 (글로벌 마케팅 시동 & 구글 광고 전략 수립) 📈
+*   **내용:** 실제 유입 및 수익 창출을 위한 [Google Ads] 실전 전략 가이드 구축
+*   **주요 특징:** 
+    *   **마케팅 전략지 생성**: `MARKETING_ADS_STRATEGY.md` 파일을 통해 도구별 타겟 키워드, 광고 카피, 입찰 전략 수립 완료.
+    *   **사용자 편의 마케팅**: 로그인/가입 없는 '익명성'과 '무료' 가치를 핵심 마케팅 포인트로 확정.
+    *   **비용 효율적 광고 설계**: 대행사 없이 사장님이 직접 소액(일 1만원)으로 운영 가능한 실전 세팅 가이드 제공.
+*   **기록 태그:**
+    *   `checkpoint-marketing-start`: Transitioned from development to growth & marketing phase.
+    *   `strategy-file-created`: Saved `MARKETING_ADS_STRATEGY.md` with high-converting keywords.
+
+---
+
+### [ v11 ] 2026-02-18 20:05 (무료 마케팅 & SEO 부스트 페이즈) 🚀
+*   **내용:** 유료 광고의 기술적 한계를 넘어선 '자연 유입(SEO)' 강화 및 브랜드 가치 내재화
+*   **주요 특징:** 
+    *   **성장 가이드(Growth Tips) 시스템 도입**: 홈 화면에 "유튜브 CTR 높이기", "브랜드 신뢰도 구축" 등 사용자에게 실질적인 가치를 주는 교육 성격의 마케팅 블록 추가.
+    *   **7개국어 SEO 컨텐츠 확장**: 단순히 도구만 보여주는 것이 아니라, 각 언어별로 '어떻게 도구를 써서 성공하는가'에 대한 키워드 중심의 팁 텍스트를 전면 배치.
+    *   **검색 키워드 정규화**: `layout.tsx`에 '유튜브 클릭률 높이는 법', '브랜드 구축 도구' 등 구글 검색 상위 노출을 위한 새로운 타겟 키워드 대량 탑재.
+    *   **무료 마케팅 체제 전환**: 복잡한 구글 광고 세팅 대신, 사이트 자체를 강력한 '콘텐츠 자석'으로 만들어 광고비 없이도 유입이 발생하도록 웹 아키텍처 개선.
+*   **기록 태그:**
+    *   `checkpoint-seo-growth-tips`: Added actionable SEO content blocks to the homepage.
+    *   `checkpoint-organic-marketing-pivot`: Shifted strategy from paid ads to high-value organic content.
+    *   `checkpoint-meta-keyword-expansion`: Refined SEO metadata for broader search visibility.
+
+---

@@ -5,6 +5,8 @@ import { Link as LinkIcon, Download, Image as ImageIcon, Loader2, Sparkles, Shar
 import { cn } from '@/lib/utils'
 import { useLanguage } from '@/context/language-context'
 import AdBanner from '@/components/AdBanner'
+import { addRecentTool } from '@/lib/recent-tools'
+import NextStep from '@/components/NextStep'
 
 export default function YoutubeThumbnailPage() {
     const { t } = useLanguage()
@@ -28,7 +30,13 @@ export default function YoutubeThumbnailPage() {
 
     useEffect(() => {
         setIsMounted(true)
-    }, [])
+        addRecentTool({
+            id: 'yt-grab',
+            title: t.navbar.ytGrab,
+            href: '/tools/youtube-thumbnail',
+            iconName: 'Youtube'
+        })
+    }, [t])
 
     const extractVideoId = (inputUrl: string) => {
         const isShortsCheck = inputUrl.includes('shorts/')
@@ -131,6 +139,23 @@ export default function YoutubeThumbnailPage() {
                         {loading ? <Loader2 className="animate-spin h-6 w-6" /> : <span>{t.ytGrab.getBtn}</span>}
                     </button>
                 </form>
+
+                <div className="mt-6 flex items-center justify-center gap-4">
+                    <button
+                        onClick={() => {
+                            const sampleUrl = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
+                            setUrl(sampleUrl)
+                            // Small delay to allow state update before trigger
+                            setTimeout(() => {
+                                const btn = document.querySelector('button[type="submit"]') as HTMLButtonElement
+                                btn?.click()
+                            }, 100)
+                        }}
+                        className="text-xs font-black uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors flex items-center gap-2 px-4 py-2 rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-800"
+                    >
+                        <Sparkles className="w-3 h-3" /> {t.common.trySample}
+                    </button>
+                </div>
             </div>
 
             {/* AI Color Palette - Automatically extracted when videoId is set */}
@@ -394,6 +419,14 @@ export default function YoutubeThumbnailPage() {
                     ))}
                 </div>
             </div>
+
+            {/* Next Step Suggestion */}
+            <NextStep
+                title={t.navbar.ytPlanner}
+                desc={t.ytPlanner.desc}
+                href="/tools/youtube-planner"
+                iconName="Wand2"
+            />
         </div>
     )
 }

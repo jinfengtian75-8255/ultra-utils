@@ -1,11 +1,13 @@
 'use client'
 
 import { useState, useCallback, useEffect } from 'react'
-import { Upload, Download, Loader2, Check, Sliders, Maximize, Wand2, Trash2, Share2 } from 'lucide-react'
+import { Upload, Download, Loader2, Check, Sliders, Maximize, Wand2, Trash2, Share2, Sparkles, Copy } from 'lucide-react'
 import imageCompression from 'browser-image-compression'
 import { cn } from '@/lib/utils'
 import { useLanguage } from '@/context/language-context'
 import AdBanner from '@/components/AdBanner'
+import { addRecentTool } from '@/lib/recent-tools'
+import NextStep from '@/components/NextStep'
 
 export default function ImageCompressorPage() {
     const { t } = useLanguage()
@@ -27,7 +29,13 @@ export default function ImageCompressorPage() {
 
     useEffect(() => {
         setIsMounted(true)
-    }, [])
+        addRecentTool({
+            id: 'image-master',
+            title: t.navbar.imageMaster,
+            href: '/tools/image-compressor',
+            iconName: 'ImageIcon'
+        })
+    }, [t])
 
     // Revoke object URLs when they change or component unmounts
     useEffect(() => {
@@ -68,41 +76,49 @@ export default function ImageCompressorPage() {
     }
 
     const processImage = useCallback(async (file: File, currentQuality: number, currentWidth: number, enhance: boolean) => {
-        if (isProcessing) return
+        if (!file) return
         setIsProcessing(true)
         setProgress(0)
+
+        // Reset compressed preview when starting new process
+        setCompressedPreview(null)
+        setCompressedFile(null)
 
         const options = {
             maxSizeMB: 10,
             maxWidthOrHeight: currentWidth,
             useWebWorker: true,
             initialQuality: currentQuality,
-            onProgress: (p: number) => setProgress(p)
+            onProgress: (p: number) => setProgress(Math.round(p))
         }
 
         try {
+            console.log('Starting compression for:', file.name, options)
             let processed = await imageCompression(file, options)
 
             if (enhance) {
-                processed = await applySharpen(processed)
+                try {
+                    processed = await applySharpen(processed)
+                } catch (sharpError) {
+                    console.error('Enhancement failed, using compressed only', sharpError)
+                }
             }
 
             setCompressedFile(processed)
-
             const newUrl = URL.createObjectURL(processed)
-            setCompressedPreview((prev) => {
-                if (prev) URL.revokeObjectURL(prev)
-                return newUrl
-            })
+            setCompressedPreview(newUrl)
+            setProgress(100)
         } catch (error) {
-            console.error(error)
+            console.error('Compression failed:', error)
+            alert(t.common.error || 'Failed to process image.')
         } finally {
             setIsProcessing(false)
         }
-    }, [isProcessing])
+    }, [t.common.error])
 
-    const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
-        const file = event.target.files?.[0]
+    const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement> | { target: { files: FileList | null } }) => {
+        const target = event.target as any;
+        const file = target.files?.[0]
         if (!file) return
 
         setOriginalFile(file)
@@ -133,6 +149,90 @@ export default function ImageCompressorPage() {
         processImage(originalFile, quality, maxWidth, isEnhanceEnabled)
     }
 
+    const handleShare = async () => {
+        try {
+            const shareText = `Check out this awesome Image Compressor! ⚡\n${window.location.origin}${window.location.pathname}`
+
+            if (navigator.share && compressedFile) {
+                // Try to share the actual file if supported
+                if (navigator.canShare && navigator.canShare({ files: [compressedFile] })) {
+                    await navigator.share({
+                        files: [compressedFile],
+                        title: 'UltraUtils - Image Compressor',
+                        text: 'Shared from UltraUtils'
+                    })
+                    return
+                }
+
+                // Fallback to sharing just the URL if file share not supported
+                await navigator.share({
+                    title: 'UltraUtils - Image Compressor',
+                    url: window.location.href
+                })
+                return
+            }
+
+            // Fallback for desktop: Copy link to clipboard
+            await navigator.clipboard.writeText(shareText)
+            alert(t.common.copiedLink)
+        } catch (error) {
+            console.error('Sharing failed:', error)
+            // Final fallback
+            const shareText = `Check out this awesome Image Compressor! ⚡\n${window.location.origin}${window.location.pathname}`
+            navigator.clipboard.writeText(shareText)
+            alert(t.common.copiedLink)
+        }
+    }
+
+    const handleCopyImage = async () => {
+        if (!compressedFile) return
+        try {
+            await navigator.clipboard.write([
+                new ClipboardItem({
+                    [compressedFile.type]: compressedFile
+                })
+            ])
+            alert(t.common.imageCopied)
+        } catch (error) {
+            console.error('Copy to clipboard failed:', error)
+            alert(t.common.imageCopyError)
+        }
+    }
+
+    const handleTrySample = async () => {
+        if (isProcessing) return
+        setIsProcessing(true)
+        setProgress(10)
+
+        try {
+            // High quality sample image - using a more reliable source or smaller first for quick test
+            const sampleUrl = 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1200'
+            const response = await fetch(sampleUrl)
+            if (!response.ok) throw new Error('Failed to fetch image')
+
+            const blob = await response.blob()
+            const file = new File([blob], 'sample_landscape.jpg', { type: 'image/jpeg' })
+
+            // Directly set state instead of triggering handleFileChange to avoid event duplication
+            setOriginalFile(file)
+            const previewUrl = URL.createObjectURL(file)
+            setOriginalPreview(previewUrl)
+
+            const img = new Image()
+            img.src = previewUrl
+            img.onload = () => {
+                const targetWidth = Math.min(img.width, 1920) // Limit default max width for sample
+                setMaxWidth(targetWidth)
+                setAspectRatio(img.width / img.height)
+                processImage(file, quality, targetWidth, isEnhanceEnabled)
+            }
+        } catch (error) {
+            console.error('Sample fetch failed', error)
+            alert(t.common.error)
+            setIsProcessing(false)
+        }
+    }
+
     const formatSize = (bytes: number) => {
         if (bytes === 0) return '0 Bytes'
         const k = 1024
@@ -153,8 +253,6 @@ export default function ImageCompressorPage() {
                     {t.imageMaster.desc}
                 </p>
             </div>
-
-
 
             <div className="grid lg:grid-cols-12 gap-8 items-start">
                 <div className="lg:col-span-4 space-y-6">
@@ -243,22 +341,32 @@ export default function ImageCompressorPage() {
 
                 <div className="lg:col-span-8 space-y-6">
                     {!originalFile ? (
-                        <div className="group relative border-4 border-dashed border-zinc-200 dark:border-zinc-800 rounded-[2.5rem] p-24 text-center hover:border-primary/50 hover:bg-zinc-50/50 dark:hover:bg-primary/5 transition-all cursor-pointer animate-in fade-in slide-in-from-right-4 duration-700 delay-200">
-                            <input
-                                type="file"
-                                accept="image/*"
-                                onChange={handleFileChange}
-                                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
-                            />
-                            <div className="space-y-6 pointer-events-none">
-                                <div className="w-24 h-24 bg-primary text-primary-foreground rounded-full flex items-center justify-center mx-auto shadow-2xl transition-transform group-hover:scale-110">
-                                    <Upload className="w-12 h-12" />
-                                </div>
-                                <div>
-                                    <h3 className="text-2xl font-black italic tracking-tighter">{t.common.selectImage}</h3>
-                                    <p className="text-muted-foreground mt-2 max-w-xs mx-auto text-sm">{t.common.dropHere}</p>
+                        <div className="flex flex-col gap-6">
+                            <div className="group relative border-4 border-dashed border-zinc-200 dark:border-zinc-800 rounded-[2.5rem] p-24 text-center hover:border-primary/50 hover:bg-zinc-50/50 dark:hover:bg-primary/5 transition-all cursor-pointer animate-in fade-in slide-in-from-right-4 duration-700 delay-200">
+                                <input
+                                    type="file"
+                                    accept="image/*"
+                                    onChange={handleFileChange}
+                                    className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+                                />
+                                <div className="space-y-6 pointer-events-none">
+                                    <div className="w-24 h-24 bg-primary text-primary-foreground rounded-full flex items-center justify-center mx-auto shadow-2xl transition-transform group-hover:scale-110">
+                                        <Upload className="w-12 h-12" />
+                                    </div>
+                                    <div>
+                                        <h3 className="text-2xl font-black italic tracking-tighter">{t.common.selectImage}</h3>
+                                        <p className="text-muted-foreground mt-2 max-w-xs mx-auto text-sm">{t.common.dropHere}</p>
+                                    </div>
                                 </div>
                             </div>
+
+                            <button
+                                onClick={handleTrySample}
+                                disabled={isProcessing}
+                                className="mx-auto text-xs font-black uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors flex items-center gap-2 px-6 py-3 rounded-2xl hover:bg-zinc-100 dark:hover:bg-zinc-800"
+                            >
+                                <Sparkles className="w-4 h-4" /> {t.common.trySample}
+                            </button>
                         </div>
                     ) : (
                         <div className="grid md:grid-cols-2 gap-6 animate-in zoom-in-95 duration-500">
@@ -321,7 +429,7 @@ export default function ImageCompressorPage() {
                                 </div>
                             </div>
 
-                            <div className="flex items-stretch gap-3">
+                            <div className="flex items-stretch gap-3 md:col-span-2 mt-4">
                                 <button
                                     disabled={!compressedFile || isProcessing}
                                     onClick={() => {
@@ -332,21 +440,24 @@ export default function ImageCompressorPage() {
                                             link.click()
                                         }
                                     }}
-                                    className="flex-1 py-5 rounded-3xl bg-primary text-primary-foreground font-black text-lg hover:scale-[1.02] active:scale-[0.98] transition-all shadow-2xl flex items-center justify-center gap-3 disabled:opacity-50"
+                                    className="flex-1 py-5 rounded-[2rem] bg-primary text-primary-foreground font-black text-lg hover:scale-[1.02] active:scale-[0.98] transition-all shadow-2xl flex items-center justify-center gap-3 disabled:opacity-50"
                                 >
                                     <Download className="w-6 h-6 shrink-0" />
                                     <span className="truncate">{t.imageMaster.downloadOptimized}</span>
                                 </button>
                                 <button
-                                    onClick={() => {
-                                        const text = `Check out this awesome Image Compressor! ⚡\n${window.location.origin}${window.location.pathname}`;
-                                        navigator.clipboard.writeText(text);
-                                        alert(t.common.copiedLink);
-                                    }}
-                                    className="w-16 sm:w-20 rounded-3xl bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 font-bold flex items-center justify-center hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-all shrink-0"
+                                    onClick={handleShare}
+                                    className="w-16 sm:w-20 rounded-[2rem] bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 font-bold flex items-center justify-center hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-all shrink-0"
                                     title={t.common.shareResult}
                                 >
                                     <Share2 className="w-6 h-6" />
+                                </button>
+                                <button
+                                    onClick={handleCopyImage}
+                                    className="w-16 sm:w-20 rounded-[2rem] bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 font-bold flex items-center justify-center hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-all shrink-0"
+                                    title={t.common.copyImage}
+                                >
+                                    <Copy className="w-6 h-6" />
                                 </button>
                             </div>
                         </div>
@@ -356,7 +467,6 @@ export default function ImageCompressorPage() {
 
             <AdBanner slot="tool-bottom-banner" useAdSense={true} />
 
-            {/* SEO Guide & FAQ Section */}
             <div className="pt-20 border-t border-zinc-200 dark:border-zinc-800 space-y-16 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-300">
                 <div className="text-center space-y-4">
                     <h2 className="text-3xl font-extrabold sm:text-4xl text-gradient">{t.imageMaster.guide.title}</h2>
@@ -391,6 +501,13 @@ export default function ImageCompressorPage() {
                     </div>
                 </div>
             </div>
+
+            <NextStep
+                title={t.navbar.bgRemover}
+                desc={t.bgRemover.desc}
+                href="/tools/background-remover"
+                iconName="Wand2"
+            />
         </div>
     )
 }

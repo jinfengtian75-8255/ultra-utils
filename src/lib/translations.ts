@@ -15,6 +15,10 @@ export interface TranslationSchema {
         orClick: string;
         shareResult: string;
         copiedLink: string;
+        trySample: string;
+        copyImage: string;
+        imageCopied: string;
+        imageCopyError: string;
     },
     navbar: {
         title: string;
@@ -273,6 +277,16 @@ export interface TranslationSchema {
             data: { title: string; desc: string };
             design: { title: string; desc: string };
         };
+        growthTips: {
+            title: string;
+            subtitle: string;
+            tips: {
+                title: string;
+                desc: string;
+                tool: string;
+                href: string;
+            }[];
+        };
     },
     advertise: {
         title: string;
@@ -441,6 +455,10 @@ export const translations: Record<Language, TranslationSchema> = {
             orClick: '또는 클릭하여 파일을 선택하세요',
             shareResult: '결과 공유하기',
             copiedLink: '링크가 복사되었습니다!',
+            trySample: '샘플 이미지로 테스트하기',
+            copyImage: '이미지 복사',
+            imageCopied: '이미지가 클립보드에 복사되었습니다!',
+            imageCopyError: '이미지 복사에 실패했습니다.',
         },
         navbar: {
             title: '나만의 유틸리티',
@@ -847,6 +865,30 @@ export const translations: Record<Language, TranslationSchema> = {
                 media: { title: '미디어 스위트', desc: '고품질 유튜브 썸네일 추출 및 AI 배경 제거. 크리에이터를 위한 완벽한 작업 환경.' },
                 data: { title: '데이터 & 텍스트', desc: '고급 텍스트 변환 및 정리 도구. 데이터 분석가와 개발자를 위한 필수 도구.' },
                 design: { title: '디자인 에셋', desc: '커스텀 스타일링이 가능한 고해상도 QR 코드 생성. 비즈니스 마케팅에 최적화.' }
+            },
+            growthTips: {
+                title: '디지털 성장을 위한 전문가 팁',
+                subtitle: '각 도구를 200% 활용하여 수익화와 트래픽을 가속화하세요.',
+                tips: [
+                    {
+                        title: '유튜브 썸네일 전략',
+                        desc: '경쟁사 썸네일을 분석하고 실제 피드에서 어떻게 보일지 미리 테스트하세요.',
+                        tool: 'YT Grabber',
+                        href: '/tools/youtube-thumbnail'
+                    },
+                    {
+                        title: 'SEO 최적화 워크플로우',
+                        desc: 'AI 배경 제거 후 즉시 압축하여 구글 검색 노출에 최적인 이미지를 만드세요.',
+                        tool: 'Image Master',
+                        href: '/tools/image-compressor'
+                    },
+                    {
+                        title: 'AI 크리에이티브 부스트',
+                        desc: '정교한 프롬프트 생성기로 당신의 창작 아이디어를 실현가능한 결과물로 바꾸세요.',
+                        tool: 'Prompt Gen',
+                        href: '/tools/prompt-generator'
+                    }
+                ]
             }
         },
         advertise: {
@@ -1093,6 +1135,10 @@ export const translations: Record<Language, TranslationSchema> = {
             orClick: 'or click to browse from files',
             shareResult: 'Share Result',
             copiedLink: 'Link copied to clipboard!',
+            trySample: 'Try with a sample image',
+            copyImage: 'Copy Image',
+            imageCopied: 'Image copied to clipboard!',
+            imageCopyError: 'Failed to copy image.',
         },
         navbar: {
             title: 'My Utils',
@@ -1493,6 +1539,30 @@ export const translations: Record<Language, TranslationSchema> = {
                 media: { title: 'Media Suite', desc: 'High-quality YouTube thumbnail extraction and AI-powered background removal. Perfect for YouTubers and content creators.' },
                 data: { title: 'Data & Text', desc: 'Advanced text conversion, formatting, and cleanup tools. Essential for data analysts and developers.' },
                 design: { title: 'Design Assets', desc: 'Professional QR code generation with custom styling and high-resolution output. Ideal for businesses.' }
+            },
+            growthTips: {
+                title: 'Expert Tips for Digital Growth',
+                subtitle: 'Learn how to utilize each tool to 200% capacity to accelerate your traffic.',
+                tips: [
+                    {
+                        title: 'YouTube Thumbnail Strategy',
+                        desc: 'Analyze competitor thumbnails and test how they look in real feeds before publishing.',
+                        tool: 'YT Grabber',
+                        href: '/tools/youtube-thumbnail'
+                    },
+                    {
+                        title: 'SEO Optimization Workflow',
+                        desc: 'Remove backgrounds and compress immediately to create Google-ready images.',
+                        tool: 'Image Master',
+                        href: '/tools/image-compressor'
+                    },
+                    {
+                        title: 'AI Creative Boost',
+                        desc: 'Turn your creative ideas into reality with our professional prompt generator.',
+                        tool: 'Prompt Gen',
+                        href: '/tools/prompt-generator'
+                    }
+                ]
             }
         },
         advertise: {
@@ -1739,6 +1809,10 @@ export const translations: Record<Language, TranslationSchema> = {
             orClick: '或点击选择文件',
             shareResult: '分享结果',
             copiedLink: '链接已复制到剪贴板！',
+            trySample: '试用示例图片',
+            copyImage: '复制图片',
+            imageCopied: '图片已复制到剪贴板！',
+            imageCopyError: '复制图片失败。',
         },
         navbar: {
             title: '我的工具',
@@ -1960,8 +2034,8 @@ export const translations: Record<Language, TranslationSchema> = {
         },
         bgRemover: {
             title: 'AI 背景移除',
-            desc: '使用人工智能立即移除照片背景。',
-            preparing: '准备 AI 中...',
+            desc: '使用 AI 瞬间移除照片背景。',
+            preparing: '正在准备 AI...',
             processing: '正在移除背景...',
             modelLoading: '正在加载 AI 引擎 (约 20MB)...',
             downloadReady: '下载透明格式图片',
@@ -1970,7 +2044,7 @@ export const translations: Record<Language, TranslationSchema> = {
             stepFetch: '正在准备图片...',
             stepModel: '正在加载 AI 模型...',
             stepInference: '正在移除背景...',
-            refineTitle: '手动修整模式',
+            refineTitle: '手动修正模式',
             refineDesc: '使用画笔恢复部分内容或进一步擦除。',
             brushRestore: '恢复',
             brushErase: '擦除',
@@ -2051,7 +2125,7 @@ export const translations: Record<Language, TranslationSchema> = {
                     },
                     {
                         title: '4. 无服务器本地处理保障绝对隐私',
-                        content: '担心您的照片被泄露到服务器？UltraUtils 在您的浏览器中本地执行所有计算。您的图像数据不会有单字节上传到服务器，这使其成为处理敏感商业文件或私人个人照片的最安全选择。'
+                        content: '担心您的照片被泄露到服务器？UltraUtils 在您的浏览器中本地执行所有计算。您的文件数据不会有单字节上传到服务器，这使其成为处理敏感商业文件或私人个人照片的最安全选择。'
                     }
                 ],
                 faq: [
@@ -2126,6 +2200,30 @@ export const translations: Record<Language, TranslationSchema> = {
                 media: { title: '媒体套件', desc: '高质量 YouTube 缩略图提取与 AI 驱动的背景移除。创作者的完美工作流伙伴。' },
                 data: { title: '数据与文本', desc: '高级文本转换、格式化和清理工具。数据分析师和开发人员的必备工具。' },
                 design: { title: '设计资产', desc: '具有自定义样式和高分辨率输出的专业 QR 码生成。企业营销的理想选择。' }
+            },
+            growthTips: {
+                title: '数字增长专家技巧',
+                subtitle: '了解如何 200% 利用每个工具来加速您的流量。',
+                tips: [
+                    {
+                        title: 'YouTube 缩略图策略',
+                        desc: '分析竞争对手的缩略图，并在发布前测试它们在实际 Feed 中的显示效果。',
+                        tool: 'YT Grabber',
+                        href: '/tools/youtube-thumbnail'
+                    },
+                    {
+                        title: 'SEO 优化工作流',
+                        desc: '移除背景并立即压缩，以创建符合 Google 搜索要求的图像。',
+                        tool: 'Image Master',
+                        href: '/tools/image-compressor'
+                    },
+                    {
+                        title: 'AI 创意提升',
+                        desc: '利用我们的专业提示词生成器将您的创意变为现实。',
+                        tool: 'Prompt Gen',
+                        href: '/tools/prompt-generator'
+                    }
+                ]
             }
         },
         advertise: {
@@ -2334,28 +2432,28 @@ export const translations: Record<Language, TranslationSchema> = {
                     },
                     {
                         title: '4. Shorts 掌握：留存与反转',
-                        content: '对于 YouTube Shorts，规则有所不同。成功取决于“可循环”结构和即时视觉刺激。我们的 AI 针对 Shorts 建议了特定策略，例如在 45 秒处设置视觉反转，或设计基于好奇心的循环，鼓励观众多次观看您的视频，从而呈几何倍数提升病毒式传播潜力。'
+                        content: '对于 YouTube Shorts，规则有所不同。成功取决于“可循环”结构和即时视觉刺激。我们的 AI 建议了特定策略，例如在 45 秒处设置视觉反转，或设计基于好奇心的循环，鼓励观众多次观看您的视频，从而呈几何倍数提升病毒式传播潜力。'
                     }
                 ],
                 faq: [
                     { q: '我可以直接使用 AI 生成的标题吗？', a: '当然可以！我们的标题已针对性能进行优化。然而，在最合适的建议中加入您自己的“风格”或频道特定背景，将获得最高的参与率。' },
                     { q: '标签的最佳数量是多少？', a: '质量重于数量。侧重于 10-15 个高度相关的关键词（如我们的 AI 建议）比用 500 个字符的垃圾填满更有效，垃圾信息会混淆搜索算法。' },
-                    { q: '我可以保存这些方案稍后查看吗？', a: '可以。使用“下载 .TXT”按钮将完整策略保存在本地，或者直接将各个章节复制到您的 Notion 或记事本中进行制作。' },
+                    { q: '我可以保存这些方案后查看吗？', a: '可以。使用“下载 .TXT”按钮将完整策略保存在本地，或者直接将各个章节复制到您的 Notion 或记事本中进行制作。' },
                     { q: '商业使用完全免费吗？', a: '是的。UltraUtils 上的所有工具（包括策划师）都 100% 免费，无需署名或注册，支持处于各个阶段的创作者。' }
                 ]
             }
         },
         houseAds: {
-            bgRemoverTitle: '专业级背景移除',
-            bgRemoverDesc: '利用 AI 一键精准清除图片背景。',
-            pdfMasterTitle: '智能 PDF 编辑器',
-            pdfMasterDesc: '合并、拆分及图片转换，一站式解决。',
+            bgRemoverTitle: 'プロ級の背景削除',
+            bgRemoverDesc: 'AIがワンクリックで背景を正確に除去。',
+            pdfMasterTitle: 'スマートPDFエディタ',
+            pdfMasterDesc: '結合、分割、画像変換をこれ一つで。',
             imageCompTitle: '超高性能图片压缩',
             imageCompDesc: '在不损失画质的情况下显著减小文件体积。',
             ytGrabTitle: 'YouTube 封面提取',
             ytGrabDesc: '即刻下载并编辑高画质视频封面。',
-            coffeeTitle: '请 Anti 喝杯咖啡',
-            coffeeDesc: '您的支持是我们将工具做得更好的动力。'
+            coffeeTitle: 'Antiにコーヒーを奢る',
+            coffeeDesc: '皆様の応援がツール開発の動力になります。'
         }
     },
     ja: {
@@ -2372,6 +2470,10 @@ export const translations: Record<Language, TranslationSchema> = {
             orClick: 'またはクリックしてファイルを選択',
             shareResult: '結果を共有',
             copiedLink: 'リンクをコピーしました！',
+            trySample: 'サンプル画像で試す',
+            copyImage: '画像をコピー',
+            imageCopied: '画像をクリップボードにコピーしました！',
+            imageCopyError: '画像のコピーに失敗しました。',
         },
         navbar: {
             title: 'マイツール',
@@ -2633,7 +2735,7 @@ export const translations: Record<Language, TranslationSchema> = {
             result: '結果',
             scaleLabel: 'スケール',
             resetConfirmTitle: '初期化しますか？',
-            resetConfirmDesc: 'これまでの作業内容가すべて失われます。',
+            resetConfirmDesc: 'これまでの作業内容がすべて失われます。',
             aspectTitle: 'アスペクト比',
             aspectSquare: '1:1 正方形',
             aspectSocial: '4:5 SNS素材',
@@ -2737,6 +2839,30 @@ export const translations: Record<Language, TranslationSchema> = {
                 media: { title: 'メディアスイート', desc: '高品質なYouTubeサムネイル抽出とAI背景削除。クリエイターに最適なワークフローパートナー。' },
                 data: { title: 'データ＆テキスト', desc: '高度なテキスト変換、フォーマット、クリーニング。データアナリストや開発者の必須ツール。' },
                 design: { title: 'デザイン資産', desc: 'カスタムスタイルと高解像度出力を備えたプロフェッショナルなQRコード生成。ビジネスマーケティングに最適。' }
+            },
+            growthTips: {
+                title: 'デジタル成長のためのエキスパートチップス',
+                subtitle: '各ツールを 200% 活用してトラフィックを加速させる方法をご紹介します。',
+                tips: [
+                    {
+                        title: 'YouTube サムネイル戦略',
+                        desc: '競合のサムネイルを分析し、公開前に実際のフィードでどのように見えるかテストしましょう。',
+                        tool: 'YT Grabber',
+                        href: '/tools/youtube-thumbnail'
+                    },
+                    {
+                        title: 'SEO 最適化ワークフロー',
+                        desc: '背景を削除してすぐに圧縮し、Google 検索に最適な画像を作成します。',
+                        tool: 'Image Master',
+                        href: '/tools/image-compressor'
+                    },
+                    {
+                        title: 'AI クリエイティブブースト',
+                        desc: 'プロフェッショナルなプロンプトジェネレーターで、あなたのクリエイティブなアイデアを現実に変えましょう。',
+                        tool: 'Prompt Gen',
+                        href: '/tools/prompt-generator'
+                    }
+                ]
             }
         },
         advertise: {
@@ -2903,6 +3029,10 @@ export const translations: Record<Language, TranslationSchema> = {
             orClick: 'o haz clic para buscar',
             shareResult: 'Compartir resultado',
             copiedLink: '¡Enlace copiado!',
+            trySample: 'Probar con imagen de muestra',
+            copyImage: 'Copiar imagen',
+            imageCopied: '¡Imagen copiada al portapapeles!',
+            imageCopyError: 'Error al copiar la imagen.',
         },
         navbar: {
             title: 'Mis Utils',
@@ -3277,6 +3407,30 @@ export const translations: Record<Language, TranslationSchema> = {
                 media: { title: 'Media Suite', desc: 'Extracción de miniaturas de YouTube y eliminación de fondos con IA. El flujo de trabajo perfecto para creadores.' },
                 data: { title: 'Datos y Texto', desc: 'Conversión, formateo y limpieza de texto. Esencial para analistas de datos y desarrolladores.' },
                 design: { title: 'Diseño', desc: 'Generación de códigos QR profesionales con estilos personalizados y alta resolución.' }
+            },
+            growthTips: {
+                title: 'Consejos de expertos para el crecimiento digital',
+                subtitle: 'Aprenda a utilizar cada herramienta al 200% para acelerar su tráfico.',
+                tips: [
+                    {
+                        title: 'Estrategia de Miniaturas de YouTube',
+                        desc: 'Analice las miniaturas de la competencia y pruebe cómo se ven en feeds reales antes de publicar.',
+                        tool: 'YT Grabber',
+                        href: '/tools/youtube-thumbnail'
+                    },
+                    {
+                        title: 'Flujo de Trabajo de Optimización SEO',
+                        desc: 'Elimine fondos y comprima inmediatamente para crear imágenes listas para Google.',
+                        tool: 'Image Master',
+                        href: '/tools/image-compressor'
+                    },
+                    {
+                        title: 'Impulso Creativo con IA',
+                        desc: 'Convierta sus ideas creativas en realidad con nuestro generador de prompts profesional.',
+                        tool: 'Prompt Gen',
+                        href: '/tools/prompt-generator'
+                    }
+                ]
             }
         },
         advertise: {
@@ -3443,6 +3597,10 @@ export const translations: Record<Language, TranslationSchema> = {
             orClick: 'oder Datei wählen',
             shareResult: 'Ergebnis teilen',
             copiedLink: 'Link kopiert!',
+            trySample: 'Mit Beispielbild versuchen',
+            copyImage: 'Bild kopieren',
+            imageCopied: 'Bild in die Zwischenablage kopiert!',
+            imageCopyError: 'Kopieren des Bildes fehlgeschlagen.',
         },
         navbar: {
             title: 'Meine Utils',
@@ -3804,6 +3962,30 @@ export const translations: Record<Language, TranslationSchema> = {
                 media: { title: 'Media-Suite', desc: 'Hochwertiges YouTube-Thumbnail-Grabbing und KI-Hintergrundentfernung. Partner für Creator-Workflows.' },
                 data: { title: 'Daten & Text', desc: 'Erweiterte Textkonvertierung, Formatierung und Reinigung. Essenziell für Analysten und Entwickler.' },
                 design: { title: 'Design-Assets', desc: 'Professionelle QR-Code-Generierung mit benutzerdefinierten Stilen und hochauflösender Ausgabe.' }
+            },
+            growthTips: {
+                title: 'Experten-Tipps für digitales Wachstum',
+                subtitle: 'Erfahren Sie, wie Sie jedes Tool zu 200 % nutzen können, um Ihren Traffic zu beschleunigen.',
+                tips: [
+                    {
+                        title: 'YouTube-Thumbnail-Strategie',
+                        desc: 'Analysieren Sie die Thumbnails der Konkurrenz und testen Sie vor der Veröffentlichung, wie sie in echten Feeds aussehen.',
+                        tool: 'YT Grabber',
+                        href: '/tools/youtube-thumbnail'
+                    },
+                    {
+                        title: 'SEO-Optimierungs-Workflow',
+                        desc: 'Hintergründe entfernen und sofort komprimieren, um Google-bereite Bilder zu erstellen.',
+                        tool: 'Image Master',
+                        href: '/tools/image-compressor'
+                    },
+                    {
+                        title: 'KI-Kreativitäts-Boost',
+                        desc: 'Verwandeln Sie Ihre kreativen Ideen mit unserem professionellen Prompt-Generator in die Realität.',
+                        tool: 'Prompt Gen',
+                        href: '/tools/prompt-generator'
+                    }
+                ]
             }
         },
         advertise: {
@@ -3970,6 +4152,10 @@ export const translations: Record<Language, TranslationSchema> = {
             orClick: 'lub kliknij, aby wybrać',
             shareResult: 'Udostępnij',
             copiedLink: 'Skopiowano link!',
+            trySample: 'Wypróbuj obraz przykładowy',
+            copyImage: 'Kopiuj obraz',
+            imageCopied: 'Obraz skopiowany do schowka!',
+            imageCopyError: 'Nie udało się skopiować obrazu.',
         },
         navbar: {
             title: 'Moje Narzędzia',
@@ -4331,6 +4517,30 @@ export const translations: Record<Language, TranslationSchema> = {
                 media: { title: 'Media Suite', desc: 'Wysokiej jakości wyciąganie miniaturek z YouTube i usuwanie tła AI. Idealny partner dla twórców.' },
                 data: { title: 'Dane i Tekst', desc: 'Zaawansowana konwersja, formatowanie i czyszczenie tekstu. Niezbędne dla analityków i programistów.' },
                 design: { title: 'Zasoby graficzne', desc: 'Profesjonalne generowanie kodów QR z niestandardowymi stylami i wysoką rozdzielczością.' }
+            },
+            growthTips: {
+                title: 'Wskazówki ekspertów dotyczące wzrostu cyfrowego',
+                subtitle: 'Dowiedz się, jak wykorzystać każde narzędzie w 200%, aby przyspieszyć ruch na stronie.',
+                tips: [
+                    {
+                        title: 'Strategia miniatur YouTube',
+                        desc: 'Analizuj miniatury konkurencji i testuj ich wygląd w rzeczywistych kanałach przed opublikowaniem.',
+                        tool: 'YT Grabber',
+                        href: '/tools/youtube-thumbnail'
+                    },
+                    {
+                        title: 'Przebieg optymalizacji SEO',
+                        desc: 'Usuwaj tła i natychmiast kompresuj obrazy, aby były gotowe dla Google Search.',
+                        tool: 'Image Master',
+                        href: '/tools/image-compressor'
+                    },
+                    {
+                        title: 'Zastrzyk kreatywności AI',
+                        desc: 'Zamień swoje kreatywne pomysły w rzeczywistość dzięki naszemu profesjonalnemu generatorowi promptów.',
+                        tool: 'Prompt Gen',
+                        href: '/tools/prompt-generator'
+                    }
+                ]
             }
         },
         advertise: {

@@ -22,7 +22,8 @@ export const metadata: Metadata = {
   description: 'Pro-grade YouTube Thumbnail Grabber, AI Background Remover (누끼 따기), Image Compressor, and more. Free, fast, and no registration required. Best tools for creators.',
   keywords: [
     'youtube thumbnail downloader', 'ai background remover', 'image compressor', 'qr code generator', 'text converter', 'free online tools',
-    '누끼 따기', '이미지 압축', '유튜브 썸네일 다운로드', '무료 ai 도구', '배경 제거', 'QR 코드 생성',
+    'increase youtube ctr', 'branding tools', 'content creator kit', 'productivity tools',
+    '누끼 따기', '이미지 압축', '유튜브 썸네일 다운로드', '무료 ai 도구', '배경 제거', 'QR 코드 생성', '클릭률 높이는 법',
     '背景削除', '画像圧縮', 'YouTube サムネイル', 'QRコード作成',
     'quitar fondo ai', 'comprimir imagen', 'descargar miniatura youtube',
     'hintergrund entfernen', 'bild komprimieren', 'youtube vorschaubild',

@@ -2,11 +2,13 @@
 
 import { useState, useCallback, useRef, useEffect, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
-import { Upload, Download, Loader2, Image as ImageIcon, Check, RefreshCw, Layers, Sparkles, Undo, Redo, MousePointer2, Eraser, Brush, X, Crop, Share2, Type, Maximize, ImagePlus } from 'lucide-react'
+import { Upload, Download, Loader2, Image as ImageIcon, Check, RefreshCw, Layers, Sparkles, Undo, Redo, MousePointer2, Eraser, Brush, X, Crop, Share2, Type, Maximize, ImagePlus, Copy } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useLanguage } from '@/context/language-context'
 import { removeBackground } from '@imgly/background-removal'
 import AdBanner from '@/components/AdBanner'
+import { addRecentTool } from '@/lib/recent-tools'
+import NextStep from '@/components/NextStep'
 
 function BackgroundRemoverContent() {
     const { t } = useLanguage()
@@ -124,6 +126,13 @@ function BackgroundRemoverContent() {
         // Ensure we start at the top on mount
         window.scrollTo({ top: 0, behavior: 'instant' });
 
+        addRecentTool({
+            id: 'bg-remover',
+            title: t.navbar.bgRemover,
+            href: '/tools/background-remover',
+            iconName: 'Wand2'
+        })
+
         // Handle image from URL parameter (e.g., from YouTube Thumbnail tool)
         const src = searchParams.get('src')
         const isShortsParam = searchParams.get('shorts') === 'true'
@@ -143,12 +152,12 @@ function BackgroundRemoverContent() {
                 processImage(src)
             }
         }
-    }, [searchParams])
+    }, [searchParams, t])
 
-    const handleFileUpload = useCallback(async (e: React.ChangeEvent<HTMLInputElement> | React.DragEvent<HTMLDivElement>) => {
+    const handleFileUpload = useCallback(async (e: React.ChangeEvent<HTMLInputElement> | React.DragEvent<HTMLDivElement> | { target: { files: FileList | null } }) => {
         let file: File | null = null
-        if ('target' in e && e.target instanceof HTMLInputElement) {
-            file = e.target.files?.[0] || null
+        if ('target' in e && e.target) {
+            file = (e.target as any).files?.[0] || null
         } else if ('dataTransfer' in e) {
             e.preventDefault()
             file = e.dataTransfer.files?.[0] || null
@@ -626,6 +635,62 @@ function BackgroundRemoverContent() {
             document.body.appendChild(link)
             link.click()
             document.body.removeChild(link)
+        }
+    }
+
+    const shareResult = async () => {
+        try {
+            const dataUrl = await renderFinalResult()
+            if (!dataUrl) return
+
+            // Fallback for link sharing if image sharing is not supported or fails
+            const shareText = `${t.bgRemover.shareText}\n${window.location.origin}${window.location.pathname}`
+
+            if (navigator.share && navigator.canShare) {
+                const response = await fetch(dataUrl)
+                const blob = await response.blob()
+                const file = new File([blob], 'result.png', { type: 'image/png' })
+
+                if (navigator.canShare({ files: [file] })) {
+                    await navigator.share({
+                        files: [file],
+                        title: 'UltraUtils - AI Background Remover',
+                        text: t.bgRemover.shareText
+                    })
+                    return
+                }
+            }
+
+            // Fallback: Copy link
+            await navigator.clipboard.writeText(shareText)
+            alert(t.common.copiedLink)
+        } catch (error) {
+            console.error('Sharing failed:', error)
+            // Final fallback
+            const shareText = `${t.bgRemover.shareText}\n${window.location.origin}${window.location.pathname}`
+            navigator.clipboard.writeText(shareText)
+            alert(t.common.copiedLink)
+        }
+    }
+
+    const copyImageToClipboard = async () => {
+        try {
+            const dataUrl = await renderFinalResult()
+            if (!dataUrl) return
+
+            const response = await fetch(dataUrl)
+            const blob = await response.blob()
+
+            await navigator.clipboard.write([
+                new ClipboardItem({
+                    [blob.type]: blob
+                })
+            ])
+            alert(t.common.imageCopied)
+        } catch (error) {
+            console.error('Copy to clipboard failed:', error)
+            // Fallback for browsers that don't support ClipboardItem with images or fail
+            alert(t.common.imageCopyError)
         }
     }
 
@@ -1234,14 +1299,36 @@ function BackgroundRemoverContent() {
                                 </div>
                             </div>
                         ) : (
-                            <div className="text-center space-y-6">
-                                <div className="w-24 h-24 rounded-[2rem] bg-primary/10 flex items-center justify-center text-primary mx-auto group-hover:scale-110 transition-transform duration-500">
+                            <div className="text-center space-y-6 flex flex-col items-center">
+                                <div className="w-24 h-24 rounded-[2rem] bg-primary/10 flex items-center justify-center text-primary group-hover:scale-110 transition-transform duration-500">
                                     <Upload className="w-10 h-10" />
                                 </div>
                                 <div className="space-y-2">
                                     <h3 className="text-2xl font-bold">{t.common.selectImage}</h3>
                                     <p className="text-muted-foreground font-medium">{t.bgRemover.dropMsg}</p>
                                 </div>
+                                <button
+                                    onClick={async (e) => {
+                                        e.stopPropagation();
+                                        setIsProcessing(true);
+                                        try {
+                                            const response = await fetch('https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1000&auto=format&fit=crop');
+                                            const blob = await response.blob();
+                                            const file = new File([blob], 'sample_portrait.jpg', { type: 'image/jpeg' });
+                                            const dataTransfer = new DataTransfer();
+                                            dataTransfer.items.add(file);
+                                            handleFileUpload({ target: { files: dataTransfer.files } });
+                                        } catch (err) {
+                                            console.error('Sample fetch failed', err);
+                                            alert(t.common.error);
+                                        } finally {
+                                            setIsProcessing(false);
+                                        }
+                                    }}
+                                    className="mt-4 text-xs font-black uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors flex items-center gap-2 px-6 py-3 rounded-2xl bg-white/50 dark:bg-zinc-800/50 hover:bg-white dark:hover:bg-zinc-800 shadow-sm"
+                                >
+                                    <Sparkles className="w-4 h-4" /> {t.common.trySample}
+                                </button>
                             </div>
                         )}
 
@@ -1577,11 +1664,11 @@ function BackgroundRemoverContent() {
                                                         {ratio.label}
                                                     </button>
                                                 ))}
-                                                <button onClick={() => {
-                                                    const text = `${t.bgRemover.shareText}\n${window.location.origin}${window.location.pathname}`;
-                                                    navigator.clipboard.writeText(text); alert(t.common.copiedLink);
-                                                }} className="py-3 rounded-xl border-2 border-zinc-100 dark:border-zinc-800 text-[9px] font-black text-muted-foreground transition-all flex items-center justify-center gap-2">
+                                                <button onClick={shareResult} className="py-3 rounded-xl border-2 border-zinc-100 dark:border-zinc-800 text-[9px] font-black text-muted-foreground transition-all flex items-center justify-center gap-2">
                                                     <Share2 className="w-3.5 h-3.5" /> {t.bgRemover.share}
+                                                </button>
+                                                <button onClick={copyImageToClipboard} className="py-3 rounded-xl border-2 border-zinc-100 dark:border-zinc-800 text-[9px] font-black text-muted-foreground transition-all flex items-center justify-center gap-2">
+                                                    <Copy className="w-3.5 h-3.5" /> {t.common.copyImage}
                                                 </button>
                                             </div>
                                         </div>
@@ -1628,6 +1715,14 @@ function BackgroundRemoverContent() {
                     ))}
                 </div>
             </div>
+
+            {/* Next Step Suggestion */}
+            <NextStep
+                title={t.navbar.aiPrompt}
+                desc={t.promptGen.desc}
+                href="/tools/ai-prompt-generator"
+                iconName="ImagePlus"
+            />
         </div>
     )
 }

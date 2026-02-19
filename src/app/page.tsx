@@ -4,6 +4,8 @@ import Link from 'next/link'
 import { ArrowRight, Image as ImageIcon, Youtube, Wand2, Sliders, AlignLeft, Sparkles, FileText, ShieldCheck, Zap, Globe2 } from "lucide-react"
 import { useLanguage } from '@/context/language-context'
 import AdBanner from '@/components/AdBanner'
+import RecentTools from '@/components/RecentTools'
+import PwaBanner from '@/components/PwaBanner'
 
 export default function Home() {
   const { t } = useLanguage()
@@ -96,6 +98,9 @@ export default function Home() {
         </p>
       </div>
 
+      {/* Recently Used Tools */}
+      <RecentTools />
+
       {/* Tools Grid */}
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 w-full max-w-7xl px-4">
         {tools.map((tool, index) => (
@@ -135,26 +140,53 @@ export default function Home() {
         <AdBanner slot="home-mid-banner" useAdSense={true} />
       </div>
 
+      {/* Growth Tips Section - SEO Boost */}
+      <div className="w-full max-w-7xl px-4 py-10 space-y-12 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-[900ms]">
+        <div className="text-center space-y-4">
+          <h2 className="text-3xl font-black">{t.home.growthTips.title}</h2>
+          <p className="text-muted-foreground text-lg">{t.home.growthTips.subtitle}</p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {t.home.growthTips.tips.map((tip, i) => (
+            <Link
+              key={i}
+              href={tip.href}
+              className="group relative glass-card p-8 rounded-[2.5rem] border border-zinc-100 dark:border-zinc-800 hover:border-primary/20 transition-all hover:shadow-xl text-left flex flex-col justify-between overflow-hidden"
+            >
+              <div className="absolute top-0 right-0 p-6 opacity-5 group-hover:opacity-10 transition-opacity">
+                <Sparkles className="w-20 h-20 text-primary" />
+              </div>
+              <div className="space-y-4 relative z-10">
+                <div className="inline-flex px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-widest">
+                  {tip.tool}
+                </div>
+                <h3 className="text-xl font-bold group-hover:text-primary transition-colors">{tip.title}</h3>
+                <p className="text-muted-foreground text-sm leading-relaxed">{tip.desc}</p>
+              </div>
+              <div className="mt-6 flex items-center text-primary font-bold text-sm tracking-tight opacity-0 group-hover:opacity-100 transform translate-x-[-10px] group-hover:translate-x-0 transition-all">
+                {t.home.launchTool} <ArrowRight className="ml-2 w-4 h-4" />
+              </div>
+            </Link>
+          ))}
+        </div>
+      </div>
+
       {/* SEO & Informational Section */}
       <div className="w-full max-w-5xl px-4 py-20 border-t border-zinc-100 dark:border-zinc-800 space-y-20">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
           <div className="space-y-6 text-left">
             <h2 className="text-3xl font-black">{t.home.titlePrefix} {t.home.titleSuffix}</h2>
-            <div className="prose prose-zinc dark:prose-invert leading-[1.8] text-muted-foreground">
-              <p>
-                Welcome to <strong>UltraUtils</strong>, your premium destination for high-performance, privacy-focused digital utilities. In an era where online tools often compromise user data or hide behind complex paywalls, we stand for a different approach: 100% free, entirely local, and professionally designed.
-              </p>
-              <p>
-                Our mission is to empower creators, developers, and everyday users with tools that work directly in the browser. Whether you need to <strong>remove backgrounds with AI</strong>, <strong>optimize images for SEO</strong>, or <strong>manage complex PDF documents</strong>, our suite of tools handles the heavy lifting without ever uploading your sensitive files to a server.
-              </p>
+            <div className="prose prose-zinc dark:prose-invert leading-[1.8] text-muted-foreground whitespace-pre-line">
+              <p>{t.home.missionDesc1}</p>
+              <p>{t.home.missionDesc2}</p>
             </div>
           </div>
           <div className="grid grid-cols-2 gap-4">
             {[
-              { title: "Privacy", desc: "No server uploads", icon: ShieldCheck },
-              { title: "Speed", desc: "Local processing", icon: Zap },
-              { title: "Global", desc: "Multi-language", icon: Globe2 },
-              { title: "Free", desc: "No hidden fees", icon: Sparkles }
+              { title: t.home.features.privacy.title, desc: t.home.features.privacy.desc, icon: ShieldCheck },
+              { title: t.home.features.speed.title, desc: t.home.features.speed.desc, icon: Zap },
+              { title: t.home.features.global.title, desc: t.home.features.global.desc, icon: Globe2 },
+              { title: t.home.features.free.title, desc: t.home.features.free.desc, icon: Sparkles }
             ].map((stat, i) => (
               <div key={i} className="glass-card p-6 rounded-3xl text-center space-y-2 hover:border-primary/30 transition-all">
                 <stat.icon className="w-8 h-8 mx-auto text-primary" />
@@ -167,24 +199,27 @@ export default function Home() {
 
         <div className="space-y-12 bg-zinc-50 dark:bg-zinc-900/50 p-10 rounded-[3rem] border border-zinc-100 dark:border-zinc-800">
           <div className="text-center space-y-4">
-            <h3 className="text-2xl font-bold italic underline underline-offset-8 decoration-primary">Professional Tools for Everyone</h3>
-            <p className="text-muted-foreground max-w-2xl mx-auto">Discover why thousands of users trust UltraUtils for their daily digital workflows.</p>
+            <h3 className="text-2xl font-bold italic underline underline-offset-8 decoration-primary">{t.home.footerNote.title}</h3>
+            <p className="text-muted-foreground max-w-2xl mx-auto">{t.home.footerNote.subtitle}</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
             <div className="space-y-4">
-              <h4 className="font-black text-primary uppercase tracking-widest text-sm">Media Suite</h4>
-              <p className="text-sm leading-relaxed text-muted-foreground">High-quality YouTube thumbnail extraction and AI-powered background removal. Perfect for YouTubers and content creators looking to streamline their workflow.</p>
+              <h4 className="font-black text-primary uppercase tracking-widest text-sm">{t.home.footerNote.media.title}</h4>
+              <p className="text-sm leading-relaxed text-muted-foreground">{t.home.footerNote.media.desc}</p>
             </div>
             <div className="space-y-4">
-              <h4 className="font-black text-primary uppercase tracking-widest text-sm">Data & Text</h4>
-              <p className="text-sm leading-relaxed text-muted-foreground">Advanced text conversion, formatting, and cleanup tools. Essential for data analysts and developers who need to transform raw data into usable formats instantly.</p>
+              <h4 className="font-black text-primary uppercase tracking-widest text-sm">{t.home.footerNote.data.title}</h4>
+              <p className="text-sm leading-relaxed text-muted-foreground">{t.home.footerNote.data.desc}</p>
             </div>
             <div className="space-y-4">
-              <h4 className="font-black text-primary uppercase tracking-widest text-sm">Design Assets</h4>
-              <p className="text-sm leading-relaxed text-muted-foreground">Professional QR code generation with custom styling and high-resolution output. Ideal for businesses and marketing campaigns.</p>
+              <h4 className="font-black text-primary uppercase tracking-widest text-sm">{t.home.footerNote.design.title}</h4>
+              <p className="text-sm leading-relaxed text-muted-foreground">{t.home.footerNote.design.desc}</p>
             </div>
           </div>
         </div>
+
+        {/* PWA Install Banner */}
+        <PwaBanner />
       </div>
     </div>
   )
