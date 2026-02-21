@@ -6,7 +6,7 @@ import { ArrowRight, Wand2, Youtube, Sliders, ImageIcon, AlignLeft, Sparkles, Fi
 import { useLanguage } from '@/context/language-context'
 import { getRecentTools, RecentTool } from '@/lib/recent-tools'
 
-const iconMap: Record<string, any> = {
+const iconMap: Record<string, React.ElementType> = {
     Wand2,
     Youtube,
     Sliders,

@@ -41,7 +41,7 @@ export default function TermsPage() {
                     <div className="space-y-2">
                         <h3 className="text-xl font-black text-red-900 dark:text-red-400">Disclaimer of Warranties</h3>
                         <p className="text-red-800/80 dark:text-red-400/80 leading-relaxed italic">
-                            UltraUtils provides its services "as is" and disclaims all warranties, express or implied, including the warranties of merchantability and fitness for a particular purpose. We shall not be liable for any direct, indirect, incidental, or consequential damages resulting from the use or inability to use our services.
+                            UltraUtils provides its services &quot;as is&quot; and disclaims all warranties, express or implied, including the warranties of merchantability and fitness for a particular purpose. We shall not be liable for any direct, indirect, incidental, or consequential damages resulting from the use or inability to use our services.
                         </p>
                     </div>
                 </div>

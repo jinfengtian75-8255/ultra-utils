@@ -92,3 +92,45 @@ body {
     @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600;
   }
 }
+
+/* 🛡️ Hide Obstructing Developer/Feedback Buttons definitively with highest priority */
+[id^="vercel-live-feedback"],
+.vercel-feedback-button,
+#__next-pr-announcement,
+#vercel-live-feedback,
+[class*="vercel-feedback"],
+[class*="VercelFeedback"],
+[id*="vercel-feedback"],
+iframe[src*="vercel"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  overflow: hidden !important;
+  position: absolute !important;
+  left: -9999px !important;
+}
+
+/* 🎨 Global Range Slider Styling (Black Accent) */
+input[type="range"] {
+  @apply accent-zinc-950 dark:accent-zinc-100;
+}
+
+@media (max-width: 639px) {
+  .fixed.bottom-0 {
+    padding-bottom: env(safe-area-inset-bottom, 12px);
+    height: auto !important;
+    min-height: calc(64px + env(safe-area-inset-bottom, 0px)) !important;
+  }
+}
+
+/* 📱 Mobile UI Safety & Padding */
+@media (max-width: 639px) {
+  .fixed.bottom-0 {
+    padding-bottom: env(safe-area-inset-bottom, 12px);
+    height: auto !important;
+    min-height: calc(64px + env(safe-area-inset-bottom, 0px)) !important;
+  }
+}

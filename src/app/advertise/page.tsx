@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useLanguage } from '@/context/language-context';
-import { CheckCircle2, Layout, Monitor, ArrowRight, Loader2, Zap, HelpCircle, ChevronDown } from 'lucide-react';
+import { CheckCircle2, Layout, Monitor, ArrowRight, Loader2, Zap, HelpCircle } from 'lucide-react';
 import { db } from '@/lib/firebase';
 import { collection, addDoc } from 'firebase/firestore';
 

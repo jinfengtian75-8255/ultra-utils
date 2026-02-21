@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
-import { Link as LinkIcon, Download, Image as ImageIcon, Loader2, Sparkles, Share2, Info, Eye, Palette, Layout, Check, Copy } from 'lucide-react'
+import { Link as LinkIcon, Download, Loader2, Sparkles, Share2, Info, Eye, Palette, Layout, Check } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useLanguage } from '@/context/language-context'
 import AdBanner from '@/components/AdBanner'

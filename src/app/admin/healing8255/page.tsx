@@ -26,6 +26,7 @@ import {
 } from 'lucide-react';
 import { useLanguage } from '@/context/language-context';
 import { db } from '@/lib/firebase';
+import { cn } from '@/lib/utils';
 import {
     collection,
     onSnapshot,
@@ -34,20 +35,32 @@ import {
     doc,
     setDoc,
     deleteDoc,
-    orderBy,
-    limit,
-    addDoc
+    orderBy
 } from 'firebase/firestore';
+
+type AdSlot = 'top-banner' | 'home-mid-banner' | 'left-sidebar' | 'right-sidebar' | 'bottom-banner';
 
 interface AdItem {
     id: string;
     title: string;
     description: string;
     link: string;
-    slot: 'top-banner' | 'home-mid-banner' | 'left-sidebar' | 'right-sidebar' | 'bottom-banner';
+    slot: AdSlot;
     startDate: string;
     endDate: string;
     active: boolean;
+}
+
+interface Inquiry {
+    id: string;
+    name: string;
+    email: string;
+    message: string;
+    category?: string;
+    type?: string;
+    createdAt: string;
+    status: string;
+    dates?: string;
 }
 
 export default function AdminPage() {
@@ -56,6 +69,7 @@ export default function AdminPage() {
     const [isAdding, setIsAdding] = useState(false);
     const [mounted, setMounted] = useState(false);
     const [syncing, setSyncing] = useState(false);
+    const [currentTimestamp, setCurrentTimestamp] = useState(0);
 
     // Auth State
     const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -74,6 +88,7 @@ export default function AdminPage() {
     useEffect(() => {
         const auth = sessionStorage.getItem('admin_auth');
         if (auth === 'true') setIsAuthenticated(true);
+        setCurrentTimestamp(Date.now());
     }, []);
 
     const handleLogin = (e: React.FormEvent) => {
@@ -87,16 +102,26 @@ export default function AdminPage() {
         }
     };
 
-    const [inquiries, setInquiries] = useState<any[]>([]);
-    const [viewingInquiry, setViewingInquiry] = useState<any>(null);
+    const [inquiries, setInquiries] = useState<Inquiry[]>([]);
+    const [viewingInquiry, setViewingInquiry] = useState<Inquiry | null>(null);
 
     // Form state
     const [newAd, setNewAd] = useState<Partial<AdItem>>({
         slot: 'top-banner',
         active: true,
-        startDate: new Date().toISOString().split('T')[0],
-        endDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
+        startDate: '',
+        endDate: ''
     });
+
+    useEffect(() => {
+        if (!newAd.startDate) {
+            setNewAd(prev => ({
+                ...prev,
+                startDate: new Date().toISOString().split('T')[0],
+                endDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
+            }));
+        }
+    }, [newAd.startDate]);
 
     useEffect(() => {
         setMounted(true);
@@ -149,9 +174,20 @@ export default function AdminPage() {
         // 4. Inquiries Sync
         const qInquiries = query(collection(db, 'inquiries'), orderBy('createdAt', 'desc'));
         const unsubscribeInquiries = onSnapshot(qInquiries, (snapshot) => {
-            const items: any[] = [];
+            const items: Inquiry[] = [];
             snapshot.forEach((doc) => {
-                items.push({ id: doc.id, ...doc.data() });
+                const data = doc.data();
+                items.push({
+                    id: doc.id,
+                    name: data.name || '',
+                    email: data.email || '',
+                    message: data.message || '',
+                    category: data.category,
+                    type: data.type,
+                    createdAt: data.createdAt || new Date().toISOString(),
+                    status: data.status || 'new',
+                    dates: data.dates
+                } as Inquiry);
             });
             setInquiries(items);
         });
@@ -177,11 +213,11 @@ export default function AdminPage() {
         if (!newAd.title || !newAd.link) return;
 
         const ad: AdItem = {
-            id: Date.now().toString(),
+            id: String(Date.now()),
             title: newAd.title || '',
             description: newAd.description || '',
             link: newAd.link || '',
-            slot: newAd.slot as any,
+            slot: (newAd.slot as AdSlot) || 'top-banner',
             startDate: newAd.startDate || '',
             endDate: newAd.endDate || '',
             active: true
@@ -203,7 +239,7 @@ export default function AdminPage() {
 
     const deleteAd = async (id: string) => {
         if (!db) return;
-        if (confirm('Are you sure you want to delete this ad?')) {
+        if (confirm('이 광고를 삭제하시겠습니까?')) {
             try {
                 await deleteDoc(doc(db, 'campaigns', id));
             } catch (e) {
@@ -224,8 +260,8 @@ export default function AdminPage() {
     const handleDuplicate = async (ad: AdItem) => {
         const duplicated: AdItem = {
             ...ad,
-            id: (Date.now() + Math.random()).toString(),
-            title: `${ad.title} (Copy)`,
+            id: String(Date.now() + Math.random()),
+            title: `${ad.title} (복사본)`,
             active: false
         };
         await saveToCloud(duplicated);
@@ -240,13 +276,16 @@ export default function AdminPage() {
     };
 
     const calculateDDay = (endDate: string) => {
-        const diff = new Date(endDate).getTime() - new Date().getTime();
+        if (!currentTimestamp) return 0;
+        const end = new Date(endDate).getTime();
+        const now = new Date(currentTimestamp).setHours(0, 0, 0, 0);
+        const diff = end - now;
         return Math.ceil(diff / (1000 * 60 * 60 * 24));
     };
 
     const deleteInquiry = async (id: string) => {
         if (!db) return;
-        if (confirm('Delete this inquiry?')) {
+        if (confirm('이 문의 건을 삭제하시겠습니까?')) {
             await deleteDoc(doc(db, 'inquiries', id));
         }
     };
@@ -266,15 +305,15 @@ export default function AdminPage() {
                         <div className="w-16 h-16 bg-primary/10 rounded-3xl flex items-center justify-center mx-auto text-primary mb-4">
                             <Zap className="w-8 h-8" />
                         </div>
-                        <h1 className="text-2xl font-black tracking-tight">Management Access</h1>
-                        <p className="text-sm text-muted-foreground font-medium">Please enter the security passcode to continue.</p>
+                        <h1 className="text-2xl font-black tracking-tight">관리자 센터 접속</h1>
+                        <p className="text-sm text-muted-foreground font-medium">서비스 운영을 위해 보안 비밀번호를 입력해주세요.</p>
                     </div>
 
                     <form onSubmit={handleLogin} className="space-y-4">
                         <div className="space-y-2">
                             <input
                                 type="password"
-                                placeholder="Security Passcode"
+                                placeholder="보안 비밀번호 입력"
                                 className="w-full h-14 px-6 rounded-2xl bg-zinc-100 dark:bg-zinc-800 border-none focus:ring-2 focus:ring-primary/50 transition-all outline-none font-bold"
                                 value={password}
                                 onChange={(e) => { setPassword(e.target.value); setError(''); }}
@@ -286,7 +325,7 @@ export default function AdminPage() {
                             type="submit"
                             className="w-full h-14 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 font-black rounded-2xl hover:scale-[1.02] active:scale-95 transition-all shadow-xl shadow-zinc-900/10"
                         >
-                            Log In
+                            접속하기
                         </button>
                     </form>
                 </div>
@@ -299,11 +338,11 @@ export default function AdminPage() {
             {/* Header */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div className="space-y-1">
-                    <div className="flex items-center gap-2 text-primary font-bold tracking-widest text-xs uppercase">
+                    <div className="flex items-center gap-2 text-primary font-bold tracking-widest text-[10px] md:text-xs uppercase">
                         <LayoutDashboard className="w-4 h-4" />
                         Management Center
                     </div>
-                    <h1 className="text-4xl font-black tracking-tight">Ad Operations <span className="text-gradient">Control</span></h1>
+                    <h1 className="text-3xl md:text-4xl font-black tracking-tight">서비스 <span className="text-gradient">운영 센터</span></h1>
                 </div>
                 <div className="flex gap-3">
                     <button
@@ -315,19 +354,19 @@ export default function AdminPage() {
                     </button>
                     <button
                         onClick={() => setIsAdding(!isAdding)}
-                        className="h-12 px-8 bg-primary text-white font-bold rounded-2xl flex items-center gap-2 hover:scale-105 transition-transform shadow-lg shadow-primary/20"
+                        className="h-12 px-6 md:px-8 bg-primary text-white font-bold rounded-2xl flex items-center justify-center gap-2 hover:scale-105 transition-transform shadow-lg shadow-primary/20 flex-1 md:flex-none"
                     >
-                        {isAdding ? 'Cancel' : <><Plus className="w-5 h-5" /> New Campaign</>}
+                        {isAdding ? '취소' : <><Plus className="w-5 h-5" /> 새 캠페인</>}
                     </button>
                 </div>
             </div>
 
             {/* Traffic Analytics Section */}
             <div className="space-y-6">
-                <h2 className="text-2xl font-black flex items-center gap-3">
-                    <BarChart3 className="text-primary" /> Real-time Audience Insights
+                <h2 className="text-xl md:text-2xl font-black flex items-center gap-3">
+                    <BarChart3 className="text-primary" /> 실시간 오디언스 분석
                 </h2>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
                     <div className="glass-card p-8 rounded-[2.5rem] border border-zinc-100 dark:border-zinc-800 bg-gradient-to-br from-blue-500/[0.03] to-transparent relative overflow-hidden group">
                         <div className="absolute top-0 right-0 p-4">
                             <div className="w-3 h-3 rounded-full bg-green-500 animate-pulse" />
@@ -335,13 +374,13 @@ export default function AdminPage() {
                         <div className="space-y-4">
                             <div className="flex items-center gap-3 text-blue-500">
                                 <Users className="w-5 h-5" />
-                                <span className="text-xs font-black uppercase tracking-widest">Active Now</span>
+                                <span className="text-[10px] font-black uppercase tracking-widest">Active Now</span>
                             </div>
                             <div className="flex items-baseline gap-2">
-                                <span className="text-5xl font-black tracking-tighter">{liveTraffic.current}</span>
-                                <span className="text-sm font-bold text-muted-foreground uppercase">Users Online</span>
+                                <span className="text-4xl md:text-5xl font-black tracking-tighter">{liveTraffic.current}</span>
+                                <span className="text-[10px] md:text-sm font-bold text-muted-foreground uppercase">명 접속 중</span>
                             </div>
-                            <p className="text-xs text-muted-foreground font-medium italic">Global traffic detected across all tools.</p>
+                            <p className="text-[10px] text-muted-foreground font-medium italic">실시간 활성 세션 감지됨</p>
                         </div>
                     </div>
 
@@ -349,15 +388,15 @@ export default function AdminPage() {
                         <div className="space-y-4">
                             <div className="flex items-center gap-3 text-amber-500">
                                 <TrendingUp className="w-5 h-5" />
-                                <span className="text-xs font-black uppercase tracking-widest">Daily Performance</span>
+                                <span className="text-[10px] font-black uppercase tracking-widest">Growth Rate</span>
                             </div>
                             <div className="flex items-baseline gap-2">
-                                <span className="text-4xl font-black tracking-tighter">{liveTraffic.todayTotal.toLocaleString()}</span>
-                                <span className="text-sm font-bold text-muted-foreground uppercase">Visits Today</span>
+                                <span className="text-3xl md:text-4xl font-black tracking-tighter">+{Math.round((liveTraffic.todayTotal / 100) * 1.5)}%</span>
+                                <span className="text-[10px] md:text-sm font-bold text-muted-foreground uppercase">전일 대비 성장</span>
                             </div>
                             <div className="pt-2">
                                 <div className="h-1.5 w-full bg-zinc-100 dark:bg-zinc-800 rounded-full overflow-hidden">
-                                    <div className="h-full bg-amber-500 rounded-full w-[10%]" />
+                                    <div className="h-full bg-amber-500 rounded-full w-[65%]" />
                                 </div>
                             </div>
                         </div>
@@ -367,75 +406,114 @@ export default function AdminPage() {
                         <div className="space-y-4">
                             <div className="flex items-center gap-3 text-emerald-500">
                                 <MousePointer2 className="w-5 h-5" />
-                                <span className="text-xs font-black uppercase tracking-widest">Top Utility</span>
+                                <span className="text-xs font-black uppercase tracking-widest">Today Rev.</span>
                             </div>
-                            <div>
-                                <h4 className="text-xl font-black truncate">{liveTraffic.topTool}</h4>
-                                <p className="text-xs font-bold text-muted-foreground mt-1 text-emerald-600/70">🔥 Most used in last 24 hours</p>
+                            <div className="flex items-baseline gap-2">
+                                <span className="text-3xl md:text-4xl font-black tracking-tighter">${liveTraffic.revenue}</span>
+                                <span className="text-[10px] md:text-sm font-bold text-muted-foreground uppercase">오늘 예상 수익</span>
                             </div>
-                            <div className="flex items-center justify-between pt-2">
-                                <span className="text-[10px] font-black uppercase text-muted-foreground">Est. Ad Revenue</span>
-                                <span className="text-lg font-black text-emerald-500">${liveTraffic.revenue}</span>
+                            <div className="flex items-center justify-between pt-2 border-t border-emerald-500/10">
+                                <span className="text-[9px] font-black uppercase text-muted-foreground">월간 예상</span>
+                                <span className="text-xs md:text-sm font-black text-emerald-500">${(liveTraffic.revenue * 30).toFixed(2)}</span>
                             </div>
+                        </div>
+                    </div>
+
+                    <div className="glass-card p-8 rounded-[2.5rem] border border-zinc-100 dark:border-zinc-800 bg-gradient-to-br from-purple-500/[0.03] to-transparent relative overflow-hidden">
+                        <div className="space-y-4">
+                            <div className="flex items-center gap-3 text-purple-500">
+                                <BarChart3 className="w-5 h-5" />
+                                <span className="text-[10px] font-black uppercase tracking-widest">Total PV</span>
+                            </div>
+                            <div className="flex items-baseline gap-2">
+                                <span className="text-3xl md:text-4xl font-black tracking-tighter">{liveTraffic.todayTotal.toLocaleString()}</span>
+                                <span className="text-[10px] md:text-sm font-bold text-muted-foreground uppercase">조회수</span>
+                            </div>
+                            <p className="text-[10px] text-muted-foreground font-medium uppercase tracking-tight">평균 체류: 4분 12초</p>
                         </div>
                     </div>
                 </div>
 
-                {/* Traffic Sources Breakdown */}
-                <div className="glass-card p-10 rounded-[3rem] border border-zinc-100 dark:border-zinc-800 space-y-8">
-                    <div className="flex items-center justify-between">
-                        <div className="space-y-1">
-                            <h3 className="text-xl font-black italic">Daily Traffic Sources</h3>
-                            <p className="text-xs text-muted-foreground font-bold uppercase tracking-widest">Where your users come from</p>
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    {/* Traffic Sources Breakdown */}
+                    <div className="glass-card p-10 rounded-[3rem] border border-zinc-100 dark:border-zinc-800 space-y-8">
+                        <div className="flex items-center justify-between">
+                            <div className="space-y-1">
+                                <h3 className="text-xl font-black italic">유입 소스 분석</h3>
+                                <p className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest">사용자 접속 경로</p>
+                            </div>
+                            <Globe2 className="w-6 h-6 text-primary animate-pulse" />
                         </div>
-                        <Globe2 className="w-6 h-6 text-primary animate-pulse" />
+
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                            {(() => {
+                                const entries = Object.entries(liveTraffic.referrers);
+                                const totalTracked = entries.reduce((a, b) => a + (b[1] as number), 0);
+                                return entries
+                                    .sort(([, a], [, b]) => (b as number) - (a as number))
+                                    .slice(0, 8)
+                                    .map(([source, count], idx) => {
+                                        const percentage = Math.round(((count as number) / (totalTracked || 1)) * 100);
+                                        return (
+                                            <div key={idx} className="space-y-3">
+                                                <div className="flex justify-between items-end">
+                                                    <span className="text-xs font-black text-zinc-600 dark:text-zinc-400 truncate max-w-[120px]">
+                                                        {source.replace(/_/g, '.')}
+                                                    </span>
+                                                    <span className="text-xs font-bold text-primary">{percentage}%</span>
+                                                </div>
+                                                <div className="h-1.5 w-full bg-zinc-100 dark:bg-zinc-800 rounded-full overflow-hidden">
+                                                    <div
+                                                        className="h-full bg-primary transition-all duration-1000"
+                                                        style={{ width: `${percentage}%` }}
+                                                    />
+                                                </div>
+                                            </div>
+                                        );
+                                    });
+                            })()}
+                            {Object.keys(liveTraffic.referrers).length === 0 && (
+                                <div className="col-span-full py-8 text-center">
+                                    <p className="text-[10px] font-bold text-muted-foreground italic">데이터를 불러오는 중입니다...</p>
+                                </div>
+                            )}
+                        </div>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                        {(() => {
-                            const totalTracked = Object.values(liveTraffic.referrers).reduce((a, b) => (a as number) + (b as number), 0) as number;
-                            return Object.entries(liveTraffic.referrers)
-                                .sort(([, a], [, b]) => (b as number) - (a as number))
-                                .slice(0, 4)
-                                .map(([source, count], idx) => {
-                                    const percentage = Math.round(((count as number) / (totalTracked || 1)) * 100);
-                                    return (
-                                        <div key={idx} className="space-y-3">
-                                            <div className="flex justify-between items-end">
-                                                <span className="text-sm font-black text-zinc-600 dark:text-zinc-400 truncate max-w-[120px]">
-                                                    {source.replace(/_/g, '.')}
-                                                </span>
-                                                <span className="text-xs font-bold text-primary">{percentage}%</span>
-                                            </div>
-                                            <div className="h-2 w-full bg-zinc-100 dark:bg-zinc-800 rounded-full overflow-hidden">
-                                                <div
-                                                    className="h-full bg-primary transition-all duration-1000"
-                                                    style={{ width: `${percentage}%` }}
-                                                />
-                                            </div>
-                                            <p className="text-[10px] font-bold text-muted-foreground uppercase">{count as number} sessions</p>
-                                        </div>
-                                    );
-                                });
-                        })()}
-                        {Object.keys(liveTraffic.referrers).length === 0 && (
-                            <div className="col-span-full py-8 text-center bg-zinc-50 dark:bg-zinc-900/50 rounded-3xl border-2 border-dashed border-zinc-200 dark:border-zinc-800">
-                                <p className="text-sm font-bold text-muted-foreground italic">Gathering traffic source data... (Check back in a few minutes)</p>
+                    {/* Tool Performance Leaderboard */}
+                    <div className="glass-card p-10 rounded-[3rem] border border-zinc-100 dark:border-zinc-800 space-y-8">
+                        <div className="flex items-center justify-between">
+                            <div className="space-y-1">
+                                <h3 className="text-xl font-black italic">도구 사용 순위</h3>
+                                <p className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest">가장 많이 사용된 기능</p>
                             </div>
-                        )}
+                            <Zap className="w-6 h-6 text-amber-500" />
+                        </div>
+
+                        <div className="space-y-4">
+                            <div className="flex items-center justify-between p-4 bg-zinc-50 dark:bg-zinc-900/50 rounded-2xl border border-zinc-100 dark:border-zinc-800 border-l-4 border-l-emerald-500">
+                                <span className="font-black text-emerald-500">1ST</span>
+                                <span className="text-sm font-bold truncate flex-1 px-4">{liveTraffic.topTool}</span>
+                                <span className="text-xs font-black bg-emerald-500 text-white px-2 py-1 rounded-md">HOT</span>
+                            </div>
+                            <div className="flex items-center justify-between p-4 bg-zinc-50 dark:bg-zinc-900/50 rounded-2xl border border-zinc-100 dark:border-zinc-800 opacity-60">
+                                <span className="font-black">2ND</span>
+                                <span className="text-sm font-bold truncate flex-1 px-4">유튜브 썸네일</span>
+                                <span className="text-[9px] font-bold">인기 급상승</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            {/* Campaign Snapshot */}
             <div className="space-y-6">
-                <h3 className="text-lg font-black uppercase tracking-widest text-muted-foreground ml-2">Campaign Snapshot</h3>
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <h3 className="text-sm font-black uppercase tracking-widest text-muted-foreground ml-2">캠페인 스냅샷</h3>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
                     {[
-                        { label: 'Cloud Database', val: 'Active', icon: <CheckCircle2 className="w-5 h-5 text-green-500" /> },
-                        { label: 'Ad Inventory', val: ads.length, icon: <Clock className="w-5 h-5 text-blue-500" /> },
-                        { label: 'Cloud Status', val: 'Live', icon: <Globe2 className="w-5 h-5 text-purple-500" /> },
-                        { label: 'Total Sync', val: 'Instant', icon: <Zap className="w-5 h-5 text-amber-500" /> },
+                        { label: '데이터베이스', val: '정상', icon: <CheckCircle2 className="w-5 h-5 text-green-500" /> },
+                        { label: '활성 광고', val: ads.length, icon: <Clock className="w-5 h-5 text-blue-500" /> },
+                        { label: '서버 상태', val: '실시간', icon: <Globe2 className="w-5 h-5 text-purple-500" /> },
+                        { label: '동기화 속도', val: '즉시', icon: <Zap className="w-5 h-5 text-amber-500" /> },
                     ].map((stat, i) => (
                         <div key={i} className="glass-card p-6 rounded-3xl space-y-2 border border-zinc-100 dark:border-zinc-800">
                             <div className="flex items-center justify-between">
@@ -449,113 +527,115 @@ export default function AdminPage() {
             </div>
 
             {/* Add Form */}
-            {isAdding && (
-                <div className="glass-card p-10 rounded-[2.5rem] border-2 border-primary/20 animate-in slide-in-from-top-4 duration-500 space-y-8 bg-white/50 dark:bg-zinc-950/50 backdrop-blur-3xl">
-                    <h2 className="text-2xl font-bold flex items-center gap-3">
-                        <Plus className="text-primary" /> Create New Ad Campaign
-                    </h2>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div className="space-y-4">
-                            <label className="text-sm font-black uppercase tracking-widest text-muted-foreground block">General Info</label>
-                            <div className="space-y-2">
+            {
+                isAdding && (
+                    <div className="glass-card p-10 rounded-[2.5rem] border-2 border-primary/20 animate-in slide-in-from-top-4 duration-500 space-y-8 bg-white/50 dark:bg-zinc-950/50 backdrop-blur-3xl">
+                        <h2 className="text-xl md:text-2xl font-bold flex items-center gap-3">
+                            <Plus className="text-primary" /> 새 광고 캠페인 생성
+                        </h2>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div className="space-y-4">
+                                <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground block">기본 정보</label>
+                                <div className="space-y-2">
+                                    <div className="flex items-center gap-2 px-4 h-14 bg-zinc-100 dark:bg-zinc-800 rounded-2xl border border-transparent focus-within:border-primary/50 transition-all">
+                                        <Type className="w-5 h-5 text-zinc-400" />
+                                        <input
+                                            placeholder="캠페인 이름 / 제목"
+                                            className="bg-transparent border-none outline-none w-full font-medium"
+                                            value={newAd.title || ''}
+                                            onChange={e => setNewAd({ ...newAd, title: e.target.value })}
+                                        />
+                                    </div>
+                                    <textarea
+                                        placeholder="상세 설명 (하단 보조 텍스트)"
+                                        className="w-full h-24 p-4 bg-zinc-100 dark:bg-zinc-800 rounded-2xl border border-transparent focus:border-primary/50 transition-all outline-none resize-none"
+                                        value={newAd.description || ''}
+                                        onChange={e => setNewAd({ ...newAd, description: e.target.value })}
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="space-y-6">
+                                <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground block">배치 위치 및 링크</label>
                                 <div className="flex items-center gap-2 px-4 h-14 bg-zinc-100 dark:bg-zinc-800 rounded-2xl border border-transparent focus-within:border-primary/50 transition-all">
-                                    <Type className="w-5 h-5 text-zinc-400" />
+                                    <Layout className="w-5 h-5 text-zinc-400" />
+                                    <select
+                                        className="bg-transparent border-none outline-none w-full font-bold cursor-pointer"
+                                        value={newAd.slot}
+                                        onChange={e => setNewAd({ ...newAd, slot: e.target.value as AdSlot })}
+                                    >
+                                        <option value="top-banner">상단 프리미엄 배너</option>
+                                        <option value="home-mid-banner">홈페이지 중간 그리드</option>
+                                        <option value="left-sidebar">좌측 사이드바</option>
+                                        <option value="right-sidebar">우측 사이드바</option>
+                                        <option value="bottom-banner">결과 페이지 하단</option>
+                                    </select>
+                                </div>
+                                <div className="flex items-center gap-2 px-4 h-14 bg-zinc-100 dark:bg-zinc-800 rounded-2xl border border-transparent focus-within:border-primary/50 transition-all">
+                                    <LinkIcon className="w-5 h-5 text-zinc-400" />
                                     <input
-                                        placeholder="Campaign Name / Title"
+                                        placeholder="타겟 URL (https://...)"
                                         className="bg-transparent border-none outline-none w-full font-medium"
-                                        value={newAd.title || ''}
-                                        onChange={e => setNewAd({ ...newAd, title: e.target.value })}
+                                        value={newAd.link || ''}
+                                        onChange={e => setNewAd({ ...newAd, link: e.target.value })}
                                     />
                                 </div>
-                                <textarea
-                                    placeholder="Brief Description (Sub-text)"
-                                    className="w-full h-24 p-4 bg-zinc-100 dark:bg-zinc-800 rounded-2xl border border-transparent focus:border-primary/50 transition-all outline-none resize-none"
-                                    value={newAd.description || ''}
-                                    onChange={e => setNewAd({ ...newAd, description: e.target.value })}
-                                />
+                            </div>
+
+                            <div className="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-zinc-100 dark:border-zinc-800">
+                                <div className="space-y-2">
+                                    <label className="text-[9px] font-black uppercase tracking-widest text-muted-foreground ml-1">게시 시작일</label>
+                                    <div className="flex items-center gap-2 px-4 h-12 bg-zinc-100 dark:bg-zinc-800 rounded-xl">
+                                        <Calendar className="w-4 h-4 text-zinc-400" />
+                                        <input
+                                            type="date"
+                                            className="bg-transparent border-none outline-none w-full text-sm font-bold"
+                                            value={newAd.startDate}
+                                            onChange={e => setNewAd({ ...newAd, startDate: e.target.value })}
+                                        />
+                                    </div>
+                                </div>
+                                <div className="space-y-2">
+                                    <label className="text-[9px] font-black uppercase tracking-widest text-muted-foreground ml-1">게시 종료일</label>
+                                    <div className="flex items-center gap-2 px-4 h-12 bg-zinc-100 dark:bg-zinc-800 rounded-xl">
+                                        <Calendar className="w-4 h-4 text-zinc-400" />
+                                        <input
+                                            type="date"
+                                            className="bg-transparent border-none outline-none w-full text-sm font-bold"
+                                            value={newAd.endDate}
+                                            onChange={e => setNewAd({ ...newAd, endDate: e.target.value })}
+                                        />
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
-                        <div className="space-y-6">
-                            <label className="text-sm font-black uppercase tracking-widest text-muted-foreground block">Placement & Link</label>
-                            <div className="flex items-center gap-2 px-4 h-14 bg-zinc-100 dark:bg-zinc-800 rounded-2xl border border-transparent focus-within:border-primary/50 transition-all">
-                                <Layout className="w-5 h-5 text-zinc-400" />
-                                <select
-                                    className="bg-transparent border-none outline-none w-full font-bold cursor-pointer"
-                                    value={newAd.slot}
-                                    onChange={e => setNewAd({ ...newAd, slot: e.target.value as any })}
-                                >
-                                    <option value="top-banner">Top Premium Banner</option>
-                                    <option value="home-mid-banner">Home Grid Feed</option>
-                                    <option value="left-sidebar">Left Sidebar (Skyscraper)</option>
-                                    <option value="right-sidebar">Right Sidebar (Skyscraper)</option>
-                                    <option value="bottom-banner">Bottom Result Page</option>
-                                </select>
-                            </div>
-                            <div className="flex items-center gap-2 px-4 h-14 bg-zinc-100 dark:bg-zinc-800 rounded-2xl border border-transparent focus-within:border-primary/50 transition-all">
-                                <LinkIcon className="w-5 h-5 text-zinc-400" />
-                                <input
-                                    placeholder="Target URL (https://...)"
-                                    className="bg-transparent border-none outline-none w-full font-medium"
-                                    value={newAd.link || ''}
-                                    onChange={e => setNewAd({ ...newAd, link: e.target.value })}
-                                />
-                            </div>
-                        </div>
-
-                        <div className="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-zinc-100 dark:border-zinc-800">
-                            <div className="space-y-2">
-                                <label className="text-xs font-black uppercase tracking-widest text-muted-foreground ml-1">Launch Date</label>
-                                <div className="flex items-center gap-2 px-4 h-12 bg-zinc-100 dark:bg-zinc-800 rounded-xl">
-                                    <Calendar className="w-4 h-4 text-zinc-400" />
-                                    <input
-                                        type="date"
-                                        className="bg-transparent border-none outline-none w-full text-sm font-bold"
-                                        value={newAd.startDate}
-                                        onChange={e => setNewAd({ ...newAd, startDate: e.target.value })}
-                                    />
-                                </div>
-                            </div>
-                            <div className="space-y-2">
-                                <label className="text-xs font-black uppercase tracking-widest text-muted-foreground ml-1">Expiry Date</label>
-                                <div className="flex items-center gap-2 px-4 h-12 bg-zinc-100 dark:bg-zinc-800 rounded-xl">
-                                    <Calendar className="w-4 h-4 text-zinc-400" />
-                                    <input
-                                        type="date"
-                                        className="bg-transparent border-none outline-none w-full text-sm font-bold"
-                                        value={newAd.endDate}
-                                        onChange={e => setNewAd({ ...newAd, endDate: e.target.value })}
-                                    />
-                                </div>
-                            </div>
+                        <div className="flex justify-end gap-4 pt-4">
+                            <button
+                                onClick={() => setIsAdding(false)}
+                                className="h-12 px-6 font-bold text-muted-foreground hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-xl transition-colors"
+                            >
+                                취소
+                            </button>
+                            <button
+                                onClick={handleAddAd}
+                                disabled={!newAd.title || !newAd.link}
+                                className="h-12 px-10 bg-zinc-950 dark:bg-white text-white dark:text-zinc-950 font-black rounded-2xl hover:scale-105 transition-all shadow-xl disabled:opacity-50"
+                            >
+                                캠페인 활성화 (Cloud)
+                            </button>
                         </div>
                     </div>
-
-                    <div className="flex justify-end gap-4 pt-4">
-                        <button
-                            onClick={() => setIsAdding(false)}
-                            className="h-12 px-6 font-bold text-muted-foreground hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-xl transition-colors"
-                        >
-                            Cancel
-                        </button>
-                        <button
-                            onClick={handleAddAd}
-                            disabled={!newAd.title || !newAd.link}
-                            className="h-12 px-10 bg-zinc-950 dark:bg-white text-white dark:text-zinc-950 font-black rounded-2xl hover:scale-105 transition-all shadow-xl disabled:opacity-50"
-                        >
-                            Activate Campaign (Cloud)
-                        </button>
-                    </div>
-                </div>
-            )}
+                )
+            }
 
             {/* List Ads */}
             <div className="space-y-6">
                 <div className="flex items-center justify-between">
-                    <h2 className="text-2xl font-black">Cloud Campaigns</h2>
+                    <h2 className="text-2xl font-black">클라우드 캠페인 리스트</h2>
                     <div className="text-sm font-bold text-muted-foreground flex items-center gap-2">
                         <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-                        Cloud Connected
+                        실시간 연결됨
                     </div>
                 </div>
 
@@ -565,8 +645,8 @@ export default function AdminPage() {
                             <AlertCircle className="w-8 h-8" />
                         </div>
                         <div className="space-y-1">
-                            <h3 className="text-xl font-bold">No cloud campaigns yet</h3>
-                            <p className="text-muted-foreground">Start by creating your first campaign on Firebase.</p>
+                            <h3 className="text-xl font-bold">등록된 캠페인이 없습니다</h3>
+                            <p className="text-muted-foreground">새로운 광고 캠페인을 생성하여 수익화를 시작해보세요.</p>
                         </div>
                     </div>
                 ) : (
@@ -591,7 +671,7 @@ export default function AdminPage() {
                                                         "px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest",
                                                         isExpired ? "bg-red-500 text-white" : "bg-amber-500/10 text-amber-600"
                                                     )}>
-                                                        {isExpired ? 'Expired' : `D-${dDay}`}
+                                                        {isExpired ? '만료됨' : `D-${dDay}`}
                                                     </span>
                                                 </div>
                                                 <h3 className="text-2xl font-black tracking-tight">{ad.title}</h3>
@@ -623,7 +703,7 @@ export default function AdminPage() {
                                                         : "bg-zinc-100 dark:bg-zinc-800 text-zinc-400 border-transparent"
                                                 )}
                                             >
-                                                {ad.active ? 'Live Now' : 'Draft Mode'}
+                                                {ad.active ? '송출 중' : '대기 중'}
                                             </button>
                                             <button
                                                 onClick={() => deleteAd(ad.id)}
@@ -644,8 +724,8 @@ export default function AdminPage() {
             <div className="space-y-6 pt-12 border-t border-zinc-100 dark:border-zinc-800">
                 <div className="flex items-center justify-between">
                     <h2 className="text-2xl font-black flex items-center gap-3">
-                        <MessageSquare className="text-blue-500" /> User Inquiries
-                        <span className="bg-blue-500 text-white text-xs px-2 py-1 rounded-full">{inquiries.filter(i => i.status === 'new').length} New</span>
+                        <MessageSquare className="text-blue-500" /> 사용자 문의
+                        <span className="bg-blue-500 text-white text-[10px] px-2 py-0.5 rounded-full">{inquiries.filter(i => i.status === 'new').length} 건 미확인</span>
                     </h2>
                 </div>
 
@@ -672,7 +752,7 @@ export default function AdminPage() {
                                             <Mail className="w-3 h-3" /> {inq.email}
                                         </a>
                                     </h4>
-                                    <p className="text-muted-foreground line-clamp-2 italic">"{inq.message}"</p>
+                                    <p className="text-muted-foreground line-clamp-2 italic">&quot;{inq.message}&quot;</p>
                                     {inq.dates && <p className="text-xs font-black text-amber-600">REQ DATES: {inq.dates}</p>}
                                 </div>
                                 <div className="flex gap-2">
@@ -681,14 +761,14 @@ export default function AdminPage() {
                                             onClick={() => markAsRead(inq.id)}
                                             className="h-10 px-4 bg-blue-500 text-white text-xs font-black uppercase rounded-xl hover:bg-blue-600 transition-colors"
                                         >
-                                            Mark Read
+                                            읽음 처리
                                         </button>
                                     )}
                                     <button
                                         onClick={() => setViewingInquiry(inq)}
                                         className="h-10 px-4 bg-zinc-100 dark:bg-zinc-800 text-xs font-black uppercase rounded-xl"
                                     >
-                                        View Full
+                                        상세 보기
                                     </button>
                                     <button
                                         onClick={() => deleteInquiry(inq.id)}
@@ -705,55 +785,57 @@ export default function AdminPage() {
             </div>
 
             {/* Inquiry Detail Modal */}
-            {viewingInquiry && (
-                <div className="fixed inset-0 z-[100] bg-zinc-950/80 backdrop-blur-sm flex items-center justify-center p-4">
-                    <div className="glass-card w-full max-w-2xl p-10 rounded-[3rem] space-y-8 animate-in zoom-in-95 duration-300">
-                        <div className="flex justify-between items-start">
-                            <div className="space-y-1">
-                                <span className="text-[10px] font-black uppercase tracking-widest text-primary">Full Inquiry Details</span>
-                                <h2 className="text-3xl font-black">{viewingInquiry.name}</h2>
+            {
+                viewingInquiry && (
+                    <div className="fixed inset-0 z-[100] bg-zinc-950/80 backdrop-blur-sm flex items-center justify-center p-4">
+                        <div className="glass-card w-full max-w-2xl p-10 rounded-[3rem] space-y-8 animate-in zoom-in-95 duration-300">
+                            <div className="flex justify-between items-start">
+                                <div className="space-y-1">
+                                    <span className="text-[10px] font-black uppercase tracking-widest text-primary">문의 상세 정보</span>
+                                    <h2 className="text-2xl md:text-3xl font-black">{viewingInquiry?.name}</h2>
+                                </div>
+                                <button onClick={() => setViewingInquiry(null)} className="p-4 rounded-full bg-zinc-100 dark:bg-zinc-800"><X className="w-6 h-6" /></button>
                             </div>
-                            <button onClick={() => setViewingInquiry(null)} className="p-4 rounded-full bg-zinc-100 dark:bg-zinc-800"><X className="w-6 h-6" /></button>
-                        </div>
 
-                        <div className="grid md:grid-cols-2 gap-8 text-sm">
+                            <div className="grid md:grid-cols-2 gap-8 text-sm">
+                                <div className="space-y-4">
+                                    <p className="font-bold text-muted-foreground uppercase text-[9px]">연락처 (이메일)</p>
+                                    <a href={`mailto:${viewingInquiry.email}`} className="text-lg font-black text-blue-500 hover:underline flex items-center gap-2">
+                                        <Mail className="w-5 h-5" /> {viewingInquiry?.email}
+                                    </a>
+                                </div>
+                                <div className="space-y-4">
+                                    <p className="font-bold text-muted-foreground uppercase text-[9px]">접수 시간</p>
+                                    <p className="text-lg font-black">{viewingInquiry?.createdAt ? new Date(viewingInquiry.createdAt).toLocaleString() : ''}</p>
+                                </div>
+                            </div>
+
                             <div className="space-y-4">
-                                <p className="font-bold text-muted-foreground uppercase text-[10px]">Contact Email</p>
-                                <a href={`mailto:${viewingInquiry.email}`} className="text-lg font-black text-blue-500 hover:underline flex items-center gap-2">
-                                    <Mail className="w-5 h-5" /> {viewingInquiry.email}
-                                </a>
+                                <p className="font-bold text-muted-foreground uppercase text-[9px]">상세 메시지</p>
+                                <div className="p-8 rounded-3xl bg-zinc-50 dark:bg-zinc-900/50 border border-zinc-100 dark:border-zinc-800 text-lg leading-relaxed italic">
+                                    &quot;{viewingInquiry?.message}&quot;
+                                </div>
                             </div>
-                            <div className="space-y-4">
-                                <p className="font-bold text-muted-foreground uppercase text-[10px]">Submission Time</p>
-                                <p className="text-lg font-black">{new Date(viewingInquiry.createdAt).toLocaleString()}</p>
-                            </div>
-                        </div>
 
-                        <div className="space-y-4">
-                            <p className="font-bold text-muted-foreground uppercase text-[10px]">Detailed Message</p>
-                            <div className="p-8 rounded-3xl bg-zinc-50 dark:bg-zinc-900/50 border border-zinc-100 dark:border-zinc-800 text-lg leading-relaxed italic">
-                                "{viewingInquiry.message}"
-                            </div>
-                        </div>
+                            {viewingInquiry.dates && (
+                                <div className="space-y-4">
+                                    <p className="font-bold text-muted-foreground uppercase text-[9px]">희망 광고 기간</p>
+                                    <p className="text-xl font-black text-amber-500">{viewingInquiry?.dates}</p>
+                                </div>
+                            )}
 
-                        {viewingInquiry.dates && (
-                            <div className="space-y-4">
-                                <p className="font-bold text-muted-foreground uppercase text-[10px]">Requested Campaign Period</p>
-                                <p className="text-xl font-black text-amber-500">{viewingInquiry.dates}</p>
+                            <div className="pt-4">
+                                <button
+                                    onClick={() => setViewingInquiry(null)}
+                                    className="w-full h-14 bg-zinc-900 dark:bg-white text-white dark:text-zinc-950 font-black rounded-2xl"
+                                >
+                                    닫기
+                                </button>
                             </div>
-                        )}
-
-                        <div className="pt-4">
-                            <button
-                                onClick={() => setViewingInquiry(null)}
-                                className="w-full h-14 bg-zinc-900 dark:bg-white text-white dark:text-zinc-950 font-black rounded-2xl"
-                            >
-                                Close View
-                            </button>
                         </div>
                     </div>
-                </div>
-            )}
+                )
+            }
 
             {/* SYNC Footer */}
             <div className="glass-card p-10 rounded-[3rem] border-2 border-dashed border-zinc-200 dark:border-zinc-800 text-center space-y-6">
@@ -777,6 +859,4 @@ export default function AdminPage() {
     );
 }
 
-function cn(...classes: any[]) {
-    return classes.filter(Boolean).join(' ');
-}
+

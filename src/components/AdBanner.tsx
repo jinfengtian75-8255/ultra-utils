@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { cn } from '@/lib/utils';
 import { ChevronLeft, ChevronRight, Sparkles, Layout } from 'lucide-react';
 import { db } from '@/lib/firebase';
@@ -13,6 +13,10 @@ interface AdSlide {
     description: string;
     imageUrl?: string;
     link?: string;
+    slot?: string;
+    active?: boolean;
+    startDate?: string;
+    endDate?: string;
 }
 
 interface AdBannerProps {
@@ -26,11 +30,11 @@ const ADSENSE_CLIENT = "ca-pub-1373852776233080";
 
 export default function AdBanner({ className, slot, type = 'banner', useAdSense = false }: AdBannerProps) {
     const { t } = useLanguage();
-    const [ads, setAds] = useState<any[]>([]);
+    const [ads, setAds] = useState<AdSlide[]>([]);
     const [mounted, setMounted] = useState(false);
     const [currentIndex, setCurrentIndex] = useState(0);
 
-    const houseAds: Record<string, AdSlide[]> = {
+    const houseAds = useMemo<Record<string, AdSlide[]>>(() => ({
         'top-banner': [
             { id: 'h_bg', title: t.houseAds.bgRemoverTitle, description: t.houseAds.bgRemoverDesc, link: '/tools/background-remover' },
             { id: 'h_pdf', title: t.houseAds.pdfMasterTitle, description: t.houseAds.pdfMasterDesc, link: '/tools/pdf-master' },
@@ -47,9 +51,9 @@ export default function AdBanner({ className, slot, type = 'banner', useAdSense 
         'home-mid-banner': [
             { id: 'h_all', title: t.houseAds.bgRemoverTitle, description: t.houseAds.bgRemoverDesc, link: '/tools/background-remover' },
         ]
-    };
+    }), [t]);
 
-    const adVisuals: Record<string, { gradient: string, icon: any }> = {
+    const adVisuals: Record<string, { gradient: string, icon: React.ElementType }> = {
         'h_bg': { gradient: 'from-blue-600 to-indigo-600', icon: Sparkles },
         'h_pdf': { gradient: 'from-orange-500 to-red-600', icon: ChevronRight },
         'h_comp': { gradient: 'from-emerald-500 to-teal-600', icon: ChevronRight },
@@ -60,6 +64,11 @@ export default function AdBanner({ className, slot, type = 'banner', useAdSense 
 
     useEffect(() => {
         setMounted(true);
+    }, []);
+
+    useEffect(() => {
+        if (!mounted) return;
+
         if (!db) {
             const genericSlot = slot.includes('top') ? 'top-banner' :
                 slot.includes('bottom') ? 'bottom-banner' :
@@ -79,10 +88,10 @@ export default function AdBanner({ className, slot, type = 'banner', useAdSense 
             );
 
             return onSnapshot(q, (snapshot) => {
-                const cloudAds: any[] = [];
+                const cloudAds: AdSlide[] = [];
                 snapshot.forEach((doc) => {
-                    const data = doc.data();
-                    if (data.startDate <= now && data.endDate >= now) {
+                    const data = doc.data() as AdSlide;
+                    if (data.startDate && data.endDate && data.startDate <= now && data.endDate >= now) {
                         cloudAds.push(data);
                     }
                 });
@@ -110,7 +119,7 @@ export default function AdBanner({ className, slot, type = 'banner', useAdSense 
 
         const unsubscribe = fetchAds(slot);
         return () => unsubscribe();
-    }, [slot, t]); // Add t to dependency to update when language changes
+    }, [slot, t, mounted, houseAds]); // Add t to dependency to update when language changes
 
     useEffect(() => {
         if (ads.length <= 1 || useAdSense) return;
@@ -124,7 +133,7 @@ export default function AdBanner({ className, slot, type = 'banner', useAdSense 
     useEffect(() => {
         if (useAdSense && mounted) {
             try {
-                // @ts-ignore
+                // @ts-expect-error - Google AdSense window variable
                 (window.adsbygoogle = window.adsbygoogle || []).push({});
             } catch (e) {
                 console.error("AdSense push failed", e);
@@ -227,7 +236,6 @@ export default function AdBanner({ className, slot, type = 'banner', useAdSense 
                                         adVisuals[slide.id]?.gradient || 'from-zinc-100 to-zinc-200 dark:from-zinc-800 dark:to-zinc-900'
                                     )}>
                                         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(255,255,255,0.4),transparent)]" />
-                                        {/* @ts-ignore */}
                                         {(() => { const Icon = adVisuals[slide.id]?.icon || Sparkles; return <Icon className="w-10 h-10 text-white drop-shadow-lg" />; })()}
                                     </div>
 

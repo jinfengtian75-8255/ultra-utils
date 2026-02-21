@@ -1,14 +1,14 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
-import { Navbar } from '@/components/navbar'
+
 import { cn } from '@/lib/utils'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import GoogleAnalytics from '@/components/GoogleAnalytics'
 import RealtimeTracker from '@/components/RealtimeTracker'
 import { Suspense } from 'react'
-import AdBanner from '@/components/AdBanner'
+
 import Script from 'next/script'
 
 import { LanguageProvider } from '@/context/language-context'

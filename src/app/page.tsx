@@ -103,7 +103,7 @@ export default function Home() {
 
       {/* Tools Grid */}
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 w-full max-w-7xl px-4">
-        {tools.map((tool, index) => (
+        {tools.map((tool) => (
           <div key={tool.title} className="contents">
             <Link
               href={tool.href}

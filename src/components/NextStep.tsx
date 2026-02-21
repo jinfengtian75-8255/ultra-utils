@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { ArrowRight, Wand2, Youtube, Sliders, ImageIcon, AlignLeft, Sparkles, FileText, ChevronRight } from 'lucide-react'
 import { useLanguage } from '@/context/language-context'
 
-const iconMap: Record<string, any> = {
+const iconMap: Record<string, React.ElementType> = {
     Wand2,
     Youtube,
     Sliders,

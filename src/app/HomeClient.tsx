@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { ArrowRight, Image as ImageIcon, Youtube, Wand2, Sliders, AlignLeft, Sparkles, FileText, ShieldCheck, Zap, Globe2 } from "lucide-react"
+import { ArrowRight, Image as ImageIcon, Youtube, Wand2, Sliders, AlignLeft, Sparkles, FileText } from "lucide-react"
 import { useLanguage } from '@/context/language-context'
 
 export default function HomeClient() {
@@ -34,7 +34,7 @@ export default function HomeClient() {
             </div>
 
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 w-full max-w-7xl px-4">
-                {tools.map((tool, index) => (
+                {tools.map((tool) => (
                     <Link
                         key={tool.title}
                         href={tool.href}

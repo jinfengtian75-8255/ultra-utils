@@ -4,15 +4,21 @@ import { useEffect, useState } from 'react'
 import { Download, X } from 'lucide-react'
 import { useLanguage } from '@/context/language-context'
 
+interface BeforeInstallPromptEvent extends Event {
+    prompt: () => Promise<void>;
+    userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>;
+}
+
 export default function PwaBanner() {
     const { t } = useLanguage()
-    const [installPrompt, setInstallPrompt] = useState<any>(null)
+    const [installPrompt, setInstallPrompt] = useState<BeforeInstallPromptEvent | null>(null)
     const [isVisible, setIsVisible] = useState(false)
 
     useEffect(() => {
-        const handler = (e: any) => {
-            e.preventDefault()
-            setInstallPrompt(e)
+        const handler = (e: Event) => {
+            const promptEvent = e as BeforeInstallPromptEvent;
+            promptEvent.preventDefault()
+            setInstallPrompt(promptEvent)
             // Only show if user hasn't dismissed it this session
             if (!sessionStorage.getItem('pwa_dismissed')) {
                 setIsVisible(true)

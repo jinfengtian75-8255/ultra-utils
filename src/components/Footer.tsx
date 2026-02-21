@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useLanguage } from '@/context/language-context';
-import { Coffee, Github, Twitter, Youtube, ExternalLink, Heart } from 'lucide-react';
+import { Coffee, Github, Twitter, Youtube, Heart } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 export function Footer() {

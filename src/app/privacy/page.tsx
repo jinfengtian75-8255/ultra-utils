@@ -45,7 +45,7 @@ export default function PrivacyPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
                     <div className="p-6 bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-100 dark:border-zinc-800">
                         <h4 className="font-bold mb-2">Right to Erasure</h4>
-                        <p className="text-sm text-muted-foreground font-medium">Since we don't store your data, there is nothing to erase. Your privacy is absolute.</p>
+                        <p className="text-sm text-muted-foreground font-medium">Since we don&apos;t store your data, there is nothing to erase. Your privacy is absolute.</p>
                     </div>
                     <div className="p-6 bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-100 dark:border-zinc-800">
                         <h4 className="font-bold mb-2">Data Portability</h4>

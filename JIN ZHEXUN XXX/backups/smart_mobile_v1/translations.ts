@@ -30,7 +30,6 @@ export interface TranslationSchema {
         textConv: string;
         bgRemover: string;
         ytPlanner: string;
-        pdfMaster: string;
     },
     imageMaster: {
         title: string;
@@ -110,21 +109,7 @@ export interface TranslationSchema {
         bgColor: string;
         size: string;
         downloadPng: string;
-        downloadSvg: string;
         vectorReady: string;
-        uploadLogo: string;
-        logoSize: string;
-        removeLogo: string;
-        templates: string;
-        styles: string;
-        frames: string;
-        frameText: string;
-        presets: {
-            instagram: string;
-            youtube: string;
-            link: string;
-            wifi: string;
-        };
         guide: {
             title: string;
             subtitle: string;
@@ -242,12 +227,6 @@ export interface TranslationSchema {
         studio: string;
         original: string;
         result: string;
-        compare: string;
-        scale: string;
-        bgTrsp: string;
-        bgClr: string;
-        bgGrad: string;
-        bgImg: string;
         scaleLabel: string;
         resetConfirmTitle: string;
         resetConfirmDesc: string;
@@ -274,23 +253,13 @@ export interface TranslationSchema {
         merge: string;
         split: string;
         toImage: string;
-        rotate: string;
-        protect: string;
         uploadMsg: string;
         filesSelected: string;
         mergeNow: string;
         splitNow: string;
-        rotateNow: string;
-        protectNow: string;
         downloadMerged: string;
         downloadSplit: string;
         addMore: string;
-        clear: string;
-        pageRange: string;
-        password: string;
-        options: string;
-        processingMsg: string;
-        successMsg: string;
         guide: {
             title: string;
             subtitle: string;
@@ -520,7 +489,6 @@ export const translations: Record<Language, TranslationSchema> = {
             textConv: '텍스트 변환기',
             bgRemover: '배경 제거',
             ytPlanner: '유튜브 기획기',
-            pdfMaster: 'PDF 마스터',
         },
         imageMaster: {
             title: '이미지 압축 및 최적화',
@@ -667,22 +635,8 @@ export const translations: Record<Language, TranslationSchema> = {
             fgColor: 'QR 코드 강조 색상',
             bgColor: '배경 색상 설정',
             size: '출력 이미지 해상도',
-            downloadPng: 'PNG 다운로드 (고화질)',
-            downloadSvg: 'SVG 다운로드 (벡터 형)',
+            downloadPng: '고화질 PNG 저장',
             vectorReady: '출력용 고해상도 벡터 준비 작업 수행 중...',
-            uploadLogo: '로고 이미지 업로드',
-            logoSize: '로고 크기 조절',
-            removeLogo: '로고 삭제',
-            templates: '비즈니스 템플릿',
-            styles: 'QR 스타일 설정',
-            frames: '프레임 및 문구',
-            frameText: '하단 문구 입력',
-            presets: {
-                instagram: '인스타그램',
-                youtube: '유튜브',
-                link: '웹사이트',
-                wifi: 'Wi-Fi 접속',
-            },
             guide: {
                 title: 'QR 코드 활용 가이드',
                 subtitle: '마케팅 도구로 활용하는 기법',
@@ -837,12 +791,6 @@ export const translations: Record<Language, TranslationSchema> = {
             studio: '스튜디오',
             original: '원본',
             result: '결과물',
-            compare: '전/후 비교',
-            scale: '스케일',
-            bgTrsp: '투명',
-            bgClr: '색상',
-            bgGrad: '그라데이션',
-            bgImg: '이미지',
             scaleLabel: '크기 조절',
             resetConfirmTitle: '정말 초기화할까요?',
             resetConfirmDesc: '지금까지 작업한 내용이 모두 사라집니다.',
@@ -886,47 +834,37 @@ export const translations: Record<Language, TranslationSchema> = {
             }
         },
         pdfMaster: {
-            title: 'PDF 마스터 PRO',
-            desc: '업무 효율을 극대화하는 올인원 PDF 도구. 합치기, 분할, 이미지 변환 및 보안까지 지원합니다.',
-            merge: '파일 병합',
-            split: '페이지 분할',
-            toImage: '이미지 변환',
-            rotate: '페이지 회전',
-            protect: '비밀번호 설정',
-            uploadMsg: 'PDF 파일을 드래그하여 놓거나 클릭하세요',
-            filesSelected: '개의 파일 선택됨',
-            mergeNow: '결합된 파일 생성',
-            splitNow: '전체 페이지 분할',
-            rotateNow: '90도 회전 적용',
-            protectNow: '비밀번호 암호화',
-            downloadMerged: '결합 파일 다운로드',
-            downloadSplit: '분할 파일(ZIP) 저장',
+            title: 'PDF 마스터',
+            desc: 'PDF 합치기, 나누기 및 이미지 변환을 위한 강력한 도구 모음입니다.',
+            merge: 'PDF 합치기',
+            split: 'PDF 나누기',
+            toImage: 'PDF를 이미지로',
+            uploadMsg: 'PDF 파일을 여기에 드롭하거나 클릭하여 선택하세요',
+            filesSelected: '개의 파일이 선택됨',
+            mergeNow: '지금 합치기',
+            splitNow: '지금 나누기',
+            downloadMerged: '합쳐진 PDF 다운로드',
+            downloadSplit: '나누어진 파일 다운로드',
             addMore: '파일 추가',
-            clear: '목록 비우기',
-            pageRange: '페이지 범위 (예: 1-5, 10)',
-            password: '비밀번호 입력',
-            options: '상세 설정',
-            processingMsg: '고성능 엔진으로 PDF 처리 중...',
-            successMsg: '작업이 완료되었습니다!',
             guide: {
-                title: 'PDF 마스터 활용 가이드',
-                subtitle: '전문가처럼 PDF 문서를 관리하는 방법',
+                title: 'PDF 활용 가이드',
+                subtitle: 'PDF 관리 및 편집 방법',
                 sections: [
                     {
                         title: '1. 대용량 PDF 합치기 및 최적화 전략',
-                        content: '업무나 학습 과정에서 분산된 여러 PDF 문서를 하나로 합치는 것은 문서 관리의 기본입니다. UltraUtils PDF 마스터는 순서를 자유롭게 조정한 후 파일들을 결합하며, 결합 과정에서 메타데이터를 정규화하여 안정적인 결과물을 생성합니다.'
+                        content: '업무나 학습 과정에서 분산된 여러 PDF 문서를 하나로 합치는 것은 문서 관리의 기본입니다. UltraUtils PDF 마스터는 순서를 자유롭게 조정한 후 파일들을 결합하며, 결합 과정에서 메타데이터를 정규화하여 안정적인 결과물을 생성합니다. 보고서나 포트폴리오를 제출하기 전 누락된 페이지 없이 하나의 파일로 완벽하게 정리하세요.'
                     },
                     {
-                        title: '2. 정밀한 페이지 나누기 및 범위 추출',
-                        content: '수백 페이지에 달하는 문서에서 특정 범위만 필요하신가요? 나누기 기능을 사용하면 각 페이지를 개별 PDF 파일로 분리하거나, 원하는 페이지만 쏙쏙 골라 새로운 파일로 만들 수 있습니다.'
+                        title: '2. 정밀한 페이지 나누기(Split) 기능 활용법',
+                        content: '수백 페이지에 달하는 대용량 문서에서 특정 챕터나 페이지만 필요하신가요? 나누기 기능을 사용하면 각 페이지를 개별 PDF 파일로 즉시 분리하여 압축(ZIP) 파일로 제공합니다. 필요한 부분만 추출하여 보관하거나 공유할 때 매우 효과적인 기능입니다.'
                     },
                     {
-                        title: '3. 보안을 위한 비밀번호 암호화(Protect)',
-                        content: '중요한 계약서나 기밀 문서에 비번을 걸어 보호하세요. 서버가 아닌 사용자의 브라우저 내에서 직접 암호화되므로, 비밀번호조차 외부에 유출될 걱정이 없습니다.'
+                        title: '3. PDF를 고화질 이미지(JPG)로 일괄 변환하기',
+                        content: 'PDF 내용을 인스타그램이나 블로그, 카드 뉴스에 공유하고 싶을 때 이미지 변환 기능을 사용하세요. 단순 캡처보다 훨씬 높은 해상도로 전체 페이지를 JPEG 이미지로 변환해 드립니다. 텍스트 가독성을 유지하면서 시각적 매체로 확장하는 가장 빠른 방법입니다.'
                     },
                     {
                         title: '4. 철저한 보안: 100% 로컬 브라우저 처리',
-                        content: '중요한 정보가 담긴 PDF를 온라인에 올리는 것이 불안하신가요? UltraUtils는 모든 작업을 사용자의 컴퓨터 내에서만 수행합니다. 외부 서버로 파일이 단 1KB도 전송되지 않으니 안심하십시오.'
+                        content: '중요한 계약서나 기밀 정보가 담긴 PDF를 온라인에 올리는 것이 불안하신가요? UltraUtils는 pdf-lib 기술을 활용하여 모든 작업을 사용자의 브라우저 메모리상에서만 수행합니다. 외부 서버로 파일이 단 1KB도 업로드되지 않으므로, 기업용 기밀 문서도 안심하고 편집하실 수 있습니다.'
                     }
                 ],
                 faq: [
@@ -1241,16 +1179,15 @@ export const translations: Record<Language, TranslationSchema> = {
             imageCopyError: 'Failed to copy image.',
         },
         navbar: {
-            title: 'UltraUtils',
+            title: 'My Utils',
             home: 'Home',
-            imageSuite: 'Image Suite',
+            imageSuite: 'Image Master',
             promptGen: 'Prompt Gen',
             ytGrab: 'YT Grabber',
-            qrGen: 'QR Generator',
+            qrGen: 'QR Gen',
             textConv: 'Text Conv',
-            bgRemover: 'AI Remover',
+            bgRemover: 'BG Remover',
             ytPlanner: 'YT Planner',
-            pdfMaster: 'PDF Master',
         },
         imageMaster: {
             title: 'Image Master Suite: Professional Online Image Optimization',
@@ -1397,21 +1334,7 @@ export const translations: Record<Language, TranslationSchema> = {
             bgColor: 'Background Color',
             size: 'Output Resolution',
             downloadPng: 'Download High-Res PNG',
-            downloadSvg: 'Download Vector SVG',
             vectorReady: 'Preparing high-resolution vector output...',
-            uploadLogo: 'Upload Custom Logo',
-            logoSize: 'Adjust Logo Size',
-            removeLogo: 'Remove Logo',
-            templates: 'Business Templates',
-            styles: 'QR Style Settings',
-            frames: 'Frames & Labels',
-            frameText: 'Label Text',
-            presets: {
-                instagram: 'Instagram',
-                youtube: 'YouTube',
-                link: 'Website',
-                wifi: 'Wi-Fi Connection',
-            },
             guide: {
                 title: 'Professional QR Code Marketing Strategies',
                 subtitle: 'Level up your business with smart QR utilization',
@@ -1561,13 +1484,7 @@ export const translations: Record<Language, TranslationSchema> = {
             studio: 'Studio',
             original: 'Original',
             result: 'Result',
-            compare: 'Compare',
-            scale: 'Scale',
-            bgTrsp: 'Trsp',
-            bgClr: 'Color',
-            bgGrad: 'Grad',
-            bgImg: 'Image',
-            scaleLabel: 'Adjust Scale',
+            scaleLabel: 'Scale',
             resetConfirmTitle: 'Reset everything?',
             resetConfirmDesc: 'All your current progress will be lost.',
             aspectTitle: 'Aspect Ratio',
@@ -1604,60 +1521,50 @@ export const translations: Record<Language, TranslationSchema> = {
                 faq: [
                     { q: 'Does removing the background reduce image quality?', a: 'No. We maintain the original resolution of your image while only converting the background information into a transparent Alpha Channel. We use high-quality PNG export to preserve every pixel.' },
                     { q: 'Where can I use these transparent images?', a: 'They are perfect for YouTube thumbnail composites, e-commerce product listings, Instagram story stickers, professional ID photos, and any graphic design project.' },
-                    { q: 'Can I process multiple images at once?', a: 'Currently, we focus on high-precision single image processing. A bulk batch processing feature is planned for a future update.' },
+                    { q: 'Can I process multiple images at once?', a: 'Currently, we focus on high-precision single image processing. A bulk batch processing feature is planned for a future update to help you work even faster.' },
                     { q: 'What should I do if the AI fails to identify the subject?', a: 'This usually happens if the subject is too small or blends perfectly into the background. Try another photo where the subject is centered and clearly distinguishable from its surroundings.' }
                 ]
             }
         },
         pdfMaster: {
-            title: 'PDF Master PRO',
-            desc: 'The ultimate all-in-one PDF toolkit. Merge, Split, Convert, and Secure your documents with ease.',
-            merge: 'Merge Files',
-            split: 'Split Pages',
-            toImage: 'Convert to Image',
-            rotate: 'Rotate Pages',
-            protect: 'Set Password',
-            uploadMsg: 'Drag and drop PDF files or click to browse',
+            title: 'PDF Master Suite',
+            desc: 'Powerful tools to merge, split, and convert your PDFs to images.',
+            merge: 'Merge PDF',
+            split: 'Split PDF',
+            toImage: 'PDF to Image',
+            uploadMsg: 'Drop PDF files here or click to browse',
             filesSelected: 'files selected',
-            mergeNow: 'Create Merged PDF',
-            splitNow: 'Split All Pages',
-            rotateNow: 'Apply 90° Rotation',
-            protectNow: 'Encrypt Document',
-            downloadMerged: 'Download Result',
-            downloadSplit: 'Download All (ZIP)',
-            addMore: 'Add Files',
-            clear: 'Clear List',
-            pageRange: 'Page Range (e.g., 1-5, 10)',
-            password: 'Enter Password',
-            options: 'Advanced Options',
-            processingMsg: 'Processing PDF with high-performance engine...',
-            successMsg: 'Task completed successfully!',
+            mergeNow: 'Merge Now',
+            splitNow: 'Split Now',
+            downloadMerged: 'Download Merged PDF',
+            downloadSplit: 'Download Split Files',
+            addMore: 'Add More Files',
             guide: {
-                title: 'PDF Master Mastery Guide',
-                subtitle: 'Manage and edit PDF files like a professional',
+                title: 'Ultimate PDF Management Guide',
+                subtitle: 'How to manage and edit your PDF files like a pro',
                 sections: [
                     {
                         title: '1. Advanced PDF Merging & Metadata Optimization',
-                        content: 'Managing fragmented documents is a core part of any workflow. UltraUtils PDF Master allows you to combine multiple PDF files while maintaining a custom order and normalizing metadata for a stable output.'
+                        content: 'Managing fragmented documents is a core part of any workflow. UltraUtils PDF Master allows you to combine multiple PDF files while maintaining a custom order and normalizing metadata for a stable output. Perfect for organizing reports, portfolios, or large academic structures before final submission.'
                     },
                     {
-                        title: '2. Precision Page Splitting & Extraction',
-                        content: 'Need specific chapters from a massive document? Use the split feature to separate every page individually or pick exact ranges to create a new, targeted file.'
+                        title: '2. Precision Page Splitting for Content Extraction',
+                        content: 'Need just a specific chapter or single page from a massive document? Our splitting tool instantly separates every page into individual PDFs and packages them into a convenient ZIP file. It\'s the most efficient way to extract and share only what\'s necessary.'
                     },
                     {
-                        title: '3. Security First: Encrypt & Protect',
-                        content: 'Shield your sensitive contracts or private documents with professional-grade passwords. Encryption happens inside your browser, ensuring your password never leaves your device.'
+                        title: '3. High-Res PDF to Image (JPG) Batch Conversion',
+                        content: 'When you need to share PDF content on visually-driven platforms like Instagram, LinkedIn, or blogs, use our image conversion tool. We convert entire pages to high-resolution JPEG images, preserving text readability far better than a simple screenshot.'
                     },
                     {
-                        title: '4. Absolute Privacy: 100% Local Processing',
-                        content: 'Worried about uploading sensitive PDFs? UltraUtils performs all calculations right in your browser. Not even 1KB of your data is sent to an external server.'
+                        title: '4. Enterprise-Grade Security: 100% Local Logic',
+                        content: 'Concerned about uploading confidential contracts or personal info? UltraUtils utilizes pdf-lib technology to perform all edits entirely within your browser memory. Not even 1KB of your file data is uploaded to our servers, ensuring your data remains truly private.'
                     }
                 ],
                 faq: [
-                    { q: 'Is there a limit to the number of files I can merge?', a: 'Technically no, but for optimal performance we recommend under 50 files or 100MB total. It depends on your device\'s RAM.' },
-                    { q: 'Can I choose specific pages to extract?', a: 'Yes! In the Split tab, you can enter a page range like "1-5, 8, 12" to extract only those specific pages into a new PDF.' },
-                    { q: 'Is the password protection secure?', a: 'Yes, we use standard PDF 128-bit AES encryption. Since it happens locally, your password is never seen by anyone else.' },
-                    { q: 'Where are my files saved?', a: 'Files are saved directly to your default downloads folder as soon as processing is complete.' }
+                    { q: 'Is there a limit on file size or count?', a: 'While there are no hard limits, we recommend merging up to 50 files or 100MB for the smootmost experience. The actual limit depends on your device\'s RAM capacity.' },
+                    { q: 'Can I adjust the image quality when converting to JPG?', a: 'We provide a high-resolution default (2.0x Viewport Scale) that ensures professional-grade text clarity, giving you perfect results without needing complex settings.' },
+                    { q: 'Does it support password-protected PDFs?', a: 'For security reasons, encrypted files cannot be processed directly. Please decrypt your files before uploading for editing.' },
+                    { q: 'Where are my processed files stored?', a: 'Files are saved immediately to your device\'s Downloads folder. No data is stored on our end, and all session data is wiped once you close the tab.' }
                 ]
             }
         },
@@ -1965,16 +1872,15 @@ export const translations: Record<Language, TranslationSchema> = {
             imageCopyError: '复制图片失败。',
         },
         navbar: {
-            title: 'UltraUtils',
+            title: '我的工具',
             home: '首页',
-            imageSuite: '图像大师',
+            imageSuite: '图片大师',
             promptGen: '提示词生成',
-            ytGrab: 'YT 提取器',
-            qrGen: 'QR 生成器',
+            ytGrab: 'YouTube提取',
+            qrGen: '二维码生成',
             textConv: '文本转换',
-            bgRemover: 'AI 背景消除',
-            ytPlanner: 'YouTube 策划',
-            pdfMaster: 'PDF 大师',
+            bgRemover: '背景移除',
+            ytPlanner: 'YouTube 策划师',
         },
         imageMaster: {
             title: '影像大师套件',
@@ -2107,22 +2013,8 @@ export const translations: Record<Language, TranslationSchema> = {
             fgColor: 'QR 代码强调色',
             bgColor: '背景颜色设置',
             size: '输出图像分辨率',
-            downloadPng: '下载高分辨率 PNG',
-            downloadSvg: '下载矢量 SVG',
-            vectorReady: '正在准备高分辨率矢量输出...',
-            uploadLogo: '上传自定义徽标',
-            logoSize: '调整徽标大小',
-            removeLogo: '移除徽标',
-            templates: '商务模板',
-            styles: 'QR 样式设置',
-            frames: '边框与文本',
-            frameText: '底部文本',
-            presets: {
-                instagram: 'Instagram',
-                youtube: 'YouTube',
-                link: '网站',
-                wifi: 'Wi-Fi 连接',
-            },
+            downloadPng: '保存高清 PNG',
+            vectorReady: '正在准备用于印刷的高清矢量文件...',
             guide: {
                 title: '助力业务增长的 QR 代码完美应用策略',
                 subtitle: '超越简单的信息传递，将其作为专业营销工具的使用技巧',
@@ -2133,7 +2025,7 @@ export const translations: Record<Language, TranslationSchema> = {
                     },
                     {
                         title: '2. 线下营销中的 QR 代码应用案例',
-                        content: '• 智能名片：将联系方式和作品集链接印在名片上。\n• 餐厅菜单：通过非接触式菜单查看，同时兼顾卫生和效率。\n• 活动门票：通过扫描实现自动化的门票确认流程。\n• Wi-Fi 自动连接：扫描即可连接，无需手动输入繁琐密码。'
+                        content: '• 智能名片：将联系方式和作品集链接印在名片上。\n• 餐厅菜单：通过非接触式菜单查看，同时兼顾卫生和效率。\n• 活动门票：自动化的门票确认流程。\n• Wi-Fi 自动连接：扫描即可连接，无需手动输入繁琐密码。'
                     },
                     {
                         title: '3. 静态 QR 代码与动态 QR 代码的区别',
@@ -2272,12 +2164,6 @@ export const translations: Record<Language, TranslationSchema> = {
             studio: '工作室',
             original: '原图',
             result: '结果',
-            compare: '对比',
-            scale: '缩放',
-            bgTrsp: '透明',
-            bgClr: '颜色',
-            bgGrad: '渐变',
-            bgImg: '图片',
             scaleLabel: '缩放',
             resetConfirmTitle: '确定要重置吗？',
             resetConfirmDesc: '当前的所有进度都将丢失。',
@@ -2321,47 +2207,37 @@ export const translations: Record<Language, TranslationSchema> = {
             }
         },
         pdfMaster: {
-            title: 'PDF 大师 PRO',
-            desc: '全方位 PDF 工具箱。轻松合并、拆分、转换并保护您的文档。',
-            merge: '合并文件',
-            split: '页面拆分',
-            toImage: '转为图片',
-            rotate: '旋转页面',
-            protect: '设置密码',
+            title: 'PDF 大师',
+            desc: '强大的 PDF 合并、拆分和图像转换工具。',
+            merge: '合并 PDF',
+            split: '拆分 PDF',
+            toImage: 'PDF 转图片',
             uploadMsg: '将 PDF 文件拖到此处或点击选择',
             filesSelected: '个文件已选择',
-            mergeNow: '创建合并文件',
-            splitNow: '拆分所有页面',
-            rotateNow: '应用90度旋转',
-            protectNow: '加密文档',
-            downloadMerged: '下载结果',
-            downloadSplit: '全部下载 (ZIP)',
-            addMore: '添加文件',
-            clear: '清空列表',
-            pageRange: '页面范围 (如: 1-5, 10)',
-            password: '输入密码',
-            options: '高级设置',
-            processingMsg: '高性能引擎处理中...',
-            successMsg: '操作已成功完成！',
+            mergeNow: '立即合并',
+            splitNow: '立即拆分',
+            downloadMerged: '下载合并后的 PDF',
+            downloadSplit: '下载拆分后的文件',
+            addMore: '添加更多文件',
             guide: {
-                title: 'PDF 大师进阶指南',
-                subtitle: '像专业人士一样管理和编辑 PDF 文件',
+                title: 'PDF 管理终极指南',
+                subtitle: '如何像专业人士一样管理和编辑您的 PDF 文件',
                 sections: [
                     {
                         title: '1. 高级 PDF 合并与元数据优化',
-                        content: '管理碎片化文档是工作流程的核心。UltraUtils 允许您在保持顺序的同时合并多个 PDF 文件。'
+                        content: '管理碎片化文档是任何工作流程的核心部分。UltraUtils PDF 大师允许您在保持自定义顺序的同时合并多个 PDF 文件，并规范化元数据以实现稳定的输出。非常适合在最终提交前整理报告、作品集或大型学术结构。'
                     },
                     {
-                        title: '2. 精准页面拆分与范围提取',
-                        content: '需要长文档中的特定章节？使用拆分功能将每一页独立分开，或提取特定范围创建新文件。'
+                        title: '2. 精准页面拆分实现内容提取',
+                        content: '只需要大型文档中的特定章节或单页？我们的拆分工具可立即将每一页分离为独立的 PDF，并将其打包成方便的 ZIP 文件。这是提取和仅分享必要内容的最有效方式。'
                     },
                     {
-                        title: '3. 安全第一：加密与保护',
-                        content: '为敏感合同或私密文档设置密码。加密在浏览器内完成，确保密码不外泄。'
+                        title: '3. 高清 PDF 转图像 (JPG) 批量转换',
+                        content: '当您需要在 Instagram、LinkedIn 或博客等视觉导向的平台上分享 PDF 内容时，请使用我们的图像转换工具。我们将整页转换为高分辨率 JPEG 图像，保留的文本可读性远优于简单的屏幕截图。'
                     },
                     {
-                        title: '4. 绝对隐私：100% 本地处理',
-                        content: '担心上传敏感 PDF？我们的工具在本地运行，不向服务器发送任何数据。'
+                        title: '4. 企业级安全：100% 本地逻辑',
+                        content: '担心上传机密合同或个人信息？UltraUtils 利用 pdf-lib 技术完全在您的浏览器内存中执行所有编辑。您的文件数据甚至不会有 1KB 上传到我们的服务器，确保您的数据真正私密。'
                     }
                 ],
                 faq: [
@@ -2516,7 +2392,7 @@ export const translations: Record<Language, TranslationSchema> = {
                 },
                 {
                     title: '2. 使用限制',
-                    content: '您同意不参与破坏服务稳定性或将我们的工具用于非法目的的活动。严禁未经明确允许抓取或复制内容。'
+                    content: '您同意不参与破坏服务稳定性或将我们的工具用于非法目的의 活动。严禁未经明确允许抓取或复制内容。'
                 },
                 {
                     title: '3. 责任限制',
@@ -2644,16 +2520,16 @@ export const translations: Record<Language, TranslationSchema> = {
             }
         },
         houseAds: {
-            bgRemoverTitle: '专家级背景移除',
-            bgRemoverDesc: 'AI 驱动一键精准移除。',
-            pdfMasterTitle: 'PDF 大师',
-            pdfMasterDesc: '合并、拆分、轻松转换 PDF。',
-            imageCompTitle: '专家级压缩',
-            imageCompDesc: '无损减小文件大小。',
-            ytGrabTitle: 'HD 封面提取',
-            ytGrabDesc: '轻松下载并编辑封面。',
-            coffeeTitle: '请 Anti 喝杯咖啡',
-            coffeeDesc: '支持我们的工作，开发更好的工具。'
+            bgRemoverTitle: 'プロ級の背景削除',
+            bgRemoverDesc: 'AIがワンクリックで背景を正確に除去。',
+            pdfMasterTitle: 'スマートPDFエディタ',
+            pdfMasterDesc: '結合、分割、画像変換をこれ一つで。',
+            imageCompTitle: '超高性能图片压缩',
+            imageCompDesc: '在不损失画质的情况下显著减小文件体积。',
+            ytGrabTitle: 'YouTube 封面提取',
+            ytGrabDesc: '即刻下载并编辑高画质视频封面。',
+            coffeeTitle: 'Antiにコーヒーを奢る',
+            coffeeDesc: '皆様の応援がツール開発の動力になります。'
         }
     },
     ja: {
@@ -2676,16 +2552,15 @@ export const translations: Record<Language, TranslationSchema> = {
             imageCopyError: '画像のコピーに失敗しました。',
         },
         navbar: {
-            title: 'UltraUtils',
+            title: 'マイツール',
             home: 'ホーム',
-            imageSuite: '画像ツール',
-            promptGen: 'プロンプト作成',
-            ytGrab: 'YT 抽出',
-            qrGen: 'QR 作成',
+            imageSuite: '画像マスター',
+            promptGen: 'プロンプト生成',
+            ytGrab: 'YouTube抽出',
+            qrGen: 'QR生成',
             textConv: 'テキスト変換',
-            bgRemover: 'AI 背景削除',
-            ytPlanner: 'YouTube 企画',
-            pdfMaster: 'PDF マスター',
+            bgRemover: '背景削除',
+            ytPlanner: 'YouTube企画',
         },
         imageMaster: {
             title: '画像圧縮・最適化',
@@ -2800,22 +2675,8 @@ export const translations: Record<Language, TranslationSchema> = {
             fgColor: 'コードの色',
             bgColor: '背景色',
             size: '解像度',
-            downloadPng: '高解像度 PNG ダウンロード',
-            downloadSvg: 'ベクター SVG ダウンロード',
-            vectorReady: '出力用の高解像度ベクターを準備しています...',
-            uploadLogo: 'カスタムロゴをアップロード',
-            logoSize: 'ロゴサイズの調整',
-            removeLogo: 'ロゴを削除',
-            templates: 'ビジネス用テンプレート',
-            styles: 'QRスタイル設定',
-            frames: 'フレームとテキスト',
-            frameText: 'ラベルテキスト',
-            presets: {
-                instagram: 'Instagram',
-                youtube: 'YouTube',
-                link: 'ウェブサイト',
-                wifi: 'Wi-Fi 接続',
-            },
+            downloadPng: '高画質PNG保存',
+            vectorReady: 'ベクターデータ作成中...',
             guide: {
                 title: 'QRコード活用ガイド',
                 subtitle: 'マーケティングでの活用',
@@ -2943,31 +2804,25 @@ export const translations: Record<Language, TranslationSchema> = {
             centerV: '上下中央',
             bringToFront: '最前面へ',
             sendToBack: '最背面へ',
-            filterPresets: '濾過器',
+            filterPresets: 'フィルタ',
             filterOriginal: 'オリジナル',
             filterBW: '白黒',
             filterSepia: 'セピア',
             filterWarm: '暖色',
-            filterCool: '冷色',
+            filterCool: '寒色',
             filterVintage: 'ヴィンテージ',
             textEditing: 'テキスト編集',
             textPlaceholder: '入力...',
             textSize: 'サイズ',
             stickerWidth: '枠線の太さ',
-            shortsCrop: '9:16 縦長',
+            shortsCrop: '9:16 Shorts',
             share: '共有',
             shareText: 'AIクリエイティブスタジオ! ⚡',
             photoMode: '写真モード',
             studio: 'スタジオ',
             original: 'オリジナル',
             result: '結果',
-            compare: '比較',
-            scale: 'スケール',
-            bgTrsp: '透明',
-            bgClr: 'カラー',
-            bgGrad: 'グラデ',
-            bgImg: '画像',
-            scaleLabel: 'スケール調整',
+            scaleLabel: 'スケール',
             resetConfirmTitle: '初期化しますか？',
             resetConfirmDesc: 'これまでの作業内容がすべて失われます。',
             aspectTitle: 'アスペクト比',
@@ -3010,54 +2865,44 @@ export const translations: Record<Language, TranslationSchema> = {
             }
         },
         pdfMaster: {
-            title: 'PDF Master PRO',
-            desc: 'オールインワンPDFツールキット。結合、分割、変換、セキュリティ保護を簡単に。',
-            merge: 'ファイルを結合',
-            split: 'ページを分割',
-            toImage: '画像に変換',
-            rotate: 'ページを回転',
-            protect: 'パスワード設定',
-            uploadMsg: 'PDFファイルをドロップまたはクリック',
-            filesSelected: '個のファイルを選択中',
-            mergeNow: '結合PDFを作成',
-            splitNow: '全ページを分割',
-            rotateNow: '90度回転を適用',
-            protectNow: 'ドキュメントを暗号化',
-            downloadMerged: '結果をダウンロード',
-            downloadSplit: 'すべて保存 (ZIP)',
-            addMore: 'ファイルを追加',
-            clear: 'リストをクリア',
-            pageRange: 'ページ範囲 (例: 1-5, 10)',
-            password: 'パスワード入力',
-            options: '詳細設定',
-            processingMsg: '高性能エンジンで処理中...',
-            successMsg: '正常に完了しました！',
+            title: 'PDFマスター',
+            desc: 'PDFの結合、分割、画像変換をワンストップで。',
+            merge: 'PDF結合',
+            split: 'PDF分割',
+            toImage: 'PDFを画像へ',
+            uploadMsg: 'PDFをドロップまたはクリック',
+            filesSelected: '個を選択中',
+            mergeNow: '結合を実行',
+            splitNow: '分割を実行',
+            downloadMerged: '結合PDFを保存',
+            downloadSplit: '分割ファイルを保存',
+            addMore: '追加',
             guide: {
-                title: 'PDF Master 活用ガイド',
-                subtitle: 'プロのようにPDFを管理・編集する方法',
+                title: 'PDF活用ガイド',
+                subtitle: '効率的なPDF管理',
                 sections: [
                     {
-                        title: '1. 高度なPDF結合と最適化',
-                        content: 'バラバラの資料を一つにまとめるのは基本です。順番を自由に並べ替えて結合できます。'
+                        title: '1. 高度なPDF結合とメタデータの最適化',
+                        content: '断片化したドキュメントの管理は、あらゆるワークフローの核心です。UltraUtils PDFマスターを使用すると、カスタムオーダーを維持しながら複数のPDFファイルを結合し、安定した出力のためにメタデータを正規化できます。最終提出前のレポート、ポートフォリオ、大規模な学術資料の整理に最適です。'
                     },
                     {
-                        title: '2. 精密なページ分割と抽出',
-                        content: '特定のページだけが必要な場合、全ページを個別に分けたり、範囲指定で抽出したりできます。'
+                        title: '2. コンテンツ抽出のための精密ページ分割',
+                        content: '膨大なドキュメントから特定の章や単一のページだけが必要な場合、当ツールの分割機能が役立ちます。すべてのページを即座に個別のPDFに分離し、便利なZIPファイルにパッケージ化します。必要なものだけを抽出して共有するための最も効率的な方法です。'
                     },
                     {
-                        title: '3. セキュリティ：パスワード保護',
-                        content: '機密書類にパスワードをかけましょう。ブラウザ内で暗号化されるため安全です。'
+                        title: '3. 高解像度PDFから画像(JPG)への一括変換',
+                        content: 'Instagram、LinkedIn、ブログなどの視覚的なプラットフォームでPDFコンテンツを共有する必要がある場合は、画像変換ツールを使用してください。ページ全体を高解像度のJPEG画像に変換し、単なるスクリーンショットよりもはるかに優れたテキストの可読性を維持します。'
                     },
                     {
-                        title: '4. 完全なプライバシー：100%ローカル処理',
-                        content: '外部サーバーにファイルを送信することはありません。お使いのPC内ですべて完結します。'
+                        title: '4. エンタープライズ級のセキュリティ：100%ローカルロジック',
+                        content: '機密契約書や個人情報のアップロードが心配ですか？UltraUtilsはpdf-lib技術を活用し、すべての編集をお使いのブラウザメモリ内で完全に実行します。1KBのファイルデータもサーバーにアップロードされることはなく、データの真のプライバシーを保証します。'
                     }
                 ],
                 faq: [
-                    { q: '結合できるファイル数に制限はありますか？', a: '技術的な制限はありませんが、50ファイル以下または合計100MB以下を推奨します。' },
-                    { q: '特定のページだけ抽出できますか？', a: 'はい、「分割」タブで「1-5, 10」のように指定すれば、そのページだけで新しいPDFを作れます。' },
-                    { q: 'パスワード保護の安全性は？', a: '標準的な128bit AES暗号化を使用します。ローカルで処理されるため、パスワードが漏れることはありません。' },
-                    { q: 'ファイルはどこに保存されますか？', a: '処理完了後、お使いのブラウザのダウンロードフォルダに直接保存されます。' }
+                    { q: 'ファイルサイズや数に制限はありますか？', a: 'ハード的な制限はありませんが、スムーズな体験のために一度に50ファイルまたは100MBまでの処理を推奨しています。実際の制限はお使いのデバイスのRAM容量に依存します。' },
+                    { q: 'JPG変換時に画質を調整できますか？', a: '高解像度のデフォルト設定（2.0xビューポートスケール）を提供しており、複雑な設定なしでプロ級のテキストの鮮明さを保証します。' },
+                    { q: 'パスワード保護されたPDFはサポートされていますか？', a: 'セキュリティ上の理由から、暗号化されたファイルを直接処理することはできません。編集のためにアップロードする前に、ファイルの暗号化を解除してください。' },
+                    { q: '処理されたファイルはどこに保存されますか？', a: 'ファイルはお使いのデバイスの「ダウンロード」フォルダに即座に保存されます。当方にはデータは保存されず、タブを閉じるとすべてのセッションデータが消去されます。' }
                 ]
             }
         },
@@ -3235,8 +3080,8 @@ export const translations: Record<Language, TranslationSchema> = {
             copyAll: '全部コピー',
             copied: 'コピーしました！',
             guide: {
-                title: 'YouTube 成功戦略ガイド',
-                subtitle: '攻克点击率与播放量的算法秘籍',
+                title: 'YouTube成功ガイド',
+                subtitle: 'アルゴリズムを攻略',
                 sections: [
                     {
                         title: '1. 高CTRタイトルの心理学（クリックの磁石）',
@@ -3285,16 +3130,15 @@ export const translations: Record<Language, TranslationSchema> = {
             imageCopyError: 'Error al copiar la imagen.',
         },
         navbar: {
-            title: 'UltraUtils',
+            title: 'Mis Utils',
             home: 'Inicio',
-            imageSuite: 'Suite Imagen',
-            promptGen: 'Prompt Gen',
+            imageSuite: 'Maestro de Imagen',
+            promptGen: 'Generador de Prompts',
             ytGrab: 'Extractor YT',
             qrGen: 'Gen QR',
-            textConv: 'Conv Texto',
-            bgRemover: 'Eliminar Fondo',
+            textConv: 'Conv de Texto',
+            bgRemover: 'Quitar Fondo',
             ytPlanner: 'Planificador YT',
-            pdfMaster: 'Maestro PDF',
         },
         imageMaster: {
             title: 'Compresión y Optimización',
@@ -3414,22 +3258,8 @@ export const translations: Record<Language, TranslationSchema> = {
             fgColor: 'Color del QR',
             bgColor: 'Color de fondo',
             size: 'Resolución',
-            downloadPng: 'Descargar PNG de alta resolución',
-            downloadSvg: 'Descargar SVG vectorial',
-            vectorReady: 'Generando salida vectorial de alta definición...',
-            uploadLogo: 'Subir logo personalizado',
-            logoSize: 'Ajustar tamaño del logo',
-            removeLogo: 'Eliminar logo',
-            templates: 'Plantillas de negocios',
-            styles: 'Ajustes de estilo QR',
-            frames: 'Marcos y etiquetas',
-            frameText: 'Texto de la etiqueta',
-            presets: {
-                instagram: 'Instagram',
-                youtube: 'YouTube',
-                link: 'Sitio web',
-                wifi: 'Conexión Wi-Fi',
-            },
+            downloadPng: 'Guardar PNG',
+            vectorReady: 'Preparando vector...',
             guide: {
                 title: 'Guía QR',
                 subtitle: 'Estrategias de marketing',
@@ -3579,13 +3409,7 @@ export const translations: Record<Language, TranslationSchema> = {
             studio: 'Estudio',
             original: 'Original',
             result: 'Resultado',
-            compare: 'Comparar',
-            scale: 'Escala',
-            bgTrsp: 'Trsp',
-            bgClr: 'Color',
-            bgGrad: 'Grad',
-            bgImg: 'Img',
-            scaleLabel: 'Ajustar Escala',
+            scaleLabel: 'Escala',
             resetConfirmTitle: '¿Reiniciar todo?',
             resetConfirmDesc: 'Se perderá todo el progreso actual.',
             aspectTitle: 'Relación de Aspecto',
@@ -3628,54 +3452,44 @@ export const translations: Record<Language, TranslationSchema> = {
             }
         },
         pdfMaster: {
-            title: 'PDF Maestro PRO',
-            desc: 'El kit de herramientas PDF definitivo. Una, divida, convierta y proteja sus archivos con facilidad.',
-            merge: 'Unir archivos',
-            split: 'Dividir páginas',
-            toImage: 'Convertir a imagen',
-            rotate: 'Rotar páginas',
-            protect: 'Establecer contraseña',
-            uploadMsg: 'Arrastre archivos PDF aquí o haga clic para buscar',
+            title: 'Maestro PDF',
+            desc: 'Une, divide y convierte PDFs en un solo lugar.',
+            merge: 'Unir PDF',
+            split: 'Dividir PDF',
+            toImage: 'PDF a Imagen',
+            uploadMsg: 'Suelte PDFs aquí',
             filesSelected: 'archivos seleccionados',
-            mergeNow: 'Crear PDF unido',
-            splitNow: 'Dividir todas las páginas',
-            rotateNow: 'Aplicar rotación de 90°',
-            protectNow: 'Cifrar documento',
-            downloadMerged: 'Descargar resultado',
-            downloadSplit: 'Guardar todo (ZIP)',
-            addMore: 'Agregar archivos',
-            clear: 'Limpiar lista',
-            pageRange: 'Rango de páginas (ej: 1-5, 10)',
-            password: 'Ingrese contraseña',
-            options: 'Opciones avanzadas',
-            processingMsg: 'Procesando PDF con motor de alto rendimiento...',
-            successMsg: '¡Tarea completada con éxito!',
+            mergeNow: 'Unir ahora',
+            splitNow: 'Dividir ahora',
+            downloadMerged: 'Descargar unido',
+            downloadSplit: 'Descargar divididos',
+            addMore: 'Añadir más',
             guide: {
-                title: 'Guía Maestra de PDF',
-                subtitle: 'Gestione y edite archivos PDF como un profesional',
+                title: 'Guía PDF',
+                subtitle: 'Gestión profesional',
                 sections: [
                     {
-                        title: '1. Fusión Avanzada y Optimización',
-                        content: 'Combinar documentos fragmentados es clave. UltraUtils le permite unir varios archivos manteniendo el orden personalizado.'
+                        title: '1. Fusión de PDF Avanzada y Optimización de Metadatos',
+                        content: 'La gestión de documentos fragmentados es una parte central de cualquier flujo de trabajo. UltraUtils PDF Master le permite combinar múltiples archivos PDF manteniendo un orden personalizado y normalizando los metadatos para una salida estable. Perfecto para organizar informes, portafolios o grandes estructuras académicas antes de la presentación final.'
                     },
                     {
-                        title: '2. División de Precisión y Extracción',
-                        content: '¿Necesita capítulos específicos? Use la función dividir para separar cada página o pick rangos exactos.'
+                        title: '2. Divisón de Páginas de Precisión para Extracción de Contenido',
+                        content: '¿Necesita solo un capítulo específico o una sola página de un documento masivo? Nuestra herramienta de división separa instantáneamente cada página en archivos PDF individuales y los empaqueta en un conveniente archivo ZIP. Es la forma más eficiente de extraer y compartir solo lo necesario.'
                     },
                     {
-                        title: '3. Seguridad: Cifrado y Protección',
-                        content: 'Proteja sus contratos sensibles con passwords pro. El cifrado ocurre en su navegador, garantizando privacidad.'
+                        title: '3. Conversión por Lotes de PDF a Imagen (JPG) de Alta Resolución',
+                        content: 'Cuando necesite compartir contenido de PDF en plataformas centradas en lo visual como Instagram, LinkedIn o blogs, utilice nuestra herramienta de conversión de imágenes. Convertimos páginas completas en imágenes JPEG de alta resolución, preservando la legibilidad del texto mucho mejor que una simple captura de pantalla.'
                     },
                     {
-                        title: '4. Privacidad Total: 100% Procesamiento Local',
-                        content: 'No enviamos sus archivos a ningún servidor. Todo ocurre localmente en su propio dispositivo.'
+                        title: '4. Seguridad de Grado Empresarial: Lógica 100% Local',
+                        content: '¿Le preocupa subir contratos confidenciales o información personal? UltraUtils utiliza la tecnología pdf-lib para realizar todas las ediciones íntegramente dentro de la memoria de su navegador. Ni siquiera 1 KB de los datos de su archivo se carga en nuestros servidores, lo que garantiza que sus datos permanezcan verdaderamente privados.'
                     }
                 ],
                 faq: [
-                    { q: '¿Hay un límite de archivos para unir?', a: 'Técnicamente no, pero recomendamos menos de 50 archivos o 100MB para mejor rendimiento.' },
-                    { q: '¿Puedo extraer páginas específicas?', a: '¡Sí! En la pestaña Dividir, ingrese un rango como "1-5, 10" para obtener solo esas páginas.' },
-                    { q: '¿Es seguro el cifrado de contraseña?', a: 'Sí, usamos AES de 128 bits estándar. Al ser local, nadie más verá su contraseña.' },
-                    { q: '¿Dónde se guardan mis archivos?', a: 'Se guardan directamente en su carpeta de descargas predeterminada tras el proceso.' }
+                    { q: '¿Hay un límite en el tamaño o la cantidad de archivos?', a: 'Si bien no hay límites estrictos, recomendamos unir hasta 50 archivos o 100 MB para una experiencia más fluida. El límite real depende de la capacidad de RAM de su dispositivo.' },
+                    { q: '¿Puedo ajustar la calidad de la imagen al convertir a JPG?', a: 'Proporcionamos un valor predeterminado de alta resolución (Escala de Viewport de 2.0x) que garantiza una claridad de texto de nivel profesional, brindándole resultados perfectos sin necesidad de configuraciones complejas.' },
+                    { q: '¿Soporta PDF protegidos con contraseña?', a: 'Por razones de seguridad, los archivos cifrados no se pueden procesar directamente. Descifre sus archivos antes de cargarlos para editarlos.' },
+                    { q: '¿Dónde se almacenan mis archivos procesados?', a: 'Los archivos se guardan inmediatamente en la carpeta Descargas de su dispositivo. No se almacenan datos por nuestra parte y todos los datos de la sesión se borran una vez que cierra la pestaña.' }
                 ]
             }
         },
@@ -3903,16 +3717,15 @@ export const translations: Record<Language, TranslationSchema> = {
             imageCopyError: 'Kopieren des Bildes fehlgeschlagen.',
         },
         navbar: {
-            title: 'UltraUtils',
-            home: 'Startseite',
-            imageSuite: 'Bild-Suite',
+            title: 'Meine Utils',
+            home: 'Home',
+            imageSuite: 'Bild-Meister',
             promptGen: 'Prompt-Gen',
-            ytGrab: 'YT-Grabber',
-            qrGen: 'QR-Generator',
+            ytGrab: 'YT Grabber',
+            qrGen: 'QR-Gen',
             textConv: 'Text-Konv',
-            bgRemover: 'KI-Entferner',
+            bgRemover: 'Hintergrund',
             ytPlanner: 'YT-Planer',
-            pdfMaster: 'PDF-Meister',
         },
         imageMaster: {
             title: 'Bild-Optimierung',
@@ -4027,22 +3840,8 @@ export const translations: Record<Language, TranslationSchema> = {
             fgColor: 'Farbe',
             bgColor: 'Hintergrund',
             size: 'Größe',
-            downloadPng: 'Hochauflösendes PNG herunterladen',
-            downloadSvg: 'Vektor-SVG herunterladen',
-            vectorReady: 'Vektorausgabe in hoher Auflösung wird generiert...',
-            uploadLogo: 'Eigenes Logo hochladen',
-            logoSize: 'Logogröße anpassen',
-            removeLogo: 'Logo entfernen',
-            templates: 'Business-Vorlagen',
-            styles: 'QR-Stileinstellungen',
-            frames: 'Rahmen & Beschriftungen',
-            frameText: 'Beschriftungstext',
-            presets: {
-                instagram: 'Instagram',
-                youtube: 'YouTube',
-                link: 'Webseite',
-                wifi: 'WLAN-Verbindung',
-            },
+            downloadPng: 'PNG speichern',
+            vectorReady: 'Vektor wird vorbereitet...',
             guide: {
                 title: 'QR Guide',
                 subtitle: 'Marketing-Tipps',
@@ -4184,12 +3983,6 @@ export const translations: Record<Language, TranslationSchema> = {
             studio: 'Studio',
             original: 'Original',
             result: 'Ergebnis',
-            compare: 'Vergleich',
-            scale: 'Skala',
-            bgTrsp: 'Trsp',
-            bgClr: 'Farbe',
-            bgGrad: 'Grad',
-            bgImg: 'Bild',
             scaleLabel: 'Skalierung',
             resetConfirmTitle: 'Alles zurücksetzen?',
             resetConfirmDesc: 'Ihr gesamter aktueller Fortschritt geht verloren.',
@@ -4233,54 +4026,44 @@ export const translations: Record<Language, TranslationSchema> = {
             }
         },
         pdfMaster: {
-            title: 'PDF Master PRO',
-            desc: 'Das ultimative All-in-One PDF-Toolkit. Dateien zusammenfügen, teilen, konvertieren und schützen.',
-            merge: 'Dateien verbinden',
-            split: 'Seiten teilen',
-            toImage: 'In Bild umwandeln',
-            rotate: 'Seiten drehen',
-            protect: 'Passwort festlegen',
-            uploadMsg: 'PDF-Dateien hierher ziehen oder klicken',
-            filesSelected: 'Dateien ausgewählt',
-            mergeNow: 'Zusammengefügte PDF erstellen',
-            splitNow: 'Alle Seiten teilen',
-            rotateNow: '90° Drehung anwenden',
-            protectNow: 'Dokument verschlüsseln',
-            downloadMerged: 'Ergebnis herunterladen',
-            downloadSplit: 'Alles speichern (ZIP)',
-            addMore: 'Dateien hinzufügen',
-            clear: 'Liste leeren',
-            pageRange: 'Seitenbereich (z.B. 1-5, 10)',
-            password: 'Passwort eingeben',
-            options: 'Erweiterte Optionen',
-            processingMsg: 'Verarbeitung mit Hochleistungs-Engine...',
-            successMsg: 'Aufgabe erfolgreich abgeschlossen!',
+            title: 'PDF-Meister',
+            desc: 'Zusammenfügen, Trennen und Umwandeln.',
+            merge: 'PDF zusammenfügen',
+            split: 'PDF teilen',
+            toImage: 'PDF zu Bild',
+            uploadMsg: 'PDF hier ablegen',
+            filesSelected: 'Dateien gewählt',
+            mergeNow: 'Zusammenführen',
+            splitNow: 'Teilen',
+            downloadMerged: 'Gesamt-PDF downloaden',
+            downloadSplit: 'Einzeldateien downloaden',
+            addMore: 'Hinzufügen',
             guide: {
-                title: 'PDF Master Leitfaden',
-                subtitle: 'PDF-Dokumente wie ein Profi verwalten',
+                title: 'PDF Guide',
+                subtitle: 'Profi-Verwaltung',
                 sections: [
                     {
-                        title: '1. Fortschrittliche Zusammenführung',
-                        content: 'Fragmentierte Dokumente zu vereinen ist essenziell. UltraUtils ermöglicht das Kombinieren mehrerer Dateien in jeder Reihenfolge.'
+                        title: '1. Fortschrittliches PDF-Zusammenfügen & Metadaten-Optimierung',
+                        content: 'Die Verwaltung fragmentierter Dokumente ist ein zentraler Bestandteil jedes Workflows. Mit dem UltraUtils PDF-Meister können Sie mehrere PDF-Dateien kombinieren, wobei eine benutzerdefinierte Reihenfolge beibehalten und Metadaten für eine stabile Ausgabe normalisiert werden. Perfekt zum Organisieren von Berichten, Portfolios oder großen akademischen Strukturen vor der endgültigen Abgabe.'
                     },
                     {
-                        title: '2. Präzises Teilen und Extrahieren',
-                        content: 'Benötigen Sie nur bestimmte Kapitel? Nutzen Sie die Teilungsfunktion, um Seiten einzeln oder nach Bereich zu trennen.'
+                        title: '2. Präzises Splitten von Seiten zur Inhaltsextraktion',
+                        content: 'Benötigen Sie nur ein bestimmtes Kapitel oder eine einzelne Seite aus einem umfangreichen Dokument? Unser Splitting-Tool trennt sofort jede Seite in einzelne PDFs und verpackt sie in eine praktische ZIP-Datei. Dies ist der effizienteste Weg, nur das Notwendige zu extrahieren und zu teilen.'
                     },
                     {
-                        title: '3. Sicherheit: Passwortschutz',
-                        content: 'Schützen Sie sensible Verträge mit Passwörtern. Die Verschlüsselung erfolgt in Ihrem Browser - Ihre Daten bleiben privat.'
+                        title: '3. Hochauflösende PDF-zu-Bild (JPG) Batch-Konvertierung',
+                        content: 'Wenn Sie PDF-Inhalte auf visuell orientierten Plattformen wie Instagram, LinkedIn oder Blogs teilen möchten, nutzen Sie unser Bildkonvertierungstool. Wir konvertieren ganze Seiten in hochauflösende JPEG-Bilder und bewahren die Lesbarkeit des Textes weitaus besser als ein einfacher Screenshot.'
                     },
                     {
-                        title: '4. Absolute Privatsphäre: 100% lokal',
-                        content: 'Keine Datei-Uploads auf externe Server. Alles passiert direkt auf Ihrem Gerät.'
+                        title: '4. Sicherheit auf Enterprise-Niveau: 100 % lokale Logik',
+                        content: 'Haben Sie Bedenken beim Hochladen vertraulicher Verträge oder persönlicher Daten? UltraUtils nutzt die pdf-lib-Technologie, um alle Bearbeitungen vollständig im Speicher Ihres Browsers durchzuführen. Es werden keine Dateidaten auf unsere Server hochgeladen, sodass Ihre Daten absolut privatsphäregeschützt bleiben.'
                     }
                 ],
                 faq: [
-                    { q: 'Gibt es ein Limit für die Anzahl der Dateien?', a: 'Technisch nein, aber wir empfehlen unter 50 Dateien für optimale Performance.' },
-                    { q: 'Kann ich nur bestimmte Seiten extrahieren?', a: 'Ja! Geben Sie im Tab "Teilen" einen Bereich wie "1-5, 10" ein.' },
-                    { q: 'Wie sicher ist die Verschlüsselung?', a: 'Wir nutzen 128-Bit AES Standard. Da es lokal passiert, sieht niemand Ihr Passwort.' },
-                    { q: 'Wo werden meine Dateien gespeichert?', a: 'Dateien werden direkt im Standard-Download-Ordner Ihres Browsers gespeichert.' }
+                    { q: 'Gibt es ein Limit für Dateigröße oder Anzahl?', a: 'Obwohl es keine festen Limits gibt, empfehlen wir für ein reibungsloses Erlebnis das Zusammenfügen von bis zu 50 Dateien oder 100 MB. Das tatsächliche Limit hängt von der RAM-Kapazität Ihres Geräts ab.' },
+                    { q: 'Kann ich die Bildqualität bei der Konvertierung in JPG anpassen?', a: 'Wir bieten eine hochauflösende Standardeinstellung (2,0x Viewport-Skalierung), die eine professionelle Textklarheit gewährleistet und Ihnen perfekte Ergebnisse ohne komplexe Einstellungen liefert.' },
+                    { q: 'Werden passwortgeschützte PDFs unterstützt?', a: 'Aus Sicherheitsgründen können verschlüsselte Dateien nicht direkt verarbeitet werden. Bitte entschlüsseln Sie Ihre Dateien vor dem Hochladen zur Bearbeitung.' },
+                    { q: 'Wo werden meine verarbeiteten Dateien gespeichert?', a: 'Dateien werden sofort im Download-Ordner Ihres Geräts gespeichert. Wir speichern keine Daten unsererseits, und alle Sitzungsdaten werden gelöscht, sobald Sie den Tab schließen.' }
                 ]
             }
         },
@@ -4508,16 +4291,15 @@ export const translations: Record<Language, TranslationSchema> = {
             imageCopyError: 'Nie udało się skopiować obrazu.',
         },
         navbar: {
-            title: 'UltraUtils',
-            home: 'Strona główna',
-            imageSuite: 'Zestaw obrazów',
-            promptGen: 'Generator promptów',
-            ytGrab: 'Pobieracz YT',
+            title: 'Moje Narzędzia',
+            home: 'Start',
+            imageSuite: 'Mistrz Obrazu',
+            promptGen: 'Generator Promptów',
+            ytGrab: 'Pobieranie YT',
             qrGen: 'Generator QR',
-            textConv: 'Konwerter tekstu',
-            bgRemover: 'Usuwanie tła AI',
-            ytPlanner: 'Planer YouTube',
-            pdfMaster: 'Mistrz PDF',
+            textConv: 'Konwerter Tekstu',
+            bgRemover: 'Usuń Tło',
+            ytPlanner: 'Planer YT',
         },
         imageMaster: {
             title: 'Kompresja i Optymalizacja',
@@ -4628,22 +4410,8 @@ export const translations: Record<Language, TranslationSchema> = {
             fgColor: 'Kolor kodu',
             bgColor: 'Kolor tła',
             size: 'Rozdzielczość',
-            downloadPng: 'Pobierz PNG wysokiej jakości',
-            downloadSvg: 'Pobierz wektorowe SVG',
-            vectorReady: 'Przygotowywanie wysokiej jakości wyjścia wektorowego...',
-            uploadLogo: 'Prześlij własne logo',
-            logoSize: 'Dostosuj rozmiar logo',
-            removeLogo: 'Usuń logo',
-            templates: 'Szablony biznesowe',
-            styles: 'Ustawienia stylu QR',
-            frames: 'Ramki i etykiety',
-            frameText: 'Tekst etykiety',
-            presets: {
-                instagram: 'Instagram',
-                youtube: 'YouTube',
-                link: 'Strona internetowa',
-                wifi: 'Połączenie Wi-Fi',
-            },
+            downloadPng: 'Zapisz PNG',
+            vectorReady: 'Przygotowanie wektora...',
             guide: {
                 title: 'Przewodnik QR',
                 subtitle: 'Marketing z QR',
@@ -4789,13 +4557,7 @@ export const translations: Record<Language, TranslationSchema> = {
             studio: 'Studio',
             original: 'Oryginał',
             result: 'Wynik',
-            compare: 'Porównaj',
-            scale: 'Skala',
-            bgTrsp: 'Przezr',
-            bgClr: 'Kolor',
-            bgGrad: 'Grad',
-            bgImg: 'Obraz',
-            scaleLabel: 'Dostosuj skalę',
+            scaleLabel: 'Skala',
             resetConfirmTitle: 'Zresetować wszystko?',
             resetConfirmDesc: 'Cały Twój obecny postęp zostanie utracony.',
             aspectTitle: 'Proporcje Obrazu',
@@ -4838,54 +4600,44 @@ export const translations: Record<Language, TranslationSchema> = {
             }
         },
         pdfMaster: {
-            title: 'PDF Master PRO',
-            desc: 'Kompleksowy zestaw narzędzi PDF. Łącz, dziel, konwertuj i zabezpieczaj dokumenty.',
-            merge: 'Połącz pliki',
-            split: 'Podziel strony',
-            toImage: 'Konwertuj na obraz',
-            rotate: 'Obróć strony',
-            protect: 'Ustaw hasło',
-            uploadMsg: 'Przeciągnij pliki PDF tutaj lub kliknij, aby wybrać',
+            title: 'Mistrz PDF',
+            desc: 'Łącz, dziel i konwertuj dokumenty PDF.',
+            merge: 'Łączenie PDF',
+            split: 'Dzielenie PDF',
+            toImage: 'PDF do Obrazu',
+            uploadMsg: 'Upuść plik PDF tutaj',
             filesSelected: 'wybranych plików',
-            mergeNow: 'Utwórz połączony PDF',
-            splitNow: 'Podziel wszystkie strony',
-            rotateNow: 'Zastosuj obrót 90°',
-            protectNow: 'Zaszyfruj dokument',
-            downloadMerged: 'Pobierz wynik',
-            downloadSplit: 'Zapisz wszystko (ZIP)',
-            addMore: 'Dodaj pliki',
-            clear: 'Wyczyść listę',
-            pageRange: 'Zakres stron (np. 1-5, 10)',
-            password: 'Wprowadź hasło',
-            options: 'Opcje zaawansowane',
-            processingMsg: 'Przetwarzanie PDF przez wydajny silnik...',
-            successMsg: 'Zadanie zakończone sukcesem!',
+            mergeNow: 'Połącz teraz',
+            splitNow: 'Podziel teraz',
+            downloadMerged: 'Pobierz połączony PDF',
+            downloadSplit: 'Pobierz podzielone pliki',
+            addMore: 'Dodaj więcej',
             guide: {
-                title: 'Przewodnik PDF Master',
-                subtitle: 'Zarządzaj dokumentami PDF i edytuj je jak profesjonalista',
+                title: 'Przewodnik PDF',
+                subtitle: 'Profesjonalne zarządzanie',
                 sections: [
                     {
-                        title: '1. Zaawansowane łączenie i optymalizacja',
-                        content: 'Łączenie rozproszonych dokumentów to podstawa. UltraUtils pozwala scalać wiele plików przy zachowaniu własnej kolejności.'
+                        title: '1. Zaawansowane łączenie plików PDF i optymalizacja metadanych',
+                        content: 'Zarządzanie rozproszonymi dokumentami to kluczowa część każdego przepływu pracy. UltraUtils PDF Master pozwala łączyć wiele plików PDF przy zachowaniu niestandardowej kolejności i normalizacji metadanych w celu uzyskania stabilnego wyniku. Idealny do porządkowania raportów, portfolio lub dużych struktur akademickich przed ostatecznym złożeniem.'
                     },
                     {
-                        title: '2. Precyzyjne dzielenie i ekstrakcja',
-                        content: 'Potrzebujesz konkretnych rozdziałów? Użyj funkcji dzielenia, aby rozdzielić każdą stronę lub wybrać dokładny zakres.'
+                        title: '2. Precyzyjne dzielenie stron w celu ekstrakcji treści',
+                        content: 'Potrzebujesz tylko konkretnego rozdziału lub pojedynczej strony z ogromnego dokumentu? Nasze narzędzie do dzielenia natychmiast rozdziela każdą stronę na osobne pliki PDF i pakuje je w wygodny plik ZIP. To najskuteczniejszy sposób na wyodrębnienie i udostępnienie tylko tego, co niezbędne.'
                     },
                     {
-                        title: '3. Bezpieczeństwo: Szyfrowanie hasłem',
-                        content: 'Chroń poufne umowy profesjonalnym hasłem. Szyfrowanie odbywa się w przeglądarce, zapewniając prywatność.'
+                        title: '3. Konwersja wsadowa PDF do obrazu (JPG) w wysokiej rozdzielczości',
+                        content: 'Gdy musisz udostępnić treść PDF na platformach zorientowanych wizualnie, takich jak Instagram, LinkedIn lub blogi, skorzystaj z naszego narzędzia do konwersji obrazów. Konwertujemy całe strony na obrazy JPEG o wysokiej rozdzielczości, zachowując czytelność tekstu znacznie lepiej niż zwykły zrzut ekranu.'
                     },
                     {
-                        title: '4. Pełna prywatność: 100% lokalne przetwarzanie',
-                        content: 'Nie wysyłamy Twoich plików na żadne serwery. Wszystko dzieje się lokalnie na Twoim urządzeniu.'
+                        title: '4. Bezpieczeństwo klasy korporacyjnej: 100% lokalna logika',
+                        content: 'Obawiasz się przesyłania poufnych umów lub danych osobowych? UltraUtils wykorzystuje technologię pdf-lib do wykonywania wszystkich edycji w całości w pamięci przeglądarki. Nawet 1 KB danych pliku nie trafia na nasze serwery, co gwarantuje, że Twoje dane pozostają naprawdę prywatne.'
                     }
                 ],
                 faq: [
-                    { q: 'Czy istnieje limit plików do połączenia?', a: 'Technicznie nie, ale zalecamy poniżej 50 plików dla optymalnej wydajności.' },
-                    { q: 'Czy mogę wyodrębnić konkretne strony?', a: 'Tak! W zakładce Podział wpisz zakres np. "1-5, 10", aby uzyskać tylko te strony.' },
-                    { q: 'Czy szyfrowanie hasłem jest bezpieczne?', a: 'Tak, używamy standardu 128-bit AES. Ponieważ odbywa się to lokalnie, nikt inny nie zobaczy hasła.' },
-                    { q: 'Gdzie zapisywane są moje pliki?', a: 'Pliki są zapisywane bezpośrednio w domyślnym folderze pobierania Twojej przeglądarki.' }
+                    { q: 'Czy istnieje limit rozmiaru lub liczby plików?', a: 'Choć nie ma sztywnych limitów, zalecamy łączenie do 50 plików lub 100 MB dla najbardziej płynnego działania. Rzeczywisty limit zależy od pojemności pamięci RAM urządzenia.' },
+                    { q: 'Czy mogę dostosować jakość obrazu podczas konwersji na JPG?', a: 'Zapewniamy domyślną wysoką rozdzielczość (skala Viewport 2.0x), która gwarantuje profesjonalną czystość tekstu, dając doskonałe wyniki bez potrzeby skomplikowanych ustawień.' },
+                    { q: 'Czy obsługuje pliki PDF chronione hasłem?', a: 'Ze względów bezpieczeństwa zaszyfrowane pliki nie mogą być przetwarzane bezpośrednio. Przed przesłaniem do edycji należy odszyfrować pliki.' },
+                    { q: 'Gdzie są przechowywane moje przetworzone pliki?', a: 'Pliki są natychmiast zapisywane w folderze Pobrane na Twoim urządzeniu. Nie przechowujemy żadnych danych po naszej stronie, a wszystkie dane sesji są usuwane po zamknięciu karty.' }
                 ]
             }
         },

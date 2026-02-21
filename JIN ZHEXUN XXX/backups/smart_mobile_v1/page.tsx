@@ -2,7 +2,7 @@
 
 import { useState, useCallback, useRef, useEffect, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
-import { Upload, Download, Loader2, Image as ImageIcon, Check, RefreshCw, Layers, Sparkles, Undo, Redo, MousePointer2, Eraser, Brush, X, Crop, Share2, Type, Maximize, Maximize2, Instagram, ImagePlus, Copy, Smartphone, Monitor, Plus, Minus, ChevronDown, ChevronUp, Smile, Sliders, Eye, Hand, Move, RotateCw, FlipHorizontal, FlipVertical, Palette, Sun, Trash2 } from 'lucide-react'
+import { Upload, Download, Loader2, Image as ImageIcon, Check, RefreshCw, Layers, Sparkles, Undo, Redo, MousePointer2, Eraser, Brush, X, Crop, Share2, Type, Maximize, ImagePlus, Copy, Smartphone, Monitor, Plus, Minus, ChevronDown, ChevronUp, Smile, Sliders, Eye, Hand, Move, RotateCw, FlipHorizontal, FlipVertical, Palette, Sun } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useLanguage } from '@/context/language-context'
 import { removeBackground } from '@imgly/background-removal'
@@ -457,7 +457,6 @@ function BackgroundRemoverContent() {
         studioCanvas.width = targetWidth
         studioCanvas.height = targetHeight
 
-        // Setup base rendering context
         if (showOriginal && originalImgRef.current) {
             ctx.drawImage(originalImgRef.current, 0, 0, studioCanvas.width, studioCanvas.height)
             return
@@ -556,16 +555,6 @@ function BackgroundRemoverContent() {
 
         // Draw Text Layers on top
         drawTextLayers(ctx, textLayers, studioCanvas.width)
-
-        // Draw Crop Guides (Dashed line for non-original ratios)
-        if (aspectRatio !== 'original') {
-            ctx.save();
-            ctx.strokeStyle = 'rgba(59, 130, 246, 0.8)';
-            ctx.lineWidth = 4;
-            ctx.setLineDash([10, 10]);
-            ctx.strokeRect(0, 0, studioCanvas.width, studioCanvas.height);
-            ctx.restore();
-        }
 
         // New: Draw Precision Brush Preview for manual refinement
         if (isRefining) {
@@ -1239,7 +1228,7 @@ function BackgroundRemoverContent() {
         <div className={cn(
             "relative w-full transition-all duration-500",
             processedImage && !isProcessing
-                ? "max-sm:fixed max-sm:inset-0 max-sm:z-[100] max-sm:bg-zinc-950 max-sm:h-[100dvh] max-sm:flex max-sm:flex-col max-sm:overflow-hidden sm:max-w-[1600px] sm:mx-auto sm:px-4 sm:py-8 sm:space-y-6"
+                ? "fixed inset-0 z-[100] bg-zinc-50 dark:bg-zinc-950 max-sm:bg-zinc-950 h-[100dvh] flex flex-col overflow-hidden"
                 : "max-w-7xl mx-auto px-4 sm:px-6 space-y-8 pb-20 pt-8"
         )}>
             {/* Hidden canvases for internal processing */}
@@ -1303,108 +1292,241 @@ function BackgroundRemoverContent() {
             )}
 
             <div className={cn(
-                "flex-1 flex flex-col xl:grid xl:grid-cols-12 gap-0 xl:gap-8 pt-2 xl:pt-2 w-full min-h-0",
-                processedImage && !isProcessing ? "items-start xl:h-[calc(100vh-140px)] h-full overflow-hidden" : "items-center justify-center justify-items-center"
+                "flex-1 flex flex-col xl:grid xl:grid-cols-12 gap-0 xl:gap-6 pt-2 xl:pt-0 items-start w-full min-h-0",
+                processedImage && !isProcessing ? "h-full" : ""
             )}>
-
                 {/* [LEFT SIDEBAR] Foundation & Layout - Mobile Tab Version */}
                 {processedImage && !isProcessing && (
                     <div className={cn(
-                        "w-full xl:col-span-3 space-y-6 order-2 xl:order-1",
+                        "w-full xl:w-72 space-y-6 order-2 xl:order-1",
                         "xl:block xl:relative",
-                        (!isRefining && (mobileTab === 'id' || mobileTab === 'bg' || mobileTab === 'transform')) ? "block" : "hidden",
-                        !isRefining && (mobileTab === 'id' || mobileTab === 'bg' || mobileTab === 'transform')
+                        (!isRefining && (mobileTab === 'id' || mobileTab === 'bg' || mobileTab === 'transform' || mobileTab === 'enhance' || mobileTab === 'styling')) ? "block" : "hidden",
+                        !isRefining && (mobileTab === 'id' || mobileTab === 'bg' || mobileTab === 'transform' || mobileTab === 'enhance' || mobileTab === 'styling')
                             ? (isMobileMenuOpen
                                 ? "max-sm:fixed max-sm:bottom-[calc(4rem+env(safe-area-inset-bottom,0px))] max-sm:inset-x-0 max-sm:z-[110] bg-white dark:bg-zinc-900 border-t border-zinc-100 dark:border-zinc-800 p-2 pt-0 pb-1 max-sm:h-auto max-sm:min-h-0 max-sm:rounded-t-[1.5rem] max-sm:shadow-[0_-20px_40px_rgba(0,0,0,0.1)] xl:p-0 xl:border-0"
                                 : "max-sm:fixed max-sm:bottom-[calc(4rem+env(safe-area-inset-bottom,0px))] max-sm:inset-x-0 max-sm:z-[110] max-sm:h-0 overflow-hidden")
                             : "xl:block"
                     )}>
                         <div className={cn(
-                            "glass-card xl:p-5 xl:rounded-[2.5rem] space-y-4 xl:space-y-6 xl:shadow-xl xl:border-2 xl:border-primary/5 h-full overflow-y-auto no-scrollbar scroll-smooth pb-10 xl:pb-6 relative"
+                            "glass-card xl:p-5 xl:rounded-[2.5rem] space-y-4 xl:space-y-6 xl:shadow-xl xl:border-2 xl:border-primary/5 h-full overflow-y-auto no-scrollbar pb-10 xl:pb-0 relative",
+                            isRefining && "hidden xl:block"
                         )}>
-                            {/* Mobile Bottom Sheet Handle */}
+                            {/* Mobile Bottom Sheet Handle - Clean Black Style */}
                             <div className="xl:hidden w-12 h-1.5 bg-zinc-900 dark:bg-zinc-100 rounded-full mx-auto mb-4 opacity-80" onClick={() => setIsMobileMenuOpen(false)} />
 
-                            {/* ID Section */}
+                            {/* Mobile Close/Minimize Handle (Icon) */}
+                            <button
+                                onClick={() => setIsMobileMenuOpen(false)}
+                                className="xl:hidden absolute top-4 right-6 text-zinc-400 p-1"
+                            >
+                                <ChevronDown className="w-6 h-6" />
+                            </button>
+                            {/* ID Section - Grouped in TAB */}
                             {(mobileTab === 'id' || !isMounted || (isMounted && window.innerWidth > 1280)) && (
-                                <div className="space-y-4 animate-in slide-in-from-bottom-2">
-                                    <label className="text-xs xl:text-sm font-black uppercase text-muted-foreground tracking-widest pl-1">{t.bgRemover.photoMode}</label>
-                                    <div className="flex gap-2 p-1 bg-zinc-100 dark:bg-zinc-800 rounded-xl">
-                                        <button onClick={() => { setIsIDMode(false); }} className={cn("flex-1 py-2 rounded-lg text-xs font-black transition-all", !isIDMode ? "bg-white dark:bg-zinc-900 shadow-md text-primary" : "text-muted-foreground")}>{t.bgRemover.reset}</button>
-                                        <button onClick={() => { setIsIDMode(true); if (!activeIDStandard) setActiveIDStandard(ID_STANDARDS[0]); }} className={cn("flex-1 py-2 rounded-lg text-xs font-black transition-all flex items-center justify-center gap-1.5", isIDMode ? "bg-white dark:bg-zinc-900 shadow-md text-primary" : "text-muted-foreground")}>{t.bgRemover.idPhoto}</button>
+                                <div className="space-y-6 animate-in slide-in-from-bottom-2">
+                                    <div className="space-y-3">
+                                        <label className="text-[10px] font-black uppercase text-muted-foreground tracking-widest pl-1">{t.bgRemover.photoMode}</label>
+                                        <div className="flex gap-2 p-1 bg-zinc-100 dark:bg-zinc-800 rounded-xl">
+                                            <button onClick={() => { setIsIDMode(false); }} className={cn("flex-1 py-2 rounded-lg text-[10px] font-black transition-all", !isIDMode ? "bg-white dark:bg-zinc-900 shadow-md text-primary" : "text-muted-foreground")}>{t.bgRemover.reset}</button>
+                                            <button onClick={() => { setIsIDMode(true); if (!activeIDStandard) setActiveIDStandard(ID_STANDARDS[0]); }} className={cn("flex-1 py-2 rounded-lg text-[10px] font-black transition-all flex items-center justify-center gap-1.5", isIDMode ? "bg-white dark:bg-zinc-900 shadow-md text-primary" : "text-muted-foreground")}>{t.bgRemover.idPhoto}</button>
+                                        </div>
+                                        {isIDMode && (
+                                            <div className="flex gap-2 overflow-x-auto no-scrollbar pb-1">
+                                                {ID_STANDARDS.map(std => (
+                                                    <button key={std.id} onClick={() => { setActiveIDStandard(std); setBgType('color'); setBgColor('#ffffff'); pushHistory(); }} className={cn("shrink-0 px-4 py-3 rounded-xl border-2 text-left transition-all", activeIDStandard?.id === std.id ? "border-primary bg-white dark:bg-zinc-900" : "border-transparent bg-zinc-100 dark:border-zinc-800")}>
+                                                        <div className="text-[9px] font-black uppercase whitespace-nowrap">{std.name}</div>
+                                                        <div className="text-[8px] font-bold text-muted-foreground">{std.label}</div>
+                                                    </button>
+                                                ))}
+                                            </div>
+                                        )}
                                     </div>
-                                    {isIDMode && (
-                                        <div className="grid grid-cols-2 gap-2 pb-1">
-                                            {ID_STANDARDS.map(std => (
-                                                <button key={std.id} onClick={() => { setActiveIDStandard(std); setBgType('color'); setBgColor('#ffffff'); pushHistory(); }} className={cn("px-3 py-2 rounded-xl border-2 text-left transition-all", activeIDStandard?.id === std.id ? "border-primary bg-white dark:bg-zinc-900" : "border-transparent bg-zinc-100 dark:border-zinc-800")}>
-                                                    <div className="text-[8px] font-black uppercase whitespace-nowrap">{std.name}</div>
-                                                    <div className="text-[7px] font-bold text-muted-foreground leading-tight">{std.label}</div>
-                                                </button>
+                                </div>
+                            )}
+
+                            {/* Background Section - Grouped in TAB */}
+                            {(mobileTab === 'bg' || !isMounted || (isMounted && window.innerWidth > 1280)) && (
+                                <div className="space-y-6 animate-in slide-in-from-bottom-2">
+                                    <div className="flex gap-2 p-1.5 bg-zinc-100 dark:bg-zinc-800 rounded-2xl sm:flex-wrap lg:flex-nowrap overflow-x-auto no-scrollbar">
+                                        {[
+                                            { id: 'transparent', label: t.bgRemover.bgTransparent },
+                                            { id: 'color', label: t.bgRemover.bgSolid },
+                                            { id: 'gradient', label: t.bgRemover.bgGradient },
+                                            { id: 'image', label: t.bgRemover.bgImage }
+                                        ].map(type => (
+                                            <button key={type.id} onClick={() => { if (type.id === 'image') bgInputRef.current?.click(); else { setBgType(type.id as any); pushHistory(); } }} className={cn("shrink-0 px-3 py-2 rounded-lg text-[9px] font-black transition-all", bgType === type.id ? "bg-white dark:bg-zinc-900 shadow-md text-primary" : "text-muted-foreground whitespace-nowrap")}>
+                                                {type.label}
+                                            </button>
+                                        ))}
+                                    </div>
+
+                                    {bgType === 'color' && (
+                                        <div className="flex gap-2.5 overflow-x-auto no-scrollbar py-2 px-1">
+                                            {['#ffffff', '#f8fafc', '#f1f5f9', '#000000', '#ef4444', '#f97316', '#f59e0b', '#10b981', '#06b6d4', '#3b82f6', '#6366f1', '#8b5cf6', '#d946ef'].map(c => (
+                                                <button key={c} onClick={() => { setBgColor(c); renderStudio(); pushHistory(); }} className={cn("w-10 h-10 shrink-0 rounded-full border-2 transition-all active:scale-90", bgColor === c ? "border-primary scale-110 shadow-lg" : "border-zinc-100 dark:border-zinc-800")} style={{ backgroundColor: c }} />
+                                            ))}
+                                        </div>
+                                    )}
+
+                                    {bgType === 'gradient' && (
+                                        <div className="flex gap-2.5 overflow-x-auto no-scrollbar py-2 px-1">
+                                            {[
+                                                'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                                                'linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%)',
+                                                'linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%)',
+                                                'linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%)',
+                                                'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+                                                'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+                                                'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
+                                                'linear-gradient(135deg, #30cfd0 0%, #330867 100%)'
+                                            ].map((g, i) => (
+                                                <button key={i} onClick={() => { setBgGradient(g); renderStudio(); pushHistory(); }} className={cn("w-12 h-12 shrink-0 rounded-2xl border-2 transition-all active:scale-90", bgGradient === g ? "border-primary scale-110 shadow-lg" : "border-zinc-100 dark:border-zinc-800")} style={{ backgroundImage: g }} />
                                             ))}
                                         </div>
                                     )}
                                 </div>
                             )}
 
-                            {/* Background Section */}
-                            {(mobileTab === 'bg' || !isMounted || (isMounted && window.innerWidth > 1280)) && (
-                                <div className="space-y-4 animate-in slide-in-from-bottom-2 pt-4 border-t border-zinc-100 dark:border-zinc-800/50">
-                                    <label className="text-xs xl:text-sm font-black uppercase text-muted-foreground tracking-widest pl-1">{t.bgRemover.backgroundColor}</label>
-                                    <div className="flex gap-1.5 p-1 bg-zinc-100 dark:bg-zinc-800 rounded-xl">
-                                        {[
-                                            { id: 'transparent', label: t.bgRemover.bgTrsp },
-                                            { id: 'color', label: t.bgRemover.bgClr },
-                                            { id: 'gradient', label: t.bgRemover.bgGrad },
-                                            { id: 'image', label: t.bgRemover.bgImg }
-                                        ].map(type => (
-                                            <button key={type.id} onClick={() => { if (type.id === 'image') bgInputRef.current?.click(); else { setBgType(type.id as any); pushHistory(); } }} className={cn("flex-1 px-2 py-2 rounded-lg text-xs font-black transition-all", bgType === type.id ? "bg-white dark:bg-zinc-900 shadow-sm text-primary" : "text-muted-foreground whitespace-nowrap")}>
-                                                {type.label}
-                                            </button>
-                                        ))}
-                                    </div>
-                                    {(bgType === 'color' || bgType === 'gradient') && (
-                                        <div className="grid grid-cols-4 gap-2 py-1">
-                                            {bgType === 'color' ? (
-                                                ['#ffffff', '#000000', '#ef4444', '#f97316', '#f59e0b', '#10b981', '#3b82f6', '#8b5cf6'].map(c => (
-                                                    <button key={c} onClick={() => { setBgColor(c); renderStudio(); pushHistory(); }} className={cn("w-full aspect-square rounded-full border-2", bgColor === c ? "border-primary scale-110" : "border-transparent shadow-sm")} style={{ backgroundColor: c }} />
-                                                ))
-                                            ) : (
-                                                ['linear-gradient(135deg, #667eea 0%, #764ba2 100%)', 'linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)', 'linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%)', 'linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%)', 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)', 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)', 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)', 'linear-gradient(135deg, #30cfd0 0%, #330867 100%)'].map((g, i) => (
-                                                    <button key={i} onClick={() => { setBgGradient(g); renderStudio(); pushHistory(); }} className={cn("w-full aspect-square rounded-lg border-2", bgGradient === g ? "border-primary scale-110" : "border-transparent shadow-sm")} style={{ backgroundImage: g }} />
-                                                ))
-                                            )}
+                            {/* [MODULAR EDITING TABS] */}
+
+                            {/* 1. Transform Tab (Ratio, Scale, Rotation, Flip) */}
+                            {(mobileTab === 'transform' || !isMounted || (isMounted && window.innerWidth > 1280)) && (
+                                <div className="space-y-2 animate-in slide-in-from-bottom-2">
+                                    <div className="space-y-2">
+                                        <div className="space-y-1">
+                                            <div className="flex justify-between items-center text-[9px] font-black uppercase text-secondary-foreground/60">
+                                                <span>{t.bgRemover.aspectTitle}</span>
+                                            </div>
+                                            <div className="grid grid-cols-5 gap-1.5">
+                                                {[
+                                                    { id: 'original', icon: ImageIcon },
+                                                    { id: '1:1', icon: Crop },
+                                                    { id: '4:5', icon: Crop },
+                                                    { id: '9:16', icon: Smartphone },
+                                                    { id: '16:9', icon: Monitor }
+                                                ].map((r) => (
+                                                    <button key={r.id} onClick={() => { setAspectRatio(r.id as any); renderStudio(); pushHistory(); }} className={cn("py-2 rounded-xl border-2 flex flex-col items-center gap-1 transition-all", aspectRatio === r.id ? "border-primary bg-primary/5 text-primary shadow-inner" : "border-zinc-100 dark:border-zinc-800 bg-white dark:bg-zinc-950")}>
+                                                        <r.icon className="w-3.5 h-3.5" />
+                                                        <span className="text-[7px] font-black">{r.id === 'original' ? 'ORIG' : r.id}</span>
+                                                    </button>
+                                                ))}
+                                            </div>
                                         </div>
-                                    )}
+
+                                        <div className="space-y-3">
+                                            <div className="space-y-1">
+                                                <div className="flex justify-between items-center text-[9px] font-black uppercase text-muted-foreground leading-none">
+                                                    <span>{t.bgRemover.subjectScale}</span>
+                                                    <span className="text-primary">{Math.round(subjectScale * 100)}%</span>
+                                                </div>
+                                                <input type="range" min="0.1" max="3" step="0.05" value={subjectScale} onChange={(e) => { setSubjectScale(parseFloat(e.target.value)); renderStudio(); }} onMouseUp={() => pushHistory()} className="w-full h-1 bg-zinc-200 dark:bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-primary" />
+                                            </div>
+
+                                            <div className="space-y-1.5">
+                                                <div className="flex justify-between text-[9px] font-black uppercase text-muted-foreground"><span>{t.bgRemover.rotation}</span><span className="text-primary">{subjectRotation}°</span></div>
+                                                <div className="flex items-center gap-3">
+                                                    <RotateCw className="w-4 h-4 text-zinc-400 shrink-0" />
+                                                    <input type="range" min="-180" max="180" step="1" value={subjectRotation} onChange={(e) => { setSubjectRotation(parseInt(e.target.value)); renderStudio(); }} onMouseUp={() => pushHistory()} className="w-full h-1.5 bg-zinc-200 dark:bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-sky-400" />
+                                                </div>
+                                            </div>
+
+                                            <div className="flex gap-2">
+                                                <button onClick={() => { setSubjectFlipH(!subjectFlipH); renderStudio(); pushHistory(); }} className={cn("flex-1 py-3 rounded-xl border-2 flex items-center justify-center gap-2 text-[9px] font-black transition-all", subjectFlipH ? "border-primary bg-primary/10 text-primary shadow-inner" : "border-zinc-100 dark:border-zinc-800 bg-white dark:bg-zinc-950")}>
+                                                    <FlipHorizontal className="w-4 h-4" /> {t.bgRemover.flipH}
+                                                </button>
+                                                <button onClick={() => { setSubjectFlipV(!subjectFlipV); renderStudio(); pushHistory(); }} className={cn("flex-1 py-3 rounded-xl border-2 flex items-center justify-center gap-2 text-[9px] font-black transition-all", subjectFlipV ? "border-primary bg-primary/10 text-primary shadow-inner" : "border-zinc-100 dark:border-zinc-800 bg-white dark:bg-zinc-950")}>
+                                                    <FlipVertical className="w-4 h-4" /> {t.bgRemover.flipV}
+                                                </button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <button onClick={() => { setSubjectPos({ x: 0, y: 0 }); setSubjectScale(1); setSubjectRotation(0); setSubjectFlipH(false); setSubjectFlipV(false); renderStudio(); pushHistory(); }} className="w-full py-1.5 bg-zinc-100 dark:bg-zinc-800 rounded-lg text-[8px] font-black uppercase transition-all active:scale-95">{t.bgRemover.resetPos}</button>
                                 </div>
                             )}
 
-                            {/* Transform Section */}
-                            {(mobileTab === 'transform' || !isMounted || (isMounted && window.innerWidth > 1280)) && (
-                                <div className="space-y-4 animate-in slide-in-from-bottom-2 pt-4 border-t border-zinc-100 dark:border-zinc-800/50">
-                                    <label className="text-xs xl:text-sm font-black uppercase text-muted-foreground tracking-widest pl-1">{t.bgRemover.tabTransform}</label>
-                                    <div className="grid grid-cols-5 gap-1 p-1 bg-zinc-100/50 dark:bg-zinc-800/30 rounded-xl">
+                            {/* 2. Enhance Tab (Brightness, Contrast, Saturation, Filters) */}
+                            {(mobileTab === 'enhance' || !isMounted || (isMounted && window.innerWidth > 1280)) && (
+                                <div className="space-y-2 animate-in slide-in-from-bottom-2">
+                                    <div className="space-y-2">
                                         {[
-                                            { id: 'original', icon: Maximize2, label: 'ORIG' },
-                                            { id: '1:1', icon: Crop, label: '1:1' },
-                                            { id: '4:5', icon: Instagram, label: '4:5' },
-                                            { id: '9:16', icon: Smartphone, label: '9:16' },
-                                            { id: '16:9', icon: Monitor, label: '16:9' }
-                                        ].map((r) => (
-                                            <button key={r.id} onClick={() => { setAspectRatio(r.id as any); renderStudio(); pushHistory(); }} className={cn("py-2 rounded-lg flex flex-col items-center gap-0.5 transition-all", aspectRatio === r.id ? "bg-white dark:bg-zinc-900 text-primary shadow-sm" : "text-muted-foreground opacity-60")}>
-                                                <r.icon className="w-3.5 h-3.5" />
-                                                <span className="text-[8px] font-black">{r.label}</span>
-                                            </button>
+                                            { label: t.bgRemover.brightness, value: subjectBrightness, min: 0, max: 200, setter: setSubjectBrightness, display: subjectBrightness + '%' },
+                                            { label: t.bgRemover.contrast, value: subjectContrast, min: 0, max: 200, setter: setSubjectContrast, display: subjectContrast + '%' },
+                                            { label: t.bgRemover.saturation, value: subjectSaturation, min: 0, max: 200, setter: setSubjectSaturation, display: subjectSaturation + '%' }
+                                        ].map((s, i) => (
+                                            <div key={i} className="space-y-1">
+                                                <div className="flex justify-between items-center text-[8px] font-black uppercase text-muted-foreground leading-none">
+                                                    <span>{s.label}</span>
+                                                    <span className="text-primary">{s.display}</span>
+                                                </div>
+                                                <input type="range" min={s.min} max={s.max} value={s.value} onChange={(e) => { s.setter(parseFloat(e.target.value)); renderStudio(); }} onMouseUp={() => pushHistory()} className="w-full h-1 bg-zinc-200 dark:bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-primary" />
+                                            </div>
                                         ))}
                                     </div>
-                                    <div className="space-y-2">
-                                        <div className="flex justify-between items-center text-[10px] font-black uppercase text-muted-foreground"><span>{t.bgRemover.scale}</span><span className="text-primary">{Math.round(subjectScale * 100)}%</span></div>
-                                        <input type="range" min="0.1" max="3" step="0.05" value={subjectScale} onChange={(e) => { setSubjectScale(parseFloat(e.target.value)); renderStudio(); }} onMouseUp={() => pushHistory()} className="w-full h-1 bg-zinc-200 dark:bg-zinc-800 rounded-lg appearance-none accent-primary" />
+
+                                    <div className="space-y-1 pt-1">
+                                        <div className="flex justify-between items-center text-[8px] font-black uppercase text-muted-foreground leading-none">
+                                            <span>{t.bgRemover.filterPresets}</span>
+                                        </div>
+                                        <div className="flex gap-2 overflow-x-auto no-scrollbar pb-0.5">
+                                            {[
+                                                { id: 'none', label: t.bgRemover.filterOriginal },
+                                                { id: 'grayscale', label: t.bgRemover.filterBW },
+                                                { id: 'sepia', label: t.bgRemover.filterSepia },
+                                                { id: 'warm', label: t.bgRemover.filterWarm },
+                                                { id: 'cool', label: t.bgRemover.filterCool },
+                                                { id: 'vintage', label: t.bgRemover.filterVintage }
+                                            ].map((f) => (
+                                                <button key={f.id} onClick={() => { setGlobalFilter(f.id); renderStudio(); pushHistory(); }} className={cn("px-3 py-2 rounded-xl border text-[9px] font-black transition-all shrink-0", globalFilter === f.id ? "border-primary bg-primary/10 text-primary" : "border-zinc-100 dark:border-zinc-800 bg-white dark:bg-zinc-950")}>
+                                                    {f.label}
+                                                </button>
+                                            ))}
+                                        </div>
                                     </div>
-                                    <div className="grid grid-cols-2 gap-2">
-                                        <button onClick={() => { setSubjectFlipH(!subjectFlipH); renderStudio(); pushHistory(); }} className={cn("flex-1 py-2.5 rounded-lg border flex items-center justify-center gap-1.5 text-[9px] font-black uppercase transition-all", subjectFlipH ? "border-primary bg-primary/10 text-primary" : "border-zinc-100 dark:border-zinc-800 bg-white dark:bg-zinc-950")}><FlipHorizontal className="w-3.5 h-3.5" /> {t.bgRemover.flipH}</button>
-                                        <button onClick={() => { setSubjectFlipV(!subjectFlipV); renderStudio(); pushHistory(); }} className={cn("flex-1 py-2.5 rounded-lg border flex items-center justify-center gap-1.5 text-[9px] font-black uppercase transition-all", subjectFlipV ? "border-primary bg-primary/10 text-primary" : "border-zinc-100 dark:border-zinc-800 bg-white dark:bg-zinc-950")}><FlipVertical className="w-3.5 h-3.5" /> {t.bgRemover.flipV}</button>
+                                    <button onClick={() => { setSubjectBrightness(100); setSubjectContrast(100); setSubjectSaturation(100); setGlobalFilter('none'); renderStudio(); pushHistory(); }} className="w-full py-1 bg-zinc-100 dark:bg-zinc-800 rounded-lg text-[8px] font-black uppercase transition-all active:scale-95">보정 초기화</button>
+                                </div>
+                            )}
+
+                            {/* 3. Styling Tab (Opacity, Shadow, Sticker) */}
+                            {(mobileTab === 'styling' || !isMounted || (isMounted && window.innerWidth > 1280)) && (
+                                <div className="space-y-2 animate-in slide-in-from-bottom-2">
+                                    <div className="grid grid-cols-1 gap-4">
+                                        <div className="space-y-1">
+                                            <div className="flex justify-between text-[8px] font-black uppercase text-muted-foreground"><span>{t.bgRemover.opacity}</span><span className="text-primary">{subjectOpacity}%</span></div>
+                                            <input type="range" min="0" max="100" value={subjectOpacity} onChange={(e) => { setSubjectOpacity(parseInt(e.target.value)); renderStudio(); }} onMouseUp={() => pushHistory()} className="w-full h-1 bg-zinc-200 dark:bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-indigo-500" />
+                                        </div>
+                                        <div className="space-y-1">
+                                            <div className="flex justify-between text-[8px] font-black uppercase text-muted-foreground"><span>{t.bgRemover.shadow}</span><span className="text-primary">{subjectShadow}px</span></div>
+                                            <input type="range" min="0" max="100" value={subjectShadow} onChange={(e) => { setSubjectShadow(parseInt(e.target.value)); renderStudio(); }} onMouseUp={() => pushHistory()} className="w-full h-1 bg-zinc-200 dark:bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-violet-500" />
+                                        </div>
                                     </div>
-                                    <button onClick={() => { setSubjectPos({ x: 0, y: 0 }); setSubjectScale(1); setSubjectRotation(0); setSubjectFlipH(false); setSubjectFlipV(false); renderStudio(); pushHistory(); }} className="w-full py-2.5 bg-zinc-100 dark:bg-zinc-800 rounded-lg text-[9px] font-black uppercase transition-all active:scale-95">{t.bgRemover.resetPos}</button>
+
+                                    <div className="pt-1 border-t border-zinc-100 dark:border-zinc-800/50 space-y-2">
+                                        <div className="flex items-center justify-between">
+                                            <div className="flex items-center gap-2">
+                                                <div className="w-6 h-6 rounded-lg bg-pink-100 dark:bg-pink-900/30 flex items-center justify-center text-pink-500"><Smile className="w-3 h-3" /></div>
+                                                <span className="text-[8px] font-black uppercase">{t.bgRemover.stickerEffect}</span>
+                                            </div>
+                                            <button onClick={() => { setHasSticker(!hasSticker); renderStudio(); pushHistory(); }} className={cn("w-10 h-5 rounded-full transition-all relative p-1", hasSticker ? "bg-primary shadow-[inset_0_2px_4px_rgba(0,0,0,0.1)]" : "bg-zinc-200 dark:bg-zinc-800")}>
+                                                <div className={cn("w-3 h-3 bg-white rounded-full transition-all shadow-sm", hasSticker ? "ml-5" : "ml-0")} />
+                                            </button>
+                                        </div>
+
+                                        {hasSticker && (
+                                            <div className="space-y-2 p-2 bg-zinc-50 dark:bg-zinc-900/50 rounded-xl animate-in zoom-in-95 duration-200">
+                                                <div className="space-y-0.5">
+                                                    <div className="flex justify-between text-[7px] font-black uppercase text-muted-foreground"><span>{t.bgRemover.stickerWidth}</span><span className="text-primary">{stickerWidth}px</span></div>
+                                                    <input type="range" min="1" max="50" value={stickerWidth} onChange={(e) => { setStickerWidth(parseInt(e.target.value)); renderStudio(); }} onMouseUp={() => pushHistory()} className="w-full h-1 bg-zinc-200 dark:bg-zinc-800 rounded-lg appearance-none accent-primary" />
+                                                </div>
+                                                <div className="flex gap-1 overflow-x-auto no-scrollbar py-0.5">
+                                                    {['#ffffff', '#000000', '#ef4444', '#3b82f6', '#10b981', '#f59e0b', '#8b5cf6'].map(c => (
+                                                        <button key={c} onClick={() => { setStickerColor(c); renderStudio(); pushHistory(); }} className={cn("w-6 h-6 shrink-0 rounded-full border-2", stickerColor === c ? "border-primary scale-110 shadow-md" : "border-transparent")} style={{ backgroundColor: c }} />
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        )}
+                                    </div>
+                                    <button onClick={() => { setSubjectOpacity(100); setSubjectShadow(0); setHasSticker(false); renderStudio(); pushHistory(); }} className="w-full py-1.5 bg-zinc-100 dark:bg-zinc-800 rounded-lg text-[8px] font-black uppercase transition-all active:scale-95">효과 초기화</button>
                                 </div>
                             )}
                         </div>
@@ -1417,8 +1539,7 @@ function BackgroundRemoverContent() {
                     onDrop={handleFileUpload}
                     onClick={() => !isProcessing && !isRefining && !originalImage && fileInputRef.current?.click()}
                     className={cn(
-                        processedImage && !isProcessing ? "xl:col-span-6 w-full" : "xl:col-span-12 max-w-2xl mx-auto w-full",
-                        "order-1 xl:order-2",
+                        "xl:col-span-6 w-full order-1 xl:order-2",
                         "glass-card border-2 border-zinc-200/50 dark:border-zinc-800/50 flex flex-col items-center justify-center relative overflow-hidden group/result shadow-2xl transition-all duration-500",
                         processedImage && !isProcessing ? "flex-grow sm:rounded-[4rem] sm:m-4" : "rounded-[3rem] min-h-[650px] p-4 m-0 sm:p-4",
                         !processedImage && !isProcessing && "bg-zinc-50/50 dark:bg-zinc-900/50 cursor-pointer",
@@ -1558,7 +1679,7 @@ function BackgroundRemoverContent() {
                                     title="Compare"
                                 >
                                     <Eye className="w-5 h-5" />
-                                    <span className="hidden sm:inline text-xs mt-0.5">{t.bgRemover.compare}</span>
+                                    <span className="hidden sm:inline text-xs mt-0.5">COMPARE</span>
                                 </button>
                             )}
                             {!isRefining && (
@@ -1685,13 +1806,13 @@ function BackgroundRemoverContent() {
                 {
                     processedImage && !isProcessing && (
                         <div className={cn(
-                            "w-full xl:col-span-3 space-y-4 order-3",
+                            "w-full xl:w-80 space-y-6 order-3",
                             "xl:block xl:relative",
-                            (isRefining || mobileTab === 'refine' || mobileTab === 'text' || mobileTab === 'done' || mobileTab === 'styling' || mobileTab === 'enhance') ? "block" : "hidden",
+                            (isRefining || mobileTab === 'refine' || mobileTab === 'text' || mobileTab === 'done') ? "block" : "hidden",
                             "max-sm:fixed max-sm:inset-x-0 max-sm:z-[110] max-sm:bg-white dark:max-sm:bg-zinc-900 max-sm:border-t max-sm:border-zinc-100 dark:max-sm:border-zinc-800 max-sm:p-2 max-sm:pt-0 max-sm:pb-1 max-sm:h-auto max-sm:min-h-0 max-sm:rounded-t-[1.5rem] max-sm:shadow-[0_-20px_40px_rgba(0,0,0,0.1)]",
                             isMobileMenuOpen ? "max-sm:fixed max-sm:bottom-[calc(4rem+env(safe-area-inset-bottom,0px))]" : "max-sm:fixed max-sm:bottom-[calc(4rem+env(safe-area-inset-bottom,0px))] max-sm:h-0 overflow-hidden"
                         )}>
-                            <div className="h-full xl:h-auto overflow-y-auto no-scrollbar scroll-smooth pb-10 xl:pb-6 relative xl:space-y-6">
+                            <div className="h-full xl:h-auto overflow-y-auto no-scrollbar pb-4 xl:pb-0 relative">
                                 {/* Mobile Bottom Sheet Handle - Clean Black Style */}
                                 <div className="xl:hidden w-10 h-1 bg-zinc-900 dark:bg-zinc-100 rounded-full mx-auto mb-2 opacity-80" onClick={() => setIsMobileMenuOpen(false)} />
 
@@ -1702,166 +1823,122 @@ function BackgroundRemoverContent() {
                                 >
                                     <ChevronDown className="w-5 h-5" />
                                 </button>
-                                <div className="space-y-4 xl:space-y-6">
-                                    {/* Refine Section (Visible when desktop OR specifically refining on mobile) */}
-                                    {(isRefining || mobileTab === 'refine') && (
-                                        <div className="glass-card p-2 xl:p-4 rounded-2xl xl:rounded-3xl space-y-2 xl:space-y-4 shadow-xl border-2 border-primary/20 bg-white dark:bg-zinc-900 animate-in zoom-in-95">
-                                            <div className="flex items-center justify-between">
-                                                <h3 className="font-black text-[10px] xl:text-sm flex items-center gap-2"><Brush className="w-4 h-4 text-primary" /> {t.bgRemover.refineTitle}</h3>
-                                                <button onClick={() => setIsRefining(false)} className="p-1 bg-zinc-100 dark:bg-zinc-800 rounded-full"><X className="w-3.5 h-3.5" /></button>
-                                            </div>
-                                            <div className="flex gap-1.5 p-1 bg-zinc-100 dark:bg-zinc-800 rounded-xl">
-                                                <button onClick={() => setBrushMode('restore')} className={cn("flex-1 py-1.5 rounded-lg text-[10px] font-black transition-all flex items-center justify-center gap-1", brushMode === 'restore' ? "bg-white dark:bg-zinc-900 text-primary shadow-md" : "text-zinc-500 opacity-60")}><Sparkles className="w-3 h-3" />{t.bgRemover.brushRestore}</button>
-                                                <button onClick={() => setBrushMode('erase')} className={cn("flex-1 py-1.5 rounded-lg text-[10px] font-black transition-all flex items-center justify-center gap-1", brushMode === 'erase' ? "bg-white dark:bg-zinc-900 text-red-500 shadow-md" : "text-zinc-500 opacity-60")}><Eraser className="w-3 h-3" />{t.bgRemover.brushErase}</button>
-                                            </div>
-                                            <div className="space-y-1">
-                                                <div className="flex justify-between text-[7px] font-black uppercase text-muted-foreground items-center"><span>{t.bgRemover.brushSize}</span><span className="text-primary font-bold">{brushSize}px</span></div>
-                                                <input type="range" min="5" max="150" value={brushSize} onChange={(e) => setBrushSize(parseInt(e.target.value))} className="w-full h-1 bg-zinc-200 dark:bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-primary" />
-                                            </div>
+                                {isRefining ? (
+                                    /* [Refining Mode UI] - Optimized for both */
+                                    <div className="glass-card p-2 xl:p-6 rounded-2xl xl:rounded-[2.5rem] space-y-2 xl:space-y-6 shadow-xl border-2 border-primary/20 bg-white dark:bg-zinc-900">
+                                        <div className="flex items-center justify-between">
+                                            <h3 className="font-black text-[12px] xl:text-xl flex items-center gap-2"><Brush className="w-4 h-4 xl:w-6 xl:h-6 text-primary" /> {t.bgRemover.refineTitle}</h3>
+                                            <button onClick={() => setIsRefining(false)} className="p-1 bg-zinc-100 dark:bg-zinc-800 rounded-full"><X className="w-3.5 h-3.5" /></button>
                                         </div>
-                                    )}
-
-                                    {/* Stickers & Text - Grouped in TAB */}
-                                    {(mobileTab === 'text' || !isMounted || (isMounted && window.innerWidth > 1280)) && (
-                                        <div className="animate-in slide-in-from-bottom-2 space-y-2">
-                                            <label className="text-xs xl:text-sm font-black uppercase text-muted-foreground tracking-widest pl-1">{t.bgRemover.textEditing}</label>
-                                            <div className="space-y-2">
-                                                <button
-                                                    onClick={() => {
-                                                        const nt: TextLayer = { id: Math.random().toString(36).substr(2, 9), text: t.bgRemover.textPlaceholder, x: 250, y: 250, fontSize: 80, color: '#ffffff', strokeColor: '#000000', strokeWidth: 8, fontWeight: 'black', fontFamily: 'Inter', rotation: 0 };
-                                                        setTextLayers([...textLayers, nt]); setActiveTextId(nt.id); setTimeout(() => { renderStudio(); pushHistory(); }, 0);
-                                                    }}
-                                                    className="w-full py-2.5 bg-gradient-to-r from-sky-400 to-indigo-500 text-white rounded-xl text-[10px] font-black uppercase shadow-lg transition-all hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-2"
-                                                >
-                                                    <Plus className="w-3.5 h-3.5 stroke-[3px]" />
-                                                    {t.bgRemover.addText}
-                                                </button>
-
-                                                {activeTextId && (
-                                                    <div className="p-3 bg-zinc-50 dark:bg-zinc-900 rounded-2xl border-2 border-primary/10 space-y-2 shadow-sm">
-                                                        <input type="text" value={textLayers.find(l => l.id === activeTextId)?.text || ''} onChange={(e) => { setTextLayers(textLayers.map(l => l.id === activeTextId ? { ...l, text: e.target.value } : l)); renderStudio(); }} onBlur={() => pushHistory()} className="w-full px-3 py-2 text-xs font-bold rounded-lg border-2 border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800" />
-                                                        <div className="grid grid-cols-2 gap-2 py-1">
-                                                            {[{ id: 'Inter', label: '고딕' }, { id: 'serif', label: '명조' }, { id: 'monospace', label: '코딩' }, { id: 'cursive', label: '필기' }, { id: 'system-ui', label: '기본' }].map(f => (
-                                                                <button key={f.id} onClick={() => { setTextLayers(textLayers.map(l => l.id === activeTextId ? { ...l, fontFamily: f.id } : l)); renderStudio(); pushHistory(); }} className={cn("px-4 py-2 rounded-xl text-[10px] font-black border-2 transition-all", textLayers.find(l => l.id === activeTextId)?.fontFamily === f.id ? "bg-primary text-white border-primary shadow-lg" : "bg-white dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700 text-muted-foreground")} style={{ fontFamily: f.id }}>{f.label}</button>
-                                                            ))}
-                                                        </div>
-                                                        <div className="grid grid-cols-2 gap-3">
-                                                            <div className="space-y-1.5">
-                                                                <div className="flex justify-between text-[10px] font-black uppercase text-muted-foreground"><span>{t.bgRemover.textSize}</span><span className="text-primary">{textLayers.find(l => l.id === activeTextId)?.fontSize}px</span></div>
-                                                                <input type="range" min="20" max="300" value={textLayers.find(l => l.id === activeTextId)?.fontSize || 80} onChange={(e) => { setTextLayers(textLayers.map(l => l.id === activeTextId ? { ...l, fontSize: parseInt(e.target.value) } : l)); renderStudio(); }} onMouseUp={() => pushHistory()} className="w-full h-1 bg-zinc-200 dark:bg-zinc-800 rounded-lg appearance-none accent-primary" />
-                                                            </div>
-                                                            <div className="space-y-1.5">
-                                                                <div className="flex justify-between text-[10px] font-black uppercase text-muted-foreground"><span>{t.bgRemover.rotation}</span><span className="text-primary">{textLayers.find(l => l.id === activeTextId)?.rotation || 0}°</span></div>
-                                                                <input type="range" min="-180" max="180" value={textLayers.find(l => l.id === activeTextId)?.rotation || 0} onChange={(e) => { setTextLayers(textLayers.map(l => l.id === activeTextId ? { ...l, rotation: parseInt(e.target.value) } : l)); renderStudio(); }} onMouseUp={() => pushHistory()} className="w-full h-1 bg-zinc-200 dark:bg-zinc-800 rounded-lg appearance-none accent-sky-400" />
-                                                            </div>
-                                                        </div>
-
-                                                        <div className="flex flex-wrap gap-1.5 py-1">
-                                                            {['#ffffff', '#000000', '#ef4444', '#f97316', '#f59e0b', '#10b981', '#06b6d4', '#3b82f6', '#6366f1', '#8b5cf6', '#d946ef', '#ec4899', '#71717a'].map(c => (
-                                                                <button key={c} onClick={() => { setTextLayers(textLayers.map(l => l.id === activeTextId ? { ...l, color: c } : l)); renderStudio(); pushHistory(); }} className={cn("w-6 h-6 rounded-full border-2", textLayers.find(l => l.id === activeTextId)?.color === c ? "border-primary scale-110" : "border-transparent shadow-sm")} style={{ backgroundColor: c }} />
-                                                            ))}
-                                                        </div>
-                                                        <button
-                                                            onClick={(e) => {
-                                                                e.stopPropagation();
-                                                                setTextLayers(textLayers.filter(l => l.id !== activeTextId));
-                                                                setActiveTextId(null);
-                                                                renderStudio();
-                                                                pushHistory();
-                                                            }}
-                                                            className="w-full py-2.5 mt-2 bg-red-50 dark:bg-red-900/20 rounded-xl text-xs font-black text-red-500 uppercase tracking-widest hover:bg-red-100 transition-all flex items-center justify-center gap-2"
-                                                        >
-                                                            <Trash2 className="w-3.5 h-3.5" />
-                                                            {t.bgRemover.deleteText}
-                                                        </button>
-                                                    </div>
+                                        <div className="flex gap-1.5 p-1 bg-zinc-100 dark:bg-zinc-800 rounded-xl">
+                                            <button
+                                                onClick={() => setBrushMode('restore')}
+                                                className={cn(
+                                                    "flex-1 py-2 rounded-lg text-[10px] font-black transition-all flex flex-col items-center gap-0.5",
+                                                    brushMode === 'restore' ? "bg-white dark:bg-zinc-900 text-primary shadow-md scale-[1.02]" : "text-zinc-500 opacity-60"
                                                 )}
-                                            </div>
-                                        </div>
-                                    )}
-
-                                    {/* Enhance Tools (Moved to Right for balance) */}
-                                    {(mobileTab === 'enhance' || !isMounted || (isMounted && window.innerWidth > 1280)) && (
-                                        <div className="space-y-3 animate-in fade-in duration-500">
-                                            <label className="text-xs xl:text-sm font-black uppercase text-muted-foreground tracking-widest pl-1">{t.bgRemover.tabEnhance}</label>
-                                            <div className="space-y-3">
-                                                {[
-                                                    { label: t.bgRemover.brightness, value: subjectBrightness, min: 0, max: 200, setter: setSubjectBrightness, display: subjectBrightness + '%' },
-                                                    { label: t.bgRemover.contrast, value: subjectContrast, min: 0, max: 200, setter: setSubjectContrast, display: subjectContrast + '%' },
-                                                    { label: t.bgRemover.saturation, value: subjectSaturation, min: 0, max: 200, setter: setSubjectSaturation, display: subjectSaturation + '%' }
-                                                ].map((s, i) => (
-                                                    <div key={i} className="space-y-1.5">
-                                                        <div className="flex justify-between items-center text-[10px] font-black uppercase text-muted-foreground leading-none">
-                                                            <span>{s.label}</span>
-                                                            <span className="text-primary font-bold">{s.display}</span>
-                                                        </div>
-                                                        <input type="range" min={s.min} max={s.max} value={s.value} onChange={(e) => { s.setter(parseFloat(e.target.value)); renderStudio(); }} onMouseUp={() => pushHistory()} className="w-full h-1 bg-zinc-200 dark:bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-primary" />
-                                                    </div>
-                                                ))}
-                                            </div>
-                                            <div className="space-y-1.5 pt-1">
-                                                <div className="flex justify-between items-center text-[10px] font-black uppercase text-muted-foreground"><span>{t.bgRemover.filterPresets}</span></div>
-                                                <div className="grid grid-cols-3 gap-1.5 pb-1">
-                                                    {[{ id: 'none', label: t.bgRemover.filterOriginal }, { id: 'grayscale', label: t.bgRemover.filterBW }, { id: 'sepia', label: t.bgRemover.filterSepia }, { id: 'warm', label: t.bgRemover.filterWarm }, { id: 'cool', label: t.bgRemover.filterCool }, { id: 'vintage', label: t.bgRemover.filterVintage }].map((f) => (
-                                                        <button key={f.id} onClick={() => { setGlobalFilter(f.id); renderStudio(); pushHistory(); }} className={cn("px-2 py-2 rounded-lg border text-[10px] font-black transition-all", globalFilter === f.id ? "border-primary bg-primary/10 text-primary" : "border-zinc-100 dark:border-zinc-800 bg-white dark:bg-zinc-950")}>{f.label}</button>
-                                                    ))}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    )}
-
-                                    {/* Styling Tools (Moved to Right) */}
-                                    {(mobileTab === 'styling' || !isMounted || (isMounted && window.innerWidth > 1280)) && (
-                                        <div className="space-y-3 animate-in fade-in duration-500">
-                                            <label className="text-xs xl:text-sm font-black uppercase text-muted-foreground tracking-widest pl-1">{t.bgRemover.tabStyling}</label>
-                                            <div className="grid grid-cols-1 gap-3">
-                                                <div className="space-y-1">
-                                                    <div className="flex justify-between text-[8px] font-black uppercase text-muted-foreground"><span>{t.bgRemover.opacity}</span><span className="text-primary font-bold">{subjectOpacity}%</span></div>
-                                                    <input type="range" min="0" max="100" value={subjectOpacity} onChange={(e) => { setSubjectOpacity(parseInt(e.target.value)); renderStudio(); }} onMouseUp={() => pushHistory()} className="w-full h-1 bg-zinc-200 dark:bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-indigo-500" />
-                                                </div>
-                                                <div className="space-y-1">
-                                                    <div className="flex justify-between text-[8px] font-black uppercase text-muted-foreground"><span>{t.bgRemover.shadow}</span><span className="text-primary font-bold">{subjectShadow}px</span></div>
-                                                    <input type="range" min="0" max="100" value={subjectShadow} onChange={(e) => { setSubjectShadow(parseInt(e.target.value)); renderStudio(); }} onMouseUp={() => pushHistory()} className="w-full h-1 bg-zinc-200 dark:bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-violet-500" />
-                                                </div>
-                                            </div>
-                                            <div className="pt-2 border-t border-zinc-100 dark:border-zinc-800/50 space-y-2">
-                                                <div className="flex items-center justify-between">
-                                                    <div className="flex items-center gap-2"><Smile className="w-3.5 h-3.5 text-pink-500" /><span className="text-[10px] font-black uppercase">{t.bgRemover.stickerEffect}</span></div>
-                                                    <button onClick={() => { setHasSticker(!hasSticker); renderStudio(); pushHistory(); }} className={cn("w-10 h-5 rounded-full transition-all relative p-1", hasSticker ? "bg-primary" : "bg-zinc-200 dark:bg-zinc-800")}><div className={cn("w-3 h-3 bg-white rounded-full transition-all", hasSticker ? "ml-5" : "ml-0")} /></button>
-                                                </div>
-                                                {hasSticker && (
-                                                    <div className="space-y-2 p-2 bg-zinc-50 dark:bg-zinc-900/50 rounded-xl">
-                                                        <div className="flex justify-between text-[7px] font-black uppercase text-muted-foreground"><span>{t.bgRemover.stickerWidth}</span><span className="text-primary font-bold">{stickerWidth}px</span></div>
-                                                        <input type="range" min="1" max="50" value={stickerWidth} onChange={(e) => { setStickerWidth(parseInt(e.target.value)); renderStudio(); }} onMouseUp={() => pushHistory()} className="w-full h-1 bg-zinc-200 dark:bg-zinc-800 rounded-lg appearance-none accent-primary" />
-                                                        <div className="flex gap-1 overflow-x-auto no-scrollbar py-0.5">{['#ffffff', '#000000', '#ef4444', '#3b82f6', '#10b981', '#f59e0b', '#8b5cf6'].map(c => (<button key={c} onClick={() => { setStickerColor(c); renderStudio(); pushHistory(); }} className={cn("w-5 h-5 shrink-0 rounded-full border-2", stickerColor === c ? "border-primary scale-110" : "border-transparent")} style={{ backgroundColor: c }} />))}</div>
-                                                    </div>
-                                                )}
-                                            </div>
-                                        </div>
-                                    )}
-
-                                    {/* Export Tools System - Grouped in TAB */}
-                                    {(mobileTab === 'done' || !isMounted || (isMounted && window.innerWidth > 1280)) && (
-                                        <div className="space-y-4 animate-in slide-in-from-bottom-2 pt-4 border-t border-zinc-100 dark:border-zinc-800/50">
-                                            <button onClick={downloadResult} className="w-full py-5 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-black text-sm flex items-center justify-center gap-3 shadow-[0_20px_50px_rgba(59,130,246,0.4)] hover:scale-[1.02] active:scale-95 transition-all">
-                                                <Download className="w-5 h-5 stroke-[2.5px]" /> {t.common.download}
+                                            >
+                                                <Sparkles className="w-3.5 h-3.5" />
+                                                {t.bgRemover.brushRestore}
                                             </button>
-                                            <div className="grid grid-cols-2 gap-2">
-                                                <button onClick={shareResult} className="py-4 rounded-xl border-2 border-zinc-100 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-[10px] font-black uppercase text-muted-foreground hover:bg-zinc-50 transition-all flex items-center justify-center gap-2"><Share2 className="w-3.5 h-3.5" /> {t.bgRemover.share}</button>
-                                                <button onClick={copyImageToClipboard} className="py-4 rounded-xl border-2 border-zinc-100 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-[10px] font-black uppercase text-muted-foreground hover:bg-zinc-50 transition-all flex items-center justify-center gap-2"><Copy className="w-3.5 h-3.5" /> {t.common.copyImage}</button>
-                                            </div>
+                                            <button
+                                                onClick={() => setBrushMode('erase')}
+                                                className={cn(
+                                                    "flex-1 py-2 rounded-lg text-[10px] font-black transition-all flex flex-col items-center gap-0.5",
+                                                    brushMode === 'erase' ? "bg-white dark:bg-zinc-900 text-red-500 shadow-md scale-[1.02]" : "text-zinc-500 opacity-60"
+                                                )}
+                                            >
+                                                <Eraser className="w-3.5 h-3.5" />
+                                                {t.bgRemover.brushErase}
+                                            </button>
                                         </div>
-                                    )}
-                                </div>
+                                        <div className="space-y-1">
+                                            <div className="flex justify-between text-[8px] font-black uppercase text-muted-foreground"><span>{t.bgRemover.brushSize}</span><span>{brushSize}px</span></div>
+                                            <input type="range" min="5" max="150" value={brushSize} onChange={(e) => setBrushSize(parseInt(e.target.value))} className="w-full h-1 bg-zinc-200 dark:bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-zinc-950 dark:accent-zinc-100" />
+                                        </div>
+                                        <button onClick={() => setIsRefining(false)} className="w-full py-2 xl:py-4 rounded-xl xl:rounded-2xl bg-zinc-950 dark:bg-zinc-100 text-white dark:text-zinc-950 font-black text-xs flex items-center justify-center gap-2 shadow-lg">
+                                            <Check className="w-4 h-4" /> {t.bgRemover.applyRefine}
+                                        </button>
+                                    </div>
+                                ) : (
+                                    <div className="space-y-4 xl:space-y-8">
+
+                                        {/* Stickers & Text - Grouped in TAB */}
+                                        {(mobileTab === 'text' || !isMounted || (isMounted && window.innerWidth > 1280)) && (
+                                            <div className="animate-in slide-in-from-bottom-2">
+                                                <div className="space-y-2">
+                                                    <button
+                                                        onClick={() => {
+                                                            const nt: TextLayer = { id: Math.random().toString(36).substr(2, 9), text: t.bgRemover.textPlaceholder, x: 250, y: 250, fontSize: 80, color: '#ffffff', strokeColor: '#000000', strokeWidth: 8, fontWeight: 'black', fontFamily: 'Inter', rotation: 0 };
+                                                            setTextLayers([...textLayers, nt]); setActiveTextId(nt.id); setTimeout(() => { renderStudio(); pushHistory(); }, 0);
+                                                        }}
+                                                        className="w-full py-2.5 bg-gradient-to-r from-sky-400 to-indigo-500 text-white rounded-xl text-[10px] font-black uppercase shadow-lg transition-all hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-2"
+                                                    >
+                                                        <Plus className="w-3.5 h-3.5 stroke-[3px]" />
+                                                        {t.bgRemover.addText}
+                                                    </button>
+
+                                                    {activeTextId && (
+                                                        <div className="p-3 bg-zinc-50 dark:bg-zinc-900 rounded-2xl border-2 border-primary/10 space-y-2 shadow-sm">
+                                                            <input type="text" value={textLayers.find(l => l.id === activeTextId)?.text || ''} onChange={(e) => { setTextLayers(textLayers.map(l => l.id === activeTextId ? { ...l, text: e.target.value } : l)); renderStudio(); }} onBlur={() => pushHistory()} className="w-full px-3 py-2 text-xs font-bold rounded-lg border-2 border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800" />
+                                                            <div className="flex gap-2 overflow-x-auto no-scrollbar py-1">
+                                                                {[
+                                                                    { id: 'Inter', label: '고딕' },
+                                                                    { id: 'serif', label: '명조' },
+                                                                    { id: 'monospace', label: '코딩' },
+                                                                    { id: 'cursive', label: '필기' },
+                                                                    { id: 'system-ui', label: '기본' }
+                                                                ].map(f => (
+                                                                    <button key={f.id} onClick={() => { setTextLayers(textLayers.map(l => l.id === activeTextId ? { ...l, fontFamily: f.id } : l)); renderStudio(); pushHistory(); }} className={cn("px-4 py-2 rounded-xl text-[10px] font-black border-2 transition-all shrink-0", textLayers.find(l => l.id === activeTextId)?.fontFamily === f.id ? "bg-primary text-white border-primary shadow-lg shadow-primary/30" : "bg-white dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700 text-muted-foreground")} style={{ fontFamily: f.id }}>{f.label}</button>
+                                                                ))}
+                                                            </div>
+                                                            <div className="grid grid-cols-2 gap-3">
+                                                                <div className="space-y-1">
+                                                                    <div className="flex justify-between text-[8px] font-black uppercase text-muted-foreground"><span>{t.bgRemover.textSize}</span><span className="text-primary">{textLayers.find(l => l.id === activeTextId)?.fontSize}px</span></div>
+                                                                    <input type="range" min="20" max="300" value={textLayers.find(l => l.id === activeTextId)?.fontSize || 80} onChange={(e) => { setTextLayers(textLayers.map(l => l.id === activeTextId ? { ...l, fontSize: parseInt(e.target.value) } : l)); renderStudio(); }} onMouseUp={() => pushHistory()} className="w-full h-1 bg-zinc-200 dark:bg-zinc-800 rounded-lg appearance-none accent-primary" />
+                                                                </div>
+                                                                <div className="space-y-1">
+                                                                    <div className="flex justify-between text-[8px] font-black uppercase text-muted-foreground"><span>{t.bgRemover.rotation}</span><span className="text-primary">{textLayers.find(l => l.id === activeTextId)?.rotation || 0}°</span></div>
+                                                                    <input type="range" min="-180" max="180" value={textLayers.find(l => l.id === activeTextId)?.rotation || 0} onChange={(e) => { setTextLayers(textLayers.map(l => l.id === activeTextId ? { ...l, rotation: parseInt(e.target.value) } : l)); renderStudio(); }} onMouseUp={() => pushHistory()} className="w-full h-1 bg-zinc-200 dark:bg-zinc-800 rounded-lg appearance-none accent-sky-400" />
+                                                                </div>
+                                                            </div>
+
+                                                            <div className="flex gap-1.5 overflow-x-auto no-scrollbar py-0.5">
+                                                                {['#ffffff', '#000000', '#ef4444', '#f97316', '#f59e0b', '#10b981', '#06b6d4', '#3b82f6', '#6366f1', '#8b5cf6', '#d946ef', '#ec4899', '#71717a'].map(c => (
+                                                                    <button key={c} onClick={() => { setTextLayers(textLayers.map(l => l.id === activeTextId ? { ...l, color: c } : l)); renderStudio(); pushHistory(); }} className={cn("w-6 h-6 shrink-0 rounded-full border-2", textLayers.find(l => l.id === activeTextId)?.color === c ? "border-primary scale-110" : "border-transparent shadow-sm")} style={{ backgroundColor: c }} />
+                                                                ))}
+                                                            </div>
+                                                            <button onClick={() => { setTextLayers(textLayers.filter(l => l.id !== activeTextId)); setActiveTextId(null); renderStudio(); pushHistory(); }} className="w-full py-1 text-[8px] font-black text-red-500 uppercase tracking-widest">{t.bgRemover.deleteText}</button>
+                                                        </div>
+                                                    )}
+                                                </div>
+                                            </div>
+                                        )}
+
+
+                                        {/* Export Tools - Grouped in TAB */}
+                                        {(mobileTab === 'done' || !isMounted || (isMounted && window.innerWidth > 1280)) && (
+                                            <div className="space-y-4 animate-in slide-in-from-bottom-2">
+                                                <button onClick={downloadResult} className="w-full py-5 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-black text-sm flex items-center justify-center gap-3 shadow-[0_20px_50px_rgba(59,130,246,0.4)] hover:scale-[1.02] active:scale-95 transition-all">
+                                                    <Download className="w-5 h-5 stroke-[2.5px]" /> {t.common.download}
+                                                </button>
+                                                <div className="grid grid-cols-2 gap-2">
+                                                    <button onClick={shareResult} className="py-4 rounded-xl border-2 border-zinc-100 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-[10px] font-black uppercase text-muted-foreground hover:bg-zinc-50 transition-all flex items-center justify-center gap-2"><Share2 className="w-3.5 h-3.5" /> {t.bgRemover.share}</button>
+                                                    <button onClick={copyImageToClipboard} className="py-4 rounded-xl border-2 border-zinc-100 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-[10px] font-black uppercase text-muted-foreground hover:bg-zinc-50 transition-all flex items-center justify-center gap-2"><Copy className="w-3.5 h-3.5" /> {t.common.copyImage}</button>
+                                                </div>
+                                            </div>
+                                        )}
+                                    </div>
+                                )}
                             </div>
                         </div>
                     )
                 }
 
-                {/* Mobile Bottom Navigation Bar (Dock) - Grid version for better visibility */}
+                {/* Mobile Bottom Navigation Bar (Dock) */}
                 {
                     processedImage && !isProcessing && (
-                        <div className="sm:hidden fixed bottom-1.5 inset-x-2 h-[5.5rem] bg-white/90 dark:bg-zinc-900/90 backdrop-blur-xl border border-zinc-200/50 dark:border-zinc-800/50 grid grid-cols-4 gap-0.5 z-[140] px-1.5 py-1 rounded-2xl shadow-2xl">
+                        <div className="sm:hidden fixed bottom-1.5 inset-x-2 h-14 bg-white/90 dark:bg-zinc-900/90 backdrop-blur-xl border border-zinc-200/50 dark:border-zinc-800/50 flex items-center justify-start overflow-x-auto no-scrollbar z-[140] px-1.5 rounded-2xl shadow-2xl">
                             {[
                                 { id: 'bg', icon: Layers, label: t.bgRemover.bgTransparent.split(' ')[0] },
                                 { id: 'refine', icon: Brush, label: t.bgRemover.brushRestore },
@@ -1885,12 +1962,15 @@ function BackgroundRemoverContent() {
                                         setIsMobileMenuOpen(true);
                                     }}
                                     className={cn(
-                                        "flex flex-col items-center justify-center h-full gap-0.5 transition-all duration-300 relative rounded-xl",
-                                        mobileTab === tab.id ? "text-primary bg-primary/5" : "text-zinc-400"
+                                        "flex flex-col items-center justify-center min-w-[4rem] h-full gap-0.5 transition-all duration-300 relative",
+                                        mobileTab === tab.id ? "text-primary" : "text-zinc-400"
                                     )}
                                 >
-                                    <tab.icon className={cn("w-3.5 h-3.5 relative z-10", mobileTab === tab.id ? "stroke-[2.5px] scale-105" : "stroke-[2px]")} />
-                                    <span className="text-[7px] font-black tracking-tighter whitespace-nowrap uppercase relative z-10">{tab.label}</span>
+                                    {mobileTab === tab.id && (
+                                        <div className="absolute inset-x-1 inset-y-1.5 bg-primary/10 rounded-xl animate-in fade-in zoom-in-75 duration-300" />
+                                    )}
+                                    <tab.icon className={cn("w-4 h-4 relative z-10", mobileTab === tab.id ? "stroke-[2.5px] scale-110" : "stroke-[2px]")} />
+                                    <span className="text-[8px] font-black tracking-tighter whitespace-nowrap uppercase relative z-10">{tab.label}</span>
                                 </button>
                             ))}
                         </div>

@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useCallback, useMemo, useEffect } from 'react'
-import { Copy, Check, Trash2, Hash, Type, AlignLeft, Globe, Database, CaseUpper, CaseLower, CaseSensitive, Sparkles, RefreshCw, FileCode, Code } from 'lucide-react'
+import { Copy, Check, Trash2, Hash, Type, AlignLeft, Globe, Database, CaseUpper, CaseLower, CaseSensitive, Sparkles } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useLanguage } from '@/context/language-context'
 

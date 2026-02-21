@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { useState } from 'react'
 import { useLanguage } from '@/context/language-context'
 import { Mail, MessageSquare, Bug, Lightbulb, ExternalLink, Loader2, CheckCircle2, ArrowRight, HelpCircle, ChevronDown } from 'lucide-react'
@@ -217,12 +218,11 @@ export default function ContactPage() {
                 </div>
             </div>
 
-            {/* Back to Home */}
             <div className="text-center pt-10">
-                <a href="/" className="inline-flex items-center gap-3 px-10 py-5 glass-card rounded-2.5xl font-black hover:bg-primary hover:text-white transition-all group">
+                <Link href="/" className="inline-flex items-center gap-3 px-10 py-5 glass-card rounded-2.5xl font-black hover:bg-primary hover:text-white transition-all group">
                     <span>{t.navbar.home}</span>
                     <ExternalLink className="w-5 h-5 group-hover:rotate-12 transition-transform" />
-                </a>
+                </Link>
             </div>
         </div>
     )

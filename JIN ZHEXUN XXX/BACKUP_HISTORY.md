@@ -187,12 +187,71 @@
 
 ---
 
-### [ v11.5 ] 2026-02-19 22:50 (최종 기능 완성 및 코드 정밀 청소 전 안전 백업) 🛡️
-*   **내용:** v11의 모든 기능(성장 팁, SEO)이 포함된 상태에서 코드 최적화 작업을 위해 현 시점을 보존함.
+### [ v12 ] 2026-02-20 00:52 (유튜브 기획기 대규모 확장 & 이미지 도구 모바일 혁신 버전) 🌟
+*   **내용:** 유튜브 기획기 데이터의 양적/질적 폭발적 성장과 이미지 도구의 스마트폰 사용성 극대화
 *   **주요 특징:** 
-    *   **안전 장치 구축**: 코드 내부의 사소한 문법 오류(Lint)를 수정하기 전, 완벽하게 작동하는 현재 상태를 그대로 저장.
-    *   **복구 지점 확보**: 수정 중 문제가 생길 경우 언제든 이 시점으로 100% 복구가 가능하도록 깃(Git) 체크포인트 생성 완료.
+    *   **유튜브 기획기(Planner) 3.0**: 제목 패턴을 기존 4개에서 분위기/장르별 120개 이상으로 확장. 주제(`topic`) 기반의 지능적 결과 생성 로직을 도입하여 중복을 최소화하고 매번 새로운 영감을 제공.
+    *   **이미지 마스터(Compressor) 모바일 최적화**: 스마트폰 한 화면에서 이미지 미리보기와 품질/사이즈 조절 슬라이더를 동시에 조작할 수 있는 '원스크린 원핸드' UI 적용.
+    *   **배경 제거(BG Remover) 모바일 에디터**: 수동 수정(Refine) 툴바를 모바일 하단에 플로팅 형태로 배치하여, 데스크톱 급의 정교한 후보정 작업을 스마트폰에서도 쾌적하게 가능하도록 구현.
+    *   **안정성 확보**: 대규모 데이터 업데이트 과정에서 기존 유튜브 썸네일 다운로더, PDF 마스터 등 다른 도구의 기능은 철저히 보존.
 *   **기록 태그:**
-    *   `checkpoint-v11-stable-pre-cleanup`: Professional features locked-in before final code polishing.
+    *   `checkpoint-ytplanner-v3-expanded`: Massive data expansion for YouTube tool.
+    *   `checkpoint-mobile-editor-ui`: Implemented one-screen mobile optimization for image tools.
+    *   `checkpoint-v12-stable-backup`: Verified functional integrity across all utility tools.
+
+---
+
+### [ v12.1 ] 2026-02-20 19:55 (모바일 UI 방해 요소 제거 및 브러시 최적화) ✅
+*   **내용:** 모바일 화면에서 메뉴를 가리던 개발자 도구 숨김 및 수동 수정 브러시 시인성 개선
+*   **주요 특징:** 
+    *   **개발자 도구 숨김 (Vercel/Next.js)**: 모바일 하단 메뉴를 가리던 "N" 버튼(피드백 도구)을 CSS로 강제 숨김 처리하여 조작 방해 요소 완벽 제거.
+    *   **브러시 정밀도 폴리싱**: 수동 수정 시 이미지의 오점으로 오해받을 수 있었던 브러시 중앙의 까만 점을 제거하고, 모바일에서도 선명하게 보이는 화이트 테두리 브러시로 최적화.
+    *   **모바일 하단 안전 영역(Safe Area)**: 아이폰 등 최신 기기의 하단 바와 메뉴가 겹치지 않도록 `env(safe-area-inset-bottom)`를 적용하여 조작 안정성 확보.
+*   **기록 태그:**
+    *   `checkpoint-mobile-hide-dev-tools`: Cleaned up obstructing UI elements on mobile.
+    *   `checkpoint-brush-cursor-optimized`: Removed confusing center dot from refine tool.
+    *   `checkpoint-mobile-safe-area-applied`: Improved layout stability on notched mobile devices.
+
+---
+### [ v13 ] 2026-02-21 02:15 (스마트 모바일 독립성 & 히스토리 제로화 버전) 📱💎
+*   **내용:** 모바일 사용성 극대화 및 작업 세션의 완전한 독립성 확보
+*   **주요 특징:** 
+    *   **스마트 히스토리 초기화(Zero-State)**: 새로운 이미지를 불러올 때(파일 업로드, URL 전달) 이전의 모든 편집 기록, 텍스트 레이어, 필터 설정, 히스토리 스택을 100% 자동 초기화하여 메모리 유출 및 설정 꼬임을 완벽 차단.
+    *   **고밀도(Thrifty) 워크스페이스**: 모바일 화면에서 불필요한 여백을 줄이고 이미지 캔버스 영역을 최대화하여 전문가급 작업 환경 제공.
+    *   **편집 도구 상자 효율화**: 사용 빈도가 낮은 '배열/정렬' 및 '레이어 순서' 버튼을 과감히 제거하여 UI를 단순화하고 조작 직관성 향상.
+    *   **고성능 메모리 관리**: 새로운 작업 시작 시 이전 이미지의 메모리 점유(Blob URL)를 강제로 해제하여 장시간 사용 시에도 앱이 느려지지 않도록 최적화.
+    *   **초고가시성 다운로드 버튼**: 배경색과 겹쳐 보이지 않던 다운로드 버튼에 선명한 블루-인디고 그라데이션과 그림자 효과를 적용하여 클릭 유도성 및 시인성 극대화.
+*   **기록 태그:**
+    *   `checkpoint-smart-history-reset`: Guaranteed clean slate for every new image session.
+    *   `checkpoint-thrifty-workspace-mobile`: Maximized canvas area for mobile professional editing.
+    *   `checkpoint-toolbox-cleanup`: Simplified editing panels by removing non-essential alignment tools.
+    *   `backup-file`: `JIN ZHEXUN XXX/backups/smart_mobile_v1/` (page.tsx, translations.ts 보관 완료)
+
+### [ v14 ] 2026-02-21 19:55 (플래티넘 안정화 & 시스템 완결 버전) 💎
+*   **내용:** 전 도구의 고성능 안정화 및 사용 만족도 최상 상태 백업
+*   **주요 특징:** 
+    *   **완벽한 모바일 최적화**: 모든 도구(배경 제거, 컴프레서 등)가 스마트폰 한 손 조작 범위 내에서 완벽하게 작동함.
+    *   **시스템 무결성 확보**: 이미지 세션 자동 초기화 및 메모리 누수 방지 로직이 전 도구에 안착됨.
+    *   **수익화 레이아웃 완성**: 애드센스 승인 및 클릭 유도를 위한 최적의 배너 배치가 전 페이지에 적용됨.
+    *   **글로벌 SEO 강화**: 구글 검색봇 친화적인 메타데이터와 다국어 가이드 콘텐츠가 완벽하게 동기화됨.
+*   **기록 태그:**
+    *   `checkpoint-v14-stable-platinum`: Current satisfying state with all premium features and optimizations.
+    *   `backup-file`: `JIN ZHEXUN XXX/backups/v14_stable_platinum/` (핵심 파일 복사 완료)
+
+---
+
+### [ v15 ] 2026-02-21 23:25 (PDF Master PRO & QR PRO 프리미엄 완결 버전) 🏆
+*   **내용:** PDF 및 QR 도구의 PRO급 기능 확장 및 프리뷰 최적화
+*   **주요 특징:** 
+    *   **PDF Master PRO 등극**: 기존의 합치기, 분할 외에 '페이지 회전', '이미지 변환', '비밀번호 설정' 기능을 추가하여 5-in-1 올인원 도구로 진화.
+    *   **코드 중복 및 동기화 해결**: `page.tsx`와 `PDFMasterClient.tsx` 간의 코드 중복을 정리하고 최신 로직으로 일원화하여 업데이트 미반영 문제 완벽 해결.
+    *   **QR PRO 디자인 시스템**: 스마트폰 프리뷰 스타일의 UI를 도입하고, QR 코드 크기를 모바일 화면 비율에 맞춰 160px로 미세 조정하여 실제 앱 사용 경험과 가장 유사한 미리보기 제공.
+    *   **가이드 및 FAQ 복구/강화**: 사라졌던 하단 SEO 가이드와 FAQ 섹션을 PRO 버전 디자인에 맞춰 세련되게 복구. 다국어 지원 엔진과의 완벽 동기화.
+    *   **UI/UX 폴리싱**: 상단 중복 광고 제거 및 탭 네비게이션 여백 조정으로 한 화면에서 5개 기능을 모두 쾌적하게 접근 가능하도록 개선.
+*   **기록 태그:**
+    *   `checkpoint-pdf-master-pro-5in1`: Expanded PDF tool to professional level.
+    *   `checkpoint-qr-pro-preview-fit`: Optimized QR preview size and layout for mobile realism.
+    *   `checkpoint-guide-faq-restoration`: Restored and polished guide sections on all tools.
+    *   `backup-file`: `JIN ZHEXUN XXX/backups/pdf_qr_pro_v1/` (핵심 로직 보관 완료)
 
 ---

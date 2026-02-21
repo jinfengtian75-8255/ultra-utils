@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils'
 import { useLanguage } from '@/context/language-context'
 
 export default function PromptGeneratorClient() {
-    const { t, language } = useLanguage()
+    const { t } = useLanguage()
     const [platform, setPlatform] = useState('Midjourney')
     const [genre, setGenre] = useState('Cinematic')
     const [subject, setSubject] = useState('')
@@ -24,11 +24,15 @@ export default function PromptGeneratorClient() {
             : ['Cinematic', 'Anime', 'Cyberpunk', 'Minimalist', '3D Render', 'Oil Painting']
     }, [platform])
 
-    useEffect(() => {
-        if (!platformGenres.includes(genre)) {
-            setGenre(platformGenres[0])
+    const handlePlatformChange = (p: string) => {
+        setPlatform(p)
+        const nextGenres = p === 'Suno'
+            ? ['K-Pop', 'Lofi', 'Jazz', 'Rock', 'Electronic', 'Acoustic']
+            : ['Cinematic', 'Anime', 'Cyberpunk', 'Minimalist', '3D Render', 'Oil Painting']
+        if (!nextGenres.includes(genre)) {
+            setGenre(nextGenres[0])
         }
-    }, [platform, platformGenres, genre])
+    }
 
     const prompt = useMemo(() => {
         if (!isMounted) return ''
@@ -72,7 +76,7 @@ export default function PromptGeneratorClient() {
                         <div className="grid grid-cols-3 gap-3 p-1 bg-zinc-100 dark:bg-zinc-800 rounded-2xl">
                             {platforms.map((p) => (
                                 <button
-                                    key={p.id} onClick={() => setPlatform(p.id)}
+                                    key={p.id} onClick={() => handlePlatformChange(p.id)}
                                     className={cn("py-3 px-4 rounded-xl text-xs font-bold transition-all", platform === p.id ? "bg-white dark:bg-zinc-700 shadow-md text-primary scale-[1.02]" : "text-muted-foreground hover:text-zinc-900 dark:hover:text-zinc-100")}
                                 >
                                     {p.label}
