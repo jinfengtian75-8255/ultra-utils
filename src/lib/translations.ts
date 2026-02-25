@@ -31,6 +31,7 @@ export interface TranslationSchema {
         bgRemover: string;
         ytPlanner: string;
         pdfMaster: string;
+        imageRestorer: string;
     },
     imageMaster: {
         title: string;
@@ -183,6 +184,11 @@ export interface TranslationSchema {
         refineDesc: string;
         brushRestore: string;
         brushErase: string;
+        smartExtract: string;
+        smartExtractDesc: string;
+        selectObject: string;
+        clickToExtract: string;
+        backToSelection: string;
         brushSize: string;
         applyRefine: string;
         cancelRefine: string;
@@ -249,6 +255,10 @@ export interface TranslationSchema {
         bgGrad: string;
         bgImg: string;
         scaleLabel: string;
+        smartClick: string;
+        roughLasso: string;
+        clickPrompt: string;
+        lassoPrompt: string;
         resetConfirmTitle: string;
         resetConfirmDesc: string;
         aspectTitle: string;
@@ -261,6 +271,17 @@ export interface TranslationSchema {
         precisionDesc: string;
         proBgTitle: string;
         proBgDesc: string;
+        aiThinking: string;
+        panView: string;
+        brush: string;
+        selection: string;
+        fontGothic: string;
+        fontSerif: string;
+        fontMono: string;
+        fontHandwriting: string;
+        fontDefault: string;
+        smartTrim: string;
+        smoothStream: string;
         guide: {
             title: string;
             subtitle: string;
@@ -487,6 +508,30 @@ export interface TranslationSchema {
         ytGrabDesc: string;
         coffeeTitle: string;
         coffeeDesc: string;
+        imageRestorerTitle: string;
+        imageRestorerDesc: string;
+    },
+    imageRestorer: {
+        title: string;
+        desc: string;
+        restoreBtn: string;
+        remasterBtn: string;
+        processing: string;
+        enhancement: string;
+        resolution: string;
+        noise: string;
+        face: string;
+        color: string;
+        original: string;
+        restored: string;
+        upscaleX2: string;
+        upscaleX4: string;
+        guide: {
+            title: string;
+            subtitle: string;
+            sections: { title: string; content: string }[];
+            faq: { q: string; a: string }[];
+        };
     }
 }
 
@@ -521,6 +566,7 @@ export const translations: Record<Language, TranslationSchema> = {
             bgRemover: '배경 제거',
             ytPlanner: '유튜브 기획기',
             pdfMaster: 'PDF 마스터',
+            imageRestorer: 'AI 이미지 복구',
         },
         imageMaster: {
             title: '이미지 압축 및 최적화',
@@ -778,6 +824,11 @@ export const translations: Record<Language, TranslationSchema> = {
             refineDesc: '브러시를 사용하여 지워진 부분을 복구하거나 더 지울 수 있습니다.',
             brushRestore: '복구',
             brushErase: '지우개',
+            smartExtract: '스마트 추출',
+            smartExtractDesc: '남기고 싶은 개체 주변을 그려서 선택하세요.',
+            selectObject: '개체 선택',
+            clickToExtract: '사진에서 남기고 싶은 부분을 터치하세요',
+            backToSelection: '다시 선택하기',
             brushSize: '브러시 크기',
             applyRefine: '수정 완료',
             cancelRefine: '취소',
@@ -844,6 +895,10 @@ export const translations: Record<Language, TranslationSchema> = {
             bgGrad: '그라데이션',
             bgImg: '이미지',
             scaleLabel: '크기 조절',
+            smartClick: '스마트 클릭',
+            roughLasso: '자유 선택(올가미)',
+            clickPrompt: '개체를 클릭해 주세요',
+            lassoPrompt: '개체 주위를 그려주세요',
             resetConfirmTitle: '정말 초기화할까요?',
             resetConfirmDesc: '지금까지 작업한 내용이 모두 사라집니다.',
             aspectTitle: '화면 비율',
@@ -856,32 +911,43 @@ export const translations: Record<Language, TranslationSchema> = {
             precisionDesc: '수동 브러시로 완벽하게 수정할 수 있습니다.',
             proBgTitle: '프로페셔널 배경',
             proBgDesc: '클릭 한 번으로 증명사진이나 썸네일을 만듭니다.',
+            aiThinking: 'AI가 배경을 분석하고 있습니다...',
+            panView: '화면 이동',
+            brush: '브러시',
+            selection: '영역 선택',
+            fontGothic: '고딕',
+            fontSerif: '명조',
+            fontMono: '코딩',
+            fontHandwriting: '필기',
+            fontDefault: '기본',
+            smartTrim: '스마트 트리밍',
+            smoothStream: '부드러운 스트림',
             guide: {
-                title: '배경 제거 가이드',
-                subtitle: 'AI를 이용한 배경 제거 방법',
+                title: 'AI 배경 제거 및 누끼 따기 가이드',
+                subtitle: 'AI를 사용하여 5초 만에 복잡한 배경물을 지우는 비법',
                 sections: [
                     {
-                        title: '1. 피사체와 배경의 대비를 활용한 무결점 누끼 따기',
-                        content: 'AI 배경 제거의 핵심은 피사체와 배경 사이의 경계를 명확히 인식하는 것입니다. 인물 사진의 경우 머리카락 한 올까지 살리고 싶다면, 가급적 배경과 색상 대비가 뚜렷한 곳에서 촬영된 이미지를 사용하세요. 우리 도구는 최신 딥러닝 모델을 사용하여 복잡한 배경에서도 높은 정확도를 보여주지만, 대비가 좋을수록 결과물의 선명도는 기하급수적으로 올라갑니다.'
+                        title: '1. AI 대비 최적화를 통한 완벽한 누끼',
+                        content: '완벽한 배경 제거의 핵심은 피사체와 배경의 명확한 경계입니다. 인물 사진의 경우, 머리카락 한 올까지 살리고 싶다면 피사체와 배경의 색상 대비가 뚜렷한 이미지를 사용해 보세요. 우리 도구는 최신 딥러닝 모델을 사용하여 복잡한 환경에서도 전문적인 수준의 누끼를 제공하지만, 대비가 높을수록 결과물의 선명도가 비약적으로 향상됩니다.'
                     },
                     {
-                        title: '2. 수동 수정(Refine) 모드로 전문가급 디테일 완성하기',
-                        content: 'AI가 실수로 제거하지 못한 부분이나, 너무 많이 지워진 부분이 있다면 상단의 \'수동 수정 모드\'를 활성화하세요. 제로-딜레이 캔버스 렌더링 기술이 적용된 정밀 브러시를 통해 원하는 부분만 완벽하게 복구하거나 추가로 지울 수 있습니다. 이는 특히 투명한 물체나 미세한 털이 있는 동물을 처리할 때 유용합니다.'
+                        title: '2. 수동 수정 모드로 디테일한 마무리',
+                        content: 'AI가 미처 인식하지 못했거나 너무 많이 지워진 부분이 있다면 상단의 "수동 수정 모드"를 활용하세요. 지연 없는 캔버스 렌더링 기술이 적용된 정밀 브러시를 통해 원하는 영역만 완벽하게 복구하거나 추가로 지울 수 있습니다. 투명한 물체, 얇은 천, 혹은 복잡한 털을 가진 반려동물 사진을 보정할 때 유용합니다.'
                     },
                     {
-                        title: '3. 상업적 활용을 위한 다양한 규격 및 스티커 효과',
-                        content: '배경을 지운 후 단순히 투명하게 남겨두지 마세요. UltraUtils는 여권/증명사진 규격 자동 맞춤 기능을 제공하며, 외곽선에 \'스티커 효과\'를 추가하여 굿즈 제작이나 화려한 유튜브 썸네일용 소스로 즉시 활용할 수 있게 돕습니다. 테두리 두께와 색상을 조절하여 당신만의 독특한 스타일을 완성해 보세요.'
+                        title: '3. 상업적 활용을 위한 스티커 효과 커스터마이징',
+                        content: '단순한 투명화를 넘어, UltraUtils는 증명사진 및 여권 사진 규격 맞춤 기능을 제공합니다. 또한 "스티커 효과(외곽선)" 기능을 활성화하여 피사체를 돋보이게 만들 수 있는데, 이는 굿즈 제작용 도안이나 유튜브 썸네일 제작에 최적화되어 있습니다. 테두리 두께와 색상을 조절하여 나만의 스타일을 완성해 보세요.'
                     },
                     {
-                        title: '4. 보안과 프라이버시: 서버 없는 로컬 처리 방식',
-                        content: '여러분의 소중한 사진이 서버에 유출될까 걱정되시나요? UltraUtils는 모든 연산을 사용자 기기의 브라우저 내에서 직접 수행합니다. 사진은 단 1바이트도 서버로 전송되지 않으므로, 보안이 중요한 업무용 사진이나 개인적인 사진도 안심하고 누끼를 딸 수 있습니다.'
+                        title: '4. 서버 저장 없는 로컬 처리로 완벽한 개인정보 보호',
+                        content: '사진 유출이 걱정되시나요? UltraUtils의 배경 제거 작업은 100% 사용자의 브라우저 로컬 환경에서 수행됩니다. 단 1바이트의 이미지 데이터도 서버로 전송되지 않으므로, 민감한 비즈니스 문서나 개인적인 사진도 안심하고 처리할 수 있는 가장 안전한 선택입니다.'
                     }
                 ],
                 faq: [
-                    { q: '배경을 지운 후 화질이 저하되지는 않나요?', a: '아니요. 원본 이미지의 해상도를 최대한 유지하면서 배경 정보만 투명(Alpha Channel)으로 변환합니다. 변환 후 저장 시 고화질 PNG 포맷을 사용하여 선명도를 보존합니다.' },
-                    { q: '투명 배경 이미지를 어디에 주로 활용하나요?', a: '유튜브 썸네일 합성, 이커머스 상세페이지 제품 누끼, 인스타그램 스토리에 올릴 인물 스티커 제작, 사원증/여권 사진 제작 등 무궁무진하게 활용 가능합니다.' },
-                    { q: '한 번에 여러 장의 배경을 지울 수 있나요?', a: '현재는 한 장 한 장의 정밀한 품질을 위해 단일 이미지 처리를 지원하며, 빠른 시일 내에 대량 처리(Batch Processing) 기능을 업데이트할 예정입니다.' },
-                    { q: '배경 제거 실패 메시지가 뜹니다.', a: '피사체가 너무 작거나 배경과 완전히 동화되어 식별이 어려운 경우 발생할 수 있습니다. 피사체가 중심에 위치한 다른 사진으로 다시 시도해 보세요.' }
+                    { q: '배경을 지우면 화질이 떨어지나요?', a: '아니요. 원본 해상도를 그대로 유지하면서 배경 정보만 투명(Alpha Channel)으로 변환합니다. 고화질 PNG 내보내기를 통해 픽셀 손실 없는 최상의 퀄리티를 보장합니다.' },
+                    { q: '투명해진 이미지는 어디에 활용하나요?', a: '유튜브 썸네일 합성, 쇼핑몰 상품 등록, 인스타그램 스토리 스티커, 전문 증명사진 제작 등 모든 디자인 프로젝트에 즉시 활용할 수 있습니다.' },
+                    { q: '여러 장을 한꺼번에 처리할 수 있나요?', a: '현재는 정밀한 작업 결과물을 위해 단일 이미지 처리에 집중하고 있습니다. 대량의 이미지를 한 번에 처리하는 일괄 작업 기능은 추후 업데이트될 예정입니다.' },
+                    { q: 'AI가 피사체를 찾지 못하면 어떻게 하나요?', a: '피사체와 배경이 너무 비슷하거나 피사체가 너무 작을 때 발생할 수 있습니다. 피사체가 중앙에 위치하고 배경과 명확히 구분되는 사진으로 다시 시도해 보세요.' }
                 ]
             }
         },
@@ -1218,7 +1284,43 @@ export const translations: Record<Language, TranslationSchema> = {
             ytGrabTitle: '유튜브 썸네일 추출',
             ytGrabDesc: '고화질 썸네일을 즉시 다운로드하고 편집하세요.',
             coffeeTitle: '안티에게 커피 한 잔',
-            coffeeDesc: '더 나은 도구 제작을 위해 따뜻한 응원을 부탁드립니다.'
+            coffeeDesc: '더 나은 도구 제작을 위해 따뜻한 응원을 부탁드립니다.',
+            imageRestorerTitle: 'AI 이미지 복구',
+            imageRestorerDesc: '흐릿한 사진을 선명하게.',
+        },
+        imageRestorer: {
+            title: 'AI 이미지 복구 및 리마스터',
+            desc: '희미한 사진, 낡고 손상된 이미지를 AI가 분석하여 고화질로 복구하고 리마스터합니다.',
+            restoreBtn: '복구하기',
+            remasterBtn: '리마스터링',
+            processing: 'AI가 이미지를 정밀 분석 중입니다...',
+            enhancement: '디테일 강화',
+            resolution: '해상도 개선',
+            noise: '노이즈 제거',
+            face: '얼굴 복원',
+            color: '색상 보정',
+            original: '원본 이미지',
+            restored: '복구된 이미지',
+            upscaleX2: '2배 확대',
+            upscaleX4: '4배 확대',
+            guide: {
+                title: 'AI 이미지 복구 가이드',
+                subtitle: '소중한 추억을 선명하게 되살리는 법',
+                sections: [
+                    {
+                        title: '1. 희미하고 흐릿한 사진 복구',
+                        content: '초점이 맞지 않거나 흔들린 사진을 AI가 학습된 데이터를 바탕으로 선명하게 재구성합니다. 특히 인물의 이목구비를 또렷하게 살려내는 데 탁월합니다.'
+                    },
+                    {
+                        title: '2. 오래된 낡은 사진의 리마스터링',
+                        content: '시간이 흘러 변색되거나 흠집이 난 옛날 사진을 디지털 기술로 보정합니다. 손상된 픽셀을 복원하고 자연스러운 색감을 입혀 마치 방금 찍은 듯한 느낌을 줍니다.'
+                    }
+                ],
+                faq: [
+                    { q: '이미지가 너무 작아도 복구가 되나요?', a: '네, 초해상도(Super Resolution) 기술을 통해 작은 이미지를 깨지지 않게 확대하면서 선명도를 높일 수 있습니다.' },
+                    { q: '복구 과정에서 데이터가 서버로 전송되나요?', a: '아니요, UltraUtils는 개인정보 보호를 위해 모든 이미지 처리를 사용자의 기기 내에서 로컬로 수행합니다.' }
+                ]
+            }
         }
     },
     en: {
@@ -1251,6 +1353,7 @@ export const translations: Record<Language, TranslationSchema> = {
             bgRemover: 'AI Remover',
             ytPlanner: 'YT Planner',
             pdfMaster: 'PDF Master',
+            imageRestorer: 'AI Image Restorer',
         },
         imageMaster: {
             title: 'Image Master Suite: Professional Online Image Optimization',
@@ -1502,6 +1605,11 @@ export const translations: Record<Language, TranslationSchema> = {
             refineDesc: 'Use the brush to restore parts or erase more.',
             brushRestore: 'Restore',
             brushErase: 'Erase',
+            smartExtract: 'Smart Extract',
+            smartExtractDesc: 'Draw around the object you want to keep.',
+            selectObject: 'Select Object',
+            clickToExtract: 'Touch the object you want to keep',
+            backToSelection: 'Reselect',
             brushSize: 'Brush Size',
             applyRefine: 'Apply Changes',
             cancelRefine: 'Cancel',
@@ -1568,6 +1676,10 @@ export const translations: Record<Language, TranslationSchema> = {
             bgGrad: 'Grad',
             bgImg: 'Image',
             scaleLabel: 'Adjust Scale',
+            smartClick: 'Smart Click',
+            roughLasso: 'Rough Lasso',
+            clickPrompt: 'Click on the object',
+            lassoPrompt: 'Draw around the object',
             resetConfirmTitle: 'Reset everything?',
             resetConfirmDesc: 'All your current progress will be lost.',
             aspectTitle: 'Aspect Ratio',
@@ -1580,6 +1692,17 @@ export const translations: Record<Language, TranslationSchema> = {
             precisionDesc: 'Manual brush for perfect refinements.',
             proBgTitle: 'Pro Backgrounds',
             proBgDesc: 'One-click ID photos and thumbnails.',
+            aiThinking: "AI is analyzing the background...",
+            panView: 'Pan View',
+            brush: 'Brush',
+            selection: 'Selection',
+            fontGothic: 'Gothic',
+            fontSerif: 'Serif',
+            fontMono: 'Mono',
+            fontHandwriting: 'Handwriting',
+            fontDefault: 'Default',
+            smartTrim: 'Smart Trim',
+            smoothStream: 'Smooth Stream',
             guide: {
                 title: 'AI Background Removal & Cutout Guide',
                 subtitle: 'Remove complex backgrounds in just 5 seconds using AI',
@@ -1602,10 +1725,10 @@ export const translations: Record<Language, TranslationSchema> = {
                     }
                 ],
                 faq: [
-                    { q: 'Does removing the background reduce image quality?', a: 'No. We maintain the original resolution of your image while only converting the background information into a transparent Alpha Channel. We use high-quality PNG export to preserve every pixel.' },
-                    { q: 'Where can I use these transparent images?', a: 'They are perfect for YouTube thumbnail composites, e-commerce product listings, Instagram story stickers, professional ID photos, and any graphic design project.' },
-                    { q: 'Can I process multiple images at once?', a: 'Currently, we focus on high-precision single image processing. A bulk batch processing feature is planned for a future update.' },
-                    { q: 'What should I do if the AI fails to identify the subject?', a: 'This usually happens if the subject is too small or blends perfectly into the background. Try another photo where the subject is centered and clearly distinguishable from its surroundings.' }
+                    { q: 'Does removing the background reduce image quality?', a: 'No. We maintain the original resolution of your image while converting the background to transparency. High-quality PNG export ensures pixel-perfect results.' },
+                    { q: 'Where can I use these transparent images?', a: 'They are perfect for YouTube thumbnails, eCommerce listings, Instagram stickers, professional ID photos, and any graphic design project.' },
+                    { q: 'Can I process multiple images at once?', a: 'Currently, we focus on high-precision single image processing. Batch processing for bulk images is planned for a future update.' },
+                    { q: 'What if the AI fails to find the subject?', a: 'This usually happens if the subject is too small or blends in with the background. Try another photo with a clear contrast between the subject and the surroundings.' }
                 ]
             }
         },
@@ -1913,7 +2036,7 @@ export const translations: Record<Language, TranslationSchema> = {
                     },
                     {
                         title: '2. Holistic SEO Strategy for Global Reach',
-                        content: 'YouTube is the world\'s second-largest search engine. By placing core keywords within the first two lines of your description and aligning them with strategic tags, you create a metadata synergy. This significantly increases your visibility nicht just on YouTube Recommendations, but also on Google Search results, driving organic evergreen traffic.'
+                        content: 'YouTube is the world\'s second-largest search engine. By placing core keywords within the first two lines of your description and aligning them with strategic tags, you create a metadata synergy. This significantly increases your visibility not just on YouTube Recommendations, but also on Google Search results, driving organic evergreen traffic.'
                     },
                     {
                         title: '3. Strategic Scripting for Maximum Watch Time',
@@ -1942,7 +2065,43 @@ export const translations: Record<Language, TranslationSchema> = {
             ytGrabTitle: 'YouTube Thumbnail Grabber',
             ytGrabDesc: 'Download and edit high-quality thumbnails easily.',
             coffeeTitle: 'Buy Anti a Coffee',
-            coffeeDesc: 'Support our work and help us build better tools.'
+            coffeeDesc: 'Support our work and help us build better tools.',
+            imageRestorerTitle: 'AI Image Restorer',
+            imageRestorerDesc: 'Fix blurry photos instantly.',
+        },
+        imageRestorer: {
+            title: 'AI Image Restorer & Remaster',
+            desc: 'Restore blurry, old, and damaged photos with advanced AI remastering technology.',
+            restoreBtn: 'Restore Now',
+            remasterBtn: 'Remastering',
+            processing: 'AI is analyzing and restoring the image...',
+            enhancement: 'Detail Enhance',
+            resolution: 'Upscaling',
+            noise: 'Denoising',
+            face: 'Face Restore',
+            color: 'Color Fix',
+            original: 'Original',
+            restored: 'Restored',
+            upscaleX2: '2x Upscale',
+            upscaleX4: '4x Upscale',
+            guide: {
+                title: 'Image Restoration Guide',
+                subtitle: 'Revive your precious memories in high definition',
+                sections: [
+                    {
+                        title: '1. Fix Blurry & Out-of-Focus Photos',
+                        content: 'Our AI reconstructs blurry images by predicting details from learned patterns. It works exceptionally well for facial features.'
+                    },
+                    {
+                        title: '2. Remastering Old & Damaged Photos',
+                        content: 'Correct scratches and fading on vintage photos. Digital restoration fills in damaged pixels and applies natural color correction.'
+                    }
+                ],
+                faq: [
+                    { q: 'Can very small images be restored?', a: 'Yes, using Super Resolution technology, we can upscale small images without pixelation while enhancing clarity.' },
+                    { q: 'Is my image data private?', a: 'Absolutely. UltraUtils performs all AI processing locally on your device; no images are ever uploaded to a server.' }
+                ]
+            }
         }
     },
     zh: {
@@ -1975,6 +2134,7 @@ export const translations: Record<Language, TranslationSchema> = {
             bgRemover: 'AI 背景消除',
             ytPlanner: 'YouTube 策划',
             pdfMaster: 'PDF 大师',
+            imageRestorer: 'AI 图像修复',
         },
         imageMaster: {
             title: '影像大师套件',
@@ -2213,6 +2373,11 @@ export const translations: Record<Language, TranslationSchema> = {
             refineDesc: '使用画笔恢复部分内容或进一步擦除。',
             brushRestore: '恢复',
             brushErase: '擦除',
+            smartExtract: '智能提取',
+            smartExtractDesc: '在该物体周围绘制选구.',
+            selectObject: '选择对象',
+            clickToExtract: '点击想要提取的物体',
+            backToSelection: '重新选择',
             brushSize: '画笔大小',
             applyRefine: '应用更改',
             cancelRefine: '取消',
@@ -2279,6 +2444,10 @@ export const translations: Record<Language, TranslationSchema> = {
             bgGrad: '渐变',
             bgImg: '图片',
             scaleLabel: '缩放',
+            smartClick: '智能点击',
+            roughLasso: '套索工具',
+            clickPrompt: '点击要保留的物体',
+            lassoPrompt: '在物体周围圈选',
             resetConfirmTitle: '确定要重置吗？',
             resetConfirmDesc: '当前的所有进度都将丢失。',
             aspectTitle: '纵横比',
@@ -2291,6 +2460,17 @@ export const translations: Record<Language, TranslationSchema> = {
             precisionDesc: '手动画笔可进行完美的修整。',
             proBgTitle: '专业背景',
             proBgDesc: '一键生成证件照和缩略图。',
+            aiThinking: "AI 正在分析背景...",
+            panView: '移动画布',
+            brush: '画笔',
+            selection: '区域选择',
+            fontGothic: '黑体',
+            fontSerif: '宋体',
+            fontMono: '等宽',
+            fontHandwriting: '手写',
+            fontDefault: '默认',
+            smartTrim: '智能裁剪',
+            smoothStream: '平滑流',
             guide: {
                 title: 'AI 背景移除与抠图指南',
                 subtitle: '利用 AI 技术在 5 秒内移除复杂背景',
@@ -2653,7 +2833,43 @@ export const translations: Record<Language, TranslationSchema> = {
             ytGrabTitle: 'HD 封面提取',
             ytGrabDesc: '轻松下载并编辑封面。',
             coffeeTitle: '请 Anti 喝杯咖啡',
-            coffeeDesc: '支持我们的工作，开发更好的工具。'
+            coffeeDesc: '支持我们的工作，开发更好的工具。',
+            imageRestorerTitle: 'AI 图像修复',
+            imageRestorerDesc: '瞬间修复模糊照片。',
+        },
+        imageRestorer: {
+            title: 'AI 图像修复与重制',
+            desc: '利用先进的 AI 重制技术修复模糊、古老和损坏的照片。',
+            restoreBtn: '立即修复',
+            remasterBtn: '重制中',
+            processing: 'AI 正在分析并修复图像...',
+            enhancement: '细节增强',
+            resolution: '分辨率提升',
+            noise: '降噪',
+            face: '人脸修复',
+            color: '色彩修正',
+            original: '原图',
+            restored: '修复后',
+            upscaleX2: '2倍无损放大',
+            upscaleX4: '4倍无损放大',
+            guide: {
+                title: '图像修复指南',
+                subtitle: '以高清画质重温珍贵回忆',
+                sections: [
+                    {
+                        title: '1. 修复模糊和对焦不准的照片',
+                        content: '我们的 AI 通过学习的模式预测细节，重构模糊图像。对面部特征表现尤为出色。'
+                    },
+                    {
+                        title: '2. 重制旧的和损坏的照片',
+                        content: '修正老照片上的划痕和褪色。数字修复填补损坏的像素并应用自然的色彩校正。'
+                    }
+                ],
+                faq: [
+                    { q: '很小的图片也能修复吗？', a: '可以，使用超分辨率技术，我们可以在不失真的情况下放大图片并增强清晰度。' },
+                    { q: '我的图像数据隐私吗？', a: '当然。UltraUtils 在您的设备本地执行所有 AI 处理，图像永远不会上传到服务器。' }
+                ]
+            }
         }
     },
     ja: {
@@ -2686,6 +2902,7 @@ export const translations: Record<Language, TranslationSchema> = {
             bgRemover: 'AI 背景削除',
             ytPlanner: 'YouTube 企画',
             pdfMaster: 'PDF マスター',
+            imageRestorer: 'AI 画像修復',
         },
         imageMaster: {
             title: '画像圧縮・最適化',
@@ -2902,6 +3119,11 @@ export const translations: Record<Language, TranslationSchema> = {
             refineDesc: 'ブラシを使って復元や追加削除ができます。',
             brushRestore: '復元',
             brushErase: '消しゴム',
+            smartExtract: 'スマート抽出',
+            smartExtractDesc: '残したいオブジェクトの周りを描いて選択してください。',
+            selectObject: 'オブジェクト選択',
+            clickToExtract: '抽出したいオブジェクトをタッチしてください',
+            backToSelection: '再選択',
             brushSize: 'サイズ',
             applyRefine: '修正完了',
             cancelRefine: 'キャンセル',
@@ -2968,6 +3190,10 @@ export const translations: Record<Language, TranslationSchema> = {
             bgGrad: 'グラデ',
             bgImg: '画像',
             scaleLabel: 'スケール調整',
+            smartClick: 'スマートクリック',
+            roughLasso: 'ラッソ選択',
+            clickPrompt: '残したい対象をクリック',
+            lassoPrompt: '対象の周りを囲むように描く',
             resetConfirmTitle: '初期化しますか？',
             resetConfirmDesc: 'これまでの作業内容がすべて失われます。',
             aspectTitle: 'アスペクト比',
@@ -2980,6 +3206,17 @@ export const translations: Record<Language, TranslationSchema> = {
             precisionDesc: '手動ブラシで完璧に修正できます。',
             proBgTitle: 'プロ背景',
             proBgDesc: 'クリック一つで証明写真やサムネイルを作成。',
+            aiThinking: "AIが背景を分析しています...",
+            panView: '画面移動',
+            brush: 'ブラシ',
+            selection: '範囲選択',
+            fontGothic: 'ゴシック',
+            fontSerif: '明朝',
+            fontMono: '等幅',
+            fontHandwriting: '手書き',
+            fontDefault: 'デフォルト',
+            smartTrim: 'スマートトリミング',
+            smoothStream: 'スムースストリーム',
             guide: {
                 title: '背景削除ガイド',
                 subtitle: 'AIによる自動カットアウト',
@@ -3263,7 +3500,54 @@ export const translations: Record<Language, TranslationSchema> = {
                 ]
             }
         },
-        houseAds: { bgRemoverTitle: 'プロ級背景削除', bgRemoverDesc: 'AIが一瞬で透過処理。', pdfMasterTitle: 'PDFエディタ', pdfMasterDesc: '結合・分割を簡単に。', imageCompTitle: '画像圧縮', imageCompDesc: '画質維持で容量削減。', ytGrabTitle: 'サムネイル抽出', ytGrabDesc: '高画質で即ダウンロード。', coffeeTitle: 'コーヒーを奢る', coffeeDesc: '開発の励みになります！' }
+        houseAds: {
+            bgRemoverTitle: 'プロ級背景削除',
+            bgRemoverDesc: 'AIが一瞬で透過処理。',
+            pdfMasterTitle: 'PDFエディタ',
+            pdfMasterDesc: '結合・分割を簡単に。',
+            imageCompTitle: '画像圧縮',
+            imageCompDesc: '画質維持で容量削減。',
+            ytGrabTitle: 'サムネイル抽出',
+            ytGrabDesc: '高画質で即ダウンロード。',
+            coffeeTitle: 'コーヒーを奢る',
+            coffeeDesc: '開発の励みになります！',
+            imageRestorerTitle: 'AI 画像修復',
+            imageRestorerDesc: 'ぼやけた写真を鮮明に。',
+        },
+        imageRestorer: {
+            title: 'AI 画像修復 & リマスター',
+            desc: '高度な AI リマスタリング技術で、ぼやけた写真、古い写真、破損した写真を修復します。',
+            restoreBtn: '今すぐ修復',
+            remasterBtn: 'リマスタリング',
+            processing: 'AI が画像を分析および修復しています...',
+            enhancement: 'ディテール強化',
+            resolution: '超解像',
+            noise: 'ノイズ除去',
+            face: '顔修復',
+            color: '色補正',
+            original: 'オリジナル',
+            restored: '修復後',
+            upscaleX2: '2倍拡大',
+            upscaleX4: '4倍拡大',
+            guide: {
+                title: '画像修復ガイド',
+                subtitle: '大切な思い出を鮮やかな高画質で',
+                sections: [
+                    {
+                        title: '1. ぼやけた写真やピントの合っていない写真を直す',
+                        content: '当社の AI は、学習したパターンから詳細を予測し、ぼやけた画像を再構成します。特に顔のパーツの再現に優れています。'
+                    },
+                    {
+                        title: '2. 古い写真や破損した写真のリマスタリング',
+                        content: '古い写真の傷や色あせを補正します。デジタルの修復技術で破損したピクセルを埋め、自然な色補正を適用します。'
+                    }
+                ],
+                faq: [
+                    { q: '非常に小さな画像でも修復できますか？', a: 'はい、超解像技術を使用して、画質を落とさずに画像を拡大し、鮮明度を高めることができます。' },
+                    { q: '私の画像データは非公開ですか？', a: 'もちろんです。UltraUtils はすべての AI 処理をデバイス内でローカルに実行します。' }
+                ]
+            }
+        }
     },
     es: {
         common: {
@@ -3295,6 +3579,7 @@ export const translations: Record<Language, TranslationSchema> = {
             bgRemover: 'Eliminar Fondo',
             ytPlanner: 'Planificador YT',
             pdfMaster: 'Maestro PDF',
+            imageRestorer: 'Restaurador AI',
         },
         imageMaster: {
             title: 'Compresión y Optimización',
@@ -3520,6 +3805,11 @@ export const translations: Record<Language, TranslationSchema> = {
             refineDesc: 'Usa el pincel para restaurar o borrar áreas.',
             brushRestore: 'Restaurar',
             brushErase: 'Borrar',
+            smartExtract: 'Extracción Inteligente',
+            smartExtractDesc: 'Dibuja alrededor del objeto que quieras conservar.',
+            selectObject: 'Seleccionar Objeto',
+            clickToExtract: 'Toca el objeto que quieras conservar',
+            backToSelection: 'Volver a seleccionar',
             brushSize: 'Tamaño',
             applyRefine: 'Aplicar',
             cancelRefine: 'Cancelar',
@@ -3586,6 +3876,10 @@ export const translations: Record<Language, TranslationSchema> = {
             bgGrad: 'Grad',
             bgImg: 'Img',
             scaleLabel: 'Ajustar Escala',
+            smartClick: 'Clic Inteligente',
+            roughLasso: 'Lazo Rápido',
+            clickPrompt: 'Haz clic en el objeto',
+            lassoPrompt: 'Dibuja alrededor del objeto',
             resetConfirmTitle: '¿Reiniciar todo?',
             resetConfirmDesc: 'Se perderá todo el progreso actual.',
             aspectTitle: 'Relación de Aspecto',
@@ -3598,6 +3892,17 @@ export const translations: Record<Language, TranslationSchema> = {
             precisionDesc: 'Pincel manual para retoques perfectos.',
             proBgTitle: 'Fondos Pro',
             proBgDesc: 'Fotos ID y miniaturas en un clic.',
+            aiThinking: "La IA está analizando el fondo...",
+            panView: 'Mover Vista',
+            brush: 'Pincel',
+            selection: 'Selección',
+            fontGothic: 'Gótico',
+            fontSerif: 'Serif',
+            fontMono: 'Mono',
+            fontHandwriting: 'Escritura',
+            fontDefault: 'Predeterminado',
+            smartTrim: 'Recorte inteligente',
+            smoothStream: 'Transmisión fluida',
             guide: {
                 title: 'Guía de Fondo',
                 subtitle: 'Corte automático con AI',
@@ -3881,7 +4186,41 @@ export const translations: Record<Language, TranslationSchema> = {
                 ]
             }
         },
-        houseAds: { bgRemoverTitle: 'Quitar fondo Pro', bgRemoverDesc: 'Precisión AI al instante.', pdfMasterTitle: 'Maestro PDF', pdfMasterDesc: 'Une y divide sin líos.', imageCompTitle: 'Comprensión Pro', imageCompDesc: 'Reduce peso sin perder calidad.', ytGrabTitle: 'Miniaturas HD', ytGrabDesc: 'Descarga y edita fácil.', coffeeTitle: 'Invita a café', coffeeDesc: 'Apóyanos para seguir.' }
+        houseAds: { bgRemoverTitle: 'Quitar fondo Pro', bgRemoverDesc: 'Precisión AI al instante.', pdfMasterTitle: 'Maestro PDF', pdfMasterDesc: 'Une y divide sin líos.', imageCompTitle: 'Comprensión Pro', imageCompDesc: 'Reduce peso sin perder calidad.', ytGrabTitle: 'Miniaturas HD', ytGrabDesc: 'Descarga y edita fácil.', coffeeTitle: 'Invita a café', coffeeDesc: 'Apóyanos para seguir.', imageRestorerTitle: 'Restaurador AI', imageRestorerDesc: 'Saca nitidez al instante.' },
+        imageRestorer: {
+            title: 'Restaurador de Imágenes AI & Remaster',
+            desc: 'Restaura fotos borrosas, antiguas y dañadas con tecnología avanzada de remasterización AI.',
+            restoreBtn: 'Restaurar Ahora',
+            remasterBtn: 'Remasterizando',
+            processing: 'La IA está analizando y restaurando la imagen...',
+            enhancement: 'Mejora de Detalles',
+            resolution: 'Aumento de Resolución',
+            noise: 'Eliminación de Ruido',
+            face: 'Restauración de Rostros',
+            color: 'Corrección de Color',
+            original: 'Original',
+            restored: 'Restaurada',
+            upscaleX2: 'Aumento 2x',
+            upscaleX4: 'Aumento 4x',
+            guide: {
+                title: 'Guía de Restauración de Imágenes',
+                subtitle: 'Revive tus recuerdos más preciados en alta definición',
+                sections: [
+                    {
+                        title: '1. Corregir fotos borrosas o fuera de foco',
+                        content: 'Nuestra IA reconstruye imágenes borrosas prediciendo detalles a partir de patrones aprendidos. Funciona excepcionalmente bien para rasgos faciales.'
+                    },
+                    {
+                        title: '2. Remasterización de fotos antiguas y dañadas',
+                        content: 'Corrige arañazos y decoloración en fotos vintage. La restauración digital rellena los píxeles dañados y aplica una corrección de color natural.'
+                    }
+                ],
+                faq: [
+                    { q: '¿Se pueden restaurar imágenes muy pequeñas?', a: 'Sí, utilizando tecnología de Super Resolución, podemos aumentar el tamaño de imágenes pequeñas sin pixelación mientras mejoramos la claridad.' },
+                    { q: '¿Son mis imágenes privadas?', a: 'Absolutamente. UltraUtils realiza todo el procesamiento de IA localmente en tu dispositivo; ninguna imagen se sube a un servidor.' }
+                ]
+            }
+        }
     },
     de: {
         common: {
@@ -3913,6 +4252,7 @@ export const translations: Record<Language, TranslationSchema> = {
             bgRemover: 'KI-Entferner',
             ytPlanner: 'YT-Planer',
             pdfMaster: 'PDF-Meister',
+            imageRestorer: 'AI Bild-Restaurator',
         },
         imageMaster: {
             title: 'Bild-Optimierung',
@@ -4125,6 +4465,11 @@ export const translations: Record<Language, TranslationSchema> = {
             refineDesc: 'Pinsel nutzen für Details.',
             brushRestore: 'Wiederherstellen',
             brushErase: 'Löschen',
+            smartExtract: 'Smart-Extraktion',
+            smartExtractDesc: 'Zeichnen Sie um das Objekt herum, das Sie behalten möchten.',
+            selectObject: 'Objekt auswählen',
+            clickToExtract: 'Tippen Sie auf das Objekt, das Sie behalten möchten',
+            backToSelection: 'Neu auswählen',
             brushSize: 'Pinselgröße',
             applyRefine: 'Übernehmen',
             cancelRefine: 'Abbrechen',
@@ -4191,6 +4536,10 @@ export const translations: Record<Language, TranslationSchema> = {
             bgGrad: 'Grad',
             bgImg: 'Bild',
             scaleLabel: 'Skalierung',
+            smartClick: 'Smart Click',
+            roughLasso: 'Lasso-Auswahl',
+            clickPrompt: 'Klicken Sie auf das Objekt',
+            lassoPrompt: 'Umkreisen Sie das Objekt',
             resetConfirmTitle: 'Alles zurücksetzen?',
             resetConfirmDesc: 'Ihr gesamter aktueller Fortschritt geht verloren.',
             aspectTitle: 'Seitenverhältnis',
@@ -4203,6 +4552,17 @@ export const translations: Record<Language, TranslationSchema> = {
             precisionDesc: 'Manueller Pinsel für perfekte Korrekturen.',
             proBgTitle: 'Pro-Hintergründe',
             proBgDesc: 'ID-Fotos und Thumbnails mit einem Klick.',
+            aiThinking: "Die KI analysiert den Hintergrund...",
+            panView: 'Ansicht verschieben',
+            brush: 'Pinsel',
+            selection: 'Auswahl',
+            fontGothic: 'Gothic',
+            fontSerif: 'Serif',
+            fontMono: 'Mono',
+            fontHandwriting: 'Handschrift',
+            fontDefault: 'Standard',
+            smartTrim: 'Auto-Zuschneiden',
+            smoothStream: 'Glatter Strom',
             guide: {
                 title: 'HG Guide',
                 subtitle: 'Auto-Cutout KI',
@@ -4486,7 +4846,41 @@ export const translations: Record<Language, TranslationSchema> = {
                 ]
             }
         },
-        houseAds: { bgRemoverTitle: 'HG Entferner Pro', bgRemoverDesc: 'KI-Präzision sofort.', pdfMasterTitle: 'PDF Meister', pdfMasterDesc: 'Trennen & Zusammenfügen.', imageCompTitle: 'Kompression Pro', imageCompDesc: 'Leichtgewicht ohne Verlust.', ytGrabTitle: 'Thumbnail HD', ytGrabDesc: 'Einfach runterladen & editieren.', coffeeTitle: 'Kaffee spendieren', coffeeDesc: 'Unterstützen Sie uns.' }
+        houseAds: { bgRemoverTitle: 'HG Entferner Pro', bgRemoverDesc: 'KI-Präzision sofort.', pdfMasterTitle: 'PDF Meister', pdfMasterDesc: 'Trennen & Zusammenfügen.', imageCompTitle: 'Kompression Pro', imageCompDesc: 'Leichtgewicht ohne Verlust.', ytGrabTitle: 'Thumbnail HD', ytGrabDesc: 'Einfach runterladen & editieren.', coffeeTitle: 'Kaffee spendieren', coffeeDesc: 'Unterstützen Sie uns.', imageRestorerTitle: 'AI Bild-Restaurator', imageRestorerDesc: 'Fixiere unscharfe Bilder.' },
+        imageRestorer: {
+            title: 'AI Bild-Restaurator & Remaster',
+            desc: 'Stelle verschwommene, alte und beschädigte Fotos mit fortschrittlicher AI-Remastering-Technologie wieder her.',
+            restoreBtn: 'Jetzt Wiederherstellen',
+            remasterBtn: 'Remastering',
+            processing: 'Die KI analysiert und restauriert das Bild...',
+            enhancement: 'Detailverbesserung',
+            resolution: 'Upscaling',
+            noise: 'Rauschunterdrückung',
+            face: 'Gesichtswiederherstellung',
+            color: 'Farbkorrektur',
+            original: 'Original',
+            restored: 'Wiederhergestellt',
+            upscaleX2: '2x Vergrößerung',
+            upscaleX4: '4x Vergrößerung',
+            guide: {
+                title: 'Leitfaden zur Bildrestaurierung',
+                subtitle: 'Erwecke deine kostbaren Erinnerungen in High Definition zu neuem Leben',
+                sections: [
+                    {
+                        title: '1. Verschwommene Fotos fixieren',
+                        content: 'Unsere KI rekonstruiert verschwommene Bilder, indem sie Details aus gelernten Mustern vorhersagt. Dies funktioniert besonders gut bei Gesichtszügen.'
+                    },
+                    {
+                        title: '2. Remastering alter und beschädigter Fotos',
+                        content: 'Korrigiere Kratzer und Verblassen auf Vintage-Fotos. Die digitale Restaurierung füllt beschädigte Pixel auf und wendet eine natürliche Farbkorrektur an.'
+                    }
+                ],
+                faq: [
+                    { q: 'Können sehr kleine Bilder wiederhergestellt werden?', a: 'Ja, mit Super-Resolution-Technologie können wir kleine Bilder vergrößern, ohne dass sie pixelig werden, und gleichzeitig die Klarheit verbessern.' },
+                    { q: 'Sind meine Bilddaten privat?', a: 'Absolut. UltraUtils führt alle KI-Verarbeitungen lokal auf deinem Gerät durch; Bilder werden niemals auf einen Server hochgeladen.' }
+                ]
+            }
+        }
     },
     pl: {
         common: {
@@ -4518,6 +4912,7 @@ export const translations: Record<Language, TranslationSchema> = {
             bgRemover: 'Usuwanie tła AI',
             ytPlanner: 'Planer YouTube',
             pdfMaster: 'Mistrz PDF',
+            imageRestorer: 'AI Przywracanie',
         },
         imageMaster: {
             title: 'Kompresja i Optymalizacja',
@@ -4730,6 +5125,11 @@ export const translations: Record<Language, TranslationSchema> = {
             refineDesc: 'Użyj pędzla, aby przywrócić lub usunąć fragmenty.',
             brushRestore: 'Przywróć',
             brushErase: 'Gumka',
+            smartExtract: 'Inteligentne Wycinanie',
+            smartExtractDesc: 'Narysuj wokół obiektu, który chcesz zachować.',
+            selectObject: 'Wybierz obiekt',
+            clickToExtract: 'Dotknij obiektu, który chcesz zachować',
+            backToSelection: 'Wybierz ponownie',
             brushSize: 'Rozmiar pędzla',
             applyRefine: 'Zastosuj',
             cancelRefine: 'Anuluj',
@@ -4796,6 +5196,10 @@ export const translations: Record<Language, TranslationSchema> = {
             bgGrad: 'Grad',
             bgImg: 'Obraz',
             scaleLabel: 'Dostosuj skalę',
+            smartClick: 'Inteligentne Kliknięcie',
+            roughLasso: 'Szybkie Lasso',
+            clickPrompt: 'Kliknij obiekt',
+            lassoPrompt: 'Obrysuj obiekt',
             resetConfirmTitle: 'Zresetować wszystko?',
             resetConfirmDesc: 'Cały Twój obecny postęp zostanie utracony.',
             aspectTitle: 'Proporcje Obrazu',
@@ -4808,6 +5212,17 @@ export const translations: Record<Language, TranslationSchema> = {
             precisionDesc: 'Ręczny pędzel do idealnych poprawek.',
             proBgTitle: 'Profesjonalne Tła',
             proBgDesc: 'Zdjęcia ID i miniatury jednym kliknięciem.',
+            aiThinking: "AI analizuje tło...",
+            panView: 'Przesuń widok',
+            brush: 'Pędzel',
+            selection: 'Wybór',
+            fontGothic: 'Gothic',
+            fontSerif: 'Szeryf',
+            fontMono: 'Mono',
+            fontHandwriting: 'Pismo ręczne',
+            fontDefault: 'Domyślny',
+            smartTrim: 'Inteligentne przycinanie',
+            smoothStream: 'Gładki strumień',
             guide: {
                 title: 'Przewodnik Tła',
                 subtitle: 'Automatyczne wycinanie AI',
@@ -5091,6 +5506,40 @@ export const translations: Record<Language, TranslationSchema> = {
                 ]
             }
         },
-        houseAds: { bgRemoverTitle: 'Usuwanie Tła Pro', bgRemoverDesc: 'Precyzja AI natychmiast.', pdfMasterTitle: 'Mistrz PDF', pdfMasterDesc: 'Łącz i dziel bez stresu.', imageCompTitle: 'Kompresja Pro', imageCompDesc: 'Lekkość bez starty jakości.', ytGrabTitle: 'Miniatury HD', ytGrabDesc: 'Pobieraj i edytuj łatwo.', coffeeTitle: 'Postaw kawę', coffeeDesc: 'Wesprzyj naszą pracę.' }
+        houseAds: { bgRemoverTitle: 'Usuwanie Tła Pro', bgRemoverDesc: 'Precyzja AI natychmiast.', pdfMasterTitle: 'Mistrz PDF', pdfMasterDesc: 'Łącz i dziel bez stresu.', imageCompTitle: 'Kompresja Pro', imageCompDesc: 'Lekkość bez starty jakości.', ytGrabTitle: 'Miniatury HD', ytGrabDesc: 'Pobieraj i edytuj łatwo.', coffeeTitle: 'Postaw kawę', coffeeDesc: 'Wesprzyj naszą pracę.', imageRestorerTitle: 'AI Przywracanie', imageRestorerDesc: 'Napraw rozmyte zdjęcia.' },
+        imageRestorer: {
+            title: 'AI Przywracanie Zdjęć & Remaster',
+            desc: 'Przywracaj rozmyte, stare i uszkodzone zdjęcia dzięki zaawansowanej technologii remasteringu AI.',
+            restoreBtn: 'Przywróć Teraz',
+            remasterBtn: 'Remastering',
+            processing: 'AI analizuje i przywraca obraz...',
+            enhancement: 'Uwydatnianie Detali',
+            resolution: 'Skalowanie',
+            noise: 'Odmaskowanie',
+            face: 'Przywracanie Twarzy',
+            color: 'Korekcja Kolorów',
+            original: 'Oryginał',
+            restored: 'Przywrócone',
+            upscaleX2: 'Skalowanie 2x',
+            upscaleX4: 'Skalowanie 4x',
+            guide: {
+                title: 'Przewodnik Przywracania Zdjęć',
+                subtitle: 'Ożyw swoje cenne wspomnienia w wysokiej rozdzielczości',
+                sections: [
+                    {
+                        title: '1. Naprawianie rozmytych zdjęć',
+                        content: 'Nasze AI rekonstruuje rozmyte obrazy, przewidując szczegóły na podstawie wyuczonych wzorców. Działa wyjątkowo dobrze w przypadku rysów twarzy.'
+                    },
+                    {
+                        title: '2. Remastering starych i uszkodzonych zdjęć',
+                        content: 'Koryguj zadrapania i blaknięcie na zdjęciach vintage. Cyfrowa renowacja uzupełnia uszkodzone piksele i stosuje naturalną korekcję kolorów.'
+                    }
+                ],
+                faq: [
+                    { q: 'Czy bardzo małe zdjęcia można przywrócić?', a: 'Tak, używając technologii Super Resolution, możemy powiększać małe obrazy bez pikselizacji, jednocześnie zwiększając ich klarowność.' },
+                    { q: 'Czy moje dane obrazu są prywatne?', a: 'Absolutnie. UltraUtils wykonuje całe przetwarzanie AI lokalnie na Twoim urządzeniu; żadne obrazy nie są przesyłane na serwer.' }
+                ]
+            }
+        }
     }
 };

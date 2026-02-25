@@ -67,6 +67,14 @@ export default function Home() {
       gradient: "from-indigo-500 to-purple-500",
     },
     {
+      title: t.navbar.imageRestorer,
+      description: t.imageRestorer.desc,
+      href: "/tools/image-restorer",
+      icon: Sparkles,
+      gradient: "from-blue-400 to-indigo-500",
+      delay: "delay-[600ms]"
+    },
+    {
       title: t.pdfMaster.title,
       description: t.pdfMaster.desc,
       href: "/tools/pdf-master",

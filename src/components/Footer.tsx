@@ -26,6 +26,7 @@ export function Footer() {
                 { name: t.navbar.qrGen, href: '/tools/qr-generator' },
                 { name: t.navbar.textConv, href: '/tools/text-converter' },
                 { name: t.navbar.promptGen, href: '/tools/prompt-generator' },
+                { name: t.navbar.imageRestorer, href: '/tools/image-restorer' },
             ]
         },
         {

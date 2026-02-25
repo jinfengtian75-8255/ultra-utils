@@ -255,3 +255,32 @@
     *   `backup-file`: `JIN ZHEXUN XXX/backups/pdf_qr_pro_v1/` (핵심 로직 보관 완료)
 
 ---
+
+### [ v16 ] 2026-02-25 05:15 (모바일 & 데스크탑 UI 퍼펙트 오버홀 버전) 📱💻💎
+*   **내용:** 전 기기 대응 UI 레이아웃 최적화 및 수동 수정 도구 사용성 극대화
+*   **주요 특징:** 
+    *   **모바일 상단 바 통합**: 실행 취소, 다시 실행, 확대/축소, 팬(Pan) 도구를 상단 바 블랙 테마로 통합하여 작업 영역 간섭 0% 달성.
+    *   **지능형 바텀 시트 (Bottom Sheet)**: 모바일 수정 도구가 아래에서 부드럽게 올라오는 `translate-y` 애니메이션 방식으로 개선하고, 메뉴 닫기 시 하단 내비게이션 자동 복구 로직 탑재.
+    *   **데스크탑 콤팩트 레이아웃**: 상단 바 높이를 대폭 줄여 작업 공간을 추가 확보하고, 둥둥 떠다니던 부유형 컨트롤들을 상단 메뉴바에 깔끔하게 정렬.
+    *   **수동 수정 버튼 고도화**: 복구/자유 선택 버튼을 '완료(Done)' 토글 방식으로 변경하여 현재 작업 상태를 실시간으로 확인 및 종료 가능하도록 개선.
+    *   **클릭 차단 및 버그 완벽 해결**: 도구창이 보이지 않을 때 클릭을 방해하던 투명 레이어 문제 및 창 전환 시 내비게이션 실종 버그를 원천 해결.
+*   **기록 태그:**
+    *   `checkpoint-ui-perfection-v16`: Completed layout overhaul for both mobile and desktop.
+    *   `checkpoint-smooth-bottom-sheet`: Implemented reliable translate-based tool panels.
+    *   `checkpoint-compact-desktop-bar`: Optimized vertical screen space for professional monitors.
+    *   `backup-file`: `JIN ZHEXUN XXX/backups/ui_perfection_v16/` (page.tsx, translations.ts 보관 완료)
+
+---
+
+### [ v17 ] 2026-02-26 02:50 (AI 하이퍼 리뉴얼 & 사용자 제어형 복원 엔진) 💎🚀
+*   **내용:** 고성능 SVG 필터 기반 이미지 복원 엔진 완성 및 사용자 참여형 UX 혁신
+*   **주요 특징:** 
+    *   **하이퍼 리뉴얼 엔진**: 3단계 다중 레이어 디테일 추출(0.4px/0.8px) 및 시네마틱 톤 보정(Gamma 0.95)으로 전문가용 복구 툴 수준의 선명도와 색감 달성.
+    *   **진짜 4배 업스케일 (Real Pixel Upsampling)**: 단순히 화면만 키우는 게 아니라 캔버스 픽셀을 물리적으로 4배(면적 16배) 확장하여 렌더링하는 실질적 고해상도 엔진 탑재.
+    *   **사용자 주도형 UX (Interactive UX)**: 모든 개선 옵션의 초기값을 '꺼짐'으로 설정하여, 사용자가 실시간 미리보기를 통해 하나씩 기능을 켜보며 보정의 재미를 느끼도록 설계.
+    *   **내추럴 밸런싱 기술**: 과도한 대비와 채도를 정밀하게 제어하여 '불타는 듯한 느낌'을 해결하고, 맑은 피부톤과 머리카락 한 올까지 살아있는 디테일 동시 확보.
+*   **기록 태그:**
+    *   `checkpoint-ai-hyper-renewal-v17`: State-of-the-art SVG filter restoration engine completed.
+    *   `checkpoint-true-4x-upscaling`: Physical pixel enlargement logic for professional grade output.
+    *   `checkpoint-interactive-restoration-ux`: User-led progressive enhancement interface implementation.
+    *   `backup-file`: `JIN ZHEXUN XXX/backups/ai_renewal_v17/` (BackgroundRemoverClient.tsx 핵심 로직 보존)

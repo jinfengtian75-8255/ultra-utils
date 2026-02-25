@@ -45,6 +45,7 @@ interface AdItem {
     title: string;
     description: string;
     link: string;
+    imageUrl?: string;
     slot: AdSlot;
     startDate: string;
     endDate: string;
@@ -217,6 +218,7 @@ export default function AdminPage() {
             title: newAd.title || '',
             description: newAd.description || '',
             link: newAd.link || '',
+            imageUrl: newAd.imageUrl || '',
             slot: (newAd.slot as AdSlot) || 'top-banner',
             startDate: newAd.startDate || '',
             endDate: newAd.endDate || '',
@@ -571,14 +573,38 @@ export default function AdminPage() {
                                         <option value="bottom-banner">결과 페이지 하단</option>
                                     </select>
                                 </div>
-                                <div className="flex items-center gap-2 px-4 h-14 bg-zinc-100 dark:bg-zinc-800 rounded-2xl border border-transparent focus-within:border-primary/50 transition-all">
-                                    <LinkIcon className="w-5 h-5 text-zinc-400" />
-                                    <input
-                                        placeholder="타겟 URL (https://...)"
-                                        className="bg-transparent border-none outline-none w-full font-medium"
-                                        value={newAd.link || ''}
-                                        onChange={e => setNewAd({ ...newAd, link: e.target.value })}
-                                    />
+                                <div className="space-y-4">
+                                    <div className="flex items-center gap-2 px-4 h-14 bg-zinc-100 dark:bg-zinc-800 rounded-2xl border border-transparent focus-within:border-primary/50 transition-all">
+                                        <Monitor className="w-5 h-5 text-zinc-400" />
+                                        <input
+                                            placeholder="광고 이미지 URL (외부 이미지 주소)"
+                                            className="bg-transparent border-none outline-none w-full font-medium"
+                                            value={newAd.imageUrl || ''}
+                                            onChange={e => setNewAd({ ...newAd, imageUrl: e.target.value })}
+                                        />
+                                    </div>
+                                    {newAd.imageUrl && (
+                                        <div className="relative aspect-video rounded-2xl overflow-hidden border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 flex items-center justify-center">
+                                            <img
+                                                src={newAd.imageUrl}
+                                                alt="Preview"
+                                                className="w-full h-full object-contain"
+                                                onError={(e) => {
+                                                    (e.target as HTMLImageElement).src = 'https://placehold.co/600x400?text=Invalid+Image+URL';
+                                                }}
+                                            />
+                                            <div className="absolute top-2 right-2 bg-black/50 text-white text-[8px] px-2 py-1 rounded-full backdrop-blur-md">PRV</div>
+                                        </div>
+                                    )}
+                                    <div className="flex items-center gap-2 px-4 h-14 bg-zinc-100 dark:bg-zinc-800 rounded-2xl border border-transparent focus-within:border-primary/50 transition-all">
+                                        <LinkIcon className="w-5 h-5 text-zinc-400" />
+                                        <input
+                                            placeholder="타겟 URL (클릭 시 이동할 주소)"
+                                            className="bg-transparent border-none outline-none w-full font-medium"
+                                            value={newAd.link || ''}
+                                            onChange={e => setNewAd({ ...newAd, link: e.target.value })}
+                                        />
+                                    </div>
                                 </div>
                             </div>
 
@@ -659,8 +685,12 @@ export default function AdminPage() {
                                 <div key={ad.id} className="glass-card p-8 rounded-[2.5rem] border border-zinc-100 dark:border-zinc-800 group hover:shadow-2xl transition-all">
                                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-8">
                                         <div className="flex items-start gap-6">
-                                            <div className="w-20 h-20 rounded-2xl bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center text-zinc-400 group-hover:bg-primary group-hover:text-white transition-all transform group-hover:rotate-3 shadow-inner">
-                                                {ad.slot.includes('sidebar') ? <Monitor className="w-8 h-8" /> : <Layout className="w-8 h-8" />}
+                                            <div className="w-24 h-24 rounded-2xl bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center text-zinc-400 group-hover:bg-primary group-hover:text-white transition-all transform group-hover:rotate-3 shadow-inner overflow-hidden border border-zinc-200 dark:border-zinc-800">
+                                                {ad.imageUrl ? (
+                                                    <img src={ad.imageUrl} alt={ad.title} className="w-full h-full object-cover" />
+                                                ) : (
+                                                    ad.slot.includes('sidebar') ? <Monitor className="w-8 h-8" /> : <Layout className="w-8 h-8" />
+                                                )}
                                             </div>
                                             <div className="space-y-2">
                                                 <div className="flex items-center gap-3">
