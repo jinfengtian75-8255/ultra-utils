@@ -1,0 +1,13 @@
+c32eace feat: AI Hyper Renewal Engine with Interactive UX and 4x Real Pixel Upscaling
+ef4aaa1 feat: upgrade PDF Master to PRO (5-in-1) and optimize QR PRO preview layout
+7b6ed4d checkpoint-v11-organic-seo-complete: Saving stable state before code cleanup
+06fc5db v10: Complete 7-language localization and dynamic OG image engine
+b497d10 feat: upgrade AI Background Remover and YouTube Thumbnail Extractor Pro features
+5889fd8 feat: Enhance marketing (SEO, Social, PWA) and Implement House Ad system
+8fea35f feat: complete AI creative studio with batch mode, templates, and multi-language support (v6)
+451d1cb feat: optimize mobile UI for bg-remover and fix global scroll issues
+f2f983e Add FeedbackWidget, Update Dynamic Ad Slots, and Fix Ad Fallback Logic
+8cf0ef3 Final backup: Ad Dashboard Enhancements, Referrer Tracking, and Command Guide
+00c820a Backup_AdSense_Premium_UI_Restore
+68c5f32 feat: integrate real-time cloud analytics and firebase sync
+46d375d Initial commit for UltraUtils

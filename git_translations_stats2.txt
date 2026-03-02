@@ -1,0 +1,45 @@
+c32eace
+  ko: 1
+  en: 1
+  zh: 1
+  ja: 1
+  es: 1
+  de: 1
+  pl: 1
+  megaMenu: 0
+ef4aaa1
+  ko: 1
+  en: 1
+  zh: 1
+  ja: 1
+  es: 1
+  de: 1
+  pl: 1
+  megaMenu: 0
+06fc5db
+  ko: 1
+  en: 1
+  zh: 1
+  ja: 1
+  es: 1
+  de: 1
+  pl: 1
+  megaMenu: 0
+bb6c2ce
+  ko: 1
+  en: 1
+  zh: 1
+  ja: 0
+  es: 0
+  de: 0
+  pl: 0
+  megaMenu: 0
+b497d10
+  ko: 1
+  en: 1
+  zh: 1
+  ja: 0
+  es: 0
+  de: 0
+  pl: 0
+  megaMenu: 0

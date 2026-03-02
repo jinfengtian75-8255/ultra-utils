@@ -1,0 +1,5 @@
+src_backup_v19_translation_start/lib/translations.ts -> size: 266405, ko: 0, megaMenu: 15
+JIN ZHEXUN XXX/backups/smart_mobile_v1/translations.ts -> size: 260821, ko: 1, megaMenu: 0
+JIN ZHEXUN XXX/backups/pdf_qr_pro_v1/translations.ts -> size: 264925, ko: 1, megaMenu: 0
+JIN ZHEXUN XXX/backups/v18_안정화_번역전/lib/translations.ts -> size: 277129, ko: 1, megaMenu: 16
+src/lib/translations.ts.v5_final -> size: 87334, ko: 1, megaMenu: 0

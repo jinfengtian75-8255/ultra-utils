@@ -1,0 +1,799 @@
+{
+        imageRestorer: {
+            title: "이미지 복원기",
+            desc: "손상된 이미지를 AI로 복원합니다.",
+        },
+        revenueCalc: {
+            title: "수익 계산기",
+            desc: "예상 유튜브 수익을 계산합니다.",
+            views: "일일 조회수",
+            cpm: "예상 CPM ($)",
+            resultDaily: "일일 예상 수익",
+            resultMonthly: "월간 예상 수익",
+            resultYearly: "연간 예상 수익",
+            growthTip: "💡 성장을 위한 수익화 팁",
+            guide: {
+                title: "수익화 가이드",
+                subtitle: "더 많은 수익을 창출하는 방법",
+                sections: [
+                    { title: "조회수 늘리기", content: "알고리즘을 활용한 노출 증대 방법" }
+                ],
+                faq: [
+                    { q: "CPM이 무엇인가요?", a: "1000회 노출당 예상 광고 수익입니다." }
+                ]
+            }
+        },
+        screenRecorder: {
+            title: "화면 녹화기",
+            desc: "설치 없이 브라우저에서 화면을 녹화하세요.",
+            ready: "녹화 준비",
+            startBtn: "녹화 시작",
+            stopBtn: "녹화 종료",
+            downloadBtn: "동영상 다운로드",
+            webcam: "웹캠 화면 포함",
+            mic: "마이크 소리 포함",
+            guide: {
+                title: "녹화 가이드",
+                subtitle: "고화질로 화면을 기록하는 팁",
+                sections: [
+                    { title: "오디오 설정", content: "시스템 소리와 마이크 소리의 차이점" }
+                ],
+                faq: [
+                    { q: "녹화 시간에 제한이 있나요?", a: "제한은 없지만 컴퓨터의 메모리에 저장됩니다." }
+                ]
+            }
+        },
+        megaMenu: {
+            title: "모든 도구 보기",
+            subtitle: "10가지 이상의 무료 유틸리티를 경험해보세요",
+            searchPlaceholder: "원하는 도구를 검색하세요...",
+            noResults: "검색 결과가 없습니다",
+            totalTools: "개의 도구가 준비되어 있습니다"
+        },
+        allTools: '모든 도구',
+
+        common: {
+            total: "0",
+            settings: 'Settings',
+            download: 'Download',
+            processing: 'Processing...',
+            apply: 'Apply',
+            cancel: 'Cancel',
+            error: 'Error',
+            success: 'Success',
+            selectImage: 'Select Image',
+            dropHere: 'Drop your image here',
+            orClick: 'or click to browse from files',
+            shareResult: 'Share Result',
+            copiedLink: 'Link copied to clipboard!',
+            trySample: 'Try with a sample image',
+            copyImage: 'Copy Image',
+            imageCopied: 'Image copied to clipboard!',
+            imageCopyError: 'Failed to copy image.',
+        },
+        navbar: {
+            title: 'UltraUtils',
+            home: 'Home',
+            imageSuite: 'Image Suite',
+            promptGen: 'Prompt Gen',
+            ytGrab: 'YT Grabber',
+            qrGen: 'QR Generator',
+            textConv: 'Text Conv',
+            bgRemover: 'AI Remover',
+            ytPlanner: 'YT Planner',
+            pdfMaster: 'PDF Master',
+            imageRestorer: 'Image Restorer',
+            screenRecorder: 'Screen Recorder',
+            revenueCalc: 'Revenue Calc',
+            allTools: 'All Tools',
+            megaMenu: 'All Utilities',
+        },
+        imageMaster: {
+            title: 'Image Master Suite: Professional Online Image Optimization',
+            desc: 'Reduce file size without losing quality and maximize web performance. AI-driven smart algorithms preserve image clarity.',
+            quality: 'Compression Quality',
+            size: 'Resize Options',
+            width: 'Width (px)',
+            height: 'Height (px)',
+            smartEnhance: 'AI Smart Enhance',
+            smartEnhanceDesc: 'AI analyzes and restores fine details and textures that might be lost during compression in real-time.',
+            original: 'Original Image',
+            optimized: 'Optimized Image',
+            saveMsg: '{percent}% disk space saved compared to original',
+            applyOptimize: 'Optimize Now',
+            downloadOptimized: 'Save Optimized Image',
+            guide: {
+                title: 'Master Guide for Image Compression and Web Performance',
+                subtitle: 'Why optimize images? Key tips from SEO experts',
+                sections: [
+                    {
+                        title: '1. Impact of Image Compression on Web Speed and SEO',
+                        content: 'Page loading speed is a critical ranking factor in today\'s search results. Did you know that more than half of an average website\'s size comes from image files? Using Image Master Suite, you can reduce file sizes by up to 80-90% with almost no visible loss in quality. This directly helps improve Google search rankings by increasing user stay time and reducing bounce rates.'
+                    },
+                    {
+                        title: '2. JPEG vs PNG: Choosing the Right Format',
+                        content: 'Not all images are compressed the same way. For portraits or complex landscapes, JPEG is usually most efficient. For graphics with transparency, logos, or text, we recommend PNG. Our tool supports both and applies optimized algorithms for each format.'
+                    },
+                    {
+                        title: '3. Why AI Smart Enhance is Special',
+                        content: 'Generic compression tools often result in blurry images. UltraUtils\' Smart Enhance uses deep learning to protect edges and maintain textures. Enable this for professional portfolios or e-commerce results to get the highest quality output.'
+                    },
+                    {
+                        title: '4. Web Accessibility and Image Optimization',
+                        content: 'High-capacity images can be a major barrier for users on slow internet or mobile devices. Providing a smooth experience for all users is a fundamental web standard. Image Master is an essential first step towards ensuring equal digital access for everyone.'
+                    }
+                ],
+                faq: [
+                    { q: 'How much does quality drop when compressing?', a: 'At the default 80-90% quality, it is almost impossible to tell the difference with the naked eye. We recommend this range for most purposes.' },
+                    { q: 'Can I process multiple images at once?', a: 'Currently, we offer one-by-one processing for the most precise optimization. A bulk processing feature is planned for a future update.' },
+                    { q: 'Is there a risk of my photos being leaked from the server?', a: 'Absolutely not. All image processing in UltraUtils happens entirely within your browser memory. All information is automatically destroyed as soon as you close the page.' }
+                ]
+            }
+        },
+        promptGen: {
+            title: 'AI Prompt Generator',
+            desc: 'Craft the perfect prompts for Suno, Midjourney, and more.',
+            platform: 'Platform',
+            genre: 'Genre / Style',
+            subject: 'Subject',
+            subjectPlaceholder: 'What is this about?',
+            details: 'Details / Description',
+            detailsPlaceholder: 'Add style, lighting, instruments, or any specific details...',
+            outputTitle: 'Generated Prompt',
+            copy: 'Copy',
+            copied: 'Copied!',
+            placeholder: 'Prompt will appear here...',
+            platforms: {
+                midjourney: 'Midjourney',
+                suno: 'Suno',
+                stableDiffusion: 'Stable Diffusion',
+            },
+            genres: {
+                'K-Pop': 'K-Pop',
+                'Lofi': 'Lofi',
+                'Jazz': 'Jazz',
+                'Rock': 'Rock',
+                'Electronic': 'Electronic',
+                'Acoustic': 'Acoustic',
+                'Cinematic': 'Cinematic',
+                'Anime': 'Anime',
+                'Cyberpunk': 'Cyberpunk',
+                'Minimalist': 'Minimalist',
+                '3D Render': '3D Render',
+                'Oil Painting': 'Oil Painting',
+            },
+            guide: {
+                title: 'AI Prompt Master Guide',
+                subtitle: 'How to write perfect prompts for Midjourney and Suno',
+                sections: [
+                    {
+                        title: 'Midjourney Pro Tips',
+                        content: 'Add style (e.g. Cinematic) and details (e.g. 8k, highly detailed) after the subject. Use parameters like --ar 16:9 for the best composition.'
+                    },
+                    {
+                        title: 'Suno Music Generation',
+                        content: 'Use brackets [K-Pop, Jazz] for genres. Including mood and specific instruments in the details helps create much better songs.'
+                    }
+                ],
+                faq: [
+                    { q: 'Why is prompt structure important?', a: 'AI quality depends on specificity. A clear structure helps the AI understand your intent precisely, leading to better creative outputs.' },
+                    { q: 'Can I use these for other AIs?', a: 'Yes! The base prompts generated here work great with DALL-E, Stable Diffusion, and most other generative AI platforms.' }
+                ]
+            }
+        },
+        ytGrab: {
+            title: 'High-Quality YouTube Thumbnail Grabber & Analysis Tool',
+            desc: 'Get 4K/Full HD YouTube thumbnails and Shorts backgrounds in one click. The fastest way with no signup or installation required.',
+            placeholder: 'Paste YouTube URL (e.g., https://www.youtube.com/watch?v=...)',
+            getBtn: 'Grab HD Thumbnail',
+            invalidUrl: 'The URL format entered is invalid. Please check again.',
+            fetching: 'Fetching thumbnail data from YouTube servers...',
+            downloadHd: 'Download Max Res (HD)',
+            editBtn: 'AI Background Remover',
+            simulatorTitle: 'YouTube Home Simulator',
+            simulatorSubtitle: 'Preview how it looks in feed',
+            simulatorDesc: 'This feature simulates mobile exposure on the actual YouTube home screen.\nCheck how visible your thumbnail is among other competing videos.',
+            safeZoneBtn: 'Check Safe Zone',
+            shortsSafeZoneBtn: 'Check Shorts UI',
+            colorPalette: 'Color Palette',
+            closeBtn: 'Close',
+            guide: {
+                title: 'Professional Guide to YouTube Thumbnail Extraction and Use',
+                subtitle: 'Copyright and technical tips for creators and marketers',
+                sections: [
+                    {
+                        title: '1. 5 Common Scenarios for Using a Thumbnail Grabber',
+                        content: 'Professional creators use thumbnail grabbers for more than just saving images:\n• Analyzing design elements of competitor channels\n• Recovering your own thumbnail source files if lost\n• Using high-quality images when quoting YouTube videos in blogs or news\n• Creating card news for social media sharing\n• Capturing attractive frames from YouTube Shorts'
+                    },
+                    {
+                        title: '2. Guaranteed 4K and Full HD Resolution',
+                        content: 'Our tool prioritizes `maxresdefault.jpg`, the highest resolution provided by the YouTube API. If the creator uploaded an HD thumbnail, you can get a crisp 1080p+ original image. For older or lower-quality videos, we automatically provide the best possible alternative like `hqdefault`.'
+                    },
+                    {
+                        title: '3. Full Support for YouTube Shorts',
+                        content: 'We perfectly support Shorts videos which have a different URL structure. Just copy and paste the `youtube.com/shorts/...` address. We extract the high-quality thumbnail while maintaining the unique vertical aspect ratio.'
+                    },
+                    {
+                        title: '4. Copyright and Fair Use Guide',
+                        content: 'Extracted thumbnails are the intellectual property of the original creator. Redistributing or modifying them for commercial use without permission may lead to legal issues. We recommend using them within the bounds of \'Fair Use\' for personal reference, criticism, education, or news reporting. Always seek permission from the creator when in doubt.'
+                    }
+                ],
+                faq: [
+                    { q: 'Why don\'t I see the "Max Res" download button?', a: 'If the video quality isn\'t high enough or the uploader didn\'t set a high-resolution thumbnail, the YouTube system doesn\'t generate that file. In this case, please use the standard high-quality (SD) images below.' },
+                    { q: 'Is it safe to download these images to my computer?', a: 'Yes, it fetches directly from official YouTube image servers to your browser, so there is no risk of malware.' },
+                    { q: 'Can I remove the background right after grabbing?', a: 'Yes! Click the \'AI Background Remove\' button below the result to instantly enter edit mode where you can remove the background from subjects.' }
+                ]
+            }
+        },
+        qrGen: {
+            title: 'Free Premium QR Code Generator',
+            desc: 'Create custom QR codes for business, social media, and Wi-Fi. Supports high-resolution images and vector formats.',
+            target: 'Enter URL or Text to Link',
+            fgColor: 'Accent Color',
+            bgColor: 'Background Color',
+            size: 'Output Resolution',
+            downloadPng: 'Download High-Res PNG',
+            downloadSvg: 'Download Vector SVG',
+            vectorReady: 'Preparing high-resolution vector output...',
+            uploadLogo: 'Upload Custom Logo',
+            logoSize: 'Adjust Logo Size',
+            removeLogo: 'Remove Logo',
+            templates: 'Business Templates',
+            styles: 'QR Style Settings',
+            frames: 'Frames & Labels',
+            frameText: 'Label Text',
+            presets: {
+                instagram: 'Instagram',
+                youtube: 'YouTube',
+                link: 'Website',
+                wifi: 'Wi-Fi Connection',
+            },
+            guide: {
+                title: 'Professional QR Code Marketing Strategies',
+                subtitle: 'Level up your business with smart QR utilization',
+                sections: [
+                    {
+                        title: '1. Tips for Maximum Scan Reliability',
+                        content: 'The key to a great QR code is contrast. Ensure your accent color is dark enough against a light background. Our tool uses standard error correction levels to maintain readability even if the code is slightly distorted or partially obscured.'
+                    },
+                    {
+                        title: '2. Creative Offline Use Cases',
+                        content: '• Smart Business Cards: Link directly to your portfolio.\n• Contactless Menus: Perfect for modern restaurants.\n• Event Access: Streamline check-ins with scanned tickets.\n• One-Tap Wi-Fi: No more typing long passwords.'
+                    },
+                    {
+                        title: '3. Static vs Dynamic QR Codes',
+                        content: 'The codes generated here are \'Static,\' meaning the data is encoded directly into the pattern. They work offline, never expire, and require no subscription. Just verify your URL before printing!'
+                    }
+                ],
+                faq: [
+                    { q: 'Why won\'t my QR code scan?', a: 'Common issues include low color contrast, printing the code too small, or not leaving enough empty space (Quiet Zone) around the edges.' },
+                    { q: 'Can I use these for commercial purposes?', a: 'Yes, all QR codes generated are 100% royalty-free and can be used for any commercial project.' }
+                ]
+            }
+        },
+        textConverter: {
+            title: 'All-in-One Text Suite: Professional Tools for Data & Content',
+            desc: 'From case conversion to data cleanup and encoding, handle all your text processing needs. Essential for developers and analysts.',
+            inputPlaceholder: 'Paste your text or data here for analysis...',
+            statsCharacters: 'Total Characters',
+            statsWords: 'Word Count',
+            statsLines: 'Line Count',
+            categoryCase: 'Case Conversion',
+            categoryCleanup: 'Cleanup & Formatting',
+            categoryWeb: 'Web & Encoding',
+            categoryData: 'Sorting & Filters',
+            btnUppercase: 'UPPERCASE',
+            btnLowercase: 'lowercase',
+            btnCapitalize: 'Capitalize Case',
+            btnTrim: 'Trim Spaces',
+            btnRemoveEmpty: 'Remove Empty Lines',
+            btnRemoveDupes: 'Remove Duplicate Lines',
+            btnRemoveDupesWords: 'Remove Duplicate Words',
+            btnUrlEncode: 'URL Encode',
+            btnUrlDecode: 'URL Decode',
+            btnBase64Encode: 'Base64 Encode',
+            btnBase64Decode: 'Base64 Decode',
+            btnJsonFormat: 'Format JSON',
+            btnSortAz: 'Sort A-Z',
+            btnSortZa: 'Sort Z-A',
+            btnCopy: 'Copy Result',
+            btnCopied: 'Copied to Clipboard!',
+            btnClear: 'Clear All',
+            guide: {
+                title: 'Pro Tips for Efficient Text Processing',
+                subtitle: 'Increase your productivity with advanced editing features',
+                sections: [
+                    {
+                        title: '1. Improving Data Quality with Cleanup Tools',
+                        content: 'When copying data from spreadsheets or websites, unwanted duplicates and whitespace can ruin your analysis. Use our "Remove Duplicates" and "Trim" tools to get clean raw data instantly.'
+                    },
+                    {
+                        title: '2. Encoding Utilities for Developers',
+                        content: 'Quickly verify URL parameters or Base64 strings without setting up a local environment. Everything is processed instantly in your browser.'
+                    },
+                    {
+                        title: '3. JSON Prettify for Readability',
+                        content: 'Transform messy, minified JSON into a readable structure. Essential for debugging API responses and code reviews.'
+                    }
+                ],
+                faq: [
+                    { q: 'Is there a limit on text size?', a: 'Our tool can handle thousands of lines efficiently. Since processing is local, it\'s limited only by your device memory.' },
+                    { q: 'Is my data secure?', a: 'Yes. We never send your text to any server. All transformations happen locally in your browser.' }
+                ]
+            }
+        },
+        bgRemover: {
+            roughLasso: "",
+            smartTrim: "",
+            smartClick: "",
+            clickPrompt: "",
+            lassoPrompt: "",
+            aiThinking: "",
+            panView: "",
+            smoothStream: "",
+            brush: "",
+            selection: "",
+            smartExtract: "",
+            fontGothic: "",
+            fontSerif: "",
+            fontMono: "",
+            fontHandwriting: "",
+            fontDefault: "",
+            title: 'AI Background Remover',
+            desc: 'Instantly remove backgrounds from your photos using AI.',
+            preparing: 'Preparing AI...',
+            processing: 'Removing background...',
+            modelLoading: 'Loading AI Engine (~20MB)...',
+            downloadReady: 'Download Transparent Image',
+            dropMsg: 'Drop your photo here',
+            comparison: 'Before & After',
+            stepFetch: 'Preparing image...',
+            stepModel: 'Loading AI model...',
+            stepInference: 'Removing background...',
+            refineTitle: 'Manual Refine Mode',
+            refineDesc: 'Use the brush to restore parts or erase more.',
+            brushRestore: 'Restore',
+            brushErase: 'Erase',
+            brushSize: 'Brush Size',
+            applyRefine: 'Apply Changes',
+            cancelRefine: 'Cancel',
+            stickerEffect: 'Sticker Effect',
+            stickerColor: 'Sticker Color',
+            backgroundColor: 'Background Color',
+            bgTransparent: 'Transparent',
+            bgSolid: 'Solid Color',
+            bgGradient: 'Gradient',
+            bgImage: 'Custom BG',
+            undo: 'Undo',
+            redo: 'Redo',
+            reset: 'Reset',
+            zoom: 'Zoom',
+            idPhoto: 'ID Photo Master',
+            passport: 'Passport (3.5x4.5cm)',
+            usVisa: 'US Visa (2x2in)',
+            idCard: 'ID Card (3x4cm)',
+            bgLibrary: 'AI Background Library',
+            uploadCustomBg: 'Upload Custom BG',
+            addText: 'Add Text',
+            deleteText: 'Delete',
+            deleteImage: 'Delete Image',
+            resetPos: 'Reset Pos',
+            subjectScale: 'Scale',
+            brightness: 'Brightness',
+            contrast: 'Contrast',
+            saturation: 'Saturation',
+            rotation: 'Rotation',
+            flipH: 'Flip H',
+            flipV: 'Flip V',
+            opacity: 'Opacity',
+            shadow: 'Shadow',
+            tabTransform: 'Transform',
+            tabEnhance: 'Enhance',
+            tabStyling: 'Styling',
+            alignment: 'Alignment',
+            centerH: 'Center H',
+            centerV: 'Center V',
+            bringToFront: 'Bring to Front',
+            sendToBack: 'Send to Back',
+            filterPresets: 'Filters & Presets',
+            filterOriginal: 'Original',
+            filterBW: 'B&W',
+            filterSepia: 'Sepia',
+            filterWarm: 'Warm',
+            filterCool: 'Cool',
+            filterVintage: 'Vintage',
+            textEditing: 'Text Editor',
+            textPlaceholder: 'Enter text...',
+            textSize: 'Size',
+            stickerWidth: 'Border Width',
+            shortsCrop: '9:16 Shorts',
+            share: 'Share',
+            shareText: 'AI Creative Studio! ⚡',
+            photoMode: 'Photo Mode',
+            studio: 'Studio',
+            original: 'Original',
+            result: 'Result',
+            compare: 'Compare',
+            scale: 'Scale',
+            bgTrsp: 'Trsp',
+            bgClr: 'Color',
+            bgGrad: 'Grad',
+            bgImg: 'Image',
+            scaleLabel: 'Adjust Scale',
+            resetConfirmTitle: 'Reset everything?',
+            resetConfirmDesc: 'All your current progress will be lost.',
+            aspectTitle: 'Aspect Ratio',
+            aspectSquare: '1:1 Square',
+            aspectSocial: '4:5 Social',
+            aspectTV: '16:9 TV/Wide',
+            edgeTitle: 'Edge Perfect',
+            edgeDesc: 'Advanced AI preserves every fine detail.',
+            precisionTitle: 'Precision Control',
+            precisionDesc: 'Manual brush for perfect refinements.',
+            proBgTitle: 'Pro Backgrounds',
+            proBgDesc: 'One-click ID photos and thumbnails.',
+            guide: {
+                title: 'AI Background Removal & Cutout Guide',
+                subtitle: 'Remove complex backgrounds in just 5 seconds using AI',
+                sections: [
+                    {
+                        title: '1. Flawless Cutouts with AI Contrast Mastery',
+                        content: 'The key to perfect AI background removal is clearly defined boundaries. For portraits, if you want to preserve every strand of hair, try using images with high color contrast between the subject and the background. Our tool uses state-of-the-art deep learning models to deliver professional accuracy even in complex scenes, but higher contrast exponentially increases the final sharpness.'
+                    },
+                    {
+                        title: '2. Pro-Level Details with Manual Refine Mode',
+                        content: 'If there are parts the AI missed or over-erased, simply activate the "Manual Refine Mode" at the top. Using precision brush technology with zero-delay canvas rendering, you can perfectly restore or erase specific areas. This is especially useful for transparent objects, fine fabric, or pets with complex fur.'
+                    },
+                    {
+                        title: '3. Commercial Standards & Custom Sticker Effects',
+                        content: 'Don\'t just stop at transparency. UltraUtils provides automatic standard sizing for ID and passport photos, and lets you add a "Sticker Effect" (white border) to make your subjects pop—perfect for custom merchandise design or eye-catching YouTube thumbnails. Adjust border thickness and color to create your own signature style.'
+                    },
+                    {
+                        title: '4. Absolute Privacy with Serverless Local Processing',
+                        content: 'Worried about your photos being leaked to a server? UltraUtils performs all computations locally within your browser. Not a single byte of your image data is ever uploaded to a server, making it the safest choice for processing sensitive business documents or private personal photos.'
+                    }
+                ],
+                faq: [
+                    { q: 'Does removing the background reduce image quality?', a: 'No. We maintain the original resolution of your image while only converting the background information into a transparent Alpha Channel. We use high-quality PNG export to preserve every pixel.' },
+                    { q: 'Where can I use these transparent images?', a: 'They are perfect for YouTube thumbnail composites, e-commerce product listings, Instagram story stickers, professional ID photos, and any graphic design project.' },
+                    { q: 'Can I process multiple images at once?', a: 'Currently, we focus on high-precision single image processing. A bulk batch processing feature is planned for a future update.' },
+                    { q: 'What should I do if the AI fails to identify the subject?', a: 'This usually happens if the subject is too small or blends perfectly into the background. Try another photo where the subject is centered and clearly distinguishable from its surroundings.' }
+                ]
+            }
+        },
+        pdfMaster: {
+            title: 'PDF Master PRO',
+            desc: 'The ultimate all-in-one PDF toolkit. Merge, Split, Convert, and Secure your documents with ease.',
+            merge: 'Merge Files',
+            split: 'Split Pages',
+            toImage: 'Convert to Image',
+            rotate: 'Rotate Pages',
+            protect: 'Set Password',
+            uploadMsg: 'Drag and drop PDF files or click to browse',
+            filesSelected: 'files selected',
+            mergeNow: 'Create Merged PDF',
+            splitNow: 'Split All Pages',
+            rotateNow: 'Apply 90° Rotation',
+            protectNow: 'Encrypt Document',
+            downloadMerged: 'Download Result',
+            downloadSplit: 'Download All (ZIP)',
+            addMore: 'Add Files',
+            clear: 'Clear List',
+            pageRange: 'Page Range (e.g., 1-5, 10)',
+            password: 'Enter Password',
+            options: 'Advanced Options',
+            processingMsg: 'Processing PDF with high-performance engine...',
+            successMsg: 'Task completed successfully!',
+            guide: {
+                title: 'PDF Master Mastery Guide',
+                subtitle: 'Manage and edit PDF files like a professional',
+                sections: [
+                    {
+                        title: '1. Advanced PDF Merging & Metadata Optimization',
+                        content: 'Managing fragmented documents is a core part of any workflow. UltraUtils PDF Master allows you to combine multiple PDF files while maintaining a custom order and normalizing metadata for a stable output.'
+                    },
+                    {
+                        title: '2. Precision Page Splitting & Extraction',
+                        content: 'Need specific chapters from a massive document? Use the split feature to separate every page individually or pick exact ranges to create a new, targeted file.'
+                    },
+                    {
+                        title: '3. Security First: Encrypt & Protect',
+                        content: 'Shield your sensitive contracts or private documents with professional-grade passwords. Encryption happens inside your browser, ensuring your password never leaves your device.'
+                    },
+                    {
+                        title: '4. Absolute Privacy: 100% Local Processing',
+                        content: 'Worried about uploading sensitive PDFs? UltraUtils performs all calculations right in your browser. Not even 1KB of your data is sent to an external server.'
+                    }
+                ],
+                faq: [
+                    { q: 'Is there a limit to the number of files I can merge?', a: 'Technically no, but for optimal performance we recommend under 50 files or 100MB total. It depends on your device\'s RAM.' },
+                    { q: 'Can I choose specific pages to extract?', a: 'Yes! In the Split tab, you can enter a page range like "1-5, 8, 12" to extract only those specific pages into a new PDF.' },
+                    { q: 'Is the password protection secure?', a: 'Yes, we use standard PDF 128-bit AES encryption. Since it happens locally, your password is never seen by anyone else.' },
+                    { q: 'Where are my files saved?', a: 'Files are saved directly to your default downloads folder as soon as processing is complete.' }
+                ]
+            }
+        },
+        home: {
+            badge: 'All tools are free & privacy-focused',
+            titlePrefix: 'Digital Superpowers for',
+            titleSuffix: 'Modern Creators',
+            desc: 'A curated collection of high-performance utility tools.',
+            descLine2: 'No sign-ups, no paywalls, just pure functionality.',
+            launchTool: 'Launch Tool',
+            missionTitle: 'Privacy-First, High-Performance Utilities',
+            missionDesc1: 'Welcome to UltraUtils, your premium destination for high-performance, privacy-focused digital utilities. In an era where online tools often compromise user data or hide behind complex paywalls, we stand for a different approach: 100% free, entirely local, and professionally designed.',
+            missionDesc2: 'Our mission is to empower creators, developers, and everyday users with tools that work directly in the browser. Whether you need to remove backgrounds with AI, optimize images for SEO, or manage complex PDF documents, our suite of tools handles the heavy lifting without ever uploading your sensitive files to a server.',
+            features: {
+                privacy: { title: 'Privacy', desc: 'No server uploads' },
+                speed: { title: 'Speed', desc: 'Local processing' },
+                global: { title: 'Global', desc: 'Multi-language' },
+                free: { title: 'Free', desc: 'No hidden fees' }
+            },
+            footerNote: {
+                title: 'Professional Tools for Everyone',
+                subtitle: 'Discover why thousands of users trust UltraUtils for their daily digital workflows.',
+                media: { title: 'Media Suite', desc: 'High-quality YouTube thumbnail extraction and AI-powered background removal. Perfect for YouTubers and content creators.' },
+                data: { title: 'Data & Text', desc: 'Advanced text conversion, formatting, and cleanup tools. Essential for data analysts and developers.' },
+                design: { title: 'Design Assets', desc: 'Professional QR code generation with custom styling and high-resolution output. Ideal for businesses.' }
+            },
+            growthTips: {
+                title: 'Expert Tips for Digital Growth',
+                subtitle: 'Learn how to utilize each tool to 200% capacity to accelerate your traffic.',
+                tips: [
+                    {
+                        title: 'YouTube Thumbnail Strategy',
+                        desc: 'Analyze competitor thumbnails and test how they look in real feeds before publishing.',
+                        tool: 'YT Grabber',
+                        href: '/tools/youtube-thumbnail'
+                    },
+                    {
+                        title: 'SEO Optimization Workflow',
+                        desc: 'Remove backgrounds and compress immediately to create Google-ready images.',
+                        tool: 'Image Master',
+                        href: '/tools/image-compressor'
+                    },
+                    {
+                        title: 'AI Creative Boost',
+                        desc: 'Turn your creative ideas into reality with our professional prompt generator.',
+                        tool: 'Prompt Gen',
+                        href: '/tools/prompt-generator'
+                    }
+                ]
+            },
+            nextStep: 'Recommended Next Step',
+            suggestNext: 'We recommend these tools to boost your workflow',
+            installPwa: 'Install UltraUtils App',
+            installPwaDesc: 'Add to your home screen for faster and easier access to all tools.',
+            installBtn: 'Install Now',
+            recentTools: 'Recently Used'
+        },
+        advertise: {
+            title: 'Advertise with Us',
+            desc: 'Showcase your product to the global creator community on UltraUtils.',
+            slotsTitle: 'Available Ad Slots',
+            formTitle: 'Send an Inquiry',
+            name: 'Name / Company',
+            namePlaceholder: 'Jane Doe / Acme Corp',
+            email: 'Email Address',
+            emailPlaceholder: 'jane@example.com',
+            dates: 'Desired Dates',
+            datesPlaceholder: 'e.g., 2026-03-01 ~ 2026-03-15',
+            message: 'Message (Ad link, etc.)',
+            messagePlaceholder: 'Tell us about your product or share an ad link...',
+            submit: 'Send Inquiry',
+            success: 'Inquiry sent successfully. We will contact you soon!',
+            backToForm: 'Back to Form',
+            submitError: 'Submission failed. Please try again.',
+            slotTop: 'Top Premium Banner',
+            slotTopDesc: '728x90 Banner - Prime visibility at the very top of all tool pages. Maximize your brand awareness.',
+            slotHome: 'Home Feed Banner',
+            slotHomeDesc: 'Native placement within the tool grid on the homepage. Perfect for high engagement.',
+            slotSide: 'Side Skyscraper (Sticky)',
+            slotSideDesc: '160x600 Skyscraper - Sticky sidebar placement for prolonged brand exposure.',
+            slotBottom: 'Bottom Fixed Banner',
+            slotBottomDesc: '728x90 Banner - High intent placement at the bottom of every tool page.',
+            pricePremium: 'Premium',
+            priceHighCTR: 'High CTR',
+            priceConversion: 'Conversion',
+            benefits: [
+                '100k+ Monthly Active Users',
+                'High engagement from YouTube Creators',
+                'Bilingual reach (Global & Local)',
+                'Transparent performance reports'
+            ],
+            partnerMsg: 'Partnering with UltraUtils means connecting with the next generation of digital builders.',
+            faqTitle: 'Advertising FAQ',
+            faqDesc: 'Frequently asked questions about advertising on UltraUtils',
+            faq: [
+                { q: 'How is the ad rate determined?', a: 'Pricing is based on slot placement and duration. Contact us for a custom quote based on current traffic performance.' },
+                { q: 'Do you support video ads?', a: 'Currently, we only support image and text-based banners to maintain site performance.' },
+                { q: 'How far in advance should I book?', a: 'Premium slots may book out early. We recommend reaching out at least 1-2 weeks before your desired date.' },
+                { q: 'What are the payment options?', a: 'We currently support wire transfers and dedicated payment platforms. Specific payment details and procedures will be provided individually upon inquiry.' }
+            ]
+        },
+        footer: {
+            tools: 'Popular Tools',
+            resources: 'Resources',
+            legal: 'Legal',
+            support: 'Support & Donate',
+            privacy: 'Privacy Policy',
+            terms: 'Terms of Service',
+            advertise: 'Advertise',
+            coffee: 'Buy Me a Coffee',
+            allRights: 'All rights reserved.',
+            social: 'Follow Us',
+            about: 'About Us',
+            contact: 'Contact Us',
+        },
+        privacy: {
+            title: 'Privacy Policy',
+            lastUpdated: 'Last Updated: Feb 15, 2026',
+            sections: [
+                {
+                    title: '1. Information Collection and Use',
+                    content: 'UltraUtils is a registration-free service. We do not directly collect personally identifiable information such as names or email addresses. All service usage is anonymous, and processed data stays within your browser in real-time.'
+                },
+                {
+                    title: '2. Cookies and Personalization',
+                    content: 'This site uses cookies to optimize user experience and analyze ad performance. Third-party vendors, including Google, use cookies to serve ads based on a user\'s prior visits to your website or other websites. You may opt out of personalized advertising by visiting Google Ads Settings.'
+                },
+                {
+                    title: '3. Data Security and Local Processing',
+                    content: 'Our core utilities, like background removal and PDF merging, use local browser rendering. Your files are never uploaded to our servers, ensuring your data remains private and secure on your own device.'
+                },
+                {
+                    title: '4. Third-party Links',
+                    content: 'Our service may contain links to external sites or ad banners. We are not responsible for the privacy practices of those sites, and we encourage you to read their policies upon visiting.'
+                }
+            ]
+        },
+        terms: {
+            title: 'Terms of Service',
+            lastUpdated: 'Last Updated: Feb 15, 2026',
+            sections: [
+                {
+                    title: '1. Purpose and Acceptance',
+                    content: 'These terms govern your use of the web tools provided by UltraUtils. By accessing this site, you acknowledge that you have read, understood, and agreed to be bound by these terms.'
+                },
+                {
+                    title: '2. Usage Restrictions',
+                    content: 'You agree not to engage in activities that disrupt service stability or use our tools for illegal purposes. Crawling or duplicating content without explicit permission is strictly prohibited.'
+                },
+                {
+                    title: '3. Limitation of Liability',
+                    content: 'While we strive for the highest quality, UltraUtils is not liable for any direct or indirect damages arising from service interruptions, data errors, or use of the tools. All tools are provided "as is".'
+                },
+                {
+                    title: '4. Intellectual Property',
+                    content: 'The logos, design, and textual content of UltraUtils are our intellectual property. However, the user retains full ownership of any outputs generated through our tools (e.g., QR codes, processed images).'
+                }
+            ]
+        },
+        about: {
+            title: 'About UltraUtils',
+            subtitle: 'Starting a faster, safer digital workflow',
+            sections: [
+                {
+                    title: 'Our Mission',
+                    content: 'UltraUtils aims to provide a professional digital environment where creators, developers, and everyday users can perform tasks without complex installations or sign-ups. We focus on utility and simplicity.'
+                },
+                {
+                    title: 'Why UltraUtils?',
+                    content: 'Privacy is our top priority. Unlike many tools that send files to a server, we leverage modern web technology to process everything directly in your browser. Experience innovation with speed and security.'
+                },
+                {
+                    title: 'Global Platform',
+                    content: 'We support multiple languages to break barriers and regularly update our toolkit to maximize productivity for users worldwide.'
+                }
+            ],
+            stats: {
+                free: '100% Free',
+                logs: '0 Server Logs',
+                languages: 'Multi-language',
+                utilities: 'Pro Utilities'
+            }
+        },
+        contact: {
+            title: 'Contact Us',
+            subtitle: 'Have questions or suggestions?',
+            desc: 'Whether it\'s a feature request, business inquiry, or bug report, we value your feedback.',
+            infoTitle: 'Support Channel',
+            infoEmail: 'official.ultrautils@gmail.com',
+            infoResponse: 'We strive to respond within 24 hours on business days.'
+        },
+        notFound: {
+            title: 'Are you lost?',
+            desc: "The page you're looking for doesn't exist. Check the URL or click the button below to return home.",
+            backHome: 'Back to Homepage',
+        },
+        feedback: {
+            title: 'Was this tool useful today?',
+            useful: 'Very useful! 👍',
+            neutral: 'Just okay 😐',
+            improve: 'Could be better 🔧',
+            placeholder: 'Feel free to share any features you need or feedback...',
+            submit: 'Send Feedback',
+            success: 'Thank you for your feedback!',
+            commitment: 'We strive every day to improve our tools based on your valuable feedback.',
+        },
+        share: {
+            title: 'Love this tool? Share it with your friends!',
+            copy: 'Copy Link',
+            copied: 'Copied!',
+            twitter: 'X (Twitter)',
+            facebook: 'Facebook',
+            whatsapp: 'WhatsApp',
+        },
+        ytPlanner: {
+            title: 'AI YouTube Strategy Master',
+            desc: 'Boost your views with AI-generated titles, tags, and script drafts for free.',
+            placeholder: 'Enter a topic to get a full strategy...',
+            generateBtn: 'Generate AI Plan',
+            generating: 'AI is crafting your viral strategy...',
+            tabTitles: 'Catchy Titles',
+            tabScripts: 'Script Draft',
+            tabTags: 'Tags & SEO',
+            tabStrategy: 'Traffic Boost',
+            videoType: 'Video Type',
+            vlog: 'Vlog / Lifestyle',
+            info: 'Education / Info',
+            review: 'Product Review',
+            shorts: 'Shorts / Vertical',
+            topic: 'Main Topic',
+            topicPlaceholder: 'e.g., Best Pizza in NY, iPhone 15 Review...',
+            advancedOptions: 'Advanced Options',
+            tone: 'Tone of Voice',
+            toneFunny: 'Humorous',
+            toneSerious: 'Serious & Detailed',
+            toneProfessional: 'Professional',
+            targetAudience: 'Target Audience',
+            targetGeneral: 'General Public',
+            targetExpert: 'Experts',
+            targetBeginner: 'Beginners',
+            resultsTitle: 'AI Strategic Report',
+            setupTab: 'Setup',
+            resultsTab: 'Results',
+            copyAll: 'Copy to Clipboard',
+            copied: 'Copied!',
+            guide: {
+                title: 'Ultimate YouTube Success Guide',
+                subtitle: 'Mastering the Algorithm in 3 Steps',
+                sections: [
+                    {
+                        title: '1. Psychology of High-CTR Titles (Click Magnet)',
+                        content: '80% of your view count is determined at the threshold of the title and thumbnail. Instead of just listing facts, use the "Information Gap" technique—piquing curiosity with phrases that hint at a secret or a massive reward. Our AI analyzes thousands of viral data points to suggest titles that trigger a psychological urge to click while remaining honest to your content.'
+                    },
+                    {
+                        title: '2. Holistic SEO Strategy for Global Reach',
+                        content: 'YouTube is the world\'s second-largest search engine. By placing core keywords within the first two lines of your description and aligning them with strategic tags, you create a metadata synergy. This significantly increases your visibility nicht just on YouTube Recommendations, but also on Google Search results, driving organic evergreen traffic.'
+                    },
+                    {
+                        title: '3. Strategic Scripting for Maximum Watch Time',
+                        content: 'The first 15 seconds are the "Hook Zone" where you win or lose your audience. Every script draft we provide follows a value-first structure: Hook (Immediate Promise) -> Value Prop (The Plan) -> Core Content (Resolution). This professional storytelling framework is engineered to maintain high retention rates, the most critical factor for the YouTube algorithm.'
+                    },
+                    {
+                        title: '4. Shorts Mastery: Retention & Plot Twists',
+                        content: 'For YouTube Shorts, the rules are different. Success depends on a "Loopable" structure and immediate visual stimulation. Our AI suggests specific strategies for Shorts, such as visual plot twists at the 45-second mark or curiosity-based loops that encourage viewers to watch your video multiple times, exponentially boosting its viral potential.'
+                    }
+                ],
+                faq: [
+                    { q: 'Can I use AI-generated titles exactly as they are?', a: 'Absolutely! Our titles are optimized for performance. However, adding your own "Voice" or channel-specific context to the best-fitting suggestion will result in the highest engagement rates.' },
+                    { q: 'Is there an ideal number of tags I should use?', a: 'Focus on quality over quantity. Using 10-15 highly relevant keywords (as suggested by our AI) is more effective than filling all 500 characters with junk, which can confuse the search algorithm.' },
+                    { q: 'Can I save these plans for later?', a: 'Yes. Use the "Download .TXT" button to save your full strategy locally, or simply copy individual sections to your Notion or Notepad for production.' },
+                    { q: 'Is it completely free for commercial use?', a: 'Yes. All tools on UltraUtils, including the Strategy Master, are 100% free and require no credit or sign-up, supporting creators at every stage of their journey.' }
+                ]
+            }
+        },
+        houseAds: {
+            bgRemoverTitle: 'Pro Background Remover',
+            bgRemoverDesc: 'Erase backgrounds instantly with AI precision.',
+            pdfMasterTitle: 'Smart PDF Master',
+            pdfMasterDesc: 'Merge, split, and convert PDFs in one place.',
+            imageCompTitle: 'High-Performance Compression',
+            imageCompDesc: 'Reduce file size without losing image quality.',
+            ytGrabTitle: 'YouTube Thumbnail Grabber',
+            ytGrabDesc: 'Download and edit high-quality thumbnails easily.',
+            coffeeTitle: 'Buy Anti a Coffee',
+            coffeeDesc: 'Support our work and help us build better tools.'
+        }
+    }

@@ -1,0 +1,10 @@
+src/lib/translations.ts.v5_final
+  ko: 1
+  en: 1
+  zh: 1
+  ja: 0
+  es: 0
+  de: 0
+  pl: 0
+  bgRemover: 4
+  navbar: 4

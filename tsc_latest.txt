@@ -1,0 +1,36 @@
+src/app/tools/revenue-calculator/page.tsx(60,104): error TS2339: Property 'revenueCalc' does not exist on type 'TranslationSchema'.
+src/app/tools/revenue-calculator/page.tsx(63,24): error TS2339: Property 'revenueCalc' does not exist on type 'TranslationSchema'.
+src/app/tools/revenue-calculator/page.tsx(76,40): error TS2339: Property 'revenueCalc' does not exist on type 'TranslationSchema'.
+src/app/tools/revenue-calculator/page.tsx(101,40): error TS2339: Property 'revenueCalc' does not exist on type 'TranslationSchema'.
+src/app/tools/revenue-calculator/page.tsx(128,44): error TS2339: Property 'revenueCalc' does not exist on type 'TranslationSchema'.
+src/app/tools/revenue-calculator/page.tsx(129,44): error TS2339: Property 'revenueCalc' does not exist on type 'TranslationSchema'.
+src/app/tools/revenue-calculator/page.tsx(130,44): error TS2339: Property 'revenueCalc' does not exist on type 'TranslationSchema'.
+src/app/tools/revenue-calculator/page.tsx(151,75): error TS2339: Property 'revenueCalc' does not exist on type 'TranslationSchema'.
+src/app/tools/revenue-calculator/page.tsx(224,120): error TS2339: Property 'revenueCalc' does not exist on type 'TranslationSchema'.
+src/app/tools/revenue-calculator/page.tsx(225,69): error TS2339: Property 'revenueCalc' does not exist on type 'TranslationSchema'.
+src/app/tools/revenue-calculator/page.tsx(229,24): error TS2339: Property 'revenueCalc' does not exist on type 'TranslationSchema'.
+src/app/tools/revenue-calculator/page.tsx(242,28): error TS2339: Property 'revenueCalc' does not exist on type 'TranslationSchema'.
+src/app/tools/screen-recorder/page.tsx(138,83): error TS2339: Property 'screenRecorder' does not exist on type 'TranslationSchema'.
+src/app/tools/screen-recorder/page.tsx(141,24): error TS2339: Property 'screenRecorder' does not exist on type 'TranslationSchema'.
+src/app/tools/screen-recorder/page.tsx(165,65): error TS2339: Property 'screenRecorder' does not exist on type 'TranslationSchema'.
+src/app/tools/screen-recorder/page.tsx(200,44): error TS2339: Property 'screenRecorder' does not exist on type 'TranslationSchema'.
+src/app/tools/screen-recorder/page.tsx(208,44): error TS2339: Property 'screenRecorder' does not exist on type 'TranslationSchema'.
+src/app/tools/screen-recorder/page.tsx(218,44): error TS2339: Property 'screenRecorder' does not exist on type 'TranslationSchema'.
+src/app/tools/screen-recorder/page.tsx(233,46): error TS2339: Property 'screenRecorder' does not exist on type 'TranslationSchema'.
+src/app/tools/screen-recorder/page.tsx(245,46): error TS2339: Property 'screenRecorder' does not exist on type 'TranslationSchema'.
+src/app/tools/screen-recorder/page.tsx(292,90): error TS2339: Property 'screenRecorder' does not exist on type 'TranslationSchema'.
+src/app/tools/screen-recorder/page.tsx(293,69): error TS2339: Property 'screenRecorder' does not exist on type 'TranslationSchema'.
+src/app/tools/screen-recorder/page.tsx(297,24): error TS2339: Property 'screenRecorder' does not exist on type 'TranslationSchema'.
+src/app/tools/screen-recorder/page.tsx(310,28): error TS2339: Property 'screenRecorder' does not exist on type 'TranslationSchema'.
+src/components/MegaMenu.tsx(54,36): error TS2339: Property 'megaMenu' does not exist on type 'TranslationSchema'.
+src/components/MegaMenu.tsx(57,36): error TS2339: Property 'megaMenu' does not exist on type 'TranslationSchema'.
+src/components/MegaMenu.tsx(76,44): error TS2339: Property 'megaMenu' does not exist on type 'TranslationSchema'.
+src/components/MegaMenu.tsx(122,73): error TS2339: Property 'megaMenu' does not exist on type 'TranslationSchema'.
+src/components/MegaMenu.tsx(129,74): error TS2339: Property 'megaMenu' does not exist on type 'TranslationSchema'.
+src/lib/translations.ts(1335,9): error TS2353: Object literal may only specify known properties, and 'screenRecorder' does not exist in type 'TranslationSchema'.
+src/lib/translations.ts(2182,9): error TS2353: Object literal may only specify known properties, and 'screenRecorder' does not exist in type 'TranslationSchema'.
+src/lib/translations.ts(3016,9): error TS2353: Object literal may only specify known properties, and 'screenRecorder' does not exist in type 'TranslationSchema'.
+src/lib/translations.ts(3759,9): error TS2353: Object literal may only specify known properties, and 'screenRecorder' does not exist in type 'TranslationSchema'.
+src/lib/translations.ts(4498,9): error TS2353: Object literal may only specify known properties, and 'screenRecorder' does not exist in type 'TranslationSchema'.
+src/lib/translations.ts(5224,9): error TS2353: Object literal may only specify known properties, and 'screenRecorder' does not exist in type 'TranslationSchema'.
+src/lib/translations.ts(5950,9): error TS2353: Object literal may only specify known properties, and 'screenRecorder' does not exist in type 'TranslationSchema'.

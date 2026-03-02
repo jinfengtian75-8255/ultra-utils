@@ -1,0 +1,1074 @@
+﻿../../../src/app/about/page.tsx(16,24): error TS2339: Property 'about' does not exist on type 'TranslationSchema'.
+../../../src/app/about/page.tsx(19,24): error TS2339: Property 'about' does not exist on type 'TranslationSchema'.
+../../../src/app/about/page.tsx(25,20): error TS2339: Property 'about' does not exist on type 'TranslationSchema'.
+../../../src/app/about/page.tsx(25,40): error TS7006: Parameter 'section' implicitly has an 'any' type.
+../../../src/app/about/page.tsx(25,49): error TS7006: Parameter 'idx' implicitly has an 'any' type.
+../../../src/app/about/page.tsx(74,59): error TS2339: Property 'contact' does not exist on type 'TranslationSchema'.
+../../../src/app/about/page.tsx(76,28): error TS2339: Property 'contact' does not exist on type 'TranslationSchema'.
+../../../src/app/about/page.tsx(78,42): error TS2339: Property 'contact' does not exist on type 'TranslationSchema'.
+../../../src/app/about/page.tsx(79,28): error TS2339: Property 'contact' does not exist on type 'TranslationSchema'.
+../../../src/app/advertise/page.tsx(35,21): error TS2339: Property 'advertise' does not exist on type 'TranslationSchema'.
+../../../src/app/advertise/page.tsx(42,22): error TS2339: Property 'advertise' does not exist on type 'TranslationSchema'.
+../../../src/app/advertise/page.tsx(44,21): error TS2339: Property 'advertise' does not exist on type 'TranslationSchema'.
+../../../src/app/advertise/page.tsx(45,22): error TS2339: Property 'advertise' does not exist on type 'TranslationSchema'.
+../../../src/app/advertise/page.tsx(48,22): error TS2339: Property 'advertise' does not exist on type 'TranslationSchema'.
+../../../src/app/advertise/page.tsx(50,21): error TS2339: Property 'advertise' does not exist on type 'TranslationSchema'.
+../../../src/app/advertise/page.tsx(51,22): error TS2339: Property 'advertise' does not exist on type 'TranslationSchema'.
+../../../src/app/advertise/page.tsx(54,22): error TS2339: Property 'advertise' does not exist on type 'TranslationSchema'.
+../../../src/app/advertise/page.tsx(56,21): error TS2339: Property 'advertise' does not exist on type 'TranslationSchema'.
+../../../src/app/advertise/page.tsx(57,22): error TS2339: Property 'advertise' does not exist on type 'TranslationSchema'.
+../../../src/app/advertise/page.tsx(60,22): error TS2339: Property 'advertise' does not exist on type 'TranslationSchema'.
+../../../src/app/advertise/page.tsx(62,21): error TS2339: Property 'advertise' does not exist on type 'TranslationSchema'.
+../../../src/app/advertise/page.tsx(63,22): error TS2339: Property 'advertise' does not exist on type 'TranslationSchema'.
+../../../src/app/advertise/page.tsx(73,55): error TS2339: Property 'advertise' does not exist on type 'TranslationSchema'.
+../../../src/app/advertise/page.tsx(78,24): error TS2339: Property 'advertise' does not exist on type 'TranslationSchema'.
+../../../src/app/advertise/page.tsx(89,56): error TS2339: Property 'advertise' does not exist on type 'TranslationSchema'.
+../../../src/app/advertise/page.tsx(92,24): error TS2339: Property 'advertise' does not exist on type 'TranslationSchema'.
+../../../src/app/advertise/page.tsx(117,86): error TS2339: Property 'advertise' does not exist on type 'TranslationSchema'.
+../../../src/app/advertise/page.tsx(119,28): error TS2339: Property 'advertise' does not exist on type 'TranslationSchema'.
+../../../src/app/advertise/page.tsx(119,52): error TS7006: Parameter 'item' implicitly has an 'any' type.
+../../../src/app/advertise/page.tsx(119,58): error TS7006: Parameter 'i' implicitly has an 'any' type.
+../../../src/app/advertise/page.tsx(134,32): error TS2339: Property 'advertise' does not exist on type 'TranslationSchema'.
+../../../src/app/advertise/page.tsx(142,116): error TS2339: Property 'advertise' does not exist on type 'TranslationSchema'.
+../../../src/app/advertise/page.tsx(146,48): error TS2339: Property 'advertise' does not exist on type 'TranslationSchema'.
+../../../src/app/advertise/page.tsx(151,116): error TS2339: Property 'advertise' does not exist on type 'TranslationSchema'.
+../../../src/app/advertise/page.tsx(156,48): error TS2339: Property 'advertise' does not exist on type 'TranslationSchema'.
+../../../src/app/advertise/page.tsx(162,112): error TS2339: Property 'advertise' does not exist on type 'TranslationSchema'.
+../../../src/app/advertise/page.tsx(166,44): error TS2339: Property 'advertise' does not exist on type 'TranslationSchema'.
+../../../src/app/advertise/page.tsx(171,112): error TS2339: Property 'advertise' does not exist on type 'TranslationSchema'.
+../../../src/app/advertise/page.tsx(176,44): error TS2339: Property 'advertise' does not exist on type 'TranslationSchema'.
+../../../src/app/advertise/page.tsx(184,88): error TS2339: Property 'advertise' does not exist on type 'TranslationSchema'.
+../../../src/app/advertise/page.tsx(195,64): error TS2339: Property 'advertise' does not exist on type 'TranslationSchema'.
+../../../src/app/advertise/page.tsx(196,75): error TS2339: Property 'advertise' does not exist on type 'TranslationSchema'.
+../../../src/app/advertise/page.tsx(201,24): error TS2339: Property 'advertise' does not exist on type 'TranslationSchema'.
+../../../src/app/advertise/page.tsx(201,43): error TS7006: Parameter 'item' implicitly has an 'any' type.
+../../../src/app/advertise/page.tsx(201,49): error TS7006: Parameter 'idx' implicitly has an 'any' type.
+../../../src/app/contact/page.tsx(43,110): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/contact/page.tsx(44,137): error TS2339: Property 'guide' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src/app/contact/page.tsx(45,124): error TS2339: Property 'advertise' does not exist on type 'TranslationSchema'.
+../../../src/app/contact/page.tsx(60,60): error TS2339: Property 'advertise' does not exist on type 'TranslationSchema'.
+../../../src/app/contact/page.tsx(78,24): error TS2339: Property 'contact' does not exist on type 'TranslationSchema'.
+../../../src/app/contact/page.tsx(78,88): error TS2339: Property 'contact' does not exist on type 'TranslationSchema'.
+../../../src/app/contact/page.tsx(81,24): error TS2339: Property 'contact' does not exist on type 'TranslationSchema'.
+../../../src/app/contact/page.tsx(96,71): error TS2339: Property 'contact' does not exist on type 'TranslationSchema'.
+../../../src/app/contact/page.tsx(98,40): error TS2339: Property 'contact' does not exist on type 'TranslationSchema'.
+../../../src/app/contact/page.tsx(101,58): error TS2339: Property 'contact' does not exist on type 'TranslationSchema'.
+../../../src/app/contact/page.tsx(102,44): error TS2339: Property 'contact' does not exist on type 'TranslationSchema'.
+../../../src/app/contact/page.tsx(104,95): error TS2339: Property 'contact' does not exist on type 'TranslationSchema'.
+../../../src/app/contact/page.tsx(151,57): error TS7006: Parameter 'faq' implicitly has an 'any' type.
+../../../src/app/contact/page.tsx(151,62): error TS7006: Parameter 'idx' implicitly has an 'any' type.
+../../../src/app/HomeClient.tsx(11,50): error TS2339: Property 'ytGrab' does not exist on type 'TranslationSchema'.
+../../../src/app/HomeClient.tsx(12,49): error TS2339: Property 'qrGen' does not exist on type 'TranslationSchema'.
+../../../src/app/HomeClient.tsx(14,63): error TS2339: Property 'desc' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src/app/HomeClient.tsx(15,52): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src/app/HomeClient.tsx(16,53): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/HomeClient.tsx(17,20): error TS2339: Property 'pdfMaster' does not exist on type 'TranslationSchema'.
+../../../src/app/HomeClient.tsx(17,52): error TS2339: Property 'pdfMaster' does not exist on type 'TranslationSchema'.
+../../../src/app/HomeClient.tsx(25,24): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src/app/HomeClient.tsx(28,24): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src/app/HomeClient.tsx(29,56): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src/app/HomeClient.tsx(32,24): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src/app/HomeClient.tsx(32,71): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src/app/HomeClient.tsx(52,115): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src/app/not-found.tsx(29,24): error TS2339: Property 'notFound' does not exist on type 'TranslationSchema'.
+../../../src/app/not-found.tsx(33,24): error TS2339: Property 'notFound' does not exist on type 'TranslationSchema'.
+../../../src/app/not-found.tsx(42,28): error TS2339: Property 'notFound' does not exist on type 'TranslationSchema'.
+../../../src/app/page.tsx(16,22): error TS2339: Property 'ytPlanner' does not exist on type 'TranslationSchema'.
+../../../src/app/page.tsx(24,22): error TS2339: Property 'ytGrab' does not exist on type 'TranslationSchema'.
+../../../src/app/page.tsx(32,22): error TS2339: Property 'qrGen' does not exist on type 'TranslationSchema'.
+../../../src/app/page.tsx(48,32): error TS2339: Property 'desc' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src/app/page.tsx(56,22): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src/app/page.tsx(64,22): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/page.tsx(71,22): error TS2339: Property 'imageRestorer' does not exist on type 'TranslationSchema'.
+../../../src/app/page.tsx(78,16): error TS2339: Property 'pdfMaster' does not exist on type 'TranslationSchema'.
+../../../src/app/page.tsx(79,22): error TS2339: Property 'pdfMaster' does not exist on type 'TranslationSchema'.
+../../../src/app/page.tsx(94,14): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src/app/page.tsx(98,14): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src/app/page.tsx(99,46): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src/app/page.tsx(103,14): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src/app/page.tsx(105,14): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src/app/page.tsx(136,103): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src/app/page.tsx(154,50): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src/app/page.tsx(155,59): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src/app/page.tsx(158,14): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src/app/page.tsx(158,40): error TS7006: Parameter 'tip' implicitly has an 'any' type.
+../../../src/app/page.tsx(158,45): error TS7006: Parameter 'i' implicitly has an 'any' type.
+../../../src/app/page.tsx(175,20): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src/app/page.tsx(186,52): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src/app/page.tsx(186,73): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src/app/page.tsx(188,21): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src/app/page.tsx(189,21): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src/app/page.tsx(194,26): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src/app/page.tsx(194,63): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src/app/page.tsx(195,26): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src/app/page.tsx(195,61): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src/app/page.tsx(196,26): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src/app/page.tsx(196,62): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src/app/page.tsx(197,26): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src/app/page.tsx(197,60): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src/app/page.tsx(210,106): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src/app/page.tsx(211,71): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src/app/page.tsx(215,92): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src/app/page.tsx(216,79): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src/app/page.tsx(219,92): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src/app/page.tsx(220,79): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src/app/page.tsx(223,92): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src/app/page.tsx(224,79): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src/app/privacy/page.tsx(17,83): error TS2339: Property 'privacy' does not exist on type 'TranslationSchema'.
+../../../src/app/privacy/page.tsx(18,67): error TS2339: Property 'privacy' does not exist on type 'TranslationSchema'.
+../../../src/app/privacy/page.tsx(22,20): error TS2339: Property 'privacy' does not exist on type 'TranslationSchema'.
+../../../src/app/privacy/page.tsx(22,42): error TS7006: Parameter 'section' implicitly has an 'any' type.
+../../../src/app/privacy/page.tsx(22,51): error TS7006: Parameter 'idx' implicitly has an 'any' type.
+../../../src/app/terms/page.tsx(17,83): error TS2339: Property 'terms' does not exist on type 'TranslationSchema'.
+../../../src/app/terms/page.tsx(18,67): error TS2339: Property 'terms' does not exist on type 'TranslationSchema'.
+../../../src/app/terms/page.tsx(22,20): error TS2339: Property 'terms' does not exist on type 'TranslationSchema'.
+../../../src/app/terms/page.tsx(22,40): error TS7006: Parameter 'term' implicitly has an 'any' type.
+../../../src/app/terms/page.tsx(22,46): error TS7006: Parameter 'idx' implicitly has an 'any' type.
+../../../src/app/tools/background-remover/BackgroundRemoverClient.tsx(235,25): error TS2339: Property 'imageRestorer' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/BackgroundRemoverClient.tsx(266,63): error TS2339: Property 'imageRestorer' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/BackgroundRemoverClient.tsx(266,87): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/BackgroundRemoverClient.tsx(270,59): error TS2339: Property 'imageRestorer' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/BackgroundRemoverClient.tsx(270,82): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/BackgroundRemoverClient.tsx(279,87): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/BackgroundRemoverClient.tsx(760,85): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/BackgroundRemoverClient.tsx(761,81): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(63,35): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(64,41): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(65,34): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(285,38): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(490,46): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(491,48): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(492,18): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(1108,36): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(1119,33): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(1131,36): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(1602,28): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(1651,36): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(1660,36): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(1674,38): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(1693,59): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(1693,94): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(1748,142): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(1750,257): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(1751,357): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(1769,142): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(1772,75): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(1773,69): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(1774,72): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(1775,69): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(1802,141): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(1807,82): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(1825,156): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(1829,443): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(1830,441): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(1832,350): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(1866,327): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(1867,322): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(1958,72): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(1958,98): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(1995,97): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(2007,187): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(2011,186): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(2056,85): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(2099,46): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(2102,90): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(2115,109): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(2115,138): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(2138,84): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(2139,97): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(2154,44): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(2176,46): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(2184,46): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(2196,46): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(2261,169): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(2265,356): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(2266,360): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(2267,353): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(2273,90): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(2276,98): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(2283,90): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(2283,173): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(2283,197): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(2290,120): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(2299,150): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(2303,134): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(2309,56): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(2316,87): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(2316,135): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(2316,186): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(2316,234): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(2316,291): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(2322,167): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(2326,167): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(2347,64): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(2358,150): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(2361,64): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(2362,64): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(2363,64): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(2375,164): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(2377,78): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(2377,134): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(2377,180): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(2377,228): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(2377,275): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(2377,325): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(2388,150): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(2391,154): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(2395,154): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(2401,195): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(2406,158): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(2441,343): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(2457,68): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(2458,71): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(2459,77): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(2460,74): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(2461,74): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(2463,71): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(2463,109): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(2497,56): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(2497,85): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(2498,61): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(2498,95): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(2499,54): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(2499,84): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(2521,94): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(2522,73): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(2526,28): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/background-remover/page.tsx(2526,58): error TS7006: Parameter 'section' implicitly has an 'any' type.
+../../../src/app/tools/background-remover/page.tsx(2526,67): error TS7006: Parameter 'idx' implicitly has an 'any' type.
+../../../src/app/tools/background-remover/page.tsx(2538,39): error TS2339: Property 'desc' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src/app/tools/image-compressor/page.tsx(511,25): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/pdf-master/PDFMasterClient.tsx(272,33): error TS2339: Property 'pdfMaster' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/pdf-master/PDFMasterClient.tsx(273,33): error TS2339: Property 'pdfMaster' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/pdf-master/PDFMasterClient.tsx(274,34): error TS2339: Property 'pdfMaster' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/pdf-master/PDFMasterClient.tsx(275,35): error TS2339: Property 'pdfMaster' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/pdf-master/PDFMasterClient.tsx(276,35): error TS2339: Property 'pdfMaster' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/pdf-master/PDFMasterClient.tsx(293,71): error TS2339: Property 'pdfMaster' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/pdf-master/PDFMasterClient.tsx(296,24): error TS2339: Property 'pdfMaster' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/pdf-master/PDFMasterClient.tsx(337,115): error TS2339: Property 'pdfMaster' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/pdf-master/PDFMasterClient.tsx(353,81): error TS2339: Property 'pdfMaster' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/pdf-master/PDFMasterClient.tsx(360,40): error TS2339: Property 'pdfMaster' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/pdf-master/PDFMasterClient.tsx(368,36): error TS2339: Property 'pdfMaster' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/pdf-master/PDFMasterClient.tsx(412,75): error TS2339: Property 'pdfMaster' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/pdf-master/PDFMasterClient.tsx(416,130): error TS2339: Property 'pdfMaster' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/pdf-master/PDFMasterClient.tsx(428,130): error TS2339: Property 'pdfMaster' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/pdf-master/PDFMasterClient.tsx(444,69): error TS2339: Property 'pdfMaster' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/pdf-master/PDFMasterClient.tsx(459,56): error TS2339: Property 'pdfMaster' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/pdf-master/PDFMasterClient.tsx(481,76): error TS2339: Property 'pdfMaster' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/pdf-master/PDFMasterClient.tsx(482,79): error TS2339: Property 'pdfMaster' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/pdf-master/PDFMasterClient.tsx(483,84): error TS2339: Property 'pdfMaster' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/pdf-master/PDFMasterClient.tsx(484,89): error TS2339: Property 'pdfMaster' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/pdf-master/PDFMasterClient.tsx(485,67): error TS2339: Property 'pdfMaster' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/pdf-master/PDFMasterClient.tsx(497,44): error TS2339: Property 'pdfMaster' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/pdf-master/PDFMasterClient.tsx(511,48): error TS2339: Property 'pdfMaster' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/pdf-master/PDFMasterClient.tsx(539,87): error TS2339: Property 'pdfMaster' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/pdf-master/PDFMasterClient.tsx(540,85): error TS2339: Property 'pdfMaster' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/pdf-master/PDFMasterClient.tsx(544,24): error TS2339: Property 'pdfMaster' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/pdf-master/PDFMasterClient.tsx(564,28): error TS2339: Property 'pdfMaster' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/prompt-generator/page.tsx(38,54): error TS2339: Property 'placeholder' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src/app/tools/prompt-generator/page.tsx(44,67): error TS2339: Property 'placeholder' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src/app/tools/prompt-generator/page.tsx(56,48): error TS2339: Property 'platforms' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src/app/tools/prompt-generator/page.tsx(57,42): error TS2339: Property 'platforms' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src/app/tools/prompt-generator/page.tsx(58,54): error TS2339: Property 'platforms' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src/app/tools/prompt-generator/page.tsx(65,77): error TS2339: Property 'title' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src/app/tools/prompt-generator/page.tsx(68,34): error TS2339: Property 'desc' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src/app/tools/prompt-generator/page.tsx(79,88): error TS2339: Property 'platform' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src/app/tools/prompt-generator/page.tsx(101,83): error TS2339: Property 'genre' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src/app/tools/prompt-generator/page.tsx(115,50): error TS2339: Property 'genres' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src/app/tools/prompt-generator/page.tsx(124,46): error TS2339: Property 'subject' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src/app/tools/prompt-generator/page.tsx(129,58): error TS2339: Property 'subjectPlaceholder' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src/app/tools/prompt-generator/page.tsx(136,46): error TS2339: Property 'details' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src/app/tools/prompt-generator/page.tsx(141,58): error TS2339: Property 'detailsPlaceholder' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src/app/tools/prompt-generator/page.tsx(153,133): error TS2339: Property 'outputTitle' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src/app/tools/prompt-generator/page.tsx(189,84): error TS2339: Property 'copied' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src/app/tools/prompt-generator/page.tsx(193,83): error TS2339: Property 'copy' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src/app/tools/prompt-generator/page.tsx(207,100): error TS2339: Property 'guide' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src/app/tools/prompt-generator/page.tsx(208,79): error TS2339: Property 'guide' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src/app/tools/prompt-generator/page.tsx(212,34): error TS2339: Property 'guide' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src/app/tools/prompt-generator/page.tsx(212,54): error TS7006: Parameter 'section' implicitly has an 'any' type.
+../../../src/app/tools/prompt-generator/page.tsx(212,63): error TS7006: Parameter 'idx' implicitly has an 'any' type.
+../../../src/app/tools/prompt-generator/page.tsx(225,38): error TS2339: Property 'guide' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src/app/tools/prompt-generator/page.tsx(225,53): error TS7006: Parameter 'item' implicitly has an 'any' type.
+../../../src/app/tools/prompt-generator/page.tsx(225,59): error TS7006: Parameter 'idx' implicitly has an 'any' type.
+../../../src/app/tools/prompt-generator/PromptGeneratorClient.tsx(39,54): error TS2339: Property 'placeholder' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src/app/tools/prompt-generator/PromptGeneratorClient.tsx(44,67): error TS2339: Property 'placeholder' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src/app/tools/prompt-generator/PromptGeneratorClient.tsx(56,48): error TS2339: Property 'platforms' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src/app/tools/prompt-generator/PromptGeneratorClient.tsx(57,42): error TS2339: Property 'platforms' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src/app/tools/prompt-generator/PromptGeneratorClient.tsx(58,54): error TS2339: Property 'platforms' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src/app/tools/prompt-generator/PromptGeneratorClient.tsx(65,77): error TS2339: Property 'title' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src/app/tools/prompt-generator/PromptGeneratorClient.tsx(67,93): error TS2339: Property 'desc' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src/app/tools/prompt-generator/PromptGeneratorClient.tsx(74,88): error TS2339: Property 'platform' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src/app/tools/prompt-generator/PromptGeneratorClient.tsx(89,83): error TS2339: Property 'genre' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src/app/tools/prompt-generator/PromptGeneratorClient.tsx(97,50): error TS2339: Property 'genres' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src/app/tools/prompt-generator/PromptGeneratorClient.tsx(104,151): error TS2339: Property 'subject' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src/app/tools/prompt-generator/PromptGeneratorClient.tsx(105,122): error TS2339: Property 'subjectPlaceholder' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src/app/tools/prompt-generator/PromptGeneratorClient.tsx(108,151): error TS2339: Property 'details' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src/app/tools/prompt-generator/PromptGeneratorClient.tsx(109,125): error TS2339: Property 'detailsPlaceholder' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src/app/tools/prompt-generator/PromptGeneratorClient.tsx(117,133): error TS2339: Property 'outputTitle' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src/app/tools/prompt-generator/PromptGeneratorClient.tsx(130,88): error TS2339: Property 'copied' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src/app/tools/prompt-generator/PromptGeneratorClient.tsx(130,145): error TS2339: Property 'copy' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src/app/tools/qr-generator/QrGeneratorClient.tsx(154,64): error TS2339: Property 'qrGen' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/qr-generator/QrGeneratorClient.tsx(158,102): error TS2339: Property 'qrGen' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/qr-generator/QrGeneratorClient.tsx(159,98): error TS2339: Property 'qrGen' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/qr-generator/QrGeneratorClient.tsx(160,96): error TS2339: Property 'qrGen' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/qr-generator/QrGeneratorClient.tsx(161,92): error TS2339: Property 'qrGen' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/qr-generator/QrGeneratorClient.tsx(179,65): error TS2339: Property 'qrGen' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/qr-generator/QrGeneratorClient.tsx(198,121): error TS2339: Property 'qrGen' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/qr-generator/QrGeneratorClient.tsx(225,121): error TS2339: Property 'qrGen' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/qr-generator/QrGeneratorClient.tsx(255,127): error TS2339: Property 'qrGen' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/qr-generator/QrGeneratorClient.tsx(272,127): error TS2339: Property 'qrGen' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/qr-generator/QrGeneratorClient.tsx(275,52): error TS2339: Property 'qrGen' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/qr-generator/QrGeneratorClient.tsx(285,71): error TS2339: Property 'qrGen' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/qr-generator/QrGeneratorClient.tsx(288,168): error TS2339: Property 'qrGen' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/qr-generator/QrGeneratorClient.tsx(300,97): error TS2339: Property 'qrGen' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/qr-generator/QrGeneratorClient.tsx(309,54): error TS2339: Property 'qrGen' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/qr-generator/QrGeneratorClient.tsx(377,42): error TS2339: Property 'qrGen' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/qr-generator/QrGeneratorClient.tsx(384,42): error TS2339: Property 'qrGen' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/qr-generator/QrGeneratorClient.tsx(388,121): error TS2339: Property 'qrGen' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/qr-generator/QrGeneratorClient.tsx(398,88): error TS2339: Property 'qrGen' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/qr-generator/QrGeneratorClient.tsx(399,86): error TS2339: Property 'qrGen' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/qr-generator/QrGeneratorClient.tsx(403,25): error TS2339: Property 'qrGen' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/qr-generator/QrGeneratorClient.tsx(423,29): error TS2339: Property 'qrGen' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/revenue-calculator/page.tsx(60,104): error TS2339: Property 'revenueCalc' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/revenue-calculator/page.tsx(63,24): error TS2339: Property 'revenueCalc' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/revenue-calculator/page.tsx(76,40): error TS2339: Property 'revenueCalc' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/revenue-calculator/page.tsx(101,40): error TS2339: Property 'revenueCalc' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/revenue-calculator/page.tsx(128,44): error TS2339: Property 'revenueCalc' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/revenue-calculator/page.tsx(129,44): error TS2339: Property 'revenueCalc' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/revenue-calculator/page.tsx(130,44): error TS2339: Property 'revenueCalc' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/revenue-calculator/page.tsx(151,75): error TS2339: Property 'revenueCalc' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/revenue-calculator/page.tsx(224,120): error TS2339: Property 'revenueCalc' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/revenue-calculator/page.tsx(225,69): error TS2339: Property 'revenueCalc' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/revenue-calculator/page.tsx(229,24): error TS2339: Property 'revenueCalc' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/revenue-calculator/page.tsx(242,28): error TS2339: Property 'revenueCalc' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/screen-recorder/page.tsx(138,83): error TS2339: Property 'screenRecorder' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/screen-recorder/page.tsx(141,24): error TS2339: Property 'screenRecorder' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/screen-recorder/page.tsx(165,65): error TS2339: Property 'screenRecorder' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/screen-recorder/page.tsx(200,44): error TS2339: Property 'screenRecorder' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/screen-recorder/page.tsx(208,44): error TS2339: Property 'screenRecorder' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/screen-recorder/page.tsx(218,44): error TS2339: Property 'screenRecorder' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/screen-recorder/page.tsx(233,46): error TS2339: Property 'screenRecorder' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/screen-recorder/page.tsx(245,46): error TS2339: Property 'screenRecorder' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/screen-recorder/page.tsx(292,90): error TS2339: Property 'screenRecorder' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/screen-recorder/page.tsx(293,69): error TS2339: Property 'screenRecorder' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/screen-recorder/page.tsx(297,24): error TS2339: Property 'screenRecorder' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/screen-recorder/page.tsx(310,28): error TS2339: Property 'screenRecorder' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/text-converter/page.tsx(103,22): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/text-converter/page.tsx(106,41): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/text-converter/page.tsx(107,41): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/text-converter/page.tsx(108,46): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/text-converter/page.tsx(112,22): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/text-converter/page.tsx(115,40): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/text-converter/page.tsx(116,47): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/text-converter/page.tsx(117,47): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/text-converter/page.tsx(118,52): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/text-converter/page.tsx(122,22): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/text-converter/page.tsx(125,45): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/text-converter/page.tsx(126,45): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/text-converter/page.tsx(127,48): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/text-converter/page.tsx(128,48): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/text-converter/page.tsx(132,22): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/text-converter/page.tsx(135,46): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/text-converter/page.tsx(136,42): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/text-converter/page.tsx(137,42): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/text-converter/page.tsx(146,56): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/text-converter/page.tsx(149,24): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/text-converter/page.tsx(163,48): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/text-converter/page.tsx(171,46): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/text-converter/page.tsx(183,75): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/text-converter/page.tsx(183,103): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/text-converter/page.tsx(191,126): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/text-converter/page.tsx(195,126): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/text-converter/page.tsx(199,126): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/text-converter/page.tsx(238,90): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/text-converter/page.tsx(239,69): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/text-converter/page.tsx(243,24): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/text-converter/page.tsx(243,58): error TS7006: Parameter 'section' implicitly has an 'any' type.
+../../../src/app/tools/text-converter/page.tsx(243,67): error TS7006: Parameter 'idx' implicitly has an 'any' type.
+../../../src/app/tools/text-converter/page.tsx(256,28): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/text-converter/page.tsx(256,57): error TS7006: Parameter 'item' implicitly has an 'any' type.
+../../../src/app/tools/text-converter/page.tsx(256,63): error TS7006: Parameter 'idx' implicitly has an 'any' type.
+../../../src/app/tools/text-converter/TextConverterClient.tsx(73,20): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/text-converter/TextConverterClient.tsx(73,101): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/text-converter/TextConverterClient.tsx(73,172): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/text-converter/TextConverterClient.tsx(73,248): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/text-converter/TextConverterClient.tsx(74,20): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/text-converter/TextConverterClient.tsx(74,99): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/text-converter/TextConverterClient.tsx(74,170): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/text-converter/TextConverterClient.tsx(74,246): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/text-converter/TextConverterClient.tsx(74,329): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/text-converter/TextConverterClient.tsx(75,20): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/text-converter/TextConverterClient.tsx(75,96): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/text-converter/TextConverterClient.tsx(75,167): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/text-converter/TextConverterClient.tsx(75,241): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/text-converter/TextConverterClient.tsx(75,317): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/text-converter/TextConverterClient.tsx(76,20): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/text-converter/TextConverterClient.tsx(76,101): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/text-converter/TextConverterClient.tsx(76,173): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/text-converter/TextConverterClient.tsx(76,242): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/text-converter/TextConverterClient.tsx(83,56): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/text-converter/TextConverterClient.tsx(85,83): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/text-converter/TextConverterClient.tsx(92,103): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/text-converter/TextConverterClient.tsx(102,75): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/text-converter/TextConverterClient.tsx(102,103): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/text-converter/TextConverterClient.tsx(107,153): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/text-converter/TextConverterClient.tsx(108,204): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/text-converter/TextConverterClient.tsx(109,153): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/youtube-planner/page.tsx(64,7): error TS2339: Property 'ytPlanner' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/youtube-planner/page.tsx(66,8): error TS2339: Property 'ytPlanner' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/youtube-planner/page.tsx(69,8): error TS2339: Property 'ytPlanner' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/youtube-planner/page.tsx(72,8): error TS2339: Property 'ytPlanner' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/youtube-planner/page.tsx(75,8): error TS2339: Property 'ytPlanner' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/youtube-planner/page.tsx(305,32): error TS2339: Property 'ytPlanner' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/youtube-planner/page.tsx(306,32): error TS2339: Property 'ytPlanner' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/youtube-planner/page.tsx(307,34): error TS2339: Property 'ytPlanner' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/youtube-planner/page.tsx(308,34): error TS2339: Property 'ytPlanner' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/youtube-planner/page.tsx(319,94): error TS2339: Property 'ytPlanner' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/youtube-planner/page.tsx(322,24): error TS2339: Property 'ytPlanner' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/youtube-planner/page.tsx(341,60): error TS2339: Property 'ytPlanner' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/youtube-planner/page.tsx(350,61): error TS2339: Property 'ytPlanner' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/youtube-planner/page.tsx(363,39): error TS2339: Property 'ytPlanner' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/youtube-planner/page.tsx(386,39): error TS2339: Property 'ytPlanner' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/youtube-planner/page.tsx(392,52): error TS2339: Property 'ytPlanner' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/youtube-planner/page.tsx(403,125): error TS2339: Property 'ytPlanner' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/youtube-planner/page.tsx(406,86): error TS2339: Property 'ytPlanner' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/youtube-planner/page.tsx(412,70): error TS2339: Property 'ytPlanner' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/youtube-planner/page.tsx(413,72): error TS2339: Property 'ytPlanner' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/youtube-planner/page.tsx(414,77): error TS2339: Property 'ytPlanner' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/youtube-planner/page.tsx(418,86): error TS2339: Property 'ytPlanner' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/youtube-planner/page.tsx(424,72): error TS2339: Property 'ytPlanner' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/youtube-planner/page.tsx(425,71): error TS2339: Property 'ytPlanner' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/youtube-planner/page.tsx(426,73): error TS2339: Property 'ytPlanner' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/youtube-planner/page.tsx(445,50): error TS2339: Property 'ytPlanner' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/youtube-planner/page.tsx(450,50): error TS2339: Property 'ytPlanner' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/youtube-planner/page.tsx(482,48): error TS2339: Property 'ytPlanner' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/youtube-planner/page.tsx(570,82): error TS2339: Property 'ytPlanner' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/youtube-planner/page.tsx(570,139): error TS2339: Property 'ytPlanner' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/youtube-planner/page.tsx(612,72): error TS2339: Property 'ytPlanner' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/youtube-planner/page.tsx(613,61): error TS2339: Property 'ytPlanner' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/youtube-planner/page.tsx(617,24): error TS2339: Property 'ytPlanner' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/youtube-planner/page.tsx(634,28): error TS2339: Property 'ytPlanner' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/youtube-planner/page.tsx(647,25): error TS2339: Property 'ytGrab' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/youtube-thumbnail/page.tsx(81,28): error TS2339: Property 'ytGrab' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/youtube-thumbnail/page.tsx(112,56): error TS2339: Property 'ytGrab' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/youtube-thumbnail/page.tsx(115,24): error TS2339: Property 'ytGrab' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/youtube-thumbnail/page.tsx(128,44): error TS2339: Property 'ytGrab' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/youtube-thumbnail/page.tsx(139,92): error TS2339: Property 'ytGrab' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/youtube-thumbnail/page.tsx(165,60): error TS2339: Property 'ytGrab' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/youtube-thumbnail/page.tsx(189,112): error TS2339: Property 'ytGrab' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/youtube-thumbnail/page.tsx(232,121): error TS2339: Property 'ytGrab' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/youtube-thumbnail/page.tsx(245,139): error TS2339: Property 'ytGrab' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/youtube-thumbnail/page.tsx(302,51): error TS2339: Property 'ytGrab' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/youtube-thumbnail/page.tsx(302,80): error TS2339: Property 'ytGrab' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/youtube-thumbnail/page.tsx(308,71): error TS2339: Property 'ytGrab' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/youtube-thumbnail/page.tsx(320,101): error TS2339: Property 'ytGrab' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/youtube-thumbnail/page.tsx(321,141): error TS2339: Property 'ytGrab' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/youtube-thumbnail/page.tsx(345,56): error TS2339: Property 'ytGrab' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/youtube-thumbnail/page.tsx(350,232): error TS2339: Property 'ytGrab' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/youtube-thumbnail/page.tsx(409,85): error TS2339: Property 'ytGrab' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/youtube-thumbnail/page.tsx(410,77): error TS2339: Property 'ytGrab' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/youtube-thumbnail/page.tsx(413,24): error TS2339: Property 'ytGrab' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/youtube-thumbnail/page.tsx(426,25): error TS2339: Property 'ytPlanner' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/youtube-thumbnail/YouTubeThumbnailClient.tsx(33,29): error TS2339: Property 'ytGrab' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/youtube-thumbnail/YouTubeThumbnailClient.tsx(61,56): error TS2339: Property 'ytGrab' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/youtube-thumbnail/YouTubeThumbnailClient.tsx(63,83): error TS2339: Property 'ytGrab' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/youtube-thumbnail/YouTubeThumbnailClient.tsx(71,56): error TS2339: Property 'ytGrab' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/youtube-thumbnail/YouTubeThumbnailClient.tsx(80,92): error TS2339: Property 'ytGrab' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/youtube-thumbnail/YouTubeThumbnailClient.tsx(101,69): error TS2339: Property 'ytGrab' does not exist on type 'TranslationSchema'.
+../../../src/app/tools/youtube-thumbnail/YouTubeThumbnailClient.tsx(112,69): error TS2339: Property 'ytGrab' does not exist on type 'TranslationSchema'.
+../../../src/components/AdBanner.tsx(40,36): error TS2339: Property 'houseAds' does not exist on type 'TranslationSchema'.
+../../../src/components/AdBanner.tsx(40,76): error TS2339: Property 'houseAds' does not exist on type 'TranslationSchema'.
+../../../src/components/AdBanner.tsx(41,37): error TS2339: Property 'houseAds' does not exist on type 'TranslationSchema'.
+../../../src/components/AdBanner.tsx(41,77): error TS2339: Property 'houseAds' does not exist on type 'TranslationSchema'.
+../../../src/components/AdBanner.tsx(44,38): error TS2339: Property 'houseAds' does not exist on type 'TranslationSchema'.
+../../../src/components/AdBanner.tsx(44,78): error TS2339: Property 'houseAds' does not exist on type 'TranslationSchema'.
+../../../src/components/AdBanner.tsx(45,83): error TS2339: Property 'desc' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src/components/AdBanner.tsx(48,36): error TS2339: Property 'houseAds' does not exist on type 'TranslationSchema'.
+../../../src/components/AdBanner.tsx(48,73): error TS2339: Property 'houseAds' does not exist on type 'TranslationSchema'.
+../../../src/components/AdBanner.tsx(49,74): error TS2339: Property 'ytPlanner' does not exist on type 'TranslationSchema'.
+../../../src/components/AdBanner.tsx(52,40): error TS2339: Property 'houseAds' does not exist on type 'TranslationSchema'.
+../../../src/components/AdBanner.tsx(52,77): error TS2339: Property 'houseAds' does not exist on type 'TranslationSchema'.
+../../../src/components/AdBanner.tsx(53,37): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src/components/AdBanner.tsx(53,64): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src/components/AdBanner.tsx(56,37): error TS2339: Property 'houseAds' does not exist on type 'TranslationSchema'.
+../../../src/components/AdBanner.tsx(56,77): error TS2339: Property 'houseAds' does not exist on type 'TranslationSchema'.
+../../../src/components/AdBanner.tsx(57,66): error TS2339: Property 'houseAds' does not exist on type 'TranslationSchema'.
+../../../src/components/FeedbackWidget.tsx(45,60): error TS2339: Property 'feedback' does not exist on type 'TranslationSchema'.
+../../../src/components/FeedbackWidget.tsx(64,75): error TS2339: Property 'feedback' does not exist on type 'TranslationSchema'.
+../../../src/components/FeedbackWidget.tsx(70,88): error TS2339: Property 'feedback' does not exist on type 'TranslationSchema'.
+../../../src/components/FeedbackWidget.tsx(71,87): error TS2339: Property 'feedback' does not exist on type 'TranslationSchema'.
+../../../src/components/FeedbackWidget.tsx(72,89): error TS2339: Property 'feedback' does not exist on type 'TranslationSchema'.
+../../../src/components/FeedbackWidget.tsx(99,40): error TS2339: Property 'feedback' does not exist on type 'TranslationSchema'.
+../../../src/components/FeedbackWidget.tsx(113,42): error TS2339: Property 'feedback' does not exist on type 'TranslationSchema'.
+../../../src/components/Footer.tsx(21,22): error TS2339: Property 'footer' does not exist on type 'TranslationSchema'.
+../../../src/components/Footer.tsx(33,22): error TS2339: Property 'footer' does not exist on type 'TranslationSchema'.
+../../../src/components/Footer.tsx(35,27): error TS2339: Property 'footer' does not exist on type 'TranslationSchema'.
+../../../src/components/Footer.tsx(36,27): error TS2339: Property 'footer' does not exist on type 'TranslationSchema'.
+../../../src/components/Footer.tsx(37,27): error TS2339: Property 'footer' does not exist on type 'TranslationSchema'.
+../../../src/components/Footer.tsx(42,22): error TS2339: Property 'footer' does not exist on type 'TranslationSchema'.
+../../../src/components/Footer.tsx(44,27): error TS2339: Property 'footer' does not exist on type 'TranslationSchema'.
+../../../src/components/Footer.tsx(45,27): error TS2339: Property 'footer' does not exist on type 'TranslationSchema'.
+../../../src/components/Footer.tsx(63,32): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src/components/Footer.tsx(63,46): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src/components/Footer.tsx(111,62): error TS2339: Property 'footer' does not exist on type 'TranslationSchema'.
+../../../src/components/Footer.tsx(126,28): error TS2339: Property 'footer' does not exist on type 'TranslationSchema'.
+../../../src/components/MegaMenu.tsx(54,36): error TS2339: Property 'megaMenu' does not exist on type 'TranslationSchema'.
+../../../src/components/MegaMenu.tsx(54,57): error TS2339: Property 'allTools' does not exist on type 'TranslationSchema'.
+../../../src/components/MegaMenu.tsx(57,36): error TS2339: Property 'megaMenu' does not exist on type 'TranslationSchema'.
+../../../src/components/MegaMenu.tsx(76,44): error TS2339: Property 'megaMenu' does not exist on type 'TranslationSchema'.
+../../../src/components/MegaMenu.tsx(122,73): error TS2339: Property 'megaMenu' does not exist on type 'TranslationSchema'.
+../../../src/components/MegaMenu.tsx(129,74): error TS2339: Property 'megaMenu' does not exist on type 'TranslationSchema'.
+../../../src/components/navbar.tsx(33,38): error TS2339: Property 'allTools' does not exist on type 'TranslationSchema'.
+../../../src/components/navbar.tsx(39,36): error TS2339: Property 'advertise' does not exist on type 'TranslationSchema'.
+../../../src/components/navbar.tsx(78,40): error TS2339: Property 'allTools' does not exist on type 'TranslationSchema'.
+../../../src/components/navbar.tsx(86,40): error TS2339: Property 'advertise' does not exist on type 'TranslationSchema'.
+../../../src/components/NextStep.tsx(40,69): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src/components/NextStep.tsx(53,34): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src/components/NextStep.tsx(60,20): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src/components/PwaBanner.tsx(73,80): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src/components/PwaBanner.tsx(75,36): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src/components/PwaBanner.tsx(82,32): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src/components/RecentTools.tsx(35,56): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src/components/RecentTools.tsx(53,46): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src/components/ShareWidget.tsx(38,86): error TS2339: Property 'share' does not exist on type 'TranslationSchema'.
+../../../src/components/ShareWidget.tsx(54,37): error TS2339: Property 'share' does not exist on type 'TranslationSchema'.
+../../../src/components/ShareWidget.tsx(54,54): error TS2339: Property 'share' does not exist on type 'TranslationSchema'.
+../../../src/context/language-context.tsx(4,10): error TS2305: Module '"@/lib/translations"' has no exported member 'translations'.
+../../../src/lib/translations.ts(242,9): error TS7008: Member 'promptG' implicitly has an 'any' type.
+../../../src_backup_v19_translation_start/app/about/page.tsx(16,24): error TS2339: Property 'about' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/about/page.tsx(19,24): error TS2339: Property 'about' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/about/page.tsx(25,20): error TS2339: Property 'about' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/about/page.tsx(25,40): error TS7006: Parameter 'section' implicitly has an 'any' type.
+../../../src_backup_v19_translation_start/app/about/page.tsx(25,49): error TS7006: Parameter 'idx' implicitly has an 'any' type.
+../../../src_backup_v19_translation_start/app/about/page.tsx(74,59): error TS2339: Property 'contact' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/about/page.tsx(76,28): error TS2339: Property 'contact' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/about/page.tsx(78,42): error TS2339: Property 'contact' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/about/page.tsx(79,28): error TS2339: Property 'contact' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/advertise/page.tsx(35,21): error TS2339: Property 'advertise' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/advertise/page.tsx(42,22): error TS2339: Property 'advertise' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/advertise/page.tsx(44,21): error TS2339: Property 'advertise' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/advertise/page.tsx(45,22): error TS2339: Property 'advertise' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/advertise/page.tsx(48,22): error TS2339: Property 'advertise' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/advertise/page.tsx(50,21): error TS2339: Property 'advertise' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/advertise/page.tsx(51,22): error TS2339: Property 'advertise' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/advertise/page.tsx(54,22): error TS2339: Property 'advertise' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/advertise/page.tsx(56,21): error TS2339: Property 'advertise' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/advertise/page.tsx(57,22): error TS2339: Property 'advertise' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/advertise/page.tsx(60,22): error TS2339: Property 'advertise' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/advertise/page.tsx(62,21): error TS2339: Property 'advertise' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/advertise/page.tsx(63,22): error TS2339: Property 'advertise' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/advertise/page.tsx(73,55): error TS2339: Property 'advertise' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/advertise/page.tsx(78,24): error TS2339: Property 'advertise' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/advertise/page.tsx(89,56): error TS2339: Property 'advertise' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/advertise/page.tsx(92,24): error TS2339: Property 'advertise' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/advertise/page.tsx(117,86): error TS2339: Property 'advertise' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/advertise/page.tsx(119,28): error TS2339: Property 'advertise' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/advertise/page.tsx(119,52): error TS7006: Parameter 'item' implicitly has an 'any' type.
+../../../src_backup_v19_translation_start/app/advertise/page.tsx(119,58): error TS7006: Parameter 'i' implicitly has an 'any' type.
+../../../src_backup_v19_translation_start/app/advertise/page.tsx(134,32): error TS2339: Property 'advertise' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/advertise/page.tsx(142,116): error TS2339: Property 'advertise' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/advertise/page.tsx(146,48): error TS2339: Property 'advertise' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/advertise/page.tsx(151,116): error TS2339: Property 'advertise' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/advertise/page.tsx(156,48): error TS2339: Property 'advertise' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/advertise/page.tsx(162,112): error TS2339: Property 'advertise' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/advertise/page.tsx(166,44): error TS2339: Property 'advertise' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/advertise/page.tsx(171,112): error TS2339: Property 'advertise' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/advertise/page.tsx(176,44): error TS2339: Property 'advertise' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/advertise/page.tsx(184,88): error TS2339: Property 'advertise' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/advertise/page.tsx(195,64): error TS2339: Property 'advertise' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/advertise/page.tsx(196,75): error TS2339: Property 'advertise' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/advertise/page.tsx(201,24): error TS2339: Property 'advertise' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/advertise/page.tsx(201,43): error TS7006: Parameter 'item' implicitly has an 'any' type.
+../../../src_backup_v19_translation_start/app/advertise/page.tsx(201,49): error TS7006: Parameter 'idx' implicitly has an 'any' type.
+../../../src_backup_v19_translation_start/app/contact/page.tsx(43,110): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/contact/page.tsx(44,137): error TS2339: Property 'guide' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src_backup_v19_translation_start/app/contact/page.tsx(45,124): error TS2339: Property 'advertise' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/contact/page.tsx(60,60): error TS2339: Property 'advertise' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/contact/page.tsx(78,24): error TS2339: Property 'contact' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/contact/page.tsx(78,88): error TS2339: Property 'contact' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/contact/page.tsx(81,24): error TS2339: Property 'contact' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/contact/page.tsx(96,71): error TS2339: Property 'contact' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/contact/page.tsx(98,40): error TS2339: Property 'contact' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/contact/page.tsx(101,58): error TS2339: Property 'contact' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/contact/page.tsx(102,44): error TS2339: Property 'contact' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/contact/page.tsx(104,95): error TS2339: Property 'contact' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/contact/page.tsx(151,57): error TS7006: Parameter 'faq' implicitly has an 'any' type.
+../../../src_backup_v19_translation_start/app/contact/page.tsx(151,62): error TS7006: Parameter 'idx' implicitly has an 'any' type.
+../../../src_backup_v19_translation_start/app/HomeClient.tsx(11,50): error TS2339: Property 'ytGrab' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/HomeClient.tsx(12,49): error TS2339: Property 'qrGen' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/HomeClient.tsx(14,63): error TS2339: Property 'desc' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src_backup_v19_translation_start/app/HomeClient.tsx(15,52): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/HomeClient.tsx(16,53): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/HomeClient.tsx(17,20): error TS2339: Property 'pdfMaster' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/HomeClient.tsx(17,52): error TS2339: Property 'pdfMaster' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/HomeClient.tsx(25,24): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/HomeClient.tsx(28,24): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/HomeClient.tsx(29,56): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/HomeClient.tsx(32,24): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/HomeClient.tsx(32,71): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/HomeClient.tsx(52,115): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/not-found.tsx(29,24): error TS2339: Property 'notFound' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/not-found.tsx(33,24): error TS2339: Property 'notFound' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/not-found.tsx(42,28): error TS2339: Property 'notFound' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/page.tsx(16,22): error TS2339: Property 'ytPlanner' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/page.tsx(24,22): error TS2339: Property 'ytGrab' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/page.tsx(32,22): error TS2339: Property 'qrGen' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/page.tsx(48,32): error TS2339: Property 'desc' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src_backup_v19_translation_start/app/page.tsx(56,22): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/page.tsx(64,22): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/page.tsx(71,22): error TS2339: Property 'imageRestorer' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/page.tsx(78,16): error TS2339: Property 'pdfMaster' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/page.tsx(79,22): error TS2339: Property 'pdfMaster' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/page.tsx(94,14): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/page.tsx(98,14): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/page.tsx(99,46): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/page.tsx(103,14): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/page.tsx(105,14): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/page.tsx(136,103): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/page.tsx(154,50): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/page.tsx(155,59): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/page.tsx(158,14): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/page.tsx(158,40): error TS7006: Parameter 'tip' implicitly has an 'any' type.
+../../../src_backup_v19_translation_start/app/page.tsx(158,45): error TS7006: Parameter 'i' implicitly has an 'any' type.
+../../../src_backup_v19_translation_start/app/page.tsx(175,20): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/page.tsx(186,52): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/page.tsx(186,73): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/page.tsx(188,21): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/page.tsx(189,21): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/page.tsx(194,26): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/page.tsx(194,63): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/page.tsx(195,26): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/page.tsx(195,61): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/page.tsx(196,26): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/page.tsx(196,62): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/page.tsx(197,26): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/page.tsx(197,60): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/page.tsx(210,106): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/page.tsx(211,71): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/page.tsx(215,92): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/page.tsx(216,79): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/page.tsx(219,92): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/page.tsx(220,79): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/page.tsx(223,92): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/page.tsx(224,79): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/privacy/page.tsx(17,83): error TS2339: Property 'privacy' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/privacy/page.tsx(18,67): error TS2339: Property 'privacy' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/privacy/page.tsx(22,20): error TS2339: Property 'privacy' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/privacy/page.tsx(22,42): error TS7006: Parameter 'section' implicitly has an 'any' type.
+../../../src_backup_v19_translation_start/app/privacy/page.tsx(22,51): error TS7006: Parameter 'idx' implicitly has an 'any' type.
+../../../src_backup_v19_translation_start/app/terms/page.tsx(17,83): error TS2339: Property 'terms' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/terms/page.tsx(18,67): error TS2339: Property 'terms' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/terms/page.tsx(22,20): error TS2339: Property 'terms' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/terms/page.tsx(22,40): error TS7006: Parameter 'term' implicitly has an 'any' type.
+../../../src_backup_v19_translation_start/app/terms/page.tsx(22,46): error TS7006: Parameter 'idx' implicitly has an 'any' type.
+../../../src_backup_v19_translation_start/app/tools/background-remover/BackgroundRemoverClient.tsx(235,25): error TS2339: Property 'imageRestorer' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/BackgroundRemoverClient.tsx(266,63): error TS2339: Property 'imageRestorer' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/BackgroundRemoverClient.tsx(266,87): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/BackgroundRemoverClient.tsx(270,59): error TS2339: Property 'imageRestorer' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/BackgroundRemoverClient.tsx(270,82): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/BackgroundRemoverClient.tsx(279,87): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/BackgroundRemoverClient.tsx(760,85): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/BackgroundRemoverClient.tsx(761,81): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(63,35): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(64,41): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(65,34): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(285,38): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(490,46): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(491,48): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(492,18): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(1108,36): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(1119,33): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(1131,36): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(1602,28): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(1651,36): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(1660,36): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(1674,38): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(1693,59): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(1693,94): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(1748,142): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(1750,257): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(1751,357): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(1769,142): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(1772,75): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(1773,69): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(1774,72): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(1775,69): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(1802,141): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(1807,82): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(1825,156): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(1829,443): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(1830,441): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(1832,350): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(1866,327): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(1867,322): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(1958,72): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(1958,98): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(1995,97): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(2007,187): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(2011,186): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(2056,85): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(2099,46): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(2102,90): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(2115,109): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(2115,138): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(2138,84): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(2139,97): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(2154,44): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(2176,46): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(2184,46): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(2196,46): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(2261,169): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(2265,356): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(2266,360): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(2267,353): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(2273,90): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(2276,98): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(2283,90): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(2283,173): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(2283,197): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(2290,120): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(2299,150): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(2303,134): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(2309,56): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(2316,87): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(2316,135): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(2316,186): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(2316,234): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(2316,291): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(2322,167): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(2326,167): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(2347,64): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(2358,150): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(2361,64): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(2362,64): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(2363,64): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(2375,164): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(2377,78): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(2377,134): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(2377,180): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(2377,228): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(2377,275): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(2377,325): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(2388,150): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(2391,154): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(2395,154): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(2401,195): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(2406,158): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(2441,343): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(2457,68): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(2458,71): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(2459,77): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(2460,74): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(2461,74): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(2463,71): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(2463,109): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(2497,56): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(2497,85): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(2498,61): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(2498,95): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(2499,54): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(2499,84): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(2521,94): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(2522,73): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(2526,28): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(2526,58): error TS7006: Parameter 'section' implicitly has an 'any' type.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(2526,67): error TS7006: Parameter 'idx' implicitly has an 'any' type.
+../../../src_backup_v19_translation_start/app/tools/background-remover/page.tsx(2538,39): error TS2339: Property 'desc' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src_backup_v19_translation_start/app/tools/image-compressor/page.tsx(511,25): error TS2339: Property 'bgRemover' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/pdf-master/PDFMasterClient.tsx(272,33): error TS2339: Property 'pdfMaster' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/pdf-master/PDFMasterClient.tsx(273,33): error TS2339: Property 'pdfMaster' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/pdf-master/PDFMasterClient.tsx(274,34): error TS2339: Property 'pdfMaster' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/pdf-master/PDFMasterClient.tsx(275,35): error TS2339: Property 'pdfMaster' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/pdf-master/PDFMasterClient.tsx(276,35): error TS2339: Property 'pdfMaster' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/pdf-master/PDFMasterClient.tsx(293,71): error TS2339: Property 'pdfMaster' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/pdf-master/PDFMasterClient.tsx(296,24): error TS2339: Property 'pdfMaster' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/pdf-master/PDFMasterClient.tsx(337,115): error TS2339: Property 'pdfMaster' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/pdf-master/PDFMasterClient.tsx(353,81): error TS2339: Property 'pdfMaster' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/pdf-master/PDFMasterClient.tsx(360,40): error TS2339: Property 'pdfMaster' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/pdf-master/PDFMasterClient.tsx(368,36): error TS2339: Property 'pdfMaster' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/pdf-master/PDFMasterClient.tsx(412,75): error TS2339: Property 'pdfMaster' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/pdf-master/PDFMasterClient.tsx(416,130): error TS2339: Property 'pdfMaster' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/pdf-master/PDFMasterClient.tsx(428,130): error TS2339: Property 'pdfMaster' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/pdf-master/PDFMasterClient.tsx(444,69): error TS2339: Property 'pdfMaster' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/pdf-master/PDFMasterClient.tsx(459,56): error TS2339: Property 'pdfMaster' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/pdf-master/PDFMasterClient.tsx(481,76): error TS2339: Property 'pdfMaster' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/pdf-master/PDFMasterClient.tsx(482,79): error TS2339: Property 'pdfMaster' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/pdf-master/PDFMasterClient.tsx(483,84): error TS2339: Property 'pdfMaster' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/pdf-master/PDFMasterClient.tsx(484,89): error TS2339: Property 'pdfMaster' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/pdf-master/PDFMasterClient.tsx(485,67): error TS2339: Property 'pdfMaster' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/pdf-master/PDFMasterClient.tsx(497,44): error TS2339: Property 'pdfMaster' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/pdf-master/PDFMasterClient.tsx(511,48): error TS2339: Property 'pdfMaster' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/pdf-master/PDFMasterClient.tsx(539,87): error TS2339: Property 'pdfMaster' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/pdf-master/PDFMasterClient.tsx(540,85): error TS2339: Property 'pdfMaster' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/pdf-master/PDFMasterClient.tsx(544,24): error TS2339: Property 'pdfMaster' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/pdf-master/PDFMasterClient.tsx(564,28): error TS2339: Property 'pdfMaster' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/prompt-generator/page.tsx(38,54): error TS2339: Property 'placeholder' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src_backup_v19_translation_start/app/tools/prompt-generator/page.tsx(44,67): error TS2339: Property 'placeholder' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src_backup_v19_translation_start/app/tools/prompt-generator/page.tsx(56,48): error TS2339: Property 'platforms' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src_backup_v19_translation_start/app/tools/prompt-generator/page.tsx(57,42): error TS2339: Property 'platforms' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src_backup_v19_translation_start/app/tools/prompt-generator/page.tsx(58,54): error TS2339: Property 'platforms' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src_backup_v19_translation_start/app/tools/prompt-generator/page.tsx(65,77): error TS2339: Property 'title' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src_backup_v19_translation_start/app/tools/prompt-generator/page.tsx(68,34): error TS2339: Property 'desc' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src_backup_v19_translation_start/app/tools/prompt-generator/page.tsx(79,88): error TS2339: Property 'platform' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src_backup_v19_translation_start/app/tools/prompt-generator/page.tsx(101,83): error TS2339: Property 'genre' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src_backup_v19_translation_start/app/tools/prompt-generator/page.tsx(115,50): error TS2339: Property 'genres' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src_backup_v19_translation_start/app/tools/prompt-generator/page.tsx(124,46): error TS2339: Property 'subject' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src_backup_v19_translation_start/app/tools/prompt-generator/page.tsx(129,58): error TS2339: Property 'subjectPlaceholder' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src_backup_v19_translation_start/app/tools/prompt-generator/page.tsx(136,46): error TS2339: Property 'details' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src_backup_v19_translation_start/app/tools/prompt-generator/page.tsx(141,58): error TS2339: Property 'detailsPlaceholder' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src_backup_v19_translation_start/app/tools/prompt-generator/page.tsx(153,133): error TS2339: Property 'outputTitle' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src_backup_v19_translation_start/app/tools/prompt-generator/page.tsx(189,84): error TS2339: Property 'copied' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src_backup_v19_translation_start/app/tools/prompt-generator/page.tsx(193,83): error TS2339: Property 'copy' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src_backup_v19_translation_start/app/tools/prompt-generator/page.tsx(207,100): error TS2339: Property 'guide' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src_backup_v19_translation_start/app/tools/prompt-generator/page.tsx(208,79): error TS2339: Property 'guide' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src_backup_v19_translation_start/app/tools/prompt-generator/page.tsx(212,34): error TS2339: Property 'guide' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src_backup_v19_translation_start/app/tools/prompt-generator/page.tsx(212,54): error TS7006: Parameter 'section' implicitly has an 'any' type.
+../../../src_backup_v19_translation_start/app/tools/prompt-generator/page.tsx(212,63): error TS7006: Parameter 'idx' implicitly has an 'any' type.
+../../../src_backup_v19_translation_start/app/tools/prompt-generator/page.tsx(225,38): error TS2339: Property 'guide' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src_backup_v19_translation_start/app/tools/prompt-generator/page.tsx(225,53): error TS7006: Parameter 'item' implicitly has an 'any' type.
+../../../src_backup_v19_translation_start/app/tools/prompt-generator/page.tsx(225,59): error TS7006: Parameter 'idx' implicitly has an 'any' type.
+../../../src_backup_v19_translation_start/app/tools/prompt-generator/PromptGeneratorClient.tsx(39,54): error TS2339: Property 'placeholder' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src_backup_v19_translation_start/app/tools/prompt-generator/PromptGeneratorClient.tsx(44,67): error TS2339: Property 'placeholder' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src_backup_v19_translation_start/app/tools/prompt-generator/PromptGeneratorClient.tsx(56,48): error TS2339: Property 'platforms' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src_backup_v19_translation_start/app/tools/prompt-generator/PromptGeneratorClient.tsx(57,42): error TS2339: Property 'platforms' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src_backup_v19_translation_start/app/tools/prompt-generator/PromptGeneratorClient.tsx(58,54): error TS2339: Property 'platforms' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src_backup_v19_translation_start/app/tools/prompt-generator/PromptGeneratorClient.tsx(65,77): error TS2339: Property 'title' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src_backup_v19_translation_start/app/tools/prompt-generator/PromptGeneratorClient.tsx(67,93): error TS2339: Property 'desc' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src_backup_v19_translation_start/app/tools/prompt-generator/PromptGeneratorClient.tsx(74,88): error TS2339: Property 'platform' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src_backup_v19_translation_start/app/tools/prompt-generator/PromptGeneratorClient.tsx(89,83): error TS2339: Property 'genre' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src_backup_v19_translation_start/app/tools/prompt-generator/PromptGeneratorClient.tsx(97,50): error TS2339: Property 'genres' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src_backup_v19_translation_start/app/tools/prompt-generator/PromptGeneratorClient.tsx(104,151): error TS2339: Property 'subject' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src_backup_v19_translation_start/app/tools/prompt-generator/PromptGeneratorClient.tsx(105,122): error TS2339: Property 'subjectPlaceholder' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src_backup_v19_translation_start/app/tools/prompt-generator/PromptGeneratorClient.tsx(108,151): error TS2339: Property 'details' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src_backup_v19_translation_start/app/tools/prompt-generator/PromptGeneratorClient.tsx(109,125): error TS2339: Property 'detailsPlaceholder' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src_backup_v19_translation_start/app/tools/prompt-generator/PromptGeneratorClient.tsx(117,133): error TS2339: Property 'outputTitle' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src_backup_v19_translation_start/app/tools/prompt-generator/PromptGeneratorClient.tsx(130,88): error TS2339: Property 'copied' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src_backup_v19_translation_start/app/tools/prompt-generator/PromptGeneratorClient.tsx(130,145): error TS2339: Property 'copy' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src_backup_v19_translation_start/app/tools/qr-generator/QrGeneratorClient.tsx(154,64): error TS2339: Property 'qrGen' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/qr-generator/QrGeneratorClient.tsx(158,102): error TS2339: Property 'qrGen' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/qr-generator/QrGeneratorClient.tsx(159,98): error TS2339: Property 'qrGen' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/qr-generator/QrGeneratorClient.tsx(160,96): error TS2339: Property 'qrGen' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/qr-generator/QrGeneratorClient.tsx(161,92): error TS2339: Property 'qrGen' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/qr-generator/QrGeneratorClient.tsx(179,65): error TS2339: Property 'qrGen' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/qr-generator/QrGeneratorClient.tsx(198,121): error TS2339: Property 'qrGen' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/qr-generator/QrGeneratorClient.tsx(225,121): error TS2339: Property 'qrGen' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/qr-generator/QrGeneratorClient.tsx(255,127): error TS2339: Property 'qrGen' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/qr-generator/QrGeneratorClient.tsx(272,127): error TS2339: Property 'qrGen' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/qr-generator/QrGeneratorClient.tsx(275,52): error TS2339: Property 'qrGen' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/qr-generator/QrGeneratorClient.tsx(285,71): error TS2339: Property 'qrGen' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/qr-generator/QrGeneratorClient.tsx(288,168): error TS2339: Property 'qrGen' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/qr-generator/QrGeneratorClient.tsx(300,97): error TS2339: Property 'qrGen' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/qr-generator/QrGeneratorClient.tsx(309,54): error TS2339: Property 'qrGen' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/qr-generator/QrGeneratorClient.tsx(377,42): error TS2339: Property 'qrGen' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/qr-generator/QrGeneratorClient.tsx(384,42): error TS2339: Property 'qrGen' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/qr-generator/QrGeneratorClient.tsx(388,121): error TS2339: Property 'qrGen' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/qr-generator/QrGeneratorClient.tsx(398,88): error TS2339: Property 'qrGen' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/qr-generator/QrGeneratorClient.tsx(399,86): error TS2339: Property 'qrGen' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/qr-generator/QrGeneratorClient.tsx(403,25): error TS2339: Property 'qrGen' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/qr-generator/QrGeneratorClient.tsx(423,29): error TS2339: Property 'qrGen' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/revenue-calculator/page.tsx(60,104): error TS2339: Property 'revenueCalc' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/revenue-calculator/page.tsx(63,24): error TS2339: Property 'revenueCalc' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/revenue-calculator/page.tsx(76,40): error TS2339: Property 'revenueCalc' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/revenue-calculator/page.tsx(101,40): error TS2339: Property 'revenueCalc' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/revenue-calculator/page.tsx(128,44): error TS2339: Property 'revenueCalc' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/revenue-calculator/page.tsx(129,44): error TS2339: Property 'revenueCalc' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/revenue-calculator/page.tsx(130,44): error TS2339: Property 'revenueCalc' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/revenue-calculator/page.tsx(151,75): error TS2339: Property 'revenueCalc' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/revenue-calculator/page.tsx(224,120): error TS2339: Property 'revenueCalc' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/revenue-calculator/page.tsx(225,69): error TS2339: Property 'revenueCalc' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/revenue-calculator/page.tsx(229,24): error TS2339: Property 'revenueCalc' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/revenue-calculator/page.tsx(242,28): error TS2339: Property 'revenueCalc' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/screen-recorder/page.tsx(138,83): error TS2339: Property 'screenRecorder' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/screen-recorder/page.tsx(141,24): error TS2339: Property 'screenRecorder' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/screen-recorder/page.tsx(165,65): error TS2339: Property 'screenRecorder' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/screen-recorder/page.tsx(200,44): error TS2339: Property 'screenRecorder' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/screen-recorder/page.tsx(208,44): error TS2339: Property 'screenRecorder' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/screen-recorder/page.tsx(218,44): error TS2339: Property 'screenRecorder' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/screen-recorder/page.tsx(233,46): error TS2339: Property 'screenRecorder' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/screen-recorder/page.tsx(245,46): error TS2339: Property 'screenRecorder' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/screen-recorder/page.tsx(292,90): error TS2339: Property 'screenRecorder' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/screen-recorder/page.tsx(293,69): error TS2339: Property 'screenRecorder' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/screen-recorder/page.tsx(297,24): error TS2339: Property 'screenRecorder' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/screen-recorder/page.tsx(310,28): error TS2339: Property 'screenRecorder' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/text-converter/page.tsx(103,22): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/text-converter/page.tsx(106,41): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/text-converter/page.tsx(107,41): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/text-converter/page.tsx(108,46): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/text-converter/page.tsx(112,22): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/text-converter/page.tsx(115,40): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/text-converter/page.tsx(116,47): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/text-converter/page.tsx(117,47): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/text-converter/page.tsx(118,52): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/text-converter/page.tsx(122,22): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/text-converter/page.tsx(125,45): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/text-converter/page.tsx(126,45): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/text-converter/page.tsx(127,48): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/text-converter/page.tsx(128,48): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/text-converter/page.tsx(132,22): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/text-converter/page.tsx(135,46): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/text-converter/page.tsx(136,42): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/text-converter/page.tsx(137,42): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/text-converter/page.tsx(146,56): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/text-converter/page.tsx(149,24): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/text-converter/page.tsx(163,48): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/text-converter/page.tsx(171,46): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/text-converter/page.tsx(183,75): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/text-converter/page.tsx(183,103): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/text-converter/page.tsx(191,126): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/text-converter/page.tsx(195,126): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/text-converter/page.tsx(199,126): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/text-converter/page.tsx(238,90): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/text-converter/page.tsx(239,69): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/text-converter/page.tsx(243,24): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/text-converter/page.tsx(243,58): error TS7006: Parameter 'section' implicitly has an 'any' type.
+../../../src_backup_v19_translation_start/app/tools/text-converter/page.tsx(243,67): error TS7006: Parameter 'idx' implicitly has an 'any' type.
+../../../src_backup_v19_translation_start/app/tools/text-converter/page.tsx(256,28): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/text-converter/page.tsx(256,57): error TS7006: Parameter 'item' implicitly has an 'any' type.
+../../../src_backup_v19_translation_start/app/tools/text-converter/page.tsx(256,63): error TS7006: Parameter 'idx' implicitly has an 'any' type.
+../../../src_backup_v19_translation_start/app/tools/text-converter/TextConverterClient.tsx(73,20): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/text-converter/TextConverterClient.tsx(73,101): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/text-converter/TextConverterClient.tsx(73,172): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/text-converter/TextConverterClient.tsx(73,248): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/text-converter/TextConverterClient.tsx(74,20): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/text-converter/TextConverterClient.tsx(74,99): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/text-converter/TextConverterClient.tsx(74,170): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/text-converter/TextConverterClient.tsx(74,246): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/text-converter/TextConverterClient.tsx(74,329): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/text-converter/TextConverterClient.tsx(75,20): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/text-converter/TextConverterClient.tsx(75,96): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/text-converter/TextConverterClient.tsx(75,167): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/text-converter/TextConverterClient.tsx(75,241): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/text-converter/TextConverterClient.tsx(75,317): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/text-converter/TextConverterClient.tsx(76,20): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/text-converter/TextConverterClient.tsx(76,101): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/text-converter/TextConverterClient.tsx(76,173): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/text-converter/TextConverterClient.tsx(76,242): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/text-converter/TextConverterClient.tsx(83,56): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/text-converter/TextConverterClient.tsx(85,83): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/text-converter/TextConverterClient.tsx(92,103): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/text-converter/TextConverterClient.tsx(102,75): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/text-converter/TextConverterClient.tsx(102,103): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/text-converter/TextConverterClient.tsx(107,153): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/text-converter/TextConverterClient.tsx(108,204): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/text-converter/TextConverterClient.tsx(109,153): error TS2339: Property 'textConverter' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/youtube-planner/page.tsx(64,7): error TS2339: Property 'ytPlanner' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/youtube-planner/page.tsx(66,8): error TS2339: Property 'ytPlanner' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/youtube-planner/page.tsx(69,8): error TS2339: Property 'ytPlanner' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/youtube-planner/page.tsx(72,8): error TS2339: Property 'ytPlanner' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/youtube-planner/page.tsx(75,8): error TS2339: Property 'ytPlanner' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/youtube-planner/page.tsx(305,32): error TS2339: Property 'ytPlanner' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/youtube-planner/page.tsx(306,32): error TS2339: Property 'ytPlanner' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/youtube-planner/page.tsx(307,34): error TS2339: Property 'ytPlanner' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/youtube-planner/page.tsx(308,34): error TS2339: Property 'ytPlanner' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/youtube-planner/page.tsx(319,94): error TS2339: Property 'ytPlanner' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/youtube-planner/page.tsx(322,24): error TS2339: Property 'ytPlanner' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/youtube-planner/page.tsx(341,60): error TS2339: Property 'ytPlanner' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/youtube-planner/page.tsx(350,61): error TS2339: Property 'ytPlanner' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/youtube-planner/page.tsx(363,39): error TS2339: Property 'ytPlanner' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/youtube-planner/page.tsx(386,39): error TS2339: Property 'ytPlanner' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/youtube-planner/page.tsx(392,52): error TS2339: Property 'ytPlanner' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/youtube-planner/page.tsx(403,125): error TS2339: Property 'ytPlanner' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/youtube-planner/page.tsx(406,86): error TS2339: Property 'ytPlanner' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/youtube-planner/page.tsx(412,70): error TS2339: Property 'ytPlanner' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/youtube-planner/page.tsx(413,72): error TS2339: Property 'ytPlanner' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/youtube-planner/page.tsx(414,77): error TS2339: Property 'ytPlanner' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/youtube-planner/page.tsx(418,86): error TS2339: Property 'ytPlanner' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/youtube-planner/page.tsx(424,72): error TS2339: Property 'ytPlanner' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/youtube-planner/page.tsx(425,71): error TS2339: Property 'ytPlanner' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/youtube-planner/page.tsx(426,73): error TS2339: Property 'ytPlanner' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/youtube-planner/page.tsx(445,50): error TS2339: Property 'ytPlanner' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/youtube-planner/page.tsx(450,50): error TS2339: Property 'ytPlanner' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/youtube-planner/page.tsx(482,48): error TS2339: Property 'ytPlanner' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/youtube-planner/page.tsx(570,82): error TS2339: Property 'ytPlanner' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/youtube-planner/page.tsx(570,139): error TS2339: Property 'ytPlanner' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/youtube-planner/page.tsx(612,72): error TS2339: Property 'ytPlanner' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/youtube-planner/page.tsx(613,61): error TS2339: Property 'ytPlanner' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/youtube-planner/page.tsx(617,24): error TS2339: Property 'ytPlanner' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/youtube-planner/page.tsx(634,28): error TS2339: Property 'ytPlanner' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/youtube-planner/page.tsx(647,25): error TS2339: Property 'ytGrab' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/youtube-thumbnail/page.tsx(81,28): error TS2339: Property 'ytGrab' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/youtube-thumbnail/page.tsx(112,56): error TS2339: Property 'ytGrab' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/youtube-thumbnail/page.tsx(115,24): error TS2339: Property 'ytGrab' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/youtube-thumbnail/page.tsx(128,44): error TS2339: Property 'ytGrab' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/youtube-thumbnail/page.tsx(139,92): error TS2339: Property 'ytGrab' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/youtube-thumbnail/page.tsx(165,60): error TS2339: Property 'ytGrab' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/youtube-thumbnail/page.tsx(189,112): error TS2339: Property 'ytGrab' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/youtube-thumbnail/page.tsx(232,121): error TS2339: Property 'ytGrab' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/youtube-thumbnail/page.tsx(245,139): error TS2339: Property 'ytGrab' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/youtube-thumbnail/page.tsx(302,51): error TS2339: Property 'ytGrab' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/youtube-thumbnail/page.tsx(302,80): error TS2339: Property 'ytGrab' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/youtube-thumbnail/page.tsx(308,71): error TS2339: Property 'ytGrab' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/youtube-thumbnail/page.tsx(320,101): error TS2339: Property 'ytGrab' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/youtube-thumbnail/page.tsx(321,141): error TS2339: Property 'ytGrab' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/youtube-thumbnail/page.tsx(345,56): error TS2339: Property 'ytGrab' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/youtube-thumbnail/page.tsx(350,232): error TS2339: Property 'ytGrab' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/youtube-thumbnail/page.tsx(409,85): error TS2339: Property 'ytGrab' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/youtube-thumbnail/page.tsx(410,77): error TS2339: Property 'ytGrab' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/youtube-thumbnail/page.tsx(413,24): error TS2339: Property 'ytGrab' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/youtube-thumbnail/page.tsx(426,25): error TS2339: Property 'ytPlanner' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/youtube-thumbnail/YouTubeThumbnailClient.tsx(33,29): error TS2339: Property 'ytGrab' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/youtube-thumbnail/YouTubeThumbnailClient.tsx(61,56): error TS2339: Property 'ytGrab' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/youtube-thumbnail/YouTubeThumbnailClient.tsx(63,83): error TS2339: Property 'ytGrab' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/youtube-thumbnail/YouTubeThumbnailClient.tsx(71,56): error TS2339: Property 'ytGrab' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/youtube-thumbnail/YouTubeThumbnailClient.tsx(80,92): error TS2339: Property 'ytGrab' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/youtube-thumbnail/YouTubeThumbnailClient.tsx(101,69): error TS2339: Property 'ytGrab' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/app/tools/youtube-thumbnail/YouTubeThumbnailClient.tsx(112,69): error TS2339: Property 'ytGrab' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/components/AdBanner.tsx(40,36): error TS2339: Property 'houseAds' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/components/AdBanner.tsx(40,76): error TS2339: Property 'houseAds' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/components/AdBanner.tsx(41,37): error TS2339: Property 'houseAds' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/components/AdBanner.tsx(41,77): error TS2339: Property 'houseAds' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/components/AdBanner.tsx(44,38): error TS2339: Property 'houseAds' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/components/AdBanner.tsx(44,78): error TS2339: Property 'houseAds' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/components/AdBanner.tsx(45,83): error TS2339: Property 'desc' does not exist on type '{ imageRestorer: { title: "?대?吏 蹂듭썝湲?; desc: "?먯긽???대?吏瑜?AI濡?蹂듭썝?⑸땲??"; }; revenueCalc: { title: "?섏씡 怨꾩궛湲?; desc: "?덉긽 ?좏뒠釉??섏씡??怨꾩궛?⑸땲??"; views: "?쇱씪 議고쉶??; cpm: "?덉긽 CPM ($)"; resultDaily: "?쇱씪 ?덉긽 ?섏씡"; resultMonthly: "?붽컙 ?덉긽 ?섏씡"; resultYearly: "?곌컙 ?덉긽 ?섏씡"; growthTip: "?뮕 ?깆옣???꾪븳 ?섏씡????; guide: { ...; }; }; ... 24 more ...; houseAds...'.
+../../../src_backup_v19_translation_start/components/AdBanner.tsx(48,36): error TS2339: Property 'houseAds' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/components/AdBanner.tsx(48,73): error TS2339: Property 'houseAds' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/components/AdBanner.tsx(49,74): error TS2339: Property 'ytPlanner' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/components/AdBanner.tsx(52,40): error TS2339: Property 'houseAds' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/components/AdBanner.tsx(52,77): error TS2339: Property 'houseAds' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/components/AdBanner.tsx(53,37): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/components/AdBanner.tsx(53,64): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/components/AdBanner.tsx(56,37): error TS2339: Property 'houseAds' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/components/AdBanner.tsx(56,77): error TS2339: Property 'houseAds' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/components/AdBanner.tsx(57,66): error TS2339: Property 'houseAds' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/components/FeedbackWidget.tsx(45,60): error TS2339: Property 'feedback' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/components/FeedbackWidget.tsx(64,75): error TS2339: Property 'feedback' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/components/FeedbackWidget.tsx(70,88): error TS2339: Property 'feedback' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/components/FeedbackWidget.tsx(71,87): error TS2339: Property 'feedback' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/components/FeedbackWidget.tsx(72,89): error TS2339: Property 'feedback' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/components/FeedbackWidget.tsx(99,40): error TS2339: Property 'feedback' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/components/FeedbackWidget.tsx(113,42): error TS2339: Property 'feedback' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/components/Footer.tsx(21,22): error TS2339: Property 'footer' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/components/Footer.tsx(33,22): error TS2339: Property 'footer' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/components/Footer.tsx(35,27): error TS2339: Property 'footer' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/components/Footer.tsx(36,27): error TS2339: Property 'footer' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/components/Footer.tsx(37,27): error TS2339: Property 'footer' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/components/Footer.tsx(42,22): error TS2339: Property 'footer' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/components/Footer.tsx(44,27): error TS2339: Property 'footer' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/components/Footer.tsx(45,27): error TS2339: Property 'footer' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/components/Footer.tsx(63,32): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/components/Footer.tsx(63,46): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/components/Footer.tsx(111,62): error TS2339: Property 'footer' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/components/Footer.tsx(126,28): error TS2339: Property 'footer' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/components/MegaMenu.tsx(54,36): error TS2339: Property 'megaMenu' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/components/MegaMenu.tsx(54,57): error TS2339: Property 'allTools' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/components/MegaMenu.tsx(57,36): error TS2339: Property 'megaMenu' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/components/MegaMenu.tsx(76,44): error TS2339: Property 'megaMenu' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/components/MegaMenu.tsx(122,73): error TS2339: Property 'megaMenu' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/components/MegaMenu.tsx(129,74): error TS2339: Property 'megaMenu' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/components/navbar.tsx(33,38): error TS2339: Property 'allTools' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/components/navbar.tsx(39,36): error TS2339: Property 'advertise' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/components/navbar.tsx(78,40): error TS2339: Property 'allTools' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/components/navbar.tsx(86,40): error TS2339: Property 'advertise' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/components/NextStep.tsx(40,69): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/components/NextStep.tsx(53,34): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/components/NextStep.tsx(60,20): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/components/PwaBanner.tsx(73,80): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/components/PwaBanner.tsx(75,36): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/components/PwaBanner.tsx(82,32): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/components/RecentTools.tsx(35,56): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/components/RecentTools.tsx(53,46): error TS2339: Property 'home' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/components/ShareWidget.tsx(38,86): error TS2339: Property 'share' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/components/ShareWidget.tsx(54,37): error TS2339: Property 'share' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/components/ShareWidget.tsx(54,54): error TS2339: Property 'share' does not exist on type 'TranslationSchema'.
+../../../src_backup_v19_translation_start/context/language-context.tsx(4,10): error TS2305: Module '"@/lib/translations"' has no exported member 'translations'.
+../../../src_backup_v19_translation_start/lib/translations.ts(242,9): error TS7008: Member 'promptG' implicitly has an 'any' type.
