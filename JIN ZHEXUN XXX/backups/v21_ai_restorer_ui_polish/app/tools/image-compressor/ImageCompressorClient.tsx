@@ -1,0 +1,517 @@
+'use client'
+
+import { useState, useCallback, useEffect } from 'react'
+import { Upload, Download, Loader2, Check, Sliders, Maximize, Wand2, Trash2, Share2, Sparkles, Copy } from 'lucide-react'
+import imageCompression from 'browser-image-compression'
+import { cn } from '@/lib/utils'
+import { useLanguage } from '@/context/language-context'
+import AdBanner from '@/components/AdBanner'
+import { addRecentTool } from '@/lib/recent-tools'
+import NextStep from '@/components/NextStep'
+
+export default function ImageCompressorClient() {
+    const { t } = useLanguage()
+    const [originalFile, setOriginalFile] = useState<File | null>(null)
+    const [compressedFile, setCompressedFile] = useState<File | null>(null)
+    const [originalPreview, setOriginalPreview] = useState<string | null>(null)
+    const [compressedPreview, setCompressedPreview] = useState<string | null>(null)
+    const [isProcessing, setIsProcessing] = useState(false)
+    const [progress, setProgress] = useState(0)
+
+    // Advanced State
+    const [quality, setQuality] = useState(0.8)
+    const [maxWidth, setMaxWidth] = useState<number>(1920)
+    const [isEnhanceEnabled, setIsEnhanceEnabled] = useState(false)
+    const [aspectRatio, setAspectRatio] = useState<number | null>(null)
+
+    // Safety flag to prevent hydration issues
+    const [isMounted, setIsMounted] = useState(false)
+
+    useEffect(() => {
+        setIsMounted(true)
+        addRecentTool({
+            id: 'image-master',
+            title: t.navbar.imageSuite,
+            href: '/tools/image-compressor',
+            iconName: 'ImageIcon'
+        })
+    }, [t])
+
+    // Revoke object URLs when they change or component unmounts
+    useEffect(() => {
+        return () => {
+            if (originalPreview) URL.revokeObjectURL(originalPreview)
+            if (compressedPreview) URL.revokeObjectURL(compressedPreview)
+        }
+    }, [originalPreview, compressedPreview])
+
+    const applySharpen = async (file: File): Promise<File> => {
+        const canvas = await imageCompression.drawFileInCanvas(file) as unknown as HTMLCanvasElement
+        const ctx = canvas.getContext('2d') as CanvasRenderingContext2D
+        if (!ctx) return file
+
+        const w = canvas.width
+        const h = canvas.height
+        const imageData = ctx.getImageData(0, 0, w, h)
+        const data = imageData.data
+
+        const factor = 0.2
+        for (let i = 0; i < data.length; i += 4) {
+            data[i] = Math.min(255, data[i] + factor * (data[i] - 128))
+            data[i + 1] = Math.min(255, data[i + 1] + factor * (data[i + 1] - 128))
+            data[i + 2] = Math.min(255, data[i + 2] + factor * (data[i + 2] - 128))
+        }
+        ctx.putImageData(imageData, 0, 0)
+
+        return new Promise((resolve) => {
+            canvas.toBlob((blob: Blob | null) => {
+                if (blob) {
+                    const sharpenedFile = new File([blob], file.name, { type: 'image/jpeg' })
+                    resolve(sharpenedFile)
+                } else {
+                    resolve(file)
+                }
+            }, 'image/jpeg', 0.95)
+        })
+    }
+
+    const processImage = useCallback(async (file: File, currentQuality: number, currentWidth: number, enhance: boolean) => {
+        if (!file) return
+        setIsProcessing(true)
+        setProgress(0)
+
+        // Reset compressed preview when starting new process
+        setCompressedPreview(null)
+        setCompressedFile(null)
+
+        const options = {
+            maxSizeMB: 10,
+            maxWidthOrHeight: currentWidth,
+            useWebWorker: true,
+            initialQuality: currentQuality,
+            onProgress: (p: number) => setProgress(Math.round(p))
+        }
+
+        try {
+            console.log('Starting compression for:', file.name, options)
+            let processed = await imageCompression(file, options)
+
+            if (enhance) {
+                try {
+                    processed = await applySharpen(processed)
+                } catch (sharpError) {
+                    console.error('Enhancement failed, using compressed only', sharpError)
+                }
+            }
+
+            setCompressedFile(processed)
+            const newUrl = URL.createObjectURL(processed)
+            setCompressedPreview(newUrl)
+            setProgress(100)
+        } catch (error) {
+            console.error('Compression failed:', error)
+            alert(t.common.error || 'Failed to process image.')
+        } finally {
+            setIsProcessing(false)
+        }
+    }, [t.common.error])
+
+    const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement> | { target: { files: FileList | null } }) => {
+        const target = event.target as HTMLInputElement;
+        const file = target.files?.[0]
+        if (!file) return
+
+        setOriginalFile(file)
+        setCompressedFile(null)
+
+        setCompressedPreview((prev) => {
+            if (prev) URL.revokeObjectURL(prev)
+            return null
+        })
+
+        const previewUrl = URL.createObjectURL(file)
+        setOriginalPreview((prev) => {
+            if (prev) URL.revokeObjectURL(prev)
+            return previewUrl
+        })
+
+        const img = new Image()
+        img.src = previewUrl
+        img.onload = () => {
+            setMaxWidth(img.width)
+            setAspectRatio(img.width / img.height)
+            processImage(file, quality, img.width, isEnhanceEnabled)
+        }
+    }
+
+    const handleApplySettings = () => {
+        if (!originalFile) return
+        processImage(originalFile, quality, maxWidth, isEnhanceEnabled)
+    }
+
+    const handleShare = async () => {
+        try {
+            const shareText = `Check out this awesome Image Compressor! ⚡\n${window.location.origin}${window.location.pathname}`
+
+            if (navigator.share && compressedFile) {
+                // Try to share the actual file if supported
+                if (navigator.canShare && navigator.canShare({ files: [compressedFile] })) {
+                    await navigator.share({
+                        files: [compressedFile],
+                        title: 'UltraUtils - Image Compressor',
+                        text: 'Shared from UltraUtils'
+                    })
+                    return
+                }
+
+                // Fallback to sharing just the URL if file share not supported
+                await navigator.share({
+                    title: 'UltraUtils - Image Compressor',
+                    url: window.location.href
+                })
+                return
+            }
+
+            // Fallback for desktop: Copy link to clipboard
+            await navigator.clipboard.writeText(shareText)
+            alert(t.common.copiedLink)
+        } catch (error) {
+            console.error('Sharing failed:', error)
+            // Final fallback
+            const shareText = `Check out this awesome Image Compressor! ⚡\n${window.location.origin}${window.location.pathname}`
+            navigator.clipboard.writeText(shareText)
+            alert(t.common.copiedLink)
+        }
+    }
+
+    const handleCopyImage = async () => {
+        if (!compressedFile) return
+        try {
+            await navigator.clipboard.write([
+                new ClipboardItem({
+                    [compressedFile.type]: compressedFile
+                })
+            ])
+            alert(t.common.imageCopied)
+        } catch (error) {
+            console.error('Copy to clipboard failed:', error)
+            alert(t.common.imageCopyError)
+        }
+    }
+
+    const handleTrySample = async () => {
+        if (isProcessing) return
+        setIsProcessing(true)
+        setProgress(10)
+
+        try {
+            // High quality sample image - using a more reliable source or smaller first for quick test
+            const sampleUrl = 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1200'
+            const response = await fetch(sampleUrl)
+            if (!response.ok) throw new Error('Failed to fetch image')
+
+            const blob = await response.blob()
+            const file = new File([blob], 'sample_landscape.jpg', { type: 'image/jpeg' })
+
+            // Directly set state instead of triggering handleFileChange to avoid event duplication
+            setOriginalFile(file)
+            const previewUrl = URL.createObjectURL(file)
+            setOriginalPreview(previewUrl)
+
+            const img = new Image()
+            img.src = previewUrl
+            img.onload = () => {
+                const targetWidth = Math.min(img.width, 1920) // Limit default max width for sample
+                setMaxWidth(targetWidth)
+                setAspectRatio(img.width / img.height)
+                processImage(file, quality, targetWidth, isEnhanceEnabled)
+            }
+        } catch (error) {
+            console.error('Sample fetch failed', error)
+            alert(t.common.error)
+            setIsProcessing(false)
+        }
+    }
+
+    const formatSize = (bytes: number) => {
+        if (bytes === 0) return '0 Bytes'
+        const k = 1024
+        const sizes = ['Bytes', 'KB', 'MB', 'GB']
+        const i = Math.floor(Math.log(bytes) / Math.log(k))
+        return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i]
+    }
+
+    if (!isMounted) return null
+
+    return (
+        <div className="max-w-6xl mx-auto space-y-6 pb-20 px-4 sm:px-6">
+            <div className="text-center space-y-3 animate-in fade-in slide-in-from-bottom-4 duration-700">
+                <h1 className="text-3xl font-extrabold tracking-tight sm:text-6xl">
+                    <span className="text-gradient">{t.imageMaster.title}</span>
+                </h1>
+                <p className="text-muted-foreground text-sm sm:text-lg max-w-2xl mx-auto">
+                    {t.imageMaster.desc}
+                </p>
+            </div>
+
+            <div className="flex flex-col lg:grid lg:grid-cols-12 gap-6 items-start">
+                {/* Controls - On mobile this stays at the bottom or follows, but for one-screen we want to be clever */}
+                <div className="order-2 lg:order-1 lg:col-span-4 w-full space-y-6">
+                    <div className="glass-card p-5 sm:p-6 rounded-[2rem] space-y-6 animate-in fade-in slide-in-from-left-4 duration-700 delay-100 shadow-xl">
+                        <div className="space-y-4">
+                            <h3 className="text-xs font-bold uppercase tracking-wider text-muted-foreground flex items-center gap-2">
+                                <Sliders className="w-4 h-4 text-primary" /> {t.imageMaster.quality}
+                            </h3>
+                            <div className="space-y-2">
+                                <div className="flex justify-between text-xs font-mono">
+                                    <span className="opacity-50 uppercase tracking-tighter">Fast</span>
+                                    <span className="text-primary font-bold bg-primary/10 px-2 py-0.5 rounded-lg">{Math.round(quality * 100)}%</span>
+                                    <span className="opacity-50 uppercase tracking-tighter">Quality</span>
+                                </div>
+                                <input
+                                    type="range"
+                                    min="0.1"
+                                    max="1.0"
+                                    step="0.1"
+                                    value={quality}
+                                    onChange={(e) => setQuality(parseFloat(e.target.value))}
+                                    className="w-full h-2 bg-zinc-200 dark:bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-primary"
+                                />
+                            </div>
+                        </div>
+
+                        <div className="space-y-4">
+                            <h3 className="text-xs font-bold uppercase tracking-wider text-muted-foreground flex items-center gap-2">
+                                <Maximize className="w-4 h-4 text-primary" /> {t.imageMaster.size}
+                            </h3>
+                            <div className="grid grid-cols-2 gap-3">
+                                <div className="space-y-1">
+                                    <label className="text-[10px] uppercase font-bold text-muted-foreground ml-1">{t.imageMaster.width}</label>
+                                    <input
+                                        type="number"
+                                        value={maxWidth}
+                                        onChange={(e) => setMaxWidth(parseInt(e.target.value))}
+                                        className="w-full bg-zinc-100 dark:bg-zinc-900 border-none rounded-xl p-2.5 text-sm font-mono focus:ring-2 focus:ring-primary/20"
+                                    />
+                                </div>
+                                <div className="space-y-1">
+                                    <label className="text-[10px] uppercase font-bold text-muted-foreground ml-1">{t.imageMaster.height}</label>
+                                    <div className="w-full bg-zinc-100/50 dark:bg-zinc-900/50 border-none rounded-xl p-2.5 text-sm font-mono text-muted-foreground">
+                                        {aspectRatio ? Math.round(maxWidth / aspectRatio) : 0}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button
+                            disabled={!originalFile || isProcessing}
+                            onClick={handleApplySettings}
+                            className="w-full py-4 rounded-2xl bg-zinc-900 dark:bg-zinc-100 text-zinc-100 dark:text-zinc-900 font-bold hover:scale-[1.02] active:scale-95 transition-all flex items-center justify-center gap-2 group shadow-lg"
+                        >
+                            {isProcessing ? <Loader2 className="w-5 h-5 animate-spin" /> : <><Sparkles className="w-4 h-4" /> {t.imageMaster.applyOptimize}</>}
+                        </button>
+
+                        <div className="pt-4 border-t border-zinc-100 dark:border-zinc-800 flex items-center justify-between">
+                            <div className="flex items-center gap-3">
+                                <div className={cn(
+                                    "p-2 rounded-xl transition-colors",
+                                    isEnhanceEnabled ? "bg-purple-100 text-purple-600" : "bg-zinc-100 text-muted-foreground"
+                                )}>
+                                    <Wand2 className="w-4 h-4" />
+                                </div>
+                                <div>
+                                    <h4 className="text-xs font-bold">{t.imageMaster.smartEnhance}</h4>
+                                    <p className="text-[9px] text-muted-foreground leading-tight">{t.imageMaster.smartEnhanceDesc}</p>
+                                </div>
+                            </div>
+                            <button
+                                onClick={() => setIsEnhanceEnabled(!isEnhanceEnabled)}
+                                className={cn(
+                                    "w-10 h-5 rounded-full transition-colors relative flex-shrink-0",
+                                    isEnhanceEnabled ? "bg-primary" : "bg-zinc-300 dark:bg-zinc-700"
+                                )}
+                            >
+                                <div className={cn(
+                                    "absolute top-0.5 w-4 h-4 bg-white rounded-full transition-all",
+                                    isEnhanceEnabled ? "left-5.5" : "left-0.5"
+                                )} />
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Preview Area - Larger on mobile */}
+                <div className="order-1 lg:order-2 lg:col-span-8 w-full space-y-6">
+                    {!originalFile ? (
+                        <div className="flex flex-col gap-6">
+                            <div className="group relative border-4 border-dashed border-zinc-200 dark:border-zinc-800 rounded-[2.5rem] p-12 sm:p-24 text-center hover:border-primary/50 hover:bg-zinc-50/50 dark:hover:bg-primary/5 transition-all cursor-pointer animate-in fade-in slide-in-from-right-4 duration-700 delay-200">
+                                <input
+                                    type="file"
+                                    accept="image/*"
+                                    onChange={handleFileChange}
+                                    className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+                                />
+                                <div className="space-y-6 pointer-events-none">
+                                    <div className="w-20 h-20 sm:w-24 sm:h-24 bg-primary text-primary-foreground rounded-full flex items-center justify-center mx-auto shadow-2xl transition-transform group-hover:scale-110">
+                                        <Upload className="w-10 h-10 sm:w-12 sm:h-12" />
+                                    </div>
+                                    <div>
+                                        <h3 className="text-xl sm:text-2xl font-black italic tracking-tighter">{t.common.selectImage}</h3>
+                                        <p className="text-muted-foreground mt-2 max-w-xs mx-auto text-xs sm:text-sm">{t.common.dropHere}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button
+                                onClick={handleTrySample}
+                                disabled={isProcessing}
+                                className="mx-auto text-[10px] font-black uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors flex items-center gap-2 px-6 py-3 rounded-2xl hover:bg-white/50 dark:hover:bg-zinc-800/50 glass-card"
+                            >
+                                <Sparkles className="w-4 h-4" /> {t.common.trySample}
+                            </button>
+                        </div>
+                    ) : (
+                        <div className="space-y-4 animate-in zoom-in-95 duration-500">
+                            {/* Mobile View Toggle/Stack */}
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div className="glass-card p-3 sm:p-4 rounded-3xl space-y-3 relative group overflow-hidden">
+                                    <div className="absolute top-0 right-0 p-2 bg-primary/10 text-primary text-[10px] font-black rounded-bl-xl z-10 uppercase tracking-wider">
+                                        {t.imageMaster.original}
+                                    </div>
+                                    <div className="aspect-[4/3] sm:aspect-square rounded-2xl overflow-hidden bg-zinc-100 dark:bg-zinc-900 relative">
+                                        {originalPreview ? (
+                                            <img src={originalPreview} alt="Original" className="w-full h-full object-contain" />
+                                        ) : (
+                                            <div className="w-full h-full bg-zinc-200 animate-pulse" />
+                                        )}
+                                        <button
+                                            onClick={() => {
+                                                setOriginalFile(null)
+                                                setOriginalPreview((prev) => { if (prev) URL.revokeObjectURL(prev); return null; })
+                                                setCompressedFile(null)
+                                                setCompressedPreview((prev) => { if (prev) URL.revokeObjectURL(prev); return null; })
+                                            }}
+                                            className="absolute bottom-3 right-3 p-2 bg-white/90 dark:bg-zinc-800/90 text-red-500 rounded-xl shadow-lg hover:scale-110 transition-transform"
+                                        >
+                                            <Trash2 className="w-4 h-4" />
+                                        </button>
+                                    </div>
+                                    <div className="flex justify-between items-center px-1">
+                                        <span className="text-[10px] font-bold text-muted-foreground uppercase">{originalFile && formatSize(originalFile.size)}</span>
+                                    </div>
+                                </div>
+
+                                <div className="glass-card p-3 sm:p-4 rounded-3xl space-y-3 border-2 border-primary/20 relative overflow-hidden">
+                                    <div className="absolute top-0 right-0 p-2 bg-green-500 text-white text-[10px] font-black rounded-bl-xl z-10 uppercase tracking-wider">
+                                        {t.imageMaster.optimized}
+                                    </div>
+                                    <div className="aspect-[4/3] sm:aspect-square rounded-2xl overflow-hidden bg-zinc-100 dark:bg-zinc-900 relative">
+                                        {isProcessing && (
+                                            <div className="absolute inset-0 z-20 bg-black/40 backdrop-blur-sm flex flex-col items-center justify-center p-8 transition-opacity">
+                                                <div className="w-full bg-white/20 h-1.5 rounded-full overflow-hidden mb-3">
+                                                    <div className="h-full bg-white shadow-[0_0_10px_white] transition-all duration-300" style={{ width: `${progress}%` }} />
+                                                </div>
+                                                <span className="text-white text-[10px] font-black tracking-widest uppercase">Processing {progress}%</span>
+                                            </div>
+                                        )}
+                                        {compressedPreview ? (
+                                            <img src={compressedPreview} alt="Optimized" className="w-full h-full object-contain" />
+                                        ) : (
+                                            <div className="w-full h-full flex items-center justify-center text-muted-foreground bg-zinc-100/50">
+                                                {!isProcessing && <Loader2 className="w-8 h-8 animate-spin opacity-20" />}
+                                            </div>
+                                        )}
+                                    </div>
+                                    <div className="flex justify-between items-center px-1">
+                                        <div className="flex gap-2">
+                                            {compressedFile && originalFile && (
+                                                <span className="text-green-600 dark:text-green-400 text-[10px] font-black bg-green-500/10 px-1.5 py-0.5 rounded">
+                                                    -{((originalFile.size - compressedFile.size) / originalFile.size * 100).toFixed(0)}%
+                                                </span>
+                                            )}
+                                            <span className="text-[10px] font-bold text-muted-foreground uppercase">{compressedFile ? formatSize(compressedFile.size) : "Calculating..."}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="flex items-stretch gap-2.5 mt-2">
+                                <button
+                                    disabled={!compressedFile || isProcessing}
+                                    onClick={() => {
+                                        if (compressedPreview && originalFile) {
+                                            const link = document.createElement('a')
+                                            link.href = compressedPreview
+                                            link.download = `optimized-${originalFile.name}`
+                                            link.click()
+                                        }
+                                    }}
+                                    className="flex-1 py-4 sm:py-5 rounded-2xl sm:rounded-[2rem] bg-primary text-primary-foreground font-black sm:text-lg hover:scale-[1.02] active:scale-[0.98] transition-all shadow-xl flex items-center justify-center gap-3 disabled:opacity-50"
+                                >
+                                    <Download className="w-5 h-5 sm:w-6 sm:h-6 shrink-0" />
+                                    <span className="truncate">{t.imageMaster.downloadOptimized}</span>
+                                </button>
+                                <button
+                                    onClick={handleShare}
+                                    className="w-14 sm:w-20 rounded-2xl sm:rounded-[2rem] bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 font-bold flex items-center justify-center hover:bg-zinc-50 transition-all shrink-0 shadow-md border border-zinc-100 dark:border-zinc-700"
+                                >
+                                    <Share2 className="w-5 h-5 sm:w-6 sm:h-6" />
+                                </button>
+                                <button
+                                    onClick={handleCopyImage}
+                                    className="w-14 sm:w-20 rounded-2xl sm:rounded-[2rem] bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 font-bold flex items-center justify-center hover:bg-zinc-50 transition-all shrink-0 shadow-md border border-zinc-100 dark:border-zinc-700"
+                                >
+                                    <Copy className="w-5 h-5 sm:w-6 sm:h-6" />
+                                </button>
+                            </div>
+                        </div>
+                    )}
+                </div>
+            </div>
+
+            <AdBanner slot="tool-bottom-banner" useAdSense={true} />
+
+            <div className="pt-20 border-t border-zinc-200 dark:border-zinc-800 space-y-16 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-300">
+                <div className="text-center space-y-4">
+                    <h2 className="text-3xl font-extrabold sm:text-4xl text-gradient">{t.imageMaster.guide.title}</h2>
+                    <p className="text-muted-foreground text-lg">{t.imageMaster.guide.subtitle}</p>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    {t.imageMaster.guide.sections.map((section, idx) => (
+                        <div key={idx} className="glass-card p-10 rounded-[2.5rem] space-y-4 hover:shadow-2xl transition-all border border-zinc-100 dark:border-zinc-800/50">
+                            <h3 className="text-2xl font-bold text-primary">{section.title}</h3>
+                            <div className="text-muted-foreground leading-relaxed whitespace-pre-line text-lg">
+                                {section.content}
+                            </div>
+                        </div>
+                    ))}
+                </div>
+
+                <div className="max-w-3xl mx-auto space-y-10">
+                    <h3 className="text-3xl font-black text-center">Frequently Asked Questions</h3>
+                    <div className="space-y-6">
+                        {t.imageMaster.guide.faq.map((item, idx) => (
+                            <div key={idx} className="glass-card p-8 rounded-[2rem] border border-zinc-100 dark:border-zinc-800/50 hover:border-primary/20 transition-colors">
+                                <h4 className="text-xl font-bold text-zinc-900 dark:text-zinc-100 mb-4 flex items-start gap-4">
+                                    <span className="text-primary font-black bg-primary/10 w-10 h-10 rounded-xl flex items-center justify-center shrink-0">Q</span>
+                                    {item.q}
+                                </h4>
+                                <p className="text-muted-foreground pl-14 leading-relaxed text-lg">
+                                    {item.a}
+                                </p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </div>
+
+            <NextStep
+                title={t.navbar.bgRemover}
+                desc={t.bgRemover.desc}
+                href="/tools/background-remover"
+                iconName="Wand2"
+            />
+        </div>
+    )
+}

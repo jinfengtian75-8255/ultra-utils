@@ -1,0 +1,2553 @@
+'use client'
+
+import { useState, useCallback, useRef, useEffect, Suspense } from 'react'
+import { useSearchParams } from 'next/navigation'
+import {
+    Upload, Download, Loader2, Image as ImageIcon, Check, RefreshCw, Layers, Sparkles, Undo, Redo, MousePointer2, Eraser, Brush, X, Crop, Share2, Type, Maximize, Maximize2, Instagram, ImagePlus, Copy, Smartphone, Monitor, Plus, Minus, ChevronDown, ChevronUp, Smile, Sliders, Eye, Hand, Move, RotateCw, RotateCcw, FlipHorizontal, FlipVertical, Palette, Sun, Trash2, Zap, Info, History
+} from 'lucide-react'
+import { cn } from '@/lib/utils'
+import { useLanguage } from '@/context/language-context'
+import { removeBackground } from '@imgly/background-removal'
+import AdBanner from '@/components/AdBanner'
+import { addRecentTool } from '@/lib/recent-tools'
+import NextStep from '@/components/NextStep'
+
+declare global {
+    interface Window {
+        lastMousePos?: { x: number; y: number }
+    }
+}
+
+function BackgroundRemoverContent() {
+    const { t } = useLanguage()
+    const searchParams = useSearchParams()
+    const [originalImage, setOriginalImage] = useState<string | null>(null)
+    const [processedImage, setProcessedImage] = useState<string | null>(null)
+    const [isProcessing, setIsProcessing] = useState(false)
+    const [progress, setProgress] = useState(0)
+    const [currentStep, setCurrentStep] = useState<string>('')
+    const [isMounted, setIsMounted] = useState(false)
+    const [isRefining, setIsRefining] = useState(false)
+    const [viewMode, setViewMode] = useState<'comparison' | 'editor'>('comparison')
+    const [brushMode, setBrushMode] = useState<'restore' | 'erase' | 'extract'>('restore')
+    const [brushSize, setBrushSize] = useState(40)
+    const [isDrawing, setIsDrawing] = useState(false)
+    const [lassoPoints, setLassoPoints] = useState<{ x: number, y: number }[]>([])
+    const [restoreMethod, setRestoreMethod] = useState<'brush' | 'lasso'>('brush')
+    const [hdMode, setHdMode] = useState(true)
+    const [isDownloading, setIsDownloading] = useState(false)
+    const [workflowStep, setWorkflowStep] = useState<'idle' | 'selection' | 'processing' | 'editing'>('idle')
+    const [selectionPoint, setSelectionPoint] = useState<{ x: number, y: number } | null>(null)
+    const [pendingFile, setPendingFile] = useState<File | null>(null)
+    const fullAIPngRef = useRef<string | null>(null)
+
+    // Pro Features State
+    const [bgType, setBgType] = useState<'transparent' | 'color' | 'gradient' | 'image'>('transparent')
+    const [bgColor, setBgColor] = useState('#ffffff')
+    const [bgGradient, setBgGradient] = useState('linear-gradient(135deg, #667eea 0%, #764ba2 100%)')
+    const [customBgImage, setCustomBgImage] = useState<string | null>(null)
+    const [hasSticker, setHasSticker] = useState(false)
+    const [stickerColor, setStickerColor] = useState('#ffffff')
+    const [stickerWidth, setStickerWidth] = useState(15)
+    const [zoom, setZoom] = useState(1)
+
+    interface IDStandard {
+        id: string;
+        name: string;
+        width: number; // in mm
+        height: number; // in mm
+        label: string;
+    }
+
+    const ID_STANDARDS: IDStandard[] = [
+        { id: 'passport', name: t.bgRemover.passport, width: 35, height: 45, label: '3.5 x 4.5 cm' },
+        { id: 'identification', name: t.bgRemover.idCard, width: 30, height: 40, label: '3 x 4 cm' },
+        { id: 'us-visa', name: t.bgRemover.usVisa, width: 51, height: 51, label: '5.1 x 5.1 cm' },
+    ]
+
+    interface TextLayer {
+        id: string;
+        text: string;
+        x: number;
+        y: number;
+        fontSize: number;
+        color: string;
+        strokeColor: string;
+        strokeWidth: number;
+        fontWeight: string;
+        fontFamily: string;
+        rotation: number;
+    }
+
+    interface StudioState {
+        processedImage: string;
+        subjectPos: { x: number; y: number };
+        subjectScale: number;
+        hasSticker: boolean;
+        stickerColor: string;
+        stickerWidth: number;
+        bgType: 'transparent' | 'color' | 'gradient' | 'image';
+        bgColor: string;
+        bgGradient: string;
+        customBgImage: string | null;
+        aspectRatio: 'original' | '1:1' | '4:5' | '9:16' | '16:9' | '3:4' | '2:3' | '3:2' | '21:9';
+        textLayers: TextLayer[];
+        subjectBrightness: number;
+        subjectContrast: number;
+        subjectSaturation: number;
+        globalFilter: string;
+        subjectRotation: number;
+        subjectFlipH: boolean;
+        subjectFlipV: boolean;
+        subjectOpacity: number;
+        subjectShadow: number;
+        showOriginal?: boolean;
+    }
+
+    const [history, setHistory] = useState<StudioState[]>([])
+    const [redoStack, setRedoStack] = useState<StudioState[]>([])
+    const [showResetConfirm, setShowResetConfirm] = useState(false)
+    const [textLayers, setTextLayers] = useState<TextLayer[]>([])
+    const [activeTextId, setActiveTextId] = useState<string | null>(null)
+    const [isDraggingText, setIsDraggingText] = useState(false)
+    const [subjectBrightness, setSubjectBrightness] = useState(100)
+    const [subjectContrast, setSubjectContrast] = useState(100)
+    const [subjectSaturation, setSubjectSaturation] = useState(100)
+    const [globalFilter, setGlobalFilter] = useState('none')
+    const [bgLoadCount, setBgLoadCount] = useState(0) // New: To trigger re-render on image loads
+
+    const [isIDMode, setIsIDMode] = useState(false)
+    const [activeIDStandard, setActiveIDStandard] = useState<IDStandard | null>(null)
+    const [showIDGuide, setShowIDGuide] = useState(true)
+    const [mobileTab, setMobileTab] = useState<'bg' | 'refine' | 'transform' | 'enhance' | 'styling' | 'text' | 'id' | 'done'>('bg')
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(true)
+    const [workspaceOffsetY, setWorkspaceOffsetY] = useState(0)
+    const [isPanningWorkspace, setIsPanningWorkspace] = useState(false)
+    const [showOriginal, setShowOriginal] = useState(false)
+
+    const fileInputRef = useRef<HTMLInputElement>(null)
+    const bgInputRef = useRef<HTMLInputElement>(null)
+    const canvasRef = useRef<HTMLCanvasElement>(null)
+    const studioCanvasRef = useRef<HTMLCanvasElement>(null)
+    const maskCanvasRef = useRef<HTMLCanvasElement>(null)
+    const resultCanvasRef = useRef<HTMLCanvasElement>(null)
+    const originalImgRef = useRef<HTMLImageElement | null>(null)
+    const customBgImgRef = useRef<HTMLImageElement | null>(null)
+
+    const PRESET_BGS = [
+        'https://images.unsplash.com/photo-1557683316-973673baf926?w=800&q=80',
+        'https://images.unsplash.com/photo-1557682250-33bd709cbe85?w=800&q=80',
+        'https://images.unsplash.com/photo-1557683311-eac922347aa1?w=800&q=80',
+        'https://images.unsplash.com/photo-1579546929518-9e396f3cc809?w=800&q=80',
+        'https://images.unsplash.com/photo-1579546929662-711aa81148cf?w=800&q=80',
+        'https://images.unsplash.com/photo-1519750783826-e2420f4d687f?w=800&q=80'
+    ]
+    const [subjectPos, setSubjectPos] = useState({ x: 0, y: 0 })
+    const [subjectScale, setSubjectScale] = useState(1)
+    const [subjectRotation, setSubjectRotation] = useState(0)
+    const [subjectFlipH, setSubjectFlipH] = useState(false)
+    const [subjectFlipV, setSubjectFlipV] = useState(false)
+    const [subjectOpacity, setSubjectOpacity] = useState(100)
+    const [subjectShadow, setSubjectShadow] = useState(0)
+    const [selectionMode, setSelectionMode] = useState<'click' | 'lasso'>('click')
+    const [selectionLassoPoints, setSelectionLassoPoints] = useState<{ x: number, y: number, nx?: number, ny?: number }[]>([])
+    const [isDrawingSelectionLasso, setIsDrawingSelectionLasso] = useState(false)
+    const [isDraggingSubject, setIsDraggingSubject] = useState(false)
+    const [dragStart, setDragStart] = useState({ x: 0, y: 0 })
+    const [isMaskReady, setIsMaskReady] = useState(false)
+    const [isShorts, setIsShorts] = useState(false)
+    const [aspectRatio, setAspectRatio] = useState<'original' | '1:1' | '4:5' | '9:16' | '16:9' | '3:4' | '2:3' | '3:2' | '21:9'>('original')
+
+    useEffect(() => {
+        setIsMounted(true);
+        // Ensure we start at the top on mount
+        window.scrollTo({ top: 0, behavior: 'instant' });
+
+        addRecentTool({
+            id: 'bg-remover',
+            title: t.navbar.bgRemover,
+            href: '/tools/background-remover',
+            iconName: 'Wand2'
+        })
+
+        // Handle image from URL parameter (e.g., from YouTube Thumbnail tool)
+        const src = searchParams.get('src')
+        const isShortsParam = searchParams.get('shorts') === 'true'
+
+        if (src) {
+            resetAllSettings()
+            setOriginalImage(src)
+            // Fix: Improved Shorts detection from URL parameters
+            if (isShortsParam || src.includes('shorts=true')) {
+                setAspectRatio('9:16')
+                setIsShorts(true)
+            }
+            const img = new Image()
+            img.crossOrigin = "anonymous"
+            img.src = src
+            img.onload = () => {
+                originalImgRef.current = img
+                processImage(src)
+            }
+        }
+    }, [searchParams, t])
+
+    const applyState = useCallback((state: StudioState) => {
+        if (!state || !state.processedImage) return;
+
+        setProcessedImage(state.processedImage)
+        setSubjectPos(state.subjectPos)
+        setSubjectScale(state.subjectScale)
+        setHasSticker(state.hasSticker)
+        setStickerColor(state.stickerColor)
+        setStickerWidth(state.stickerWidth)
+        setBgType(state.bgType)
+        setBgColor(state.bgColor)
+        setBgGradient(state.bgGradient)
+        setCustomBgImage(state.customBgImage)
+        setAspectRatio(state.aspectRatio)
+        setTextLayers(state.textLayers || [])
+        setSubjectBrightness(state.subjectBrightness ?? 100)
+        setSubjectContrast(state.subjectContrast ?? 100)
+        setSubjectSaturation(state.subjectSaturation ?? 100)
+        setGlobalFilter(state.globalFilter ?? 'none')
+        setSubjectRotation(state.subjectRotation ?? 0)
+        setSubjectFlipH(state.subjectFlipH ?? false)
+        setSubjectFlipV(state.subjectFlipV ?? false)
+        setSubjectOpacity(state.subjectOpacity ?? 100)
+        setSubjectShadow(state.subjectShadow ?? 0)
+        if (state.showOriginal !== undefined) setShowOriginal(state.showOriginal)
+
+        // Restore mask on canvas with robustness
+        const img = new Image()
+        if (!state.processedImage.startsWith('data:')) {
+            img.crossOrigin = "anonymous"
+        }
+        img.src = state.processedImage
+        img.onload = () => {
+            const maskCanvas = maskCanvasRef.current
+            if (maskCanvas) {
+                maskCanvas.width = img.width
+                maskCanvas.height = img.height
+                const ctx = maskCanvas.getContext('2d')
+                if (ctx) {
+                    ctx.clearRect(0, 0, maskCanvas.width, maskCanvas.height)
+                    ctx.drawImage(img, 0, 0)
+                    setIsMaskReady(true)
+                    renderStudio()
+                }
+            } else {
+                renderStudio()
+            }
+        }
+        img.onerror = () => {
+            console.error("Failed to restore image in history");
+            renderStudio();
+        }
+    }, [])
+
+    const undo = useCallback(() => {
+        if (history.length > 1) {
+            const currentState = history[history.length - 1]
+            setRedoStack(prev => [...prev, currentState])
+            const prevState = history[history.length - 2]
+            setHistory(prev => prev.slice(0, -1))
+            applyState(prevState)
+        }
+    }, [history, applyState])
+
+    const redo = useCallback(() => {
+        if (redoStack.length > 0) {
+            const nextState = redoStack[0]
+            const newRedoStack = redoStack.slice(1)
+
+            setHistory(prev => [...prev, nextState])
+            setRedoStack(newRedoStack)
+            applyState(nextState)
+        }
+    }, [redoStack, applyState])
+
+    // Mobile Navigation Protection: Intercept back button to perform Undo or prevent accidental exit
+    useEffect(() => {
+        if (!processedImage) return;
+
+        // Push a dummy state to history to intercept the first back button press
+        window.history.pushState({ protected: true }, '');
+
+        const handlePopState = (e: PopStateEvent) => {
+            if (history.length > 1) {
+                // If we have history, perform Undo instead of navigating back
+                undo();
+                // Push the state back so the next 'back' can also be intercepted
+                window.history.pushState({ protected: true }, '');
+            } else {
+                // If no history, confirm before exiting
+                if (window.confirm(t.bgRemover.resetConfirmTitle || 'Are you sure you want to exit?')) {
+                    setProcessedImage(null);
+                } else {
+                    window.history.pushState({ protected: true }, '');
+                }
+            }
+        };
+
+        window.addEventListener('popstate', handlePopState);
+        return () => window.removeEventListener('popstate', handlePopState);
+    }, [processedImage, history.length, undo, t])
+
+    const resetAllSettings = useCallback(() => {
+        setProcessedImage(null)
+        setOriginalImage(null)
+        setPendingFile(null)
+        setIsProcessing(false)
+        setWorkflowStep('idle')
+        setSubjectPos({ x: 0, y: 0 })
+        setSubjectScale(1)
+        setSubjectRotation(0)
+        setSubjectFlipH(false)
+        setSubjectFlipV(false)
+        setSubjectOpacity(100)
+        setSubjectShadow(0)
+        setHasSticker(false)
+        setStickerColor('#ffffff')
+        setStickerWidth(15)
+        setBgType('transparent')
+        setBgColor('#ffffff')
+        setBgGradient('linear-gradient(135deg, #667eea 0%, #764ba2 100%)')
+        setCustomBgImage(null)
+        setAspectRatio('original')
+        setTextLayers([])
+        setActiveTextId(null)
+        setSubjectBrightness(100)
+        setSubjectContrast(100)
+        setSubjectSaturation(100)
+        setGlobalFilter('none')
+        setHistory([])
+        setRedoStack([])
+        setIsRefining(false)
+        setIsIDMode(false)
+        setActiveIDStandard(null)
+        setZoom(1)
+        setWorkspaceOffsetY(0)
+        setIsMaskReady(false)
+        setIsShorts(false)
+        setMobileTab('bg')
+        setViewMode('editor')
+        setIsMobileMenuOpen(true)
+    }, [])
+
+    const handleFileUpload = useCallback(async (e: React.ChangeEvent<HTMLInputElement> | React.DragEvent<HTMLDivElement> | { target: { files: FileList | null } }) => {
+        let file: File | null = null
+        if ('target' in e && e.target) {
+            file = (e.target as any).files?.[0] || null
+        } else if ('dataTransfer' in e) {
+            e.preventDefault()
+            file = e.dataTransfer.files?.[0] || null
+        }
+
+        if (file && file.type.startsWith('image/')) {
+            // [Pro: Reset everything for a fresh start]
+            resetAllSettings()
+
+            const reader = new FileReader()
+            reader.onload = (event) => {
+                const dataUrl = event.target?.result as string
+                setOriginalImage(dataUrl)
+
+                // Pre-load original image for brush tool performance
+                const img = new Image()
+                img.crossOrigin = "anonymous"
+                img.src = dataUrl
+                img.onload = () => {
+                    originalImgRef.current = img
+                    setOriginalImage(dataUrl)
+                    setWorkflowStep('selection')
+                    setPendingFile(file)
+                }
+            }
+            // Reset input value to allow re-uploading same file
+            if ('target' in e && e.target && 'value' in e.target) {
+                (e.target as any).value = ''
+            }
+            reader.readAsDataURL(file)
+        }
+    }, [resetAllSettings])
+
+    // 스마트 개체 추출: 사용자가 클릭한 좌표와 연결된 부분만 남기기 (BFS 방식)
+    function extractConnectedIsland(maskCanvas: HTMLCanvasElement, points: { x: number, y: number }[]) {
+        const ctx = maskCanvas.getContext('2d', { willReadFrequently: true })
+        if (!ctx) return
+
+        const width = maskCanvas.width
+        const height = maskCanvas.height
+        const imageData = ctx.getImageData(0, 0, width, height)
+        const data = imageData.data
+        const resultData = new Uint8ClampedArray(data.length)
+        const visited = new Uint8Array(width * height)
+        const queue: number[] = []
+
+        // Search radius: larger for higher resolution images (approx 5% of min dimension)
+        const maxRadius = Math.max(50, Math.round(Math.min(width, height) * 0.05));
+
+        // Seed the queue from all provided points
+        points.forEach(p => {
+            let foundIdx = -1
+            // Search radius around each point
+            outer: for (let r = 0; r < maxRadius; r++) {
+                for (let dy = -r; dy <= r; dy++) {
+                    for (let dx = -r; dx <= r; dx++) {
+                        const nx = Math.floor(p.x + dx)
+                        const ny = Math.floor(p.y + dy)
+                        if (nx >= 0 && nx < width && ny >= 0 && ny < height) {
+                            const idx = (ny * width + nx) * 4
+                            if (data[idx + 3] > 20 && !visited[ny * width + nx]) {
+                                foundIdx = ny * width + nx
+                                break outer
+                            }
+                        }
+                    }
+                }
+            }
+            if (foundIdx !== -1) {
+                queue.push(foundIdx)
+                visited[foundIdx] = 1
+            }
+        })
+
+        if (queue.length === 0) return // No objects found at points
+
+        let head = 0
+        while (head < queue.length) {
+            const curr = queue[head++]
+            const cx = curr % width
+            const cy = Math.floor(curr / width)
+            const idx = curr * 4
+
+            resultData[idx] = data[idx]
+            resultData[idx + 1] = data[idx + 1]
+            resultData[idx + 2] = data[idx + 2]
+            resultData[idx + 3] = data[idx + 3]
+
+            const neighbors = [1, -1, width, -width]
+            for (const step of neighbors) {
+                const nIdx = curr + step
+                const nx = nIdx % width
+                const ny = Math.floor(nIdx / width)
+
+                if (nIdx >= 0 && nIdx < width * height &&
+                    !visited[nIdx] &&
+                    data[nIdx * 4 + 3] > 20 &&
+                    Math.abs(nx - cx) <= 1) {
+                    visited[nIdx] = 1
+                    queue.push(nIdx)
+                }
+            }
+        }
+        ctx.putImageData(new ImageData(resultData, width, height), 0, 0)
+    }
+
+    // 올가미 마스크 적용: 다각형 영역 내부만 남기기
+    function applyLassoMask(maskCanvas: HTMLCanvasElement, points: { nx: number, ny: number }[]) {
+        const ctx = maskCanvas.getContext('2d')
+        if (!ctx) return
+
+        const width = maskCanvas.width
+        const height = maskCanvas.height
+
+        // Create offscreen mask
+        const offCanvas = document.createElement('canvas')
+        offCanvas.width = width
+        offCanvas.height = height
+        const offCtx = offCanvas.getContext('2d')
+        if (!offCtx) return
+
+        offCtx.beginPath()
+        points.forEach((p, i) => {
+            if (p.nx !== undefined && p.ny !== undefined) {
+                const x = p.nx * width
+                const y = p.ny * height
+                if (i === 0) offCtx.moveTo(x, y)
+                else offCtx.lineTo(x, y)
+            }
+        })
+        offCtx.closePath()
+        offCtx.fillStyle = 'white'
+        offCtx.fill()
+
+        const foregroundData = ctx.getImageData(0, 0, width, height)
+        const maskData = offCtx.getImageData(0, 0, width, height)
+        const f = foregroundData.data
+        const m = maskData.data
+
+        for (let i = 0; i < f.length; i += 4) {
+            if (m[i + 3] < 128) { // Outside the white polygon
+                f[i + 3] = 0
+            }
+        }
+        ctx.putImageData(foregroundData, 0, 0)
+    }
+
+    function getStepLabel(step: string) {
+        if (step.includes('fetch')) return t.bgRemover.stepFetch
+        if (step.includes('segment')) return t.bgRemover.stepInference
+        return t.bgRemover.stepModel
+    }
+
+    async function processImage(imageFile: File | string, seeds?: { x: number, y: number }[], lassoPoints?: { nx: number, ny: number }[]) {
+        setIsProcessing(true)
+        setProgress(0)
+        setCurrentStep('model')
+        setWorkflowStep('processing')
+
+        // Reset selection visual states
+        setSelectionLassoPoints([])
+        setSelectionPoint(null)
+
+        try {
+            // ... (rest of logic)
+            // Removed revocation to prevent history displacement issues
+            /* if (processedImage && processedImage.startsWith('blob:')) {
+                URL.revokeObjectURL(processedImage)
+            } */
+
+            // @ts-ignore
+            const blob = await removeBackground(imageFile, {
+                progress: (item: string, current: number, total: number) => {
+                    setCurrentStep(item)
+                    const percent = Math.round((current / total) * 100)
+                    setProgress(percent)
+                },
+                debug: false,
+                model: 'isnet',
+            })
+
+            const url = URL.createObjectURL(blob)
+
+            const img = new Image()
+            img.crossOrigin = "anonymous"
+            img.src = url
+            img.onload = () => {
+                // 캔버스 설정
+                setupCanvases(img)
+
+                // 개체 추출 필터 적용
+                if (maskCanvasRef.current) {
+                    const maskCanvas = maskCanvasRef.current
+                    if (lassoPoints && lassoPoints.length > 2) {
+                        applyLassoMask(maskCanvas, lassoPoints)
+                    } else if (seeds && seeds.length > 0) {
+                        // Seeds are now expected to be normalized (0 to 1)
+                        const canvasSeeds = seeds.map(s => ({ x: s.x * maskCanvas.width, y: s.y * maskCanvas.height }))
+                        extractConnectedIsland(maskCanvas, canvasSeeds)
+                    }
+                }
+
+                const finalUrl = maskCanvasRef.current?.toDataURL('image/png') || url
+                setProcessedImage(finalUrl)
+                setWorkflowStep('editing')
+                setViewMode('editor')
+
+                // 초기 상태 저장
+                setTimeout(() => pushHistory(finalUrl), 200)
+            }
+        } catch (error) {
+            console.error('Background removal failed:', error)
+            alert(t.common.error)
+            setWorkflowStep('selection')
+        } finally {
+            setIsProcessing(false)
+            setCurrentStep('')
+        }
+    }
+
+    function drawCheckerboard(ctx: CanvasRenderingContext2D, width: number, height: number) {
+        const size = 20
+        for (let y = 0; y < height; y += size) {
+            for (let x = 0; x < width; x += size) {
+                ctx.fillStyle = (Math.floor(x / size) + Math.floor(y / size)) % 2 === 0 ? '#f8f8f8' : '#ffffff'
+                ctx.fillRect(x, y, size, size)
+            }
+        }
+    }
+
+    function drawTextLayers(ctx: CanvasRenderingContext2D, layers: TextLayer[], canvasWidth: number) {
+        layers.forEach(layer => {
+            ctx.save()
+            // Text position is absolute on the canvas
+            ctx.translate(layer.x, layer.y)
+            ctx.rotate((layer.rotation || 0) * Math.PI / 180)
+            ctx.font = `${layer.fontWeight === 'black' ? '900' : '700'} ${layer.fontSize * (canvasWidth / 1000)}px ${layer.fontFamily || 'Inter'}, system-ui, sans-serif`
+            ctx.textAlign = 'center'
+            ctx.textBaseline = 'middle'
+
+            // Draw Stroke (Outline) for high visibility
+            if (layer.strokeWidth > 0) {
+                ctx.strokeStyle = layer.strokeColor
+                ctx.lineWidth = (layer.strokeWidth * 2) * (canvasWidth / 1000)
+                ctx.lineJoin = 'round'
+                ctx.miterLimit = 2
+                ctx.strokeText(layer.text, 0, 0)
+            }
+
+            // Draw Text
+            ctx.fillStyle = layer.color
+
+            // Premium Touch: Subtle shadow for legibility
+            ctx.shadowColor = 'rgba(0,0,0,0.3)'
+            ctx.shadowBlur = 4
+            ctx.shadowOffsetY = 2
+            ctx.fillText(layer.text, 0, 0)
+            ctx.shadowBlur = 0 // Reset
+            ctx.shadowOffsetY = 0
+
+            // Genius Touch: Selection Box for active text
+            if (layer.id === activeTextId) {
+                const fontSizeInCanvas = layer.fontSize * (canvasWidth / 1000)
+                const textWidth = ctx.measureText(layer.text).width
+                const padding = 10
+
+                ctx.strokeStyle = '#3b82f6' // Primary Blue
+                ctx.lineWidth = 2
+                ctx.setLineDash([5, 5])
+                ctx.strokeRect(-textWidth / 2 - padding, -fontSizeInCanvas / 2 - padding, textWidth + padding * 2, fontSizeInCanvas + padding * 2)
+                ctx.setLineDash([])
+
+                // Selection corner handles
+                ctx.fillStyle = '#3b82f6'
+                const s = 4
+                ctx.fillRect(-textWidth / 2 - padding - s, -fontSizeInCanvas / 2 - padding - s, s * 2, s * 2)
+                ctx.fillRect(textWidth / 2 + padding - s, -fontSizeInCanvas / 2 - padding - s, s * 2, s * 2)
+                ctx.fillRect(-textWidth / 2 - padding - s, fontSizeInCanvas / 2 + padding - s, s * 2, s * 2)
+                ctx.fillRect(textWidth / 2 + padding - s, fontSizeInCanvas / 2 + padding - s, s * 2, s * 2)
+            }
+            ctx.restore()
+        })
+    }
+
+    function drawIDGuide(ctx: CanvasRenderingContext2D, width: number, height: number, standard: IDStandard) {
+        ctx.save()
+        // Shading outside the ID area
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.4)'
+
+        // Define center area (portrait aspect ratio)
+        const guideWidth = width * 0.7
+        const guideHeight = guideWidth * (standard.height / standard.width)
+        const x = (width - guideWidth) / 2
+        const y = (height - guideHeight) / 2
+
+        // Draw outside shade
+        ctx.beginPath()
+        ctx.rect(0, 0, width, height)
+        ctx.rect(x, y, guideWidth, guideHeight)
+        ctx.fill('evenodd')
+
+        // Guide Frame
+        ctx.strokeStyle = '#22c55e' // Bright Green
+        ctx.lineWidth = 3
+        ctx.setLineDash([10, 5])
+        ctx.strokeRect(x, y, guideWidth, guideHeight)
+
+        // Face Guide lines
+        ctx.strokeStyle = 'rgba(34, 197, 94, 0.5)'
+        ctx.lineWidth = 1
+        ctx.setLineDash([])
+
+        // Head top guide (approx 15% from top)
+        ctx.beginPath()
+        ctx.moveTo(x, y + guideHeight * 0.15)
+        ctx.lineTo(x + guideWidth, y + guideHeight * 0.15)
+        ctx.stroke()
+
+        // Eye level guide (approx 45% from top)
+        ctx.beginPath()
+        ctx.moveTo(x, y + guideHeight * 0.45)
+        ctx.lineTo(x + guideWidth, y + guideHeight * 0.45)
+        ctx.stroke()
+
+        // Chin guide (approx 75% from top)
+        ctx.beginPath()
+        ctx.moveTo(x, y + guideHeight * 0.75)
+        ctx.lineTo(x + guideWidth, y + guideHeight * 0.75)
+        ctx.stroke()
+
+        // Label
+        ctx.fillStyle = '#22c55e'
+        ctx.font = 'bold 20px Inter, sans-serif'
+        ctx.textAlign = 'center'
+        ctx.fillText(standard.name, width / 2, y - 20)
+
+        ctx.restore()
+    }
+
+    async function renderStudio() {
+        const studioCanvas = studioCanvasRef.current
+        const maskCanvas = maskCanvasRef.current
+        if (!studioCanvas || !maskCanvas || !processedImage) return
+
+        const ctx = studioCanvas.getContext('2d', { alpha: true })
+        if (!ctx) return
+
+        let targetWidth, targetHeight;
+        if (aspectRatio === '1:1') {
+            targetHeight = maskCanvas.height;
+            targetWidth = maskCanvas.height;
+        } else if (aspectRatio === '4:5') {
+            targetHeight = maskCanvas.height;
+            targetWidth = maskCanvas.height * (4 / 5);
+        } else if (aspectRatio === '3:4') {
+            targetHeight = maskCanvas.height;
+            targetWidth = maskCanvas.height * (3 / 4);
+        } else if (aspectRatio === '2:3') {
+            targetHeight = maskCanvas.height;
+            targetWidth = maskCanvas.height * (2 / 3);
+        } else if (aspectRatio === '3:2') {
+            targetWidth = maskCanvas.width;
+            targetHeight = maskCanvas.width * (2 / 3);
+        } else if (aspectRatio === '9:16') {
+            targetHeight = maskCanvas.height;
+            targetWidth = maskCanvas.height * (9 / 16);
+        } else if (aspectRatio === '16:9') {
+            targetWidth = maskCanvas.width;
+            targetHeight = maskCanvas.width * (9 / 16);
+        } else if (aspectRatio === '21:9') {
+            targetWidth = maskCanvas.width;
+            targetHeight = maskCanvas.width * (9 / 21);
+        } else {
+            targetWidth = maskCanvas.width;
+            targetHeight = maskCanvas.height;
+        }
+
+        studioCanvas.width = targetWidth
+        studioCanvas.height = targetHeight
+
+        // Setup base rendering context
+        if (showOriginal && originalImgRef.current) {
+            ctx.drawImage(originalImgRef.current, 0, 0, studioCanvas.width, studioCanvas.height)
+            return
+        }
+
+        if (bgType === 'color') {
+            ctx.fillStyle = bgColor
+            ctx.fillRect(0, 0, studioCanvas.width, studioCanvas.height)
+        } else if (isIDMode) {
+            ctx.fillStyle = '#ffffff'
+            ctx.fillRect(0, 0, studioCanvas.width, studioCanvas.height)
+        } else if (bgType === 'gradient') {
+            const gradient = ctx.createLinearGradient(0, 0, studioCanvas.width, studioCanvas.height)
+            gradient.addColorStop(0, '#667eea')
+            gradient.addColorStop(1, '#764ba2')
+            ctx.fillStyle = gradient
+            ctx.fillRect(0, 0, studioCanvas.width, studioCanvas.height)
+        } else if (bgType === 'image' && customBgImgRef.current) {
+            const bgImg = customBgImgRef.current
+            const bgAspect = bgImg.width / bgImg.height
+            const canvasAspect = studioCanvas.width / studioCanvas.height
+            let drawW, drawH, drawX, drawY
+            if (bgAspect > canvasAspect) {
+                drawH = studioCanvas.height
+                drawW = drawH * bgAspect
+                drawX = (studioCanvas.width - drawW) / 2
+                drawY = 0
+            } else {
+                drawW = studioCanvas.width
+                drawH = drawW / bgAspect
+                drawX = 0
+                drawY = (studioCanvas.height - drawH) / 2
+            }
+            ctx.drawImage(bgImg, drawX, drawY, drawW, drawH)
+        } else {
+            drawCheckerboard(ctx, studioCanvas.width, studioCanvas.height)
+        }
+
+        // Visualize Lasso Path for Restore or Extract
+        if (isRefining && ((brushMode === 'restore' && restoreMethod === 'lasso') || brushMode === 'extract') && lassoPoints.length > 1) {
+            const rect = studioCanvas.getBoundingClientRect()
+            const scaleX = studioCanvas.width / rect.width
+            const scaleY = studioCanvas.height / rect.height
+
+            ctx.save()
+            ctx.beginPath()
+            ctx.moveTo(lassoPoints[0].x * scaleX, lassoPoints[0].y * scaleY)
+            lassoPoints.forEach((p) => ctx.lineTo(p.x * scaleX, p.y * scaleY))
+
+            ctx.strokeStyle = brushMode === 'extract' ? '#ec4899' : '#3b82f6'
+            ctx.lineWidth = 4
+            ctx.setLineDash([10, 10])
+            ctx.stroke()
+            ctx.fillStyle = brushMode === 'extract' ? 'rgba(236, 72, 153, 0.2)' : 'rgba(59, 130, 246, 0.2)'
+            ctx.fill()
+            ctx.restore()
+        }
+
+        ctx.save()
+        const rect = studioCanvas.getBoundingClientRect()
+        const renScaleX = studioCanvas.width / rect.width
+        const renScaleY = studioCanvas.height / rect.height
+
+        ctx.translate(subjectPos.x * renScaleX, subjectPos.y * renScaleY)
+        ctx.translate(studioCanvas.width / 2, studioCanvas.height / 2)
+        ctx.rotate(subjectRotation * Math.PI / 180)
+        ctx.scale(subjectScale * (subjectFlipH ? -1 : 1), subjectScale * (subjectFlipV ? -1 : 1))
+        ctx.translate(-maskCanvas.width / 2, -maskCanvas.height / 2)
+
+        ctx.globalAlpha = subjectOpacity / 100
+
+        if (hasSticker) {
+            ctx.save()
+            const strokeDist = stickerWidth * (maskCanvas.width / 1000)
+            const tempCanvas = document.createElement('canvas')
+            tempCanvas.width = studioCanvas.width
+            tempCanvas.height = studioCanvas.height
+            const tCtx = tempCanvas.getContext('2d')
+            if (tCtx) {
+                tCtx.fillStyle = stickerColor
+                for (let angle = 0; angle < 360; angle += 15) {
+                    const rad = angle * Math.PI / 180
+                    tCtx.drawImage(maskCanvas, strokeDist * Math.cos(rad), strokeDist * Math.sin(rad))
+                }
+                tCtx.globalCompositeOperation = 'source-in'
+                tCtx.fillRect(0, 0, tempCanvas.width, tempCanvas.height)
+                ctx.drawImage(tempCanvas, 0, 0)
+            }
+            ctx.restore()
+        }
+
+        // Apply Subject Filters
+        let filterString = `brightness(${subjectBrightness}%) contrast(${subjectContrast}%) saturate(${subjectSaturation}%)`;
+        if (globalFilter === 'grayscale') filterString += ' grayscale(100%)';
+        else if (globalFilter === 'sepia') filterString += ' sepia(80%)';
+        else if (globalFilter === 'warm') filterString += ' saturate(120%) sepia(30%)';
+        else if (globalFilter === 'cool') filterString += ' saturate(90%) hue-rotate(30deg)';
+        else if (globalFilter === 'vintage') filterString += ' contrast(80%) sepia(40%) brightness(110%)';
+
+        ctx.filter = filterString;
+        if (subjectShadow > 0) {
+            ctx.shadowColor = 'rgba(0,0,0,0.5)'
+            ctx.shadowBlur = subjectShadow * (maskCanvas.width / 1000)
+            ctx.shadowOffsetY = subjectShadow * 0.2 * (maskCanvas.width / 1000)
+        }
+        ctx.drawImage(maskCanvas, 0, 0);
+        ctx.shadowBlur = 0;
+        ctx.shadowOffsetY = 0;
+        ctx.filter = 'none'; // Reset for other elements
+        ctx.restore();
+
+        // Draw ID Guide if active
+        if (isIDMode && activeIDStandard && showIDGuide) {
+            drawIDGuide(ctx, studioCanvas.width, studioCanvas.height, activeIDStandard)
+        }
+
+        // Draw Text Layers on top
+        drawTextLayers(ctx, textLayers, studioCanvas.width)
+
+        // Draw Crop Guides (Dashed line for non-original ratios)
+        if (aspectRatio !== 'original') {
+            ctx.save();
+            ctx.strokeStyle = 'rgba(59, 130, 246, 0.8)';
+            ctx.lineWidth = 4;
+            ctx.setLineDash([10, 10]);
+            ctx.strokeRect(0, 0, studioCanvas.width, studioCanvas.height);
+            ctx.restore();
+        }
+
+        // New: Draw Precision Brush Preview for manual refinement
+        if (isRefining) {
+            const rect = studioCanvas.getBoundingClientRect()
+            const scaleX = studioCanvas.width / rect.width
+            const scaleY = studioCanvas.height / rect.height
+            // We use a global mouse position or similar if available, otherwise it relies on the mouseMove handler to call renderStudio
+            if ((window as any).lastMousePos) {
+                const bx = (window as any).lastMousePos.x * scaleX;
+                const by = (window as any).lastMousePos.y * scaleY;
+                ctx.save();
+                ctx.beginPath();
+                ctx.arc(bx, by, (brushSize * (studioCanvas.width / rect.width)) / 2, 0, Math.PI * 2);
+                ctx.strokeStyle = '#ffffff';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+                ctx.strokeStyle = '#000000';
+                ctx.lineWidth = 1;
+                ctx.stroke();
+                ctx.restore();
+            }
+        }
+
+        // Visualize Lasso Path
+        if (isRefining && brushMode === 'restore' && lassoPoints.length > 1) {
+            ctx.save();
+            ctx.beginPath();
+            ctx.moveTo(lassoPoints[0].x, lassoPoints[0].y);
+            lassoPoints.forEach(p => ctx.lineTo(p.x, p.y));
+            ctx.strokeStyle = '#3b82f6';
+            ctx.lineWidth = 2;
+            ctx.setLineDash([5, 5]);
+            ctx.stroke();
+            ctx.fillStyle = 'rgba(59, 130, 246, 0.2)';
+            ctx.fill();
+            ctx.restore();
+        }
+    }
+
+    async function renderFinalResult() {
+        const resultCanvas = resultCanvasRef.current
+        const maskCanvas = maskCanvasRef.current
+        if (!resultCanvas || !maskCanvas || !processedImage) return null
+
+        let targetWidth, targetHeight;
+        if (isIDMode && activeIDStandard) {
+            // High resolution for print (approx 300dpi)
+            targetHeight = 1600;
+            targetWidth = targetHeight * (activeIDStandard.width / activeIDStandard.height);
+        } else if (hdMode && originalImgRef.current) {
+            // Smart HD: Use original image dimensions if possible
+            targetWidth = originalImgRef.current.width;
+            targetHeight = originalImgRef.current.height;
+        } else if (aspectRatio === '1:1') {
+            targetHeight = maskCanvas.height
+            targetWidth = targetHeight
+        } else if (aspectRatio === '4:5') {
+            targetHeight = maskCanvas.height
+            targetWidth = targetHeight * (4 / 5)
+        } else if (aspectRatio === '9:16') {
+            targetHeight = maskCanvas.height
+            targetWidth = targetHeight * (9 / 16)
+        } else if (aspectRatio === '16:9') {
+            targetWidth = maskCanvas.width
+            targetHeight = targetWidth * (9 / 16)
+        } else if (aspectRatio === '3:4') {
+            targetHeight = maskCanvas.height
+            targetWidth = targetHeight * (3 / 4)
+        } else if (aspectRatio === '2:3') {
+            targetHeight = maskCanvas.height
+            targetWidth = targetHeight * (2 / 3)
+        } else if (aspectRatio === '3:2') {
+            targetWidth = maskCanvas.width
+            targetHeight = targetWidth * (2 / 3)
+        } else if (aspectRatio === '21:9') {
+            targetWidth = maskCanvas.width
+            targetHeight = targetWidth * (9 / 21)
+        } else {
+            targetWidth = maskCanvas.width
+            targetHeight = maskCanvas.height
+        }
+
+        resultCanvas.width = targetWidth
+        resultCanvas.height = targetHeight
+
+        const ctx = resultCanvas.getContext('2d')
+        if (!ctx) return null
+
+        if (isIDMode) {
+            ctx.fillStyle = bgType === 'color' ? bgColor : '#ffffff'
+            ctx.fillRect(0, 0, resultCanvas.width, resultCanvas.height)
+        } else if (bgType === 'color') {
+            ctx.fillStyle = bgColor
+            ctx.fillRect(0, 0, resultCanvas.width, resultCanvas.height)
+        } else if (bgType === 'gradient') {
+            const gradient = ctx.createLinearGradient(0, 0, resultCanvas.width, resultCanvas.height)
+            gradient.addColorStop(0, '#667eea')
+            gradient.addColorStop(1, '#764ba2')
+            ctx.fillStyle = gradient
+            ctx.fillRect(0, 0, resultCanvas.width, resultCanvas.height)
+        } else if (bgType === 'image' && customBgImgRef.current) {
+            const bgImg = customBgImgRef.current
+            const bgAspect = bgImg.width / bgImg.height
+            const canvasAspect = resultCanvas.width / resultCanvas.height
+            let drawW, drawH, drawX, drawY
+            if (bgAspect > canvasAspect) {
+                drawH = resultCanvas.height
+                drawW = drawH * bgAspect
+                drawX = (resultCanvas.width - drawW) / 2
+                drawY = 0
+            } else {
+                drawW = resultCanvas.width
+                drawH = drawW / bgAspect
+                drawX = 0
+                drawY = (resultCanvas.height - drawH) / 2
+            }
+            ctx.drawImage(bgImg, drawX, drawY, drawW, drawH)
+        } else {
+            ctx.clearRect(0, 0, resultCanvas.width, resultCanvas.height)
+        }
+
+        ctx.save()
+
+        if (isIDMode && activeIDStandard && studioCanvasRef.current) {
+            const studioW = studioCanvasRef.current.width;
+            const guideW = studioW * 0.7;
+            const exportScale = resultCanvas.width / guideW;
+
+            // Map the studio crop view to the full result canvas
+            ctx.scale(exportScale, exportScale);
+            ctx.translate(-(studioW * 0.15), -(studioW * 0.15 * (activeIDStandard.height / activeIDStandard.width)));
+
+            // Back to core centering logic but within the cropped viewport
+            ctx.translate(studioW * 0.5, (studioW * 0.7 * (activeIDStandard.height / activeIDStandard.width)) * 0.5 + (studioW * 0.15 * (activeIDStandard.height / activeIDStandard.width)));
+
+            const rect = studioCanvasRef.current.getBoundingClientRect();
+            const cssScale = studioW / rect.width;
+            ctx.translate(subjectPos.x * cssScale, subjectPos.y * cssScale);
+            ctx.rotate(subjectRotation * Math.PI / 180);
+            ctx.scale(subjectScale * (subjectFlipH ? -1 : 1), subjectScale * (subjectFlipV ? -1 : 1));
+            ctx.translate(-maskCanvas.width * 0.5, -maskCanvas.height * 0.5);
+        } else {
+            const rect = studioCanvasRef.current?.getBoundingClientRect()
+            if (rect) {
+                const renScaleX = resultCanvas.width / rect.width
+                const renScaleY = resultCanvas.height / rect.height
+                ctx.translate(subjectPos.x * renScaleX, subjectPos.y * renScaleY)
+            }
+            ctx.translate(resultCanvas.width * 0.5, resultCanvas.height * 0.5)
+            ctx.rotate(subjectRotation * Math.PI / 180)
+            ctx.scale(subjectScale * (subjectFlipH ? -1 : 1), subjectScale * (subjectFlipV ? -1 : 1))
+            ctx.translate(-maskCanvas.width * 0.5, -maskCanvas.height * 0.5)
+        }
+
+        ctx.globalAlpha = subjectOpacity / 100
+
+        if (hasSticker) {
+            const tempCanvas = document.createElement('canvas')
+            tempCanvas.width = resultCanvas.width
+            tempCanvas.height = resultCanvas.height
+            const tCtx = tempCanvas.getContext('2d')
+            if (tCtx) {
+                tCtx.save()
+                // Apply SAME transforms to sticker canvas
+                if (isIDMode && activeIDStandard && studioCanvasRef.current) {
+                    const studioW = studioCanvasRef.current.width;
+                    const guideW = studioW * 0.7;
+                    const exportScale = resultCanvas.width / guideW;
+                    tCtx.scale(exportScale, exportScale);
+                    tCtx.translate(-(studioW * 0.15), -(studioW * 0.15 * (activeIDStandard.height / activeIDStandard.width)));
+                    tCtx.translate(studioW * 0.5, (studioW * 0.7 * (activeIDStandard.height / activeIDStandard.width)) * 0.5 + (studioW * 0.15 * (activeIDStandard.height / activeIDStandard.width)));
+                    const rect = studioCanvasRef.current.getBoundingClientRect();
+                    tCtx.translate(subjectPos.x * (studioW / rect.width), subjectPos.y * (studioW / rect.width));
+                    tCtx.scale(subjectScale, subjectScale);
+                    tCtx.translate(-maskCanvas.width * 0.5, -maskCanvas.height * 0.5);
+                } else {
+                    const rect = studioCanvasRef.current?.getBoundingClientRect()
+                    if (rect) {
+                        const renScaleX = resultCanvas.width / rect.width
+                        const renScaleY = resultCanvas.height / rect.height
+                        tCtx.translate(subjectPos.x * renScaleX, subjectPos.y * renScaleY)
+                    }
+                    tCtx.translate(resultCanvas.width * 0.5, resultCanvas.height * 0.5)
+                    tCtx.scale(subjectScale, subjectScale)
+                    tCtx.translate(-maskCanvas.width * 0.5, -maskCanvas.height * 0.5)
+                }
+
+                tCtx.fillStyle = stickerColor
+                const strokeDist = stickerWidth * (maskCanvas.width / 1000)
+                for (let angle = 0; angle < 360; angle += 15) {
+                    const rad = angle * Math.PI / 180
+                    tCtx.drawImage(maskCanvas, strokeDist * Math.cos(rad), strokeDist * Math.sin(rad))
+                }
+                tCtx.globalCompositeOperation = 'source-in'
+                tCtx.fillRect(-maskCanvas.width, -maskCanvas.height, maskCanvas.width * 3, maskCanvas.height * 3)
+                tCtx.restore()
+
+                ctx.drawImage(tempCanvas, 0, 0)
+            }
+        }
+
+        // Apply Subject Filters for Export
+        let filterString = `brightness(${subjectBrightness}%) contrast(${subjectContrast}%) saturate(${subjectSaturation}%)`;
+        if (globalFilter === 'grayscale') filterString += ' grayscale(100%)';
+        else if (globalFilter === 'sepia') filterString += ' sepia(80%)';
+        else if (globalFilter === 'warm') filterString += ' saturate(120%) sepia(30%)';
+        else if (globalFilter === 'cool') filterString += ' saturate(90%) hue-rotate(30deg)';
+
+        ctx.filter = filterString;
+        if (subjectShadow > 0) {
+            ctx.shadowColor = 'rgba(0,0,0,0.5)'
+            ctx.shadowBlur = subjectShadow * (maskCanvas.width / 1000)
+            ctx.shadowOffsetY = subjectShadow * 0.2 * (maskCanvas.width / 1000)
+        }
+        ctx.drawImage(maskCanvas, 0, 0);
+        ctx.shadowBlur = 0;
+        ctx.shadowOffsetY = 0;
+        ctx.filter = 'none';
+        ctx.restore();
+
+        // Draw Text Layers on top of final result
+        drawTextLayers(ctx, textLayers, resultCanvas.width)
+
+        return resultCanvas.toDataURL('image/png')
+    }
+
+    const downloadResult = async () => {
+        try {
+            setIsDownloading(true)
+            const dataUrl = await renderFinalResult()
+            if (dataUrl) {
+                const link = document.createElement('a')
+                link.href = dataUrl
+                const dateStr = new Date().toISOString().slice(0, 10).replace(/-/g, '')
+                link.download = `util_studio_${dateStr}_${Date.now().toString().slice(-4)}.png`
+                document.body.appendChild(link)
+                link.click()
+                setTimeout(() => {
+                    document.body.removeChild(link)
+                }, 100)
+            } else {
+                throw new Error('Image generation failed')
+            }
+        } catch (error) {
+            console.error('Download failed:', error)
+            alert(t.common.imageCopyError || 'Download failed. Please try again.')
+        } finally {
+            setIsDownloading(false)
+        }
+    }
+
+    const shareResult = async () => {
+        try {
+            const dataUrl = await renderFinalResult()
+            if (!dataUrl) return
+
+            // Fallback for link sharing if image sharing is not supported or fails
+            const shareText = `${t.bgRemover.shareText}\n${window.location.origin}${window.location.pathname}`
+
+            if (navigator.share && navigator.canShare) {
+                const response = await fetch(dataUrl)
+                const blob = await response.blob()
+                const file = new File([blob], 'result.png', { type: 'image/png' })
+
+                if (navigator.canShare({ files: [file] })) {
+                    await navigator.share({
+                        files: [file],
+                        title: 'UltraUtils - AI Background Remover',
+                        text: t.bgRemover.shareText
+                    })
+                    return
+                }
+            }
+
+            // Fallback: Copy link
+            await navigator.clipboard.writeText(shareText)
+            alert(t.common.copiedLink)
+        } catch (error) {
+            console.error('Sharing failed:', error)
+            // Final fallback
+            const shareText = `${t.bgRemover.shareText}\n${window.location.origin}${window.location.pathname}`
+            navigator.clipboard.writeText(shareText)
+            alert(t.common.copiedLink)
+        }
+    }
+
+    const copyImageToClipboard = async () => {
+        try {
+            const dataUrl = await renderFinalResult()
+            if (!dataUrl) return
+
+            const response = await fetch(dataUrl)
+            const blob = await response.blob()
+
+            await navigator.clipboard.write([
+                new ClipboardItem({
+                    [blob.type]: blob
+                })
+            ])
+            alert(t.common.imageCopied)
+        } catch (error) {
+            console.error('Copy to clipboard failed:', error)
+            // Fallback for browsers that don't support ClipboardItem with images or fail
+            alert(t.common.imageCopyError)
+        }
+    }
+
+    function setupCanvases(processedImg: HTMLImageElement) {
+        const maskCanvas = maskCanvasRef.current
+        if (!maskCanvas) return
+
+        maskCanvas.width = processedImg.width
+        maskCanvas.height = processedImg.height
+        const ctx = maskCanvas.getContext('2d')
+        if (!ctx) return
+
+        ctx.clearRect(0, 0, maskCanvas.width, maskCanvas.height)
+        ctx.drawImage(processedImg, 0, 0)
+
+        if (processedImg.width / processedImg.height > 1.5) {
+            setIsShorts(true)
+        } else {
+            setIsShorts(false)
+        }
+
+        setIsMaskReady(true)
+
+        if (typeof window.gtag === 'function') {
+            window.gtag('event', 'background_removed', {
+                'event_category': 'tool_usage',
+                'event_label': 'AI Background Remover'
+            });
+        }
+
+        setTimeout(() => renderStudio(), 0)
+    }
+
+    async function smartTrim() {
+        const maskCanvas = maskCanvasRef.current;
+        if (!maskCanvas) return;
+
+        const ctx = maskCanvas.getContext('2d', { willReadFrequently: true });
+        if (!ctx) return;
+
+        const width = maskCanvas.width;
+        const height = maskCanvas.height;
+        const imageData = ctx.getImageData(0, 0, width, height);
+        const data = imageData.data;
+
+        let minX = width, minY = height, maxX = 0, maxY = 0;
+        let found = false;
+
+        for (let y = 0; y < height; y++) {
+            for (let x = 0; x < width; x++) {
+                const alpha = data[(y * width + x) * 4 + 3];
+                if (alpha > 10) {
+                    if (x < minX) minX = x;
+                    if (y < minY) minY = y;
+                    if (x > maxX) maxX = x;
+                    if (y > maxY) maxY = y;
+                    found = true;
+                }
+            }
+        }
+
+        if (!found) return;
+
+        // Add 2% padding
+        const padX = Math.round((maxX - minX) * 0.02);
+        const padY = Math.round((maxY - minY) * 0.02);
+        minX = Math.max(0, minX - padX);
+        minY = Math.max(0, minY - padY);
+        maxX = Math.min(width, maxX + padX);
+        maxY = Math.min(height, maxY + padY);
+
+        const newWidth = maxX - minX;
+        const newHeight = maxY - minY;
+
+        const cropCanvas = document.createElement('canvas');
+        cropCanvas.width = newWidth;
+        cropCanvas.height = newHeight;
+        const cCtx = cropCanvas.getContext('2d');
+        if (cCtx) {
+            cCtx.drawImage(maskCanvas, minX, minY, newWidth, newHeight, 0, 0, newWidth, newHeight);
+            const trimmedUrl = cropCanvas.toDataURL('image/png');
+
+            // Update mask canvas to the new trimmed version
+            maskCanvas.width = newWidth;
+            maskCanvas.height = newHeight;
+            const ctx2 = maskCanvas.getContext('2d');
+            ctx2?.drawImage(cropCanvas, 0, 0);
+
+            setProcessedImage(trimmedUrl);
+            setSubjectPos({ x: 0, y: 0 }); // Reset positions to center of new canvas
+            setSubjectScale(1);
+            pushHistory(trimmedUrl);
+            renderStudio();
+        }
+    }
+
+    function startDrawing(e: React.MouseEvent | React.TouchEvent) {
+        if ('touches' in e && e.cancelable) e.preventDefault()
+        if (isRefining) {
+            setIsDrawing(true)
+            if (brushMode === 'restore') {
+                setLassoPoints([]) // Reset lasso
+            }
+            draw(e)
+        } else if (viewMode === 'editor') {
+            const studioCanvas = studioCanvasRef.current
+            if (!studioCanvas) return
+            const rect = studioCanvas.getBoundingClientRect()
+            let clientX, clientY
+            if ('touches' in e) {
+                clientX = e.touches[0].clientX
+                clientY = e.touches[0].clientY
+            } else {
+                clientX = e.clientX
+                clientY = e.clientY
+            }
+
+            const scaleX = studioCanvas.width / rect.width
+            const scaleY = studioCanvas.height / rect.height
+            const canvasX = (clientX - rect.left) * scaleX
+            const canvasY = (clientY - rect.top) * scaleY
+
+            // Panning check
+            if (isPanningWorkspace) {
+                setDragStart({ x: clientX - rect.left, y: clientY - rect.top - workspaceOffsetY });
+                return;
+            }
+
+            // Improved check for clicking on a text layer (larger hit area)
+            const clickedText = [...textLayers].reverse().find(layer => {
+                const fontSizeInCanvas = layer.fontSize * (studioCanvas.width / 1000);
+                const dx = Math.abs(canvasX - layer.x);
+                const dy = Math.abs(canvasY - layer.y);
+                // Simple box-based hit detection for better UX
+                return dx < (fontSizeInCanvas * (layer.text.length * 0.3) + 20) && dy < (fontSizeInCanvas / 2 + 20);
+            })
+
+            if (clickedText) {
+                setActiveTextId(clickedText.id);
+                setIsDraggingText(true);
+                setDragStart({
+                    x: canvasX - clickedText.x,
+                    y: canvasY - clickedText.y
+                });
+                renderStudio();
+                return;
+            }
+
+            // Otherwise drag subject or click away
+            setActiveTextId(null);
+            setIsDraggingSubject(true);
+            setDragStart({
+                x: clientX - rect.left - subjectPos.x,
+                y: clientY - rect.top - subjectPos.y
+            })
+            renderStudio();
+        }
+    }
+
+    const pushHistory = useCallback((currentProcessedImage?: string) => {
+        const imgToSave = currentProcessedImage || processedImage;
+        if (!imgToSave) return; // Guard: Don't save state if no image exists
+
+        const newState: StudioState = {
+            processedImage: imgToSave,
+            subjectPos,
+            subjectScale,
+            hasSticker,
+            stickerColor,
+            stickerWidth,
+            bgType,
+            bgColor,
+            bgGradient,
+            customBgImage,
+            aspectRatio, // Corrected from legacy mapping
+            textLayers,
+            subjectBrightness,
+            subjectContrast,
+            subjectSaturation,
+            globalFilter,
+            subjectRotation,
+            subjectFlipH,
+            subjectFlipV,
+            subjectOpacity,
+            subjectShadow,
+            showOriginal
+        }
+
+        setHistory(prev => {
+            const last = prev[prev.length - 1]
+            // Skip redundant states
+            if (last && JSON.stringify(last) === JSON.stringify(newState)) return prev
+            return [...prev, newState].slice(-30) // Up to 30 steps
+        })
+        setRedoStack([])
+    }, [processedImage, subjectPos, subjectScale, subjectRotation, subjectFlipH, subjectFlipV, subjectOpacity, hasSticker, stickerColor, stickerWidth, bgType, bgColor, bgGradient, customBgImage, aspectRatio, textLayers, subjectBrightness, subjectContrast, subjectSaturation, globalFilter, showOriginal])
+
+    function stopDrawing() {
+        if (!isDrawing && !isDraggingSubject && !isDraggingText) return
+
+        const wasDragging = isDraggingSubject || isDraggingText
+        setIsDrawing(false)
+        setIsDraggingSubject(false)
+        setIsDraggingText(false)
+
+        if (isRefining) {
+            const maskCanvas = maskCanvasRef.current
+            if (maskCanvas) {
+                const ctx = maskCanvas.getContext('2d')
+                if (ctx && ((brushMode === 'restore' && restoreMethod === 'lasso') || brushMode === 'extract') && lassoPoints.length > 2) {
+                    ctx.save()
+                    const originalImg = originalImgRef.current
+                    const rect = studioCanvasRef.current?.getBoundingClientRect()
+
+                    if (rect) {
+                        const scaleX = maskCanvas.width / rect.width
+                        const scaleY = maskCanvas.height / rect.height
+
+                        ctx.beginPath()
+                        ctx.moveTo(lassoPoints[0].x * scaleX, lassoPoints[0].y * scaleY)
+                        lassoPoints.forEach(p => ctx.lineTo(p.x * scaleX, p.y * scaleY))
+                        ctx.closePath()
+
+                        if (brushMode === 'extract') {
+                            ctx.globalCompositeOperation = 'destination-in'
+                            ctx.fill()
+                        } else if (brushMode === 'restore' && originalImg) {
+                            ctx.globalCompositeOperation = 'source-over'
+                            ctx.clip()
+                            ctx.drawImage(originalImg, 0, 0, maskCanvas.width, maskCanvas.height)
+                        }
+                    }
+                    ctx.restore()
+                    setLassoPoints([])
+                }
+                const dataUrl = maskCanvas.toDataURL('image/png')
+                setProcessedImage(dataUrl)
+                pushHistory(dataUrl)
+                renderStudio()
+            }
+        } else if (wasDragging) {
+            pushHistory()
+            renderStudio()
+        }
+    }
+
+    const handleBgUpload = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0]
+        if (file && file.type.startsWith('image/')) {
+            const reader = new FileReader()
+            reader.onload = (event) => {
+                const dataUrl = event.target?.result as string
+                setCustomBgImage(dataUrl)
+                setBgType('image')
+                const img = new Image()
+                img.src = dataUrl
+                img.onload = () => {
+                    customBgImgRef.current = img
+                    setBgLoadCount(prev => prev + 1)
+                    renderStudio()
+                    pushHistory()
+                }
+            }
+            reader.readAsDataURL(file)
+        }
+    }, [renderStudio, pushHistory])
+
+
+    useEffect(() => {
+        if (processedImage && viewMode === 'editor' && isMaskReady) {
+            renderStudio()
+        }
+    }, [
+        processedImage, viewMode, isMaskReady,
+        bgType, bgColor, bgGradient, customBgImage, bgLoadCount,
+        hasSticker, stickerColor, stickerWidth,
+        subjectPos, subjectScale,
+        textLayers, activeTextId,
+        subjectBrightness, subjectContrast, subjectSaturation,
+        globalFilter,
+        isIDMode, activeIDStandard, showIDGuide,
+        aspectRatio, zoom
+    ])
+
+    // Keyboard Shortcuts (Ctrl + Z, Ctrl + Y / Ctrl + Shift + Z)
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if ((e.ctrlKey || e.metaKey)) {
+                if (e.key === 'z') {
+                    if (e.shiftKey) {
+                        e.preventDefault()
+                        redo()
+                    } else {
+                        e.preventDefault()
+                        undo()
+                    }
+                } else if (e.key === 'y') {
+                    e.preventDefault()
+                    redo()
+                }
+            }
+        }
+        window.addEventListener('keydown', handleKeyDown)
+        return () => window.removeEventListener('keydown', handleKeyDown)
+    }, [undo, redo])
+
+    // Professional Shortcut: Delete Text Layer
+    useEffect(() => {
+        const handleKeys = (e: KeyboardEvent) => {
+            if (activeTextId && (e.key === 'Delete' || e.key === 'Backspace')) {
+                // Don't delete if user is typing in an input (though we use a prompt/custom input elsewhere)
+                if (document.activeElement?.tagName === 'INPUT' || document.activeElement?.tagName === 'TEXTAREA') return;
+                setTextLayers(prev => prev.filter(l => l.id !== activeTextId))
+                setActiveTextId(null)
+                pushHistory()
+                renderStudio()
+            }
+            if (e.key === 'Escape') {
+                setActiveTextId(null)
+                setIsRefining(false)
+                renderStudio()
+            }
+        }
+        window.addEventListener('keydown', handleKeys)
+        return () => window.removeEventListener('keydown', handleKeys)
+    }, [activeTextId, textLayers, pushHistory])
+
+    function draw(e: React.MouseEvent | React.TouchEvent) {
+        const studioCanvas = studioCanvasRef.current
+        const maskCanvas = maskCanvasRef.current
+
+        if (!originalImage || !studioCanvas || !maskCanvas) return
+        const rect = studioCanvas.getBoundingClientRect()
+        let clientX, clientY
+        if ('touches' in e) {
+            clientX = e.touches[0].clientX
+            clientY = e.touches[0].clientY
+        } else {
+            clientX = e.clientX
+            clientY = e.clientY
+        }
+
+        if ('touches' in e && (isDrawing || isDraggingSubject || isDraggingText || isPanningWorkspace) && e.cancelable) {
+            e.preventDefault()
+        }
+
+        if (!window.lastMousePos) window.lastMousePos = { x: 0, y: 0 };
+        window.lastMousePos = { x: clientX - rect.left, y: clientY - rect.top };
+
+        if (isRefining) {
+            if ('touches' in e && e.cancelable) e.preventDefault()
+            renderStudio(); // Real-time brush preview
+            if (isDrawing) {
+                const scaleX = maskCanvas.width / rect.width
+                const scaleY = maskCanvas.height / rect.height
+
+                const canvasX = (clientX - rect.left) * scaleX
+                const canvasY = (clientY - rect.top) * scaleY
+
+                const ctx = maskCanvas.getContext('2d')
+                if (!ctx) return
+
+                ctx.lineJoin = 'round'
+                ctx.lineCap = 'round'
+                ctx.lineWidth = brushSize * scaleX
+
+                if (brushMode === 'erase') {
+                    ctx.globalCompositeOperation = 'destination-out'
+                    ctx.beginPath()
+                    ctx.arc(canvasX, canvasY, (brushSize * scaleX) / 2, 0, Math.PI * 2)
+                    ctx.fill()
+                } else if (brushMode === 'restore') {
+                    if (restoreMethod === 'lasso') {
+                        setLassoPoints(prev => [...prev, { x: clientX - rect.left, y: clientY - rect.top }])
+                    } else {
+                        ctx.globalCompositeOperation = 'source-over'
+                        const originalImg = originalImgRef.current
+                        if (!originalImg) return
+                        ctx.save()
+                        ctx.beginPath()
+                        ctx.arc(canvasX, canvasY, (brushSize * scaleX) / 2, 0, Math.PI * 2)
+                        ctx.clip()
+                        ctx.drawImage(originalImg, 0, 0, maskCanvas.width, maskCanvas.height)
+                        ctx.restore()
+                    }
+                } else if (brushMode === 'extract') {
+                    // Collect points for target extraction
+                    setLassoPoints(prev => [...prev, { x: clientX - rect.left, y: clientY - rect.top }])
+                }
+                renderStudio()
+            }
+        } else if (isDraggingText && activeTextId) {
+            const scaleX = studioCanvas.width / rect.width
+            const scaleY = studioCanvas.height / rect.height
+            const canvasX = (clientX - rect.left) * scaleX
+            const canvasY = (clientY - rect.top) * scaleY
+
+            const updated = textLayers.map(l => l.id === activeTextId ? { ...l, x: canvasX - dragStart.x, y: canvasY - dragStart.y } : l)
+            setTextLayers(updated)
+            renderStudio()
+        } else if (isPanningWorkspace) {
+            const deltaY = clientY - rect.top - dragStart.y
+            setWorkspaceOffsetY(deltaY)
+        } else if (isDraggingSubject) {
+            const rect = studioCanvas.getBoundingClientRect()
+            let newX = clientX - rect.left - dragStart.x
+            let newY = clientY - rect.top - dragStart.y
+
+            // Magnet/Snap to Center (15px threshold)
+            if (Math.abs(newX) < 15) newX = 0;
+            if (Math.abs(newY) < 15) newY = 0;
+
+            setSubjectPos({ x: newX, y: newY })
+            renderStudio()
+        }
+    }
+
+    useEffect(() => {
+        if (processedImage && viewMode === 'editor' && isMaskReady) {
+            renderStudio()
+        }
+    }, [processedImage, viewMode, isMaskReady, bgType, bgColor, bgGradient, customBgImage, bgLoadCount, hasSticker, stickerColor, stickerWidth, subjectPos, subjectScale, subjectRotation, subjectFlipH, subjectFlipV, subjectOpacity, textLayers, activeTextId, subjectBrightness, subjectContrast, subjectSaturation, globalFilter, aspectRatio, showOriginal])
+
+
+
+    if (!isMounted) return null
+
+    return (
+        <div className={cn(
+            "relative w-full transition-all duration-500",
+            processedImage && !isProcessing
+                ? "max-sm:fixed max-sm:inset-0 max-sm:z-[100] max-sm:bg-zinc-950 max-sm:h-[100dvh] max-sm:flex max-sm:flex-col max-sm:overflow-hidden sm:max-w-[1600px] sm:mx-auto sm:px-4 sm:py-8 sm:space-y-6"
+                : "max-w-7xl mx-auto px-4 sm:px-6 space-y-8 pb-20 pt-8"
+        )}>
+            {/* Hidden canvases for internal processing */}
+            <canvas ref={maskCanvasRef} className="hidden" />
+            <canvas ref={resultCanvasRef} className="hidden" />
+            <input type="file" ref={fileInputRef} onChange={handleFileUpload} className="hidden" accept="image/*" />
+            <input type="file" ref={bgInputRef} onChange={handleBgUpload} className="hidden" accept="image/*" />
+
+            {/* Header - Hidden in Mobile Editor Mode */}
+            {(!processedImage || isProcessing) ? (
+                <div className="text-center space-y-4 animate-in fade-in slide-in-from-bottom-4 duration-700">
+                    <h1 className="text-4xl font-extrabold tracking-tight sm:text-7xl">
+                        <span className="text-gradient font-black">AI Creative Studio</span>
+                    </h1>
+                    <p className="text-muted-foreground text-sm sm:text-xl max-w-2xl mx-auto font-medium">
+                        {t.bgRemover.desc}
+                    </p>
+                </div>
+            ) : (
+                /* Mobile Editor Top Bar - Premium Dark Style */
+                <div className="sm:hidden shrink-0 flex items-center justify-between px-4 h-14 border-b border-zinc-800 bg-zinc-950 backdrop-blur-md z-[150]">
+                    <div className="flex items-center gap-2">
+                        <button onClick={() => setShowResetConfirm(true)} className="text-white/60"><X className="w-6 h-6" /></button>
+                        <div className="h-4 w-[1px] bg-white/20 mx-1" />
+                        <button onClick={undo} disabled={history.length <= 1} className="disabled:opacity-20 text-white transition-opacity"><Undo className="w-5 h-5 shadow-sm" /></button>
+                        <button onClick={redo} disabled={redoStack.length === 0} className="disabled:opacity-20 text-white transition-opacity"><Redo className="w-5 h-5 shadow-sm" /></button>
+                    </div>
+
+                    <div className="flex flex-col items-center">
+                        <span className="text-[9px] font-black italic uppercase tracking-[0.1em] text-white/80">CREATIVE <span className="text-primary">STUDIO</span></span>
+                        <span className="text-[8px] font-bold text-primary/80">{Math.round(zoom * 100)}%</span>
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                        <button
+                            onClick={() => setIsPanningWorkspace(!isPanningWorkspace)}
+                            className={cn("p-1.5 rounded-lg transition-all", isPanningWorkspace ? "bg-primary text-white" : "text-white/60")}
+                        >
+                            <Hand className="w-5 h-5" />
+                        </button>
+                        <button
+                            onClick={downloadResult}
+                            disabled={isDownloading}
+                            className="bg-primary text-white px-4 py-1.5 rounded-xl font-black text-[10px] uppercase flex items-center gap-1.5 active:scale-95 transition-all disabled:opacity-50"
+                        >
+                            {isDownloading ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Download className="w-3.5 h-3.5" />}
+                            {t.common.download}
+                        </button>
+                    </div>
+                </div>
+            )}
+
+            {processedImage && !isProcessing && (
+                <div className="hidden sm:flex shrink-0 items-center justify-between px-6 py-2.5 bg-white dark:bg-zinc-900 border-b border-zinc-100 dark:border-zinc-800 z-[150] shadow-sm">
+                    <div className="flex items-center gap-4">
+                        <button onClick={() => setShowResetConfirm(true)} className="p-1.5 hover:bg-red-50 dark:hover:bg-red-900/20 text-zinc-400 hover:text-red-500 rounded-lg transition-all"><X className="w-5 h-5" /></button>
+                        <div className="flex bg-zinc-100 dark:bg-zinc-800 p-0.5 rounded-xl shadow-inner border border-zinc-200/50 dark:border-zinc-700/50">
+                            <button
+                                onClick={() => setViewMode('comparison')}
+                                className={cn(
+                                    "px-4 py-1.5 rounded-lg text-[10px] font-black transition-all",
+                                    viewMode === 'comparison' ? "bg-white dark:bg-zinc-900 shadow-sm text-primary" : "text-muted-foreground hover:text-zinc-600"
+                                )}
+                            >
+                                {t.bgRemover.comparison}
+                            </button>
+                            <button
+                                onClick={() => setViewMode('editor')}
+                                className={cn(
+                                    "px-4 py-1.5 rounded-lg text-[10px] font-black transition-all",
+                                    viewMode === 'editor' ? "bg-white dark:bg-zinc-900 shadow-sm text-primary" : "text-muted-foreground hover:text-zinc-600"
+                                )}
+                            >
+                                {t.bgRemover.studio}
+                            </button>
+                        </div>
+                    </div>
+                    <div className="flex items-center gap-3">
+                        <button
+                            onMouseDown={() => setShowOriginal(true)}
+                            onMouseUp={() => setShowOriginal(false)}
+                            className={cn(
+                                "px-3 py-2 rounded-lg border transition-all flex items-center gap-2 font-black text-[10px] uppercase tracking-wider",
+                                showOriginal ? "bg-primary text-white border-primary shadow-lg" : "bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 text-zinc-500 hover:border-primary/30"
+                            )}
+                        >
+                            <Eye className="w-3.5 h-3.5" />
+                            <span>{t.bgRemover.compare}</span>
+                        </button>
+                        <button
+                            onClick={() => {
+                                if (isRefining) {
+                                    setIsRefining(false);
+                                } else {
+                                    if (viewMode !== 'editor') setViewMode('editor');
+                                    setIsRefining(true);
+                                }
+                            }}
+                            className={cn(
+                                "px-4 py-2 rounded-lg shadow-sm transition-all flex items-center gap-2 font-black text-[10px] uppercase tracking-wider border",
+                                isRefining
+                                    ? "bg-zinc-900 text-white border-zinc-800 hover:bg-zinc-800"
+                                    : "bg-sky-400 text-zinc-950 border-sky-300 hover:bg-sky-500 hover:scale-105 active:scale-95"
+                            )}
+                        >
+                            {isRefining ? <Check className="w-3.5 h-3.5" /> : <Brush className="w-3.5 h-3.5 stroke-[3px]" />}
+                            <span>{isRefining ? "완료" : (t.bgRemover.brushRestore + " & " + t.bgRemover.roughLasso)}</span>
+                        </button>
+                        <div className="h-5 w-[1px] bg-zinc-200 dark:bg-zinc-800 mx-1" />
+                        <div className="h-6 w-[2px] bg-zinc-100 dark:bg-zinc-800 mx-2" />
+                        <span className="text-xs font-black italic uppercase tracking-[0.3em] opacity-30">UltraUtils Studio</span>
+                        <div className="h-6 w-[2px] bg-zinc-100 dark:bg-zinc-800" />
+                        <button
+                            onClick={() => setHdMode(!hdMode)}
+                            className={cn(
+                                "group relative px-4 py-2 rounded-xl text-[10px] font-black uppercase transition-all flex items-center gap-2 border-2",
+                                hdMode ? "bg-emerald-50 text-emerald-600 border-emerald-200 shadow-sm" : "bg-zinc-50 text-zinc-400 border-zinc-100"
+                            )}
+                        >
+                            <Zap className={cn("w-3 h-3 transition-all", hdMode ? "fill-emerald-600 scale-110" : "opacity-40")} />
+                            <span>HD Quality</span>
+                            {hdMode && <span className="absolute -top-1.5 -right-1.5 flex h-3 w-3"><span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span><span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span></span>}
+                        </button>
+                        <button
+                            onClick={downloadResult}
+                            disabled={isDownloading}
+                            className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-8 py-3 rounded-2xl font-black text-xs shadow-lg shadow-blue-500/20 hover:scale-105 transition-all flex items-center gap-2 disabled:opacity-50"
+                        >
+                            {isDownloading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Download className="w-4 h-4" />}
+                            {t.common.download}
+                        </button>
+                    </div>
+                </div>
+            )}
+
+            <div className={cn(
+                "flex-1 flex flex-col xl:grid xl:grid-cols-12 gap-0 xl:gap-8 pt-2 xl:pt-2 w-full min-h-0",
+                processedImage && !isProcessing ? "items-start xl:h-[calc(100vh-140px)] h-full overflow-hidden" : "items-center justify-center justify-items-center"
+            )}>
+
+                {/* [LEFT SIDEBAR] Foundation & Layout - Mobile Tab Version */}
+                {processedImage && !isProcessing && (
+                    <div className={cn(
+                        "w-full xl:col-span-3 space-y-6 order-2 xl:order-1",
+                        "xl:block xl:relative",
+                        (!isRefining && (mobileTab === 'id' || mobileTab === 'bg' || mobileTab === 'transform')) ? "block" : "hidden",
+                        !isRefining && (mobileTab === 'id' || mobileTab === 'bg' || mobileTab === 'transform')
+                            ? (isMobileMenuOpen
+                                ? "max-sm:fixed max-sm:bottom-[calc(4rem+env(safe-area-inset-bottom,0px))] max-sm:inset-x-0 max-sm:z-[110] bg-white dark:bg-zinc-900 border-t border-zinc-100 dark:border-zinc-800 p-2 pt-0 pb-1 max-sm:h-auto max-sm:min-h-0 max-sm:rounded-t-[1.5rem] max-sm:shadow-[0_-20px_40px_rgba(0,0,0,0.1)] xl:p-0 xl:border-0"
+                                : "max-sm:fixed max-sm:bottom-[calc(4rem+env(safe-area-inset-bottom,0px))] max-sm:inset-x-0 max-sm:z-[110] max-sm:h-0 overflow-hidden")
+                            : "xl:block"
+                    )}>
+                        <div className={cn(
+                            "glass-card xl:p-5 xl:rounded-[2.5rem] space-y-4 xl:space-y-6 xl:shadow-xl xl:border-2 xl:border-primary/5 h-full overflow-y-auto no-scrollbar scroll-smooth pb-10 xl:pb-6 relative"
+                        )}>
+                            {/* Mobile Bottom Sheet Handle */}
+                            <div className="xl:hidden w-12 h-1.5 bg-zinc-900 dark:bg-zinc-100 rounded-full mx-auto mb-4 opacity-80" onClick={() => setIsMobileMenuOpen(false)} />
+
+                            {/* ID Section */}
+                            {(mobileTab === 'id' || !isMounted || (isMounted && window.innerWidth > 1280)) && (
+                                <div className="space-y-4 animate-in slide-in-from-bottom-2">
+                                    <label className="text-xs xl:text-sm font-black uppercase text-muted-foreground tracking-widest pl-1">{t.bgRemover.photoMode}</label>
+                                    <div className="flex gap-2 p-1 bg-zinc-100 dark:bg-zinc-800 rounded-xl">
+                                        <button onClick={() => { setIsIDMode(false); }} className={cn("flex-1 py-2 rounded-lg text-xs font-black transition-all", !isIDMode ? "bg-white dark:bg-zinc-900 shadow-md text-primary" : "text-muted-foreground")}>{t.bgRemover.reset}</button>
+                                        <button onClick={() => { setIsIDMode(true); if (!activeIDStandard) setActiveIDStandard(ID_STANDARDS[0]); }} className={cn("flex-1 py-2 rounded-lg text-xs font-black transition-all flex items-center justify-center gap-1.5", isIDMode ? "bg-white dark:bg-zinc-900 shadow-md text-primary" : "text-muted-foreground")}>{t.bgRemover.idPhoto}</button>
+                                    </div>
+                                    {isIDMode && (
+                                        <div className="grid grid-cols-2 gap-2 pb-1">
+                                            {ID_STANDARDS.map(std => (
+                                                <button key={std.id} onClick={() => { setActiveIDStandard(std); setBgType('color'); setBgColor('#ffffff'); pushHistory(); }} className={cn("px-3 py-2 rounded-xl border-2 text-left transition-all", activeIDStandard?.id === std.id ? "border-primary bg-white dark:bg-zinc-900" : "border-transparent bg-zinc-100 dark:border-zinc-800")}>
+                                                    <div className="text-[8px] font-black uppercase whitespace-nowrap">{std.name}</div>
+                                                    <div className="text-[7px] font-bold text-muted-foreground leading-tight">{std.label}</div>
+                                                </button>
+                                            ))}
+                                        </div>
+                                    )}
+                                </div>
+                            )}
+
+                            {/* Background Section */}
+                            {(mobileTab === 'bg' || !isMounted || (isMounted && window.innerWidth > 1280)) && (
+                                <div className="space-y-4 animate-in slide-in-from-bottom-2 pt-4 border-t border-zinc-100 dark:border-zinc-800/50">
+                                    <label className="text-xs xl:text-sm font-black uppercase text-muted-foreground tracking-widest pl-1">{t.bgRemover.backgroundColor}</label>
+                                    <div className="flex gap-1.5 p-1 bg-zinc-100 dark:bg-zinc-800 rounded-xl">
+                                        {[
+                                            { id: 'transparent', label: t.bgRemover.bgTrsp },
+                                            { id: 'color', label: t.bgRemover.bgClr },
+                                            { id: 'gradient', label: t.bgRemover.bgGrad },
+                                            { id: 'image', label: t.bgRemover.bgImg }
+                                        ].map(type => (
+                                            <button key={type.id} onClick={() => { if (type.id === 'image') bgInputRef.current?.click(); else { setBgType(type.id as any); pushHistory(); } }} className={cn("flex-1 px-2 py-2 rounded-lg text-xs font-black transition-all", bgType === type.id ? "bg-white dark:bg-zinc-900 shadow-sm text-primary" : "text-muted-foreground whitespace-nowrap")}>
+                                                {type.label}
+                                            </button>
+                                        ))}
+                                    </div>
+                                    {(bgType === 'color' || bgType === 'gradient') && (
+                                        <div className="grid grid-cols-4 gap-2 py-1">
+                                            {bgType === 'color' ? (
+                                                ['#ffffff', '#000000', '#ef4444', '#f97316', '#f59e0b', '#10b981', '#3b82f6', '#8b5cf6'].map(c => (
+                                                    <button key={c} onClick={() => { setBgColor(c); renderStudio(); pushHistory(); }} className={cn("w-full aspect-square rounded-full border-2", bgColor === c ? "border-primary scale-110" : "border-transparent shadow-sm")} style={{ backgroundColor: c }} />
+                                                ))
+                                            ) : (
+                                                ['linear-gradient(135deg, #667eea 0%, #764ba2 100%)', 'linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)', 'linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%)', 'linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%)', 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)', 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)', 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)', 'linear-gradient(135deg, #30cfd0 0%, #330867 100%)'].map((g, i) => (
+                                                    <button key={i} onClick={() => { setBgGradient(g); renderStudio(); pushHistory(); }} className={cn("w-full aspect-square rounded-lg border-2", bgGradient === g ? "border-primary scale-110" : "border-transparent shadow-sm")} style={{ backgroundImage: g }} />
+                                                ))
+                                            )}
+                                        </div>
+                                    )}
+                                </div>
+                            )}
+
+                            {/* Transform Section */}
+                            {(mobileTab === 'transform' || !isMounted || (isMounted && window.innerWidth > 1280)) && (
+                                <div className="space-y-4 animate-in slide-in-from-bottom-2 pt-4 border-t border-zinc-100 dark:border-zinc-800/50">
+                                    <div className="flex items-center justify-between pl-1">
+                                        <label className="text-xs xl:text-sm font-black uppercase text-muted-foreground tracking-widest">{t.bgRemover.tabTransform}</label>
+                                        <button
+                                            onClick={smartTrim}
+                                            className="px-3 py-1 bg-primary/10 text-primary rounded-lg text-[9px] font-black uppercase hover:bg-primary/20 transition-all flex items-center gap-1.5 border border-primary/20"
+                                        >
+                                            <Maximize2 className="w-3 h-3" /> {t.bgRemover.smartTrim}
+                                        </button>
+                                    </div>
+                                    <div className="grid grid-cols-5 gap-1 p-1 bg-zinc-100/50 dark:bg-zinc-800/30 rounded-xl">
+                                        {[
+                                            { id: 'original', icon: Maximize2, label: 'ORIG' },
+                                            { id: '1:1', icon: Crop, label: '1:1' },
+                                            { id: '4:5', icon: Instagram, label: '4:5' },
+                                            { id: '9:16', icon: Smartphone, label: '9:16' },
+                                            { id: '16:9', icon: Monitor, label: '16:9' }
+                                        ].map((r) => (
+                                            <button key={r.id} onClick={() => { setAspectRatio(r.id as any); renderStudio(); pushHistory(); }} className={cn("py-2 rounded-lg flex flex-col items-center gap-0.5 transition-all", aspectRatio === r.id ? "bg-white dark:bg-zinc-900 text-primary shadow-sm" : "text-muted-foreground opacity-60")}>
+                                                <r.icon className="w-3.5 h-3.5" />
+                                                <span className="text-[8px] font-black">{r.label}</span>
+                                            </button>
+                                        ))}
+                                    </div>
+                                    <div className="space-y-2">
+                                        <div className="flex justify-between items-center text-[10px] font-black uppercase text-muted-foreground"><span>{t.bgRemover.scale}</span><span className="text-primary">{Math.round(subjectScale * 100)}%</span></div>
+                                        <input type="range" min="0.1" max="3" step="0.05" value={subjectScale} onChange={(e) => { setSubjectScale(parseFloat(e.target.value)); renderStudio(); }} onMouseUp={() => pushHistory()} className="w-full h-1 bg-zinc-200 dark:bg-zinc-800 rounded-lg appearance-none accent-primary" />
+                                    </div>
+                                    <div className="grid grid-cols-2 gap-2">
+                                        <button onClick={() => { setSubjectFlipH(!subjectFlipH); renderStudio(); pushHistory(); }} className={cn("flex-1 py-2.5 rounded-lg border flex items-center justify-center gap-1.5 text-[9px] font-black uppercase transition-all", subjectFlipH ? "border-primary bg-primary/10 text-primary" : "border-zinc-100 dark:border-zinc-800 bg-white dark:bg-zinc-950")}><FlipHorizontal className="w-3.5 h-3.5" /> {t.bgRemover.flipH}</button>
+                                        <button onClick={() => { setSubjectFlipV(!subjectFlipV); renderStudio(); pushHistory(); }} className={cn("flex-1 py-2.5 rounded-lg border flex items-center justify-center gap-1.5 text-[9px] font-black uppercase transition-all", subjectFlipV ? "border-primary bg-primary/10 text-primary" : "border-zinc-100 dark:border-zinc-800 bg-white dark:bg-zinc-950")}><FlipVertical className="w-3.5 h-3.5" /> {t.bgRemover.flipV}</button>
+                                    </div>
+                                    <button onClick={() => { setSubjectPos({ x: 0, y: 0 }); setSubjectScale(1); setSubjectRotation(0); setSubjectFlipH(false); setSubjectFlipV(false); renderStudio(); pushHistory(); }} className="w-full py-2.5 bg-zinc-100 dark:bg-zinc-800 rounded-lg text-[9px] font-black uppercase transition-all active:scale-95">{t.bgRemover.resetPos}</button>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                )}
+
+                {/* [CENTER CANVAS AREA] */}
+                <div
+                    onDragOver={(e) => e.preventDefault()}
+                    onDrop={handleFileUpload}
+                    onClick={() => workflowStep === 'idle' && !isProcessing && fileInputRef.current?.click()}
+                    className={cn(
+                        workflowStep === 'editing' ? "xl:col-span-6 w-full" : "xl:col-span-12 max-w-2xl mx-auto w-full",
+                        "order-1 xl:order-2",
+                        "glass-card border-2 border-zinc-200/50 dark:border-zinc-800/50 flex flex-col items-center justify-center relative overflow-hidden group/result shadow-2xl transition-all duration-500",
+                        workflowStep === 'editing' ? "flex-grow sm:rounded-[4rem] sm:m-4" : "rounded-[3rem] min-h-[650px] p-4 m-0 sm:p-4",
+                        workflowStep === 'idle' && "bg-zinc-50/50 dark:bg-zinc-900/50 cursor-pointer",
+                        isRefining && "cursor-none"
+                    )}
+                    style={{
+                        backgroundColor: bgType === 'color' ? bgColor : 'transparent',
+                        backgroundImage: bgType === 'gradient'
+                            ? bgGradient
+                            : (bgType === 'image' && customBgImage
+                                ? `url(${customBgImage})`
+                                : (workflowStep === 'editing' && bgType === 'transparent'
+                                    ? 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'20\' height=\'20\' viewBox=\'0 0 20 20\'%3E%3Crect width=\'10\' height=\'10\' fill=\'%238882\'/%3E%3Crect x=\'10\' y=\'10\' width=\'10\' height=\'10\' fill=\'%238882\'/%3E%3C/svg%3E")'
+                                    : 'none'))
+                    }}
+                >
+                    {workflowStep === 'selection' && originalImage ? (
+                        <div className="w-full h-full flex flex-col items-center justify-center p-4 space-y-6">
+                            <div className="flex gap-4 p-1 bg-zinc-100 dark:bg-zinc-800 rounded-2xl w-full max-w-xs mx-auto">
+                                <button onClick={() => setSelectionMode('click')} className={cn("flex-1 py-3 rounded-xl text-xs font-black transition-all flex items-center justify-center gap-2", selectionMode === 'click' ? "bg-white text-primary shadow-lg" : "text-muted-foreground")}><MousePointer2 className="w-4 h-4" /> {t.bgRemover.smartClick}</button>
+                                <button onClick={() => setSelectionMode('lasso')} className={cn("flex-1 py-3 rounded-xl text-xs font-black transition-all flex items-center justify-center gap-2", selectionMode === 'lasso' ? "bg-white text-primary shadow-lg" : "text-muted-foreground")}><Sparkles className="w-4 h-4" /> {t.bgRemover.roughLasso}</button>
+                            </div>
+                            <div className="relative group cursor-crosshair max-w-full max-h-[60vh] overflow-hidden rounded-3xl p-4 bg-white/50 dark:bg-zinc-800/50 border-2 border-dashed border-zinc-200 dark:border-zinc-700 touch-none">
+                                <img
+                                    src={originalImage}
+                                    alt="Original"
+                                    draggable="false"
+                                    className="max-w-full max-h-full object-contain rounded-2xl shadow-2xl select-none touch-none"
+                                    onMouseDown={(e) => {
+                                        if (selectionMode === 'lasso') {
+                                            setIsDrawingSelectionLasso(true);
+                                            const rect = e.currentTarget.getBoundingClientRect();
+                                            const x = (e.clientX - rect.left) / rect.width;
+                                            const y = (e.clientY - rect.top) / rect.height;
+                                            setSelectionLassoPoints([{ x: e.clientX - rect.left, y: e.clientY - rect.top, nx: x, ny: y }]);
+                                        }
+                                    }}
+                                    onMouseMove={(e) => {
+                                        if (selectionMode === 'lasso' && isDrawingSelectionLasso) {
+                                            const rect = e.currentTarget.getBoundingClientRect();
+                                            const x = (e.clientX - rect.left) / rect.width;
+                                            const y = (e.clientY - rect.top) / rect.height;
+                                            setSelectionLassoPoints(prev => [...prev, { x: e.clientX - rect.left, y: e.clientY - rect.top, nx: x, ny: y }]);
+                                        }
+                                    }}
+                                    onMouseUp={() => {
+                                        if (selectionMode === 'lasso' && isDrawingSelectionLasso) {
+                                            setIsDrawingSelectionLasso(false);
+                                            // Process if enough points
+                                            if (selectionLassoPoints.length > 3 && pendingFile) {
+                                                // Take all points for the mask
+                                                const path = selectionLassoPoints.map(p => ({ nx: p.nx!, ny: p.ny! }));
+                                                processImage(pendingFile, undefined, path);
+                                            }
+                                        }
+                                    }}
+                                    onTouchStart={(e) => {
+                                        if (selectionMode === 'lasso') {
+                                            if (e.cancelable) e.preventDefault();
+                                            setIsDrawingSelectionLasso(true);
+                                            const rect = e.currentTarget.getBoundingClientRect();
+                                            const touch = e.touches[0];
+                                            const x = (touch.clientX - rect.left) / rect.width;
+                                            const y = (touch.clientY - rect.top) / rect.height;
+                                            setSelectionLassoPoints([{ x: touch.clientX - rect.left, y: touch.clientY - rect.top, nx: x, ny: y }]);
+                                        }
+                                    }}
+                                    onTouchMove={(e) => {
+                                        if (selectionMode === 'lasso' && isDrawingSelectionLasso) {
+                                            if (e.cancelable) e.preventDefault();
+                                            const rect = e.currentTarget.getBoundingClientRect();
+                                            const touch = e.touches[0];
+                                            const x = (touch.clientX - rect.left) / rect.width;
+                                            const y = (touch.clientY - rect.top) / rect.height;
+                                            setSelectionLassoPoints(prev => [...prev, { x: touch.clientX - rect.left, y: touch.clientY - rect.top, nx: x, ny: y }]);
+                                        }
+                                    }}
+                                    onTouchEnd={() => {
+                                        if (selectionMode === 'lasso' && isDrawingSelectionLasso) {
+                                            setIsDrawingSelectionLasso(false);
+                                            if (selectionLassoPoints.length > 3 && pendingFile) {
+                                                const path = selectionLassoPoints.map(p => ({ nx: p.nx!, ny: p.ny! }));
+                                                processImage(pendingFile, undefined, path);
+                                            }
+                                        }
+                                    }}
+                                    onClick={(e) => {
+                                        if (selectionMode === 'click') {
+                                            const rect = e.currentTarget.getBoundingClientRect()
+                                            const nx = (e.clientX - rect.left) / rect.width
+                                            const ny = (e.clientY - rect.top) / rect.height
+                                            setSelectionPoint({ x: e.clientX - rect.left, y: e.clientY - rect.top })
+                                            if (pendingFile) {
+                                                processImage(pendingFile, [{ x: nx, y: ny }])
+                                            }
+                                        }
+                                    }}
+                                />
+                                {selectionMode === 'lasso' && selectionLassoPoints.length > 1 && (
+                                    <svg className="absolute inset-0 pointer-events-none w-full h-full">
+                                        <polyline
+                                            points={selectionLassoPoints.map(p => `${p.x},${p.y}`).join(' ')}
+                                            fill="rgba(59, 130, 246, 0.2)"
+                                            stroke="#3b82f6"
+                                            strokeWidth="3"
+                                            strokeDasharray="5,5"
+                                        />
+                                    </svg>
+                                )}
+                                <div className="absolute inset-x-0 bottom-4 pointer-events-none flex justify-center">
+                                    <div className="bg-black/60 backdrop-blur-md text-white px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-widest animate-pulse">
+                                        {selectionMode === 'click' ? t.bgRemover.clickPrompt : t.bgRemover.lassoPrompt}
+                                    </div>
+                                </div>
+                            </div>
+                            <button
+                                onClick={() => { setOriginalImage(null); setWorkflowStep('idle'); }}
+                                className="px-8 py-3 bg-zinc-100 dark:bg-zinc-800 rounded-2xl text-xs font-black uppercase hover:bg-zinc-200 transition-all flex items-center gap-2"
+                            >
+                                <X className="w-4 h-4" /> {t.common.cancel}
+                            </button>
+                        </div>
+                    ) : workflowStep === 'processing' ? (
+                        <div className="flex flex-col items-center justify-center space-y-8 p-12 animate-in fade-in zoom-in-95 duration-500">
+                            <div className="relative w-48 h-48">
+                                <div className="absolute inset-0 bg-primary/20 rounded-full animate-ping" />
+                                <div className="absolute inset-0 bg-primary/10 rounded-full animate-pulse scale-150" />
+                                <svg className="w-full h-full -rotate-90">
+                                    <circle
+                                        cx="96" cy="96" r="88"
+                                        stroke="currentColor" strokeWidth="12" fill="transparent"
+                                        className="text-zinc-100 dark:text-zinc-800"
+                                    />
+                                    <circle
+                                        cx="96" cy="96" r="88"
+                                        stroke="currentColor" strokeWidth="12" fill="transparent"
+                                        strokeDasharray={553}
+                                        strokeDashoffset={553 - (553 * progress) / 100}
+                                        strokeLinecap="round"
+                                        className="text-primary transition-all duration-500"
+                                    />
+                                </svg>
+                                <div className="absolute inset-0 flex items-center justify-center">
+                                    <span className="text-4xl font-black text-primary">{progress}%</span>
+                                </div>
+                            </div>
+                            <div className="text-center space-y-2">
+                                <p className="text-2xl font-black tracking-tight">{getStepLabel(currentStep)}</p>
+                                <p className="text-muted-foreground font-bold animate-pulse">{t.bgRemover.aiThinking || 'AI가 배경을 분석하고 있습니다...'}</p>
+                            </div>
+                        </div>
+                    ) : workflowStep === 'editing' && processedImage ? (
+                        <div className="w-full h-full flex flex-col relative overflow-hidden">
+                            <div className={cn(
+                                "flex-1 flex items-start justify-center p-4 sm:p-10 pt-10 sm:pt-20 transition-all duration-500 min-h-[500px] lg:min-h-[850px] w-full",
+                                isRefining ? "bg-zinc-100 dark:bg-zinc-800/50" : ""
+                            )}>
+                                {viewMode === 'comparison' ? (
+                                    <div className="flex flex-col gap-8 w-full h-full max-w-4xl mx-auto overflow-y-auto no-scrollbar py-4 px-2">
+                                        <div className="relative group/original shrink-0">
+                                            <div className="absolute top-4 left-4 bg-black/70 text-white px-3 py-1 rounded-lg text-[10px] sm:text-xs font-black backdrop-blur-md z-20">{t.bgRemover.original}</div>
+                                            <img src={originalImage!} alt="Original" className="w-full h-auto object-contain rounded-3xl shadow-2xl transition-transform hover:scale-[1.01]" />
+                                        </div>
+                                        <div className="relative group/result shrink-0">
+                                            <div className="absolute top-4 left-4 bg-primary text-white px-3 py-1 rounded-lg text-[10px] sm:text-xs font-black backdrop-blur-md z-20">{t.bgRemover.result}</div>
+                                            <img src={processedImage as string} alt="Result" className="w-full h-auto object-contain rounded-3xl shadow-2xl transition-transform hover:scale-[1.01]" />
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <div
+                                        className="relative flex items-center justify-center transition-all duration-500 ease-in-out"
+                                        style={{
+                                            transform: `scale(${zoom}) translateY(${workspaceOffsetY}px)`,
+                                            transformOrigin: 'center',
+                                            width: '100%',
+                                            height: '100%',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            maxHeight: 'calc(100vh - 280px)',
+                                            maxWidth: '100%'
+                                        }}
+                                    >
+                                        <canvas
+                                            ref={studioCanvasRef}
+                                            onMouseDown={startDrawing}
+                                            onMouseMove={draw}
+                                            onMouseUp={stopDrawing}
+                                            onMouseLeave={stopDrawing}
+                                            onTouchStart={startDrawing}
+                                            onTouchMove={draw}
+                                            onTouchEnd={stopDrawing}
+                                            className={cn(
+                                                "max-w-full max-h-full object-contain shadow-[0_30px_70px_rgba(0,0,0,0.3)] transition-all bg-white dark:bg-zinc-800 rounded-3xl",
+                                                "cursor-crosshair ring-2 ring-primary/5 shadow-2xl"
+                                            )}
+                                            style={{ touchAction: 'none' }}
+                                        />
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    ) : (
+                        <div className="text-center space-y-6 flex flex-col items-center">
+                            <div className="w-24 h-24 rounded-[2rem] bg-primary/10 flex items-center justify-center text-primary group-hover:scale-110 transition-transform duration-500">
+                                <Upload className="w-10 h-10" />
+                            </div>
+                            <div className="space-y-2">
+                                <h3 className="text-2xl font-bold">{t.common.selectImage}</h3>
+                                <p className="text-muted-foreground font-medium">{t.bgRemover.dropMsg}</p>
+                            </div>
+                            <button
+                                onClick={async (e) => {
+                                    e.stopPropagation();
+                                    setIsProcessing(true);
+                                    try {
+                                        const response = await fetch('https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1000&auto=format&fit=crop');
+                                        const blob = await response.blob();
+                                        const file = new File([blob], 'sample_portrait.jpg', { type: 'image/jpeg' });
+                                        const dataTransfer = new DataTransfer();
+                                        dataTransfer.items.add(file);
+                                        const event = { target: { files: dataTransfer.files } } as unknown as React.ChangeEvent<HTMLInputElement>;
+                                        handleFileUpload(event);
+                                    } catch (err) {
+                                        console.error('Sample fetch failed', err);
+                                        alert(t.common.error);
+                                    } finally {
+                                        setIsProcessing(false);
+                                    }
+                                }}
+                                className="mt-4 text-xs font-black uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors flex items-center gap-2 px-6 py-3 rounded-2xl bg-white/50 dark:bg-zinc-800/50 hover:bg-white dark:hover:bg-zinc-800 shadow-sm"
+                            >
+                                <Sparkles className="w-4 h-4" /> {t.common.trySample}
+                            </button>
+                        </div>
+                    )}
+                </div>
+
+                {/* Primary Top Controls - Mobile Only (Hidden on Desktop to avoid overlap) */}
+                {
+                    processedImage && !isProcessing && (
+                        <div className="sm:hidden absolute top-3 right-2 flex items-center gap-2 z-[110] origin-top-right scale-95">
+                            {!isRefining && (
+                                <button
+                                    onMouseDown={() => setShowOriginal(true)}
+                                    onMouseUp={() => setShowOriginal(false)}
+                                    onTouchStart={() => setShowOriginal(true)}
+                                    onTouchEnd={() => setShowOriginal(false)}
+                                    className={cn(
+                                        "p-2.5 sm:px-4 sm:py-3 rounded-xl border-2 transition-all flex items-center gap-2 font-black shadow-lg",
+                                        showOriginal ? "bg-primary text-white border-primary" : "bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 text-zinc-600"
+                                    )}
+                                    title={t.bgRemover.compare}
+                                >
+                                    <Eye className="w-5 h-5" />
+                                    <span className="hidden sm:inline text-xs mt-0.5">{t.bgRemover.compare}</span>
+                                </button>
+                            )}
+                            {!isRefining && (
+                                <button
+                                    onClick={() => {
+                                        if (viewMode !== 'editor') setViewMode('editor');
+                                        setIsRefining(true);
+                                        setIsMobileMenuOpen(true);
+                                    }}
+                                    className="bg-sky-400 text-zinc-950 p-2.5 sm:px-6 sm:py-3 rounded-full sm:rounded-xl shadow-lg hover:bg-sky-500 hover:scale-105 active:scale-95 transition-all flex items-center gap-2 font-black border-2 border-sky-300"
+                                >
+                                    <Brush className="w-4 h-4 sm:w-5 sm:h-5 stroke-[3.5px]" />
+                                    <span className="hidden sm:inline text-xs sm:text-sm tracking-tight">{t.bgRemover.brushRestore} & {t.bgRemover.roughLasso}</span>
+                                </button>
+                            )}
+                            <button
+                                onClick={() => setShowResetConfirm(true)}
+                                className="bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 border-2 border-zinc-700/50 dark:border-zinc-300/50 p-2.5 sm:p-3 rounded-xl shadow-2xl hover:bg-red-600 dark:hover:bg-red-600 hover:text-white dark:hover:text-white transition-all active:scale-95"
+                            >
+                                <X className="w-5 h-5 sm:w-6 sm:h-6 stroke-[3px]" />
+                            </button>
+                        </div>
+                    )
+                }
+
+                {/* Mobile Floating Action Buttons - Removed Redundant Buttons */}
+                <div className="hidden xl:hidden pointer-events-none" />
+
+                {/* Floating Refine Toolbar for Mobile - REMOVED (Redundant with Integrated Bottom Sheet) */}
+
+                {/* Confirmation Dialog Overlay */}
+                {
+                    showResetConfirm && (
+                        <div className="absolute inset-0 z-50 bg-zinc-950/40 backdrop-blur-sm flex items-center justify-center p-6 pb-20">
+                            <div className="glass-card p-8 rounded-[2rem] max-w-sm w-full space-y-6 shadow-2xl animate-in zoom-in-95 duration-200 border-2 border-primary/20 bg-white">
+                                <h3 className="text-2xl font-black text-center">{t.bgRemover.resetConfirmTitle}</h3>
+                                <p className="text-muted-foreground text-center font-medium">{t.bgRemover.resetConfirmDesc}</p>
+                                <div className="grid grid-cols-2 gap-4">
+                                    <button
+                                        onClick={() => setShowResetConfirm(false)}
+                                        className="py-4 rounded-2xl bg-zinc-100 dark:bg-zinc-800 font-bold hover:bg-zinc-200 transition-colors"
+                                    >
+                                        {t.common.cancel}
+                                    </button>
+                                    <button
+                                        onClick={() => {
+                                            resetAllSettings() // Call the new reset function
+                                            setShowResetConfirm(false)
+                                        }}
+                                        className="py-4 rounded-2xl bg-red-500 text-white font-bold shadow-lg shadow-red-500/30 hover:bg-red-600 transition-colors"
+                                    >
+                                        {t.bgRemover.reset}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    )
+                }
+
+                {/* Floating Utility Bar (Zoom only on mobile, full on desktop) - Optimized per user request */}
+                {
+                    processedImage && !isProcessing && (
+                        <div className={cn(
+                            "fixed left-1/2 -translate-x-1/2 z-[130] flex items-center bg-white/95 dark:bg-zinc-900/95 backdrop-blur-3xl border-2 border-primary/10 rounded-[3rem] shadow-[0_40px_100px_rgba(0,0,0,0.6)] animate-in slide-in-from-bottom-10 border border-zinc-200 dark:border-zinc-800 p-1",
+                            "sm:bottom-20 bottom-[calc(90px+env(safe-area-inset-bottom,0px))]", // Fixed overlap with mobile dock
+                            "max-sm:hidden" // Hide on mobile since integrated in top bar
+                        )}>
+                            {/* Section 1: History (Undo/Redo) */}
+                            <div className="flex items-center gap-1 sm:gap-2 p-1.5 sm:p-2 border-r-2 border-zinc-200/50 dark:border-zinc-800/50 px-4 sm:px-8">
+                                <button
+                                    onClick={undo}
+                                    disabled={history.length <= 1}
+                                    className="p-2.5 sm:p-3 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-full disabled:opacity-20 transition-all active:scale-95"
+                                    title={t.bgRemover.undo}
+                                >
+                                    <Undo className="w-5 h-5 sm:w-6 sm:h-6 text-zinc-950 dark:text-zinc-50" />
+                                </button>
+                                <button
+                                    onClick={redo}
+                                    disabled={redoStack.length === 0}
+                                    className="p-2.5 sm:p-3 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-full disabled:opacity-20 transition-all active:scale-95"
+                                    title={t.bgRemover.redo}
+                                >
+                                    <Redo className="w-5 h-5 sm:w-6 sm:h-6 text-zinc-950 dark:text-zinc-50" />
+                                </button>
+                                <button
+                                    onClick={() => setIsPanningWorkspace(!isPanningWorkspace)}
+                                    className={cn(
+                                        "p-2.5 sm:p-3 rounded-full transition-all active:scale-95",
+                                        isPanningWorkspace
+                                            ? "bg-primary text-white shadow-lg shadow-primary/30"
+                                            : "hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-950 dark:text-zinc-50"
+                                    )}
+                                    title={t.bgRemover.panView}
+                                >
+                                    <Hand className="w-5 h-5 sm:w-6 sm:h-6" />
+                                </button>
+                            </div>
+
+                            {/* Section 2: Zoom Controls */}
+                            <div className="flex items-center gap-2 sm:gap-4 px-4 sm:px-8 py-1">
+                                <button
+                                    onClick={() => setZoom(Math.max(0.1, zoom - 0.1))}
+                                    className="p-2 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-full transition-all"
+                                >
+                                    <Minus className="w-4 h-4 sm:w-5 sm:h-5" />
+                                </button>
+                                <div className="flex flex-col items-center">
+                                    <span className="text-[10px] sm:text-xs font-black text-primary">{Math.round(zoom * 100)}%</span>
+                                    <input
+                                        type="range"
+                                        min="0.1"
+                                        max="3"
+                                        step="0.1"
+                                        value={zoom}
+                                        onChange={(e) => setZoom(parseFloat(e.target.value))}
+                                        className="hidden sm:block w-20 h-1 bg-zinc-200 dark:bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-primary"
+                                    />
+                                </div>
+                                <button
+                                    onClick={() => setZoom(Math.min(3, zoom + 0.1))}
+                                    className="p-2 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-full transition-all"
+                                >
+                                    <Plus className="w-4 h-4 sm:w-5 sm:h-5" />
+                                </button>
+                            </div>
+                        </div>
+                    )
+                }
+
+                {/* [RIGHT SIDEBAR] Creative Enhancements - Mobile Tab Version */}
+                {
+                    processedImage && !isProcessing && (
+                        <div className={cn(
+                            "w-full xl:col-span-3 space-y-4 order-3",
+                            "xl:block xl:relative",
+                            (isRefining || mobileTab === 'refine' || mobileTab === 'text' || mobileTab === 'done' || mobileTab === 'styling' || mobileTab === 'enhance') ? "block" : "hidden",
+                            "max-sm:fixed max-sm:inset-x-0 max-sm:z-[145] max-sm:bg-white dark:max-sm:bg-zinc-900 max-sm:border-t max-sm:border-zinc-200 dark:max-sm:border-zinc-800 max-sm:p-2 max-sm:pt-0 max-sm:pb-1 max-sm:rounded-t-[1.5rem] max-sm:shadow-[0_-20px_40px_rgba(0,0,0,0.2)] max-sm:transition-all max-sm:duration-300",
+                            isMobileMenuOpen
+                                ? (isRefining ? "max-sm:bottom-0 max-sm:translate-y-0 opacity-100 pointer-events-auto" : "max-sm:bottom-[85px] max-sm:translate-y-0 opacity-100 pointer-events-auto")
+                                : "max-sm:bottom-0 max-sm:translate-y-full opacity-0 pointer-events-none"
+                        )}>
+                            <div className="h-auto xl:h-auto overflow-y-auto no-scrollbar scroll-smooth pb-10 xl:pb-6 relative xl:space-y-6">
+                                {/* Mobile Bottom Sheet Handle - Clean Black Style */}
+                                <div className="xl:hidden w-10 h-1 bg-zinc-900 dark:bg-zinc-100 rounded-full mx-auto mb-2 opacity-80" onClick={() => { setIsMobileMenuOpen(false); setIsRefining(false); }} />
+
+                                {/* Mobile Close/Minimize Handle */}
+                                <button
+                                    onClick={() => { setIsMobileMenuOpen(false); setIsRefining(false); }}
+                                    className="xl:hidden absolute top-4 right-2 text-zinc-400 p-1 z-10"
+                                >
+                                    <ChevronDown className="w-5 h-5" />
+                                </button>
+                                <div className="space-y-4 xl:space-y-6">
+                                    {/* Refine Section (Visible when desktop OR specifically refining on mobile) */}
+                                    {(isRefining || mobileTab === 'refine') && (
+                                        <div className="glass-card p-2 xl:p-4 rounded-2xl xl:rounded-3xl space-y-2 xl:space-y-4 shadow-xl border-2 border-primary/20 bg-white dark:bg-zinc-900 animate-in zoom-in-95">
+                                            <div className="flex items-center justify-between">
+                                                <h3 className="font-black text-[10px] xl:text-sm flex items-center gap-2"><Brush className="w-4 h-4 text-primary" /> {t.bgRemover.refineTitle}</h3>
+                                                <button onClick={() => setIsRefining(false)} className="p-1 bg-zinc-100 dark:bg-zinc-800 rounded-full"><X className="w-3.5 h-3.5" /></button>
+                                            </div>
+                                            <div className="flex gap-1.5 p-1 bg-zinc-100 dark:bg-zinc-800 rounded-xl">
+                                                <button onClick={() => setBrushMode('restore')} className={cn("flex-1 py-1.5 rounded-lg text-[10px] font-black transition-all flex items-center justify-center gap-1", brushMode === 'restore' ? "bg-white dark:bg-zinc-900 text-primary shadow-md" : "text-zinc-500 opacity-60")}><Brush className="w-3 h-3" />{t.bgRemover.brushRestore}</button>
+                                                <button onClick={() => setBrushMode('extract')} className={cn("flex-1 py-1.5 rounded-lg text-[10px] font-black transition-all flex items-center justify-center gap-1", brushMode === 'extract' ? "bg-white dark:bg-zinc-900 text-pink-500 shadow-md" : "text-zinc-500 opacity-60")}><Sparkles className="w-3 h-3" />{t.bgRemover.smoothStream}</button>
+                                                <button onClick={() => setBrushMode('erase')} className={cn("flex-1 py-1.5 rounded-lg text-[10px] font-black transition-all flex items-center justify-center gap-1", brushMode === 'erase' ? "bg-white dark:bg-zinc-900 text-red-500 shadow-md" : "text-zinc-500 opacity-60")}><Eraser className="w-3 h-3" />{t.bgRemover.brushErase}</button>
+                                            </div>
+
+                                            {brushMode === 'restore' && (
+                                                <div className="flex gap-2 p-1 bg-zinc-50 dark:bg-zinc-950 rounded-lg border border-zinc-100 dark:border-zinc-800">
+                                                    <button onClick={() => setRestoreMethod('brush')} className={cn("flex-1 py-1 rounded-md text-[9px] font-black transition-all flex items-center justify-center gap-1", restoreMethod === 'brush' ? "bg-white dark:bg-zinc-800 text-primary shadow-sm" : "text-zinc-400")}>
+                                                        <Brush className="w-3 h-3" /> {t.bgRemover.brush}
+                                                    </button>
+                                                    <button onClick={() => setRestoreMethod('lasso')} className={cn("flex-1 py-1 rounded-md text-[9px] font-black transition-all flex items-center justify-center gap-1", restoreMethod === 'lasso' ? "bg-white dark:bg-zinc-800 text-primary shadow-sm" : "text-zinc-400")}>
+                                                        <MousePointer2 className="w-3 h-3" /> {t.bgRemover.selection}
+                                                    </button>
+                                                </div>
+                                            )}
+
+                                            <div className="space-y-1">
+                                                <div className="flex justify-between text-[7px] font-black uppercase text-muted-foreground items-center">
+                                                    <span>{(brushMode === 'extract') ? t.bgRemover.smartExtract : (restoreMethod === 'lasso' && brushMode === 'restore' ? t.bgRemover.selection : t.bgRemover.brushSize)}</span>
+                                                    <span className="text-primary font-bold">{brushSize}px</span>
+                                                </div>
+                                                {!(brushMode === 'extract' || (restoreMethod === 'lasso' && brushMode === 'restore')) && (
+                                                    <input type="range" min="5" max="150" value={brushSize} onChange={(e) => setBrushSize(parseInt(e.target.value))} className="w-full h-1 bg-zinc-200 dark:bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-primary" />
+                                                )}
+                                                {brushMode === 'extract' && (
+                                                    <p className="text-[8px] text-pink-500 font-bold animate-pulse">{t.bgRemover.smoothStream}</p>
+                                                )}
+                                            </div>
+                                        </div>
+                                    )}
+
+                                    {/* Stickers & Text - Grouped in TAB */}
+                                    {(mobileTab === 'text' || !isMounted || (isMounted && window.innerWidth > 1280)) && (
+                                        <div className="animate-in slide-in-from-bottom-2 space-y-2">
+                                            <label className="text-xs xl:text-sm font-black uppercase text-muted-foreground tracking-widest pl-1">{t.bgRemover.textEditing}</label>
+                                            <div className="space-y-2">
+                                                <button
+                                                    onClick={() => {
+                                                        const nt: TextLayer = { id: Math.random().toString(36).substr(2, 9), text: t.bgRemover.textPlaceholder, x: 250, y: 250, fontSize: 80, color: '#ffffff', strokeColor: '#000000', strokeWidth: 8, fontWeight: 'black', fontFamily: 'Inter', rotation: 0 };
+                                                        setTextLayers([...textLayers, nt]); setActiveTextId(nt.id); setTimeout(() => { renderStudio(); pushHistory(); }, 0);
+                                                    }}
+                                                    className="w-full py-2.5 bg-gradient-to-r from-sky-400 to-indigo-500 text-white rounded-xl text-[10px] font-black uppercase shadow-lg transition-all hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-2"
+                                                >
+                                                    <Plus className="w-3.5 h-3.5 stroke-[3px]" />
+                                                    {t.bgRemover.addText}
+                                                </button>
+
+                                                {activeTextId && (
+                                                    <div className="p-3 bg-zinc-50 dark:bg-zinc-900 rounded-2xl border-2 border-primary/10 space-y-2 shadow-sm">
+                                                        <input type="text" value={textLayers.find(l => l.id === activeTextId)?.text || ''} onChange={(e) => { setTextLayers(textLayers.map(l => l.id === activeTextId ? { ...l, text: e.target.value } : l)); renderStudio(); }} onBlur={() => pushHistory()} className="w-full px-3 py-2 text-xs font-bold rounded-lg border-2 border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800" />
+                                                        <div className="grid grid-cols-2 gap-2 py-1">
+                                                            {[{ id: 'Inter', label: t.bgRemover.fontGothic }, { id: 'serif', label: t.bgRemover.fontSerif }, { id: 'monospace', label: t.bgRemover.fontMono }, { id: 'cursive', label: t.bgRemover.fontHandwriting }, { id: 'system-ui', label: t.bgRemover.fontDefault }].map(f => (
+                                                                <button key={f.id} onClick={() => { setTextLayers(textLayers.map(l => l.id === activeTextId ? { ...l, fontFamily: f.id } : l)); renderStudio(); pushHistory(); }} className={cn("px-4 py-2 rounded-xl text-[10px] font-black border-2 transition-all", textLayers.find(l => l.id === activeTextId)?.fontFamily === f.id ? "bg-primary text-white border-primary shadow-lg" : "bg-white dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700 text-muted-foreground")} style={{ fontFamily: f.id }}>{f.label}</button>
+                                                            ))}
+                                                        </div>
+                                                        <div className="grid grid-cols-2 gap-3">
+                                                            <div className="space-y-1.5">
+                                                                <div className="flex justify-between text-[10px] font-black uppercase text-muted-foreground"><span>{t.bgRemover.textSize}</span><span className="text-primary">{textLayers.find(l => l.id === activeTextId)?.fontSize}px</span></div>
+                                                                <input type="range" min="20" max="300" value={textLayers.find(l => l.id === activeTextId)?.fontSize || 80} onChange={(e) => { setTextLayers(textLayers.map(l => l.id === activeTextId ? { ...l, fontSize: parseInt(e.target.value) } : l)); renderStudio(); }} onMouseUp={() => pushHistory()} className="w-full h-1 bg-zinc-200 dark:bg-zinc-800 rounded-lg appearance-none accent-primary" />
+                                                            </div>
+                                                            <div className="space-y-1.5">
+                                                                <div className="flex justify-between text-[10px] font-black uppercase text-muted-foreground"><span>{t.bgRemover.rotation}</span><span className="text-primary">{textLayers.find(l => l.id === activeTextId)?.rotation || 0}°</span></div>
+                                                                <input type="range" min="-180" max="180" value={textLayers.find(l => l.id === activeTextId)?.rotation || 0} onChange={(e) => { setTextLayers(textLayers.map(l => l.id === activeTextId ? { ...l, rotation: parseInt(e.target.value) } : l)); renderStudio(); }} onMouseUp={() => pushHistory()} className="w-full h-1 bg-zinc-200 dark:bg-zinc-800 rounded-lg appearance-none accent-sky-400" />
+                                                            </div>
+                                                        </div>
+
+                                                        <div className="flex flex-wrap gap-1.5 py-1">
+                                                            {['#ffffff', '#000000', '#ef4444', '#f97316', '#f59e0b', '#10b981', '#06b6d4', '#3b82f6', '#6366f1', '#8b5cf6', '#d946ef', '#ec4899', '#71717a'].map(c => (
+                                                                <button key={c} onClick={() => { setTextLayers(textLayers.map(l => l.id === activeTextId ? { ...l, color: c } : l)); renderStudio(); pushHistory(); }} className={cn("w-6 h-6 rounded-full border-2", textLayers.find(l => l.id === activeTextId)?.color === c ? "border-primary scale-110" : "border-transparent shadow-sm")} style={{ backgroundColor: c }} />
+                                                            ))}
+                                                        </div>
+                                                        <button
+                                                            onClick={(e) => {
+                                                                e.stopPropagation();
+                                                                setTextLayers(textLayers.filter(l => l.id !== activeTextId));
+                                                                setActiveTextId(null);
+                                                                renderStudio();
+                                                                pushHistory();
+                                                            }}
+                                                            className="w-full py-2.5 mt-2 bg-red-50 dark:bg-red-900/20 rounded-xl text-xs font-black text-red-500 uppercase tracking-widest hover:bg-red-100 transition-all flex items-center justify-center gap-2"
+                                                        >
+                                                            <Trash2 className="w-3.5 h-3.5" />
+                                                            {t.bgRemover.deleteText}
+                                                        </button>
+                                                    </div>
+                                                )}
+                                            </div>
+                                        </div>
+                                    )}
+
+                                    {/* Enhance Tools (Moved to Right for balance) */}
+                                    {(mobileTab === 'enhance' || !isMounted || (isMounted && window.innerWidth > 1280)) && (
+                                        <div className="space-y-3 animate-in fade-in duration-500">
+                                            <label className="text-xs xl:text-sm font-black uppercase text-muted-foreground tracking-widest pl-1">{t.bgRemover.tabEnhance}</label>
+                                            <div className="space-y-3">
+                                                {[
+                                                    { label: t.bgRemover.brightness, value: subjectBrightness, min: 0, max: 200, setter: setSubjectBrightness, display: subjectBrightness + '%' },
+                                                    { label: t.bgRemover.contrast, value: subjectContrast, min: 0, max: 200, setter: setSubjectContrast, display: subjectContrast + '%' },
+                                                    { label: t.bgRemover.saturation, value: subjectSaturation, min: 0, max: 200, setter: setSubjectSaturation, display: subjectSaturation + '%' }
+                                                ].map((s, i) => (
+                                                    <div key={i} className="space-y-1.5">
+                                                        <div className="flex justify-between items-center text-[10px] font-black uppercase text-muted-foreground leading-none">
+                                                            <span>{s.label}</span>
+                                                            <span className="text-primary font-bold">{s.display}</span>
+                                                        </div>
+                                                        <input type="range" min={s.min} max={s.max} value={s.value} onChange={(e) => { s.setter(parseFloat(e.target.value)); renderStudio(); }} onMouseUp={() => pushHistory()} className="w-full h-1 bg-zinc-200 dark:bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-primary" />
+                                                    </div>
+                                                ))}
+                                            </div>
+                                            <div className="space-y-1.5 pt-1">
+                                                <div className="flex justify-between items-center text-[10px] font-black uppercase text-muted-foreground"><span>{t.bgRemover.filterPresets}</span></div>
+                                                <div className="grid grid-cols-3 gap-1.5 pb-1">
+                                                    {[{ id: 'none', label: t.bgRemover.filterOriginal }, { id: 'grayscale', label: t.bgRemover.filterBW }, { id: 'sepia', label: t.bgRemover.filterSepia }, { id: 'warm', label: t.bgRemover.filterWarm }, { id: 'cool', label: t.bgRemover.filterCool }, { id: 'vintage', label: t.bgRemover.filterVintage }].map((f) => (
+                                                        <button key={f.id} onClick={() => { setGlobalFilter(f.id); renderStudio(); pushHistory(); }} className={cn("px-2 py-2 rounded-lg border text-[10px] font-black transition-all", globalFilter === f.id ? "border-primary bg-primary/10 text-primary" : "border-zinc-100 dark:border-zinc-800 bg-white dark:bg-zinc-950")}>{f.label}</button>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )}
+
+                                    {/* Styling Tools (Moved to Right) */}
+                                    {(mobileTab === 'styling' || !isMounted || (isMounted && window.innerWidth > 1280)) && (
+                                        <div className="space-y-3 animate-in fade-in duration-500">
+                                            <label className="text-xs xl:text-sm font-black uppercase text-muted-foreground tracking-widest pl-1">{t.bgRemover.tabStyling}</label>
+                                            <div className="grid grid-cols-1 gap-3">
+                                                <div className="space-y-1">
+                                                    <div className="flex justify-between text-[8px] font-black uppercase text-muted-foreground"><span>{t.bgRemover.opacity}</span><span className="text-primary font-bold">{subjectOpacity}%</span></div>
+                                                    <input type="range" min="0" max="100" value={subjectOpacity} onChange={(e) => { setSubjectOpacity(parseInt(e.target.value)); renderStudio(); }} onMouseUp={() => pushHistory()} className="w-full h-1 bg-zinc-200 dark:bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-indigo-500" />
+                                                </div>
+                                                <div className="space-y-1">
+                                                    <div className="flex justify-between text-[8px] font-black uppercase text-muted-foreground"><span>{t.bgRemover.shadow}</span><span className="text-primary font-bold">{subjectShadow}px</span></div>
+                                                    <input type="range" min="0" max="100" value={subjectShadow} onChange={(e) => { setSubjectShadow(parseInt(e.target.value)); renderStudio(); }} onMouseUp={() => pushHistory()} className="w-full h-1 bg-zinc-200 dark:bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-violet-500" />
+                                                </div>
+                                            </div>
+                                            <div className="pt-2 border-t border-zinc-100 dark:border-zinc-800/50 space-y-2">
+                                                <div className="flex items-center justify-between">
+                                                    <div className="flex items-center gap-2"><Smile className="w-3.5 h-3.5 text-pink-500" /><span className="text-[10px] font-black uppercase">{t.bgRemover.stickerEffect}</span></div>
+                                                    <button onClick={() => { setHasSticker(!hasSticker); renderStudio(); pushHistory(); }} className={cn("w-10 h-5 rounded-full transition-all relative p-1", hasSticker ? "bg-primary" : "bg-zinc-200 dark:bg-zinc-800")}><div className={cn("w-3 h-3 bg-white rounded-full transition-all", hasSticker ? "ml-5" : "ml-0")} /></button>
+                                                </div>
+                                                {hasSticker && (
+                                                    <div className="space-y-2 p-2 bg-zinc-50 dark:bg-zinc-900/50 rounded-xl">
+                                                        <div className="flex justify-between text-[7px] font-black uppercase text-muted-foreground"><span>{t.bgRemover.stickerWidth}</span><span className="text-primary font-bold">{stickerWidth}px</span></div>
+                                                        <input type="range" min="1" max="50" value={stickerWidth} onChange={(e) => { setStickerWidth(parseInt(e.target.value)); renderStudio(); }} onMouseUp={() => pushHistory()} className="w-full h-1 bg-zinc-200 dark:bg-zinc-800 rounded-lg appearance-none accent-primary" />
+                                                        <div className="flex gap-1 overflow-x-auto no-scrollbar py-0.5">{['#ffffff', '#000000', '#ef4444', '#3b82f6', '#10b981', '#f59e0b', '#8b5cf6'].map(c => (<button key={c} onClick={() => { setStickerColor(c); renderStudio(); pushHistory(); }} className={cn("w-5 h-5 shrink-0 rounded-full border-2", stickerColor === c ? "border-primary scale-110" : "border-transparent")} style={{ backgroundColor: c }} />))}</div>
+                                                    </div>
+                                                )}
+                                            </div>
+                                        </div>
+                                    )}
+
+                                    {/* Export Tools System - Grouped in TAB */}
+                                    {(mobileTab === 'done' || !isMounted || (isMounted && window.innerWidth > 1280)) && (
+                                        <div className="space-y-4 animate-in slide-in-from-bottom-2 pt-4 border-t border-zinc-100 dark:border-zinc-800/50">
+                                            {/* Mobile HD Toggle */}
+                                            <div className="flex items-center justify-between px-2 py-3 bg-zinc-50 dark:bg-zinc-800/50 rounded-2xl border border-zinc-100 dark:border-zinc-700/50">
+                                                <div className="flex items-center gap-3">
+                                                    <div className={cn("p-2 rounded-xl transition-all", hdMode ? "bg-emerald-100 text-emerald-600" : "bg-zinc-200 text-zinc-400")}>
+                                                        <Zap className={cn("w-4 h-4", hdMode ? "fill-emerald-600" : "")} />
+                                                    </div>
+                                                    <div>
+                                                        <div className="text-[10px] font-black uppercase tracking-wider">HD Quality Mode</div>
+                                                        <div className="text-[8px] font-medium text-muted-foreground">{hdMode ? 'Saving in original high resolution' : 'Saving in standard resolution'}</div>
+                                                    </div>
+                                                </div>
+                                                <button onClick={() => setHdMode(!hdMode)} className={cn("w-12 h-6 rounded-full transition-all relative p-1", hdMode ? "bg-emerald-500" : "bg-zinc-200 dark:bg-zinc-800")}><div className={cn("w-4 h-4 bg-white rounded-full transition-all shadow-sm", hdMode ? "ml-6" : "ml-0")} /></button>
+                                            </div>
+
+                                            <button
+                                                onClick={downloadResult}
+                                                disabled={isDownloading}
+                                                className="w-full py-5 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-black text-sm flex items-center justify-center gap-3 shadow-[0_20px_50px_rgba(59,130,246,0.4)] hover:scale-[1.02] active:scale-95 transition-all disabled:opacity-50"
+                                            >
+                                                {isDownloading ? <Loader2 className="w-5 h-5 animate-spin" /> : <Download className="w-5 h-5 stroke-[2.5px]" />}
+                                                {t.common.download}
+                                            </button>
+                                            <div className="grid grid-cols-2 gap-2">
+                                                <button onClick={shareResult} className="py-4 rounded-xl border-2 border-zinc-100 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-[10px] font-black uppercase text-muted-foreground hover:bg-zinc-50 transition-all flex items-center justify-center gap-2"><Share2 className="w-3.5 h-3.5" /> {t.bgRemover.share}</button>
+                                                <button onClick={copyImageToClipboard} className="py-4 rounded-xl border-2 border-zinc-100 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-[10px] font-black uppercase text-muted-foreground hover:bg-zinc-50 transition-all flex items-center justify-center gap-2"><Copy className="w-3.5 h-3.5" /> {t.common.copyImage}</button>
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+                    )
+                }
+
+                {/* Mobile Bottom Navigation Bar (Dock) - Grid version for better visibility */}
+                {
+                    processedImage && !isProcessing && !isMobileMenuOpen && (
+                        <div className="sm:hidden fixed bottom-1.5 inset-x-2 h-20 bg-white/95 dark:bg-zinc-900/95 backdrop-blur-3xl border border-zinc-200/50 dark:border-zinc-800/50 flex items-center overflow-x-auto no-scrollbar z-[140] px-3 gap-2 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.3)]">
+                            {[
+                                { id: 'bg', icon: Layers, label: t.bgRemover.bgTrsp || 'BG' },
+                                { id: 'refine', icon: Brush, label: t.bgRemover.brushRestore },
+                                { id: 'transform', icon: Maximize, label: t.bgRemover.tabTransform },
+                                { id: 'enhance', icon: Sliders, label: t.bgRemover.tabEnhance },
+                                { id: 'styling', icon: Palette, label: t.bgRemover.tabStyling },
+                                { id: 'text', icon: Type, label: t.navbar.textConv?.split(' ')[0] || 'Text' },
+                                { id: 'id', icon: ImageIcon, label: t.bgRemover.idPhoto?.split(' ')[1] || t.bgRemover.idPhoto },
+                                { id: 'done', icon: Download, label: t.common.download }
+                            ].map(tab => (
+                                <button
+                                    key={tab.id}
+                                    onClick={() => {
+                                        setMobileTab(tab.id as any);
+                                        if (tab.id === 'refine') {
+                                            setIsRefining(true);
+                                            if (viewMode !== 'editor') setViewMode('editor');
+                                        } else {
+                                            setIsRefining(false);
+                                        }
+                                        setIsMobileMenuOpen(true);
+                                    }}
+                                    className={cn(
+                                        "flex flex-col items-center justify-center min-w-[70px] h-[70px] gap-1 transition-all duration-300 relative rounded-xl shrink-0",
+                                        mobileTab === tab.id ? "text-primary bg-primary/10 shadow-sm" : "text-zinc-500 opacity-60"
+                                    )}
+                                >
+                                    <tab.icon className={cn("w-4 h-4 relative z-10", mobileTab === tab.id ? "stroke-[3px] scale-110" : "stroke-[2px]")} />
+                                    <span className="text-[8px] font-black tracking-tighter whitespace-nowrap uppercase relative z-10">{tab.label}</span>
+                                </button>
+                            ))}
+                        </div>
+                    )
+                }
+            </div > {/* End of Grid Container (1109) */}
+
+            {/* Feature Highlights Section */}
+            {
+                !processedImage && !isProcessing && (
+                    <div className="grid md:grid-cols-3 gap-8 pt-12 animate-in fade-in slide-in-from-bottom-8 duration-1000">
+                        {[
+                            { icon: Sparkles, title: t.bgRemover.edgeTitle, desc: t.bgRemover.edgeDesc },
+                            { icon: MousePointer2, title: t.bgRemover.precisionTitle, desc: t.bgRemover.precisionDesc },
+                            { icon: Layers, title: t.bgRemover.proBgTitle, desc: t.bgRemover.proBgDesc }
+                        ].map((feature, i) => (
+                            <div key={i} className="glass-card p-8 rounded-[2.5rem] space-y-4 hover:scale-105 transition-transform border border-zinc-100 dark:border-zinc-800/50">
+                                <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center text-primary"><feature.icon className="w-7 h-7" /></div>
+                                <h4 className="font-bold text-xl">{feature.title}</h4>
+                                <p className="text-muted-foreground leading-relaxed">{feature.desc}</p>
+                            </div>
+                        ))}
+                    </div>
+                )
+            }
+
+            {/* Bottom Content - Hidden on Editor Mode to avoid overlap */}
+            <div className={cn(
+                "space-y-16",
+                (processedImage && !isProcessing) ? "hidden" : "block"
+            )}>
+                <AdBanner slot="tool-bottom-banner" useAdSense={true} />
+
+                {/* SEO Guide & FAQ Section */}
+                <div className="pt-20 border-t border-zinc-200 dark:border-zinc-800 space-y-16 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-300">
+                    <div className="text-center space-y-4">
+                        <h2 className="text-3xl font-extrabold sm:text-4xl text-gradient">{t.bgRemover.guide.title}</h2>
+                        <p className="text-muted-foreground text-lg">{t.bgRemover.guide.subtitle}</p>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        {t.bgRemover.guide.sections.map((section, idx) => (
+                            <div key={idx} className="glass-card p-10 rounded-[2.5rem] space-y-4 border border-zinc-100 dark:border-zinc-800/50 hover:shadow-xl transition-all">
+                                <h3 className="text-2xl font-bold text-primary">{section.title}</h3>
+                                <div className="text-muted-foreground leading-relaxed whitespace-pre-line text-lg">{section.content}</div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                {/* Next Step Suggestion */}
+                <NextStep
+                    title={t.navbar.promptGen}
+                    desc={t.promptGen.desc}
+                    href="/tools/ai-prompt-generator"
+                    iconName="ImagePlus"
+                />
+            </div>
+        </div>
+    )
+}
+
+export default function BackgroundRemoverClient() {
+    return (
+        <Suspense fallback={<div className="flex items-center justify-center min-h-[400px]"><Loader2 className="w-8 h-8 animate-spin text-primary" /></div>}>
+            <BackgroundRemoverContent />
+        </Suspense>
+    )
+}
