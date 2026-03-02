@@ -5,8 +5,9 @@ import { useSearchParams } from 'next/navigation'
 import {
     Upload, Download, Loader2, Image as ImageIcon, Check, RefreshCw,
     Sparkles, Undo, X, Share2, ZoomIn, ZoomOut, Maximize, Palette, Wand2,
-    ShieldCheck, Zap, History
+    ShieldCheck, Zap, History, MousePointer2, Layers, Sliders, Type, ImagePlus
 } from 'lucide-react'
+import NextStep from '@/components/NextStep'
 import { cn } from '@/lib/utils'
 import { useLanguage } from '@/context/language-context'
 import AdBanner from '@/components/AdBanner'
@@ -428,6 +429,39 @@ function ImageRestorerContent() {
                     </div>
                 </div>
             )}
+
+            {/* Bottom Content - Hidden when editor is active to avoid overlap */}
+            <div className={cn(
+                "space-y-16 py-20 px-4 sm:px-6 max-w-7xl mx-auto",
+                originalImage ? "hidden" : "block"
+            )}>
+                <AdBanner slot="tool-bottom-banner" useAdSense={true} />
+
+                {/* SEO Guide & FAQ Section */}
+                <div className="pt-20 border-t border-zinc-200 dark:border-zinc-800 space-y-16 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-300">
+                    <div className="text-center space-y-4">
+                        <h2 className="text-3xl font-extrabold sm:text-4xl text-gradient">{t.imageRestorer.guide.title}</h2>
+                        <p className="text-muted-foreground text-lg">{t.imageRestorer.guide.subtitle}</p>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        {t.imageRestorer.guide.sections.map((section: any, idx: number) => (
+                            <div key={idx} className="glass-card p-10 rounded-[2.5rem] space-y-4 border border-zinc-100 dark:border-zinc-800/50 hover:shadow-xl transition-all">
+                                <h3 className="text-2xl font-bold text-primary">{section.title}</h3>
+                                <div className="text-muted-foreground leading-relaxed whitespace-pre-line text-lg">{section.content}</div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                {/* Next Step Suggestion */}
+                <NextStep
+                    title={t.navbar.bgRemover}
+                    desc={t.bgRemover.desc}
+                    href="/tools/background-remover"
+                    iconName="Sparkles"
+                />
+            </div>
         </div>
     )
 }
